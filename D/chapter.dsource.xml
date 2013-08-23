@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section id="dsource">
+	<title>Open Source Development for the D Programming Language</title>
+	<ulink url="http://www.dsource.org/">http://www.dsource.org/</ulink>
+	<section id="ddbi">
+		<title>DDBI - A database independent interface.</title>
+		<screen>
+$ git clone http://github.com/aaronc/ddbi/
+		</screen>
+	</section>
+</section>

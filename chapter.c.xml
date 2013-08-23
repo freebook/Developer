@@ -1,0 +1,446 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- $Id: chapter.c.xml 664 2013-08-19 10:23:23Z netkiller $ -->
+<part id="index"><?dbhtml dir="c" ?>
+	<title>C/C++</title>
+<chapter id="c">
+	<title>gcc</title>
+	<section id="c.compiler">
+		<title>compiler</title>
+		<section>
+			<title>gcc - The GNU C compiler</title>
+			<para>$ sudo apt-get install gcc</para>
+			<screen>
+$ sudo apt-get install gcc
+			</screen>
+		</section>
+	</section>
+	<section id="c.ldconfig">
+		<title>ldconfig</title>
+		<screen>
+[root@localhost src]# ldconfig  -p | grep mysql
+        libmysqlclient_r.so.15 (libc6,x86-64) => /usr/lib64/mysql/libmysqlclient_r.so.15
+        libmysqlclient_r.so.15 (libc6) => /usr/lib/mysql/libmysqlclient_r.so.15
+        libmysqlclient_r.so (libc6,x86-64) => /usr/lib64/mysql/libmysqlclient_r.so
+        libmysqlclient_r.so (libc6) => /usr/lib/mysql/libmysqlclient_r.so
+        libmysqlclient.so.15 (libc6,x86-64) => /usr/lib64/mysql/libmysqlclient.so.15
+        libmysqlclient.so.15 (libc6) => /usr/lib/mysql/libmysqlclient.so.15
+        libmysqlclient.so (libc6,x86-64) => /usr/lib64/mysql/libmysqlclient.so
+        libmysqlclient.so (libc6) => /usr/lib/mysql/libmysqlclient.so
+		</screen>
+	</section>
+
+<section id="c.glibc">
+	<title>lib</title>
+		<section>
+			<title>syslog.h</title>
+			<screen>
+			<![CDATA[
+# cat syslog.c
+#include <stdio.h>
+#include <unistd.h>
+#include <syslog.h>
+
+int main(void) {
+
+ openlog("slog", LOG_PID|LOG_CONS, LOG_USER);
+ syslog(LOG_INFO, "A different kind of Hello world ... ");
+ closelog();
+
+ return 0;
+}
+			]]>
+			</screen>
+			<screen>
+[root@dev1 test]# gcc syslog.c
+[root@dev1 test]# ls
+a.out  syslog.c
+[root@dev1 test]# ./a.out
+
+[root@dev1 test]# tail /var/log/messages
+Jan 11 23:52:27 dev1 slog[5056]: A different kind of Hello world ...
+			</screen>
+		</section>
+	<section id="libs.libssh2">
+		<title>libssh2</title>
+		<para><ulink url="http://www.libssh2.org/">http://www.libssh2.org/</ulink></para>
+	</section>
+	<section>
+		<title>libconfig – C/C++ Configuration File Library</title>
+		<para>http://www.hyperrealm.com/main.php?s=libconfig</para>
+		<para>libconfig 可用于处理 *.conf 配置文件</para>
+	</section>
+	<section id="libuv">
+		<title>libuv</title>
+		<para>提供Socket,进程线程处理等等</para>
+		<para>http://nikhilm.github.io/uvbook/</para>
+	</section>
+	<section id="newt">
+		<title>newt</title>
+		<para>https://fedorahosted.org/newt/</para>
+		<para>http://sourcecodebrowser.com/newt/0.52.10/windows_8c.html</para>
+		<para>http://gnewt.sourceforge.net/tutorial-4.html#ss4.1</para>
+	</section>
+</section>
+
+</chapter>
+
+<chapter id="c++">
+	<title>C++</title>
+	<section id="g++">
+		<title>g++ - The GNU C++ compiler</title>
+		<para>$ sudo apt-get install g++</para>
+		<screen>
+$ sudo apt-get install g++
+		</screen>
+	</section>
+	<section id="c++.boost">
+		<title>Boost C++ Libraries</title>
+		<para>www.boost.org</para>
+	</section>
+	<section id="google-perftools">
+		<title>google-perftools</title>
+		<subtitle>Fast, multi-threaded malloc() and nifty performance analysis tools</subtitle>
+		<para>http://code.google.com/p/google-perftools/</para>
+	</section>
+</chapter>
+
+<chapter id="Objective-C">
+    <title>Objective-C</title>
+    <screen>
+$ sudo apt-get install gobjc gobjc++
+
+$ sudo apt-get install gnustep-make
+    </screen>
+    <example>
+        <title>Objective-C hello world</title>
+        <screen>
+        <![CDATA[
+$ cat hello.m
+#import <stdio.h>
+
+int main( int argc, const char *argv[] ) {
+    printf( "hello world\n" );
+    return 0;
+}
+		]]>
+        </screen>
+    </example>
+    <screen>
+$ gcc hello.m
+
+$ ./a.out
+hello world
+    </screen>
+</chapter>
+
+	<chapter id="c.debug">
+		<title>调试工具</title>
+		<section id="lsof">
+			<title>lsof - list open files</title>
+			<screen>
+neo@netkiller:~/workspace/Document$ lsof -p $$
+COMMAND  PID USER   FD   TYPE DEVICE SIZE/OFF   NODE NAME
+zsh     4536  neo  cwd    DIR    8,6     4096     30 /home/neo/workspace/Document
+zsh     4536  neo  rtd    DIR    8,1     4096      2 /
+zsh     4536  neo  txt    REG    8,1   675792   6907 /bin/zsh4
+zsh     4536  neo  mem    REG    8,1    68824  56594 /usr/lib/zsh/4.3.10/zsh/computil.so
+zsh     4536  neo  mem    REG    8,1    41000  30570 /usr/lib/zsh/4.3.10/zsh/parameter.so
+zsh     4536  neo  mem    REG    8,1    31512  53350 /usr/lib/zsh/4.3.10/zsh/zutil.so
+zsh     4536  neo  mem    REG    8,1   153096  53354 /usr/lib/zsh/4.3.10/zsh/complete.so
+zsh     4536  neo  mem    REG    8,1   290888  56596 /usr/lib/zsh/4.3.10/zsh/zle.so
+zsh     4536  neo  mem    REG    8,1    10544  30579 /usr/lib/zsh/4.3.10/zsh/terminfo.so
+zsh     4536  neo  mem    REG    8,1    51712  19594 /lib/libnss_files-2.11.1.so
+zsh     4536  neo  mem    REG    8,1    43552  23798 /lib/libnss_nis-2.11.1.so
+zsh     4536  neo  mem    REG    8,1    97256  15503 /lib/libnsl-2.11.1.so
+zsh     4536  neo  mem    REG    8,1    35712  16431 /lib/libnss_compat-2.11.1.so
+zsh     4536  neo  mem    REG    8,1    18704   1902 /lib/libattr.so.1.1.0
+zsh     4536  neo  mem    REG    8,1  1568136   7583 /lib/libc-2.11.1.so
+zsh     4536  neo  mem    REG    8,1   534832  11379 /lib/libm-2.11.1.so
+zsh     4536  neo  mem    REG    8,1   323640   7295 /lib/libncursesw.so.5.7
+zsh     4536  neo  mem    REG    8,1    14696  11378 /lib/libdl-2.11.1.so
+zsh     4536  neo  mem    REG    8,1    18888   5099 /lib/libcap.so.2.17
+zsh     4536  neo  mem    REG    8,1   136936   7487 /lib/ld-2.11.1.so
+zsh     4536  neo  mem    REG    8,1   256324 145156 /usr/lib/locale/en_US.utf8/LC_CTYPE
+zsh     4536  neo  mem    REG    8,1       54 131099 /usr/lib/locale/en_US.utf8/LC_NUMERIC
+zsh     4536  neo  mem    REG    8,1     2454 145158 /usr/lib/locale/en_US.utf8/LC_TIME
+zsh     4536  neo  mem    REG    8,1  1170770 145157 /usr/lib/locale/en_US.utf8/LC_COLLATE
+zsh     4536  neo  mem    REG    8,1      286 145159 /usr/lib/locale/en_US.utf8/LC_MONETARY
+zsh     4536  neo  mem    REG    8,1       57 145160 /usr/lib/locale/en_US.utf8/LC_MESSAGES/SYS_LC_MESSAGES
+zsh     4536  neo  mem    REG    8,1    26048  73711 /usr/lib/gconv/gconv-modules.cache
+zsh     4536  neo  mem    REG    8,1       34 131105 /usr/lib/locale/en_US.utf8/LC_PAPER
+zsh     4536  neo  mem    REG    8,1       77 131106 /usr/lib/locale/en_US.utf8/LC_NAME
+zsh     4536  neo  mem    REG    8,1      155 145161 /usr/lib/locale/en_US.utf8/LC_ADDRESS
+zsh     4536  neo  mem    REG    8,1       59 145162 /usr/lib/locale/en_US.utf8/LC_TELEPHONE
+zsh     4536  neo  mem    REG    8,1       23 131109 /usr/lib/locale/en_US.utf8/LC_MEASUREMENT
+zsh     4536  neo  mem    REG    8,1      373 145163 /usr/lib/locale/en_US.utf8/LC_IDENTIFICATION
+zsh     4536  neo    0u   CHR  136,0      0t0      3 /dev/pts/0
+zsh     4536  neo    1u   CHR  136,0      0t0      3 /dev/pts/0
+zsh     4536  neo    2u   CHR  136,0      0t0      3 /dev/pts/0
+zsh     4536  neo   10u   CHR  136,0      0t0      3 /dev/pts/0
+			</screen>
+		</section>
+		<section id="strace">
+			<title>strace - trace system calls and signals</title>
+			<para>strace -v ps -e 2</para>
+			<para>strace -v ls</para>
+			<screen>
+neo@netkiller:~/workspace/Document$ strace -c ls
+Docbook  makedoc  Tex
+% time     seconds  usecs/call     calls    errors syscall
+------ ----------- ----------- --------- --------- ----------------
+  -nan    0.000000           0        11           read
+  -nan    0.000000           0         1           write
+  -nan    0.000000           0        38        13 open
+  -nan    0.000000           0        27           close
+  -nan    0.000000           0        25           fstat
+  -nan    0.000000           0        39           mmap
+  -nan    0.000000           0        16           mprotect
+  -nan    0.000000           0         4           munmap
+  -nan    0.000000           0         3           brk
+  -nan    0.000000           0         2           rt_sigaction
+  -nan    0.000000           0         1           rt_sigprocmask
+  -nan    0.000000           0         2           ioctl
+  -nan    0.000000           0         9         9 access
+  -nan    0.000000           0         1           execve
+  -nan    0.000000           0         1           fcntl
+  -nan    0.000000           0         2           getdents
+  -nan    0.000000           0         1           getrlimit
+  -nan    0.000000           0         1           statfs
+  -nan    0.000000           0         1           arch_prctl
+  -nan    0.000000           0         3         1 futex
+  -nan    0.000000           0         1           set_tid_address
+  -nan    0.000000           0         1           set_robust_list
+------ ----------- ----------- --------- --------- ----------------
+100.00    0.000000                   190        23 total
+			</screen>
+			<screen>
+neo@netkiller:~/workspace/Document$ strace -f -e open ls >/dev/null
+open("/etc/ld.so.cache", O_RDONLY)      = 3
+open("/lib/librt.so.1", O_RDONLY)       = 3
+open("/lib/libselinux.so.1", O_RDONLY)  = 3
+open("/lib/libacl.so.1", O_RDONLY)      = 3
+open("/lib/libc.so.6", O_RDONLY)        = 3
+open("/lib/libpthread.so.0", O_RDONLY)  = 3
+open("/lib/libdl.so.2", O_RDONLY)       = 3
+open("/lib/libattr.so.1", O_RDONLY)     = 3
+open("/proc/filesystems", O_RDONLY)     = 3
+open("/usr/lib/locale/locale-archive", O_RDONLY) = -1 ENOENT (No such file or directory)
+open("/usr/share/locale/locale.alias", O_RDONLY) = 3
+open("/usr/lib/locale/en_US.UTF-8/LC_IDENTIFICATION", O_RDONLY) = -1 ENOENT (No such file or directory)
+open("/usr/lib/locale/en_US.utf8/LC_IDENTIFICATION", O_RDONLY) = 3
+open("/usr/lib/gconv/gconv-modules.cache", O_RDONLY) = 3
+open("/usr/lib/locale/en_US.UTF-8/LC_MEASUREMENT", O_RDONLY) = -1 ENOENT (No such file or directory)
+open("/usr/lib/locale/en_US.utf8/LC_MEASUREMENT", O_RDONLY) = 3
+open("/usr/lib/locale/en_US.UTF-8/LC_TELEPHONE", O_RDONLY) = -1 ENOENT (No such file or directory)
+open("/usr/lib/locale/en_US.utf8/LC_TELEPHONE", O_RDONLY) = 3
+open("/usr/lib/locale/en_US.UTF-8/LC_ADDRESS", O_RDONLY) = -1 ENOENT (No such file or directory)
+open("/usr/lib/locale/en_US.utf8/LC_ADDRESS", O_RDONLY) = 3
+open("/usr/lib/locale/en_US.UTF-8/LC_NAME", O_RDONLY) = -1 ENOENT (No such file or directory)
+open("/usr/lib/locale/en_US.utf8/LC_NAME", O_RDONLY) = 3
+open("/usr/lib/locale/en_US.UTF-8/LC_PAPER", O_RDONLY) = -1 ENOENT (No such file or directory)
+open("/usr/lib/locale/en_US.utf8/LC_PAPER", O_RDONLY) = 3
+open("/usr/lib/locale/en_US.UTF-8/LC_MESSAGES", O_RDONLY) = -1 ENOENT (No such file or directory)
+open("/usr/lib/locale/en_US.utf8/LC_MESSAGES", O_RDONLY) = 3
+open("/usr/lib/locale/en_US.utf8/LC_MESSAGES/SYS_LC_MESSAGES", O_RDONLY) = 3
+open("/usr/lib/locale/en_US.UTF-8/LC_MONETARY", O_RDONLY) = -1 ENOENT (No such file or directory)
+open("/usr/lib/locale/en_US.utf8/LC_MONETARY", O_RDONLY) = 3
+open("/usr/lib/locale/en_US.UTF-8/LC_COLLATE", O_RDONLY) = -1 ENOENT (No such file or directory)
+open("/usr/lib/locale/en_US.utf8/LC_COLLATE", O_RDONLY) = 3
+open("/usr/lib/locale/en_US.UTF-8/LC_TIME", O_RDONLY) = -1 ENOENT (No such file or directory)
+open("/usr/lib/locale/en_US.utf8/LC_TIME", O_RDONLY) = 3
+open("/usr/lib/locale/en_US.UTF-8/LC_NUMERIC", O_RDONLY) = -1 ENOENT (No such file or directory)
+open("/usr/lib/locale/en_US.utf8/LC_NUMERIC", O_RDONLY) = 3
+open("/usr/lib/locale/en_US.UTF-8/LC_CTYPE", O_RDONLY) = -1 ENOENT (No such file or directory)
+open("/usr/lib/locale/en_US.utf8/LC_CTYPE", O_RDONLY) = 3
+open(".", O_RDONLY|O_NONBLOCK|O_DIRECTORY|O_CLOEXEC) = 3
+			</screen>
+		</section>
+		<section id="ltrace">
+			<title>ltrace - A library call tracer</title>
+			<para>ltrace ls</para>
+			<screen>
+			<![CDATA[
+neo@netkiller:~/workspace/Document$ ltrace ls
+__libc_start_main(0x407bb0, 1, 0x7fff827aea38, 0x413730, 0x413720 <unfinished ...>
+strrchr("ls", '/')                                                                                            = NULL
+setlocale(6, "")                                                                                              = "en_US.UTF-8"
+bindtextdomain("coreutils", "/usr/share/locale")                                                              = "/usr/share/locale"
+textdomain("coreutils")                                                                                       = "coreutils"
+__cxa_atexit(0x40abb0, 0, 0, 0x736c6974756572, 1)                                                             = 0
+isatty(1)                                                                                                     = 1
+getenv("QUOTING_STYLE")                                                                                       = NULL
+getenv("LS_BLOCK_SIZE")                                                                                       = NULL
+getenv("BLOCK_SIZE")                                                                                          = NULL
+getenv("BLOCKSIZE")                                                                                           = NULL
+getenv("POSIXLY_CORRECT")                                                                                     = NULL
+getenv("BLOCK_SIZE")                                                                                          = NULL
+getenv("COLUMNS")                                                                                             = NULL
+ioctl(1, 21523, 0x7fff827ae910)                                                                               = 0
+getenv("TABSIZE")                                                                                             = NULL
+getopt_long(1, 0x7fff827aea38, "abcdfghiklmnopqrstuvw:xABCDFGHI:"..., 0x00416a60, -1)                         = -1
+__errno_location()                                                                                            = 0x7f89323f16a8
+malloc(40)                                                                                                    = 0x02543870
+memcpy(0x02543870, "", 40)                                                                                    = 0x02543870
+__errno_location()                                                                                            = 0x7f89323f16a8
+malloc(40)                                                                                                    = 0x025438a0
+memcpy(0x025438a0, "", 40)                                                                                    = 0x025438a0
+malloc(18400)                                                                                                 = 0x025438d0
+malloc(32)                                                                                                    = 0x025434c0
+strlen(".")                                                                                                   = 1
+malloc(2)                                                                                                     = 0x025480c0
+memcpy(0x025480c0, ".", 2)                                                                                    = 0x025480c0
+__errno_location()                                                                                            = 0x7f89323f16a8
+opendir(".")                                                                                                  = 0x025480e0
+readdir(0x025480e0)                                                                                           = 0x02548108
+readdir(0x025480e0)                                                                                           = 0x02548120
+readdir(0x025480e0)                                                                                           = 0x02548138
+readdir(0x025480e0)                                                                                           = 0x02548150
+strlen("Tex")                                                                                                 = 3
+malloc(4)                                                                                                     = 0x02550110
+memcpy(0x02550110, "Tex", 4)                                                                                  = 0x02550110
+readdir(0x025480e0)                                                                                           = 0x02548168
+readdir(0x025480e0)                                                                                           = 0x02548188
+strlen("makedoc")                                                                                             = 7
+malloc(8)                                                                                                     = 0x02550130
+memcpy(0x02550130, "makedoc", 8)                                                                              = 0x02550130
+readdir(0x025480e0)                                                                                           = 0x025481a8
+readdir(0x025480e0)                                                                                           = 0x025481c8
+strlen("Docbook")                                                                                             = 7
+malloc(8)                                                                                                     = 0x02550150
+memcpy(0x02550150, "Docbook", 8)                                                                              = 0x02550150
+readdir(0x025480e0)                                                                                           = NULL
+closedir(0x025480e0)                                                                                          = 0
+free(NULL)                                                                                                    = <void>
+malloc(72)                                                                                                    = 0x025480e0
+_setjmp(0x61c040, 0x25480e0, 0x2543af8, 3, 1)                                                                 = 0
+__errno_location()                                                                                            = 0x7f89323f16a8
+strcoll("makedoc", "Docbook")                                                                                 = 9
+__errno_location()                                                                                            = 0x7f89323f16a8
+strcoll("Tex", "Docbook")                                                                                     = 16
+__errno_location()                                                                                            = 0x7f89323f16a8
+strcoll("Tex", "makedoc")                                                                                     = 7
+memcpy(0x025480f0, "\3208T\002", 8)                                                                           = 0x025480f0
+realloc(NULL, 144)                                                                                            = 0x02548130
+malloc(168)                                                                                                   = 0x025481d0
+__errno_location()                                                                                            = 0x7f89323f16a8
+__ctype_get_mb_cur_max(0x7fff827ac0e0, 8192, 0x2550150, -1, 0)                                                = 6
+__ctype_get_mb_cur_max(0x7fff827ac0e0, 8192, 0x2550150, 0x7fff827ac0e0, 0)                                    = 6
+__errno_location()                                                                                            = 0x7f89323f16a8
+__ctype_get_mb_cur_max(0x7fff827ac0e0, 8192, 0x2550130, -1, 0)                                                = 6
+__ctype_get_mb_cur_max(0x7fff827ac0e0, 8192, 0x2550130, 0x7fff827ac0e0, 0)                                    = 6
+__errno_location()                                                                                            = 0x7f89323f16a8
+__ctype_get_mb_cur_max(0x7fff827ac0e0, 8192, 0x2550110, -1, 0)                                                = 6
+__ctype_get_mb_cur_max(0x7fff827ac0e0, 8192, 0x2550110, 0x7fff827ac0e0, 0)                                    = 6
+__errno_location()                                                                                            = 0x7f89323f16a8
+__ctype_get_mb_cur_max(0x7fff827ac110, 8192, 0x2550150, -1, 0)                                                = 6
+__ctype_get_mb_cur_max(0x7fff827ac110, 8192, 0x2550150, 0x7fff827ac110, 0)                                    = 6
+__errno_location()                                                                                            = 0x7f89323f16a8
+__ctype_get_mb_cur_max(0x7fff827ac050, 8192, 0x2550150, -1, 0)                                                = 6
+__ctype_get_mb_cur_max(0x7fff827ac050, 8192, 0x2550150, 0x7fff827ac050, 0)                                    = 6
+fwrite_unlocked("Docbook", 1, 7, 0x7f8931bab780)                                                              = 7
+__overflow(0x7f8931bab780, 32, 0, 8, 0xffffffff)                                                              = 32
+__overflow(0x7f8931bab780, 32, 1, 8, 0xffffffff)                                                              = 32
+__errno_location()                                                                                            = 0x7f89323f16a8
+__ctype_get_mb_cur_max(0x7fff827ac110, 8192, 0x2550130, -1, 0)                                                = 6
+__ctype_get_mb_cur_max(0x7fff827ac110, 8192, 0x2550130, 0x7fff827ac110, 0)                                    = 6
+__errno_location()                                                                                            = 0x7f89323f16a8
+__ctype_get_mb_cur_max(0x7fff827ac050, 8192, 0x2550130, -1, 0)                                                = 6
+__ctype_get_mb_cur_max(0x7fff827ac050, 8192, 0x2550130, 0x7fff827ac050, 0)                                    = 6
+fwrite_unlocked("makedoc", 1, 7, 0x7f8931bab780)                                                              = 7
+__overflow(0x7f8931bab780, 32, 1, 8, 7)                                                                       = 32
+__overflow(0x7f8931bab780, 32, 2, 8, 7)                                                                       = 32
+__errno_location()                                                                                            = 0x7f89323f16a8
+__ctype_get_mb_cur_max(0x7fff827ac110, 8192, 0x2550110, -1, 0)                                                = 6
+__ctype_get_mb_cur_max(0x7fff827ac110, 8192, 0x2550110, 0x7fff827ac110, 0)                                    = 6
+__errno_location()                                                                                            = 0x7f89323f16a8
+__ctype_get_mb_cur_max(0x7fff827ac050, 8192, 0x2550110, -1, 0)                                                = 6
+__ctype_get_mb_cur_max(0x7fff827ac050, 8192, 0x2550110, 0x7fff827ac050, 0)                                    = 6
+fwrite_unlocked("Tex", 1, 3, 0x7f8931bab780)                                                                  = 3
+__overflow(0x7f8931bab780, 10, 0, 120, 3Docbook  makedoc  Tex
+)                                                                     = 10
+free(0x025480c0)                                                                                              = <void>
+free(NULL)                                                                                                    = <void>
+free(0x025434c0)                                                                                              = <void>
+exit(0 <unfinished ...>
+__fpending(0x7f8931bab780, 0, 0x7f8931bac330, 0x7f8931bac330, 0x25434b0)                                      = 0
+fclose(0x7f8931bab780)                                                                                        = 0
+__fpending(0x7f8931bab860, 0, 0x7f8931bacdf0, 0, 0x7f89323f17a0)                                              = 0
+fclose(0x7f8931bab860)                                                                                        = 0
++++ exited (status 0) +++
+			]]>
+			</screen>
+		</section>
+		<section id="ldd">
+			<title> ldd - print shared library dependencies </title>
+			<screen>
+$ ldd /bin/ls
+        linux-gate.so.1 =>  (0xffffe000)
+        librt.so.1 => /lib/tls/i686/cmov/librt.so.1 (0xb7f13000)
+        libacl.so.1 => /lib/libacl.so.1 (0xb7f0d000)
+        libselinux.so.1 => /lib/libselinux.so.1 (0xb7ef9000)
+        libc.so.6 => /lib/tls/i686/cmov/libc.so.6 (0xb7dc4000)
+        libpthread.so.0 => /lib/tls/i686/cmov/libpthread.so.0 (0xb7db1000)
+        /lib/ld-linux.so.2 (0xb7f22000)
+        libattr.so.1 => /lib/libattr.so.1 (0xb7dad000)
+        libdl.so.2 => /lib/tls/i686/cmov/libdl.so.2 (0xb7da9000)
+        libsepol.so.1 => /lib/libsepol.so.1 (0xb7d6c000)
+$
+			</screen>
+		</section>
+		<section id="valgrind ">
+			<title>Valgrind</title>
+			<para>http://valgrind.org/</para>
+			<screen>
+valgrind --tool=memcheck --leak-check=full ./test
+			</screen>
+		</section>
+	</chapter>
+	<chapter id="clang">
+		<title>clang - Low-Level Virtual Machine (LLVM), C language family frontend</title>
+		<screen>
+$ apt-cache search clang
+llvm-3.0 - Low-Level Virtual Machine (LLVM)
+clang - Low-Level Virtual Machine (LLVM), C language family frontend
+libclang-common-dev - clang library - Common development package
+libclang-dev - clang library - Development package
+libclang1 - clang library
+libsclang1 - SuperCollider language interpreter library
+llvm-2.8 - Low-Level Virtual Machine (LLVM)
+llvm-2.9 - Low-Level Virtual Machine (LLVM)
+		</screen>
+		<screen>
+$ apt-get install clang
+		</screen>
+		<example>
+			<title>clang helloworld</title>
+			<screen>
+			<![CDATA[
+$ cat hello.c
+#include <stdio.h>
+int main(int argc, char **argv) { printf("hello world\n"); }
+			]]>
+			</screen>
+			<screen>
+$ vim hello.c
+$ clang hello.c -o hello
+$ ./hello
+hello world
+			</screen>
+		</example>
+	</chapter>
+	<chapter id="binutils">
+		<title>GNU Development Tools</title>
+		<section id="strip">
+			<title>strip - Discard symbols from object files.</title>
+			<para>给C程序减肥</para>
+			<screen>
+# cp nginx nginx.old
+# strip nginx
+# ll
+total 4984
+-rwxr-xr-x  1 root root  545080 Oct 18 10:48 nginx
+-rwxr-xr-x. 1 root root 4554524 May  7 17:18 nginx.old
+			</screen>
+		</section>
+	</chapter>
+</part>

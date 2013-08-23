@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- $Id: chapter.testing.xml 446 2012-08-06 09:43:09Z netkiller $ -->
+<chapter id="testing"><!-- ?dbhtml dir="test" ? -->
+	<title>Software Testing</title>
+	<para>http://openqa.org/</para>
+	<para>http://en.wikipedia.org/wiki/Software_testing</para>
+	&chapter.test.management.xml;
+</chapter>
+	&chapter.test.io.xml;
+<chapter id="stress-testing">
+	<title>压力测试工具</title>
+	<section>
+		<title>TCP/IP 压力测试优化</title>
+		<screen>
+		<![CDATA[
+cat >> /etc/security/limits.conf <<EOF
+root 	soft nofile 40960
+root 	hard nofile 65536
+nobody 	soft nofile 40960
+nobody 	hard nofile 65536
+nginx 	soft nofile 40960
+nginx 	hard nofile 65536
+EOF
+
+cat >> /etc/security/limits.conf <<EOF
+* 	soft nofile 1050000
+* 	hard nofile 1050000
+EOF
+
+cat >> /etc/sysctl.conf <<EOF
+net.core.rmem_default = 10000000
+net.core.rmem_max = 32949076
+net.core.wmem_default = 10000000
+net.core.wmem_max = 32949076
+net.core.optmem_max = 32949076
+net.core.somaxconn = 1024
+
+net.ipv4.ip_local_port_range = 1024 65500
+net.ipv4.tcp_sack = 0
+net.ipv4.tcp_syncookies = 0
+net.ipv4.tcp_tw_reuse = 1
+net.ipv4.tcp_tw_recycle = 1
+net.ipv4.tcp_fin_timeout = 60
+net.ipv4.tcp_keepalive_time = 1200
+net.ipv4.tcp_max_syn_backlog = 8192
+net.ipv4.tcp_max_tw_buckets = 10240
+EOF
+/sbin/sysctl -p
+		]]>
+		</screen>
+		<para>net.ipv4.tcp_syncookies = 0必须禁用</para>
+		<para>net.ipv4.tcp_max_tw_buckets 尽可能大，增加TIME_WAIT列队长度</para>
+		<para>如果是WEB服务器,开启状态监视</para>
+		<screen>
+location /nginx_status {
+  stub_status on;
+  access_log  on;
+}
+		</screen>
+		<para>测试客户端</para>
+		<screen>
+		<![CDATA[
+cat >> /etc/security/limits.conf <<EOF
+nginx 	soft nofile 1000000
+nginx 	hard nofile 1000000
+EOF
+
+or
+
+ulimit -SHn 1090000
+		]]>
+		</screen>
+		<para>观察TCP状态</para>
+		<screen>
+# cat tcp.sh
+netstat -n | awk '/^tcp/ {++state[$NF]} END {for(key in state) print key,"\t",state[key]}'
+
+# watch ./tcp.sh
+		</screen>
+	</section>
+	<section id="apachebench">
+		<title>ApacheBench</title>
+		<screen>
+ab -n 20000 -c 20000 http://172.16.0.8/
+ab -n 2000000 -c 20000 -t 30 -H 'Accept-Encoding: gzip' -k http://172.16.0.2/
+		</screen>
+		<para>循环请求</para>
+		<screen>
+		<![CDATA[
+while true; do ab -n 10000 -c 10000 -t 30 -H 'Accept-Encoding: gzip' -k http://172.16.0.2/ && sleep 5; done
+        ]]>
+		</screen>
+		<section id="ab.post">
+			<title>Post数据</title>
+			<para>有些时候我们需要测试用户登录性能，而一般登录程序都采用POST方式提交数据。</para>
+			<para>准备POST 文件 /home/neo/post.txt</para>
+			<screen>
+			<![CDATA[
+$ cat /home/neo/post.txt
+
+username=neo&password=chen
+			]]>
+			</screen>
+			<para>使用-p引用文件</para>
+			<screen>
+			<![CDATA[
+ab -n 2048 -c 2048 -p post.txt http://www.example.com/login.php
+			]]>
+			</screen>
+		</section>
+	</section>
+	<section id="jmeter">
+		<title>JMeter</title>
+	</section>
+	<section id="siege">
+		<title>Siege</title>
+		<para>http://www.joedog.org/index/siege-home</para>
+		<para>Debian/Ubuntu</para>
+		<screen>
+neo@debian:~$ apt-cache search Siege
+siege - Http regression testing and benchmarking utility
+
+neo@debian:~$ sudo apt-get install siege
+		</screen>
+		<para>.siegerc</para>
+		<screen>
+verbose = false
+internet = true
+benchmark = true
+		</screen>
+		<para>siege参数介绍</para>
+		<itemizedlist>
+			<title>参数</title>
+			<listitem><para>-c, --concurrent=NUM 	并发用户量，默认为10</para></listitem>
+			<listitem><para>-u, --url="URL" 		</para></listitem>
+			<listitem><para>-i, --internet          INTERNET user simulation, hits the URLs randomly.</para></listitem>
+			<listitem><para>-b, --benchmark         基准测试, signifies no delay for time testing.</para></listitem>
+			<listitem><para>-t, --time=NUMm         持续时间，单位默认为分"m" 同样可以使用 S, M, 或 H 例如: --time=1H, 一小时.</para></listitem>
+			<listitem><para>-r, --reps=NUM          REPS, number of times to run the test, default is 25</para></listitem>
+			<listitem><para>-f, --file=FILE         FILE, url列表配置文件.</para></listitem>
+		</itemizedlist>
+		<itemizedlist>
+			<title>参数</title>
+			<listitem><para>Transactions 	总共完成了X次请求</para></listitem>
+			<listitem><para>Availability	有效性</para></listitem>
+			<listitem><para>Elapsed time	花费时间</para></listitem>
+			<listitem><para>Data transferred传输数据X兆</para></listitem>
+			<listitem><para>Response time	响应时间</para></listitem>
+			<listitem><para>Transaction rate每秒传输率：次/每秒</para></listitem>
+			<listitem><para>Throughput		每秒数据吞吐量</para></listitem>
+			<listitem><para>Concurrency		实际并发</para></listitem>
+			<listitem><para>Successful transactions	成功的传输</para></listitem>
+			<listitem><para>Failed transactions		失败的传输</para></listitem>
+			<listitem><para>Longest transaction		传输所花最长时间</para></listitem>
+			<listitem><para>Shortest transaction	传输所花最短时间</para></listitem>
+		</itemizedlist>
+		<screen>
+siege -c 1000 -d 30 http://172.16.0.8/
+		</screen>
+		<screen>
+siege -c 1000 -r 50 -i -b -t 2 -d 30 -f test.txt
+
+cat test.txt
+http://172.16.0.2/index.html
+http://172.16.0.2/list.html
+http://172.16.0.2/product.html
+http://172.16.0.2/login.html
+		</screen>
+	</section>
+</chapter>
+<chapter id="test.system">
+	<title>Test - System performance benchmark</title>
+	<section id="sysbench">
+		<title>SysBench</title>
+		<para>处理器测试</para>
+		<screen>
+sysbench --test=cpu --cpu-max-prime=20000 run
+多线程测试
+sysbench --test=threads --num-threads=64 --thread-yields=100 --thread-locks=2 run
+		</screen>
+		<para>磁盘IO性能测试</para>
+		<screen>
+sysbench --test=fileio --num-threads=16 --file-total-size=3G --file-test-mode=rndrw prepare
+sysbench --test=fileio --num-threads=16 --file-total-size=3G --file-test-mode=rndrw run
+sysbench --test=fileio --num-threads=16 --file-total-size=3G --file-test-mode=rndrw cleanup
+		</screen>
+		<para>内存测试</para>
+		<screen>
+sysbench --test=memory --memory-block-size=8k --memory-total-size=4G run
+		</screen>
+		<para>MySQL OLTP 事务处理性能测试</para>
+		<screen>
+sysbench --test=oltp --mysql-table-engine=myisam --oltp-table-size=1000000 --mysql-socket=/tmp/mysql.sock --mysql-user=test --mysql-host=localhost --mysql-password=test prepare
+sysbench --num-threads=8 --max-requests=1000000 --test=oltp --mysql-table-engine=innodb --oltp-table-size=10000000 --mysql-socket=/tmp/mysql.sock --mysql-user=root --mysql-host=localhost --mysql-password=xxxx --mysql-db=sbtest run
+		</screen>
+	</section>
+	<section id="bandwidth">
+		<title>Bandwidth: a memory bandwidth benchmark</title>
+		<para> </para>
+		<screen>
+wget http://packages.sw.be/rpmforge-release/rpmforge-release-0.5.2-2.el5.rf.i386.rpm
+rpm --import http://apt.sw.be/RPM-GPG-KEY.dag.txt
+rpm -K rpmforge-release-0.5.2-2.el5.rf.*.rpm
+rpm -i rpmforge-release-0.5.2-2.el5.rf.*.rpm
+
+yum search bandwidth
+yum install bandwidth
+		</screen>
+	</section>
+</chapter>
+
+<chapter id="opensta">
+	<title>OpenSTA(Open System Testing Architecture)</title>
+</chapter>
+
+<chapter id="webtesting">
+	<title>Web Testing</title>
+	<section id="browser">
+		<title>Browser Config</title>
+		<section id="chrome">
+			<title>Chrome</title>
+			<para>about:flags</para>
+		</section>
+	</section>
+	&chapter.watir.xml;
+	&chapter.selenium.xml;
+	<section id="watin">
+		<title>WatiN</title>
+		<para>http://watin.org/</para>
+		<screen>
+			<![CDATA[
+			]]>
+		</screen>
+	</section>
+	<section id="pamie">
+		<title>PAMIE</title>
+		<para>PAMIE是一套为Python写的用于Web自动化测试的工具，采用Win32COM的方式操作IE来实现。原理比较简单，但是可以真实再现用户的使用，QA用非常合适</para>
+	</section>
+	&chapter.testing.data.xml;
+	&chapter.miscellaneous.xml;
+</chapter>

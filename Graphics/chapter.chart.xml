@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- $Id: chapter.chart.xml 653 2013-07-29 10:12:42Z netkiller $ -->
+<chapter id="chart">
+	<title>Chart 图表</title>
+	<section id="chart.flash">
+		<title>Flash Charts</title>
+		<section>
+			<title>PHP/SWF Charts</title>
+			<para>http://www.maani.us/charts/index.php</para>
+		</section>
+		<section id="Open-Flash-Chart">
+			<title>Open Flash Chart 2</title>
+			<para><ulink url="http://teethgrinder.co.uk/open-flash-chart-2/">Open Flash Chart 2</ulink></para>
+		</section>
+		<section id="ficharts">
+			<title>FiCharts</title>
+			<para><ulink url="http://www.ficharts.com/">http://www.ficharts.com/</ulink></para>
+		</section>
+		<section id="anychart">
+			<title>AnyChart</title>
+			<para>收费产品，用户包括Oracle, Microsoft, AT&amp;T, Ford, 大众， GE 。。。。。</para>
+			<para>http://www.anychart.com/home/</para>
+		</section>
+	</section>
+	<section id="chart.js">
+		<title>JavaScript Charts</title>
+		<section id="dojochart">
+			<title>Dojo Chart</title>
+			<para>http://demos.dojotoolkit.org/demos/chartTypes/demo.html</para>
+		</section>
+		<section id="amcharts">
+			<title>amcharts</title>
+			<para><ulink url="http://www.amcharts.com/">http://www.amcharts.com/</ulink></para>
+		</section>
+		<section id="GoogleChartTools">
+			<title>Google Chart Tools </title>
+			<para><ulink url="https://developers.google.com/chart/" /></para>
+		</section>
+		<section id="highcharts">
+			<title>Highcharts JS</title>
+			<para><ulink url="http://www.highcharts.com/" /></para>
+		</section>
+
+		<section id="flot">
+			<title>Flot</title>
+			<para><ulink url="http://www.flotcharts.org/">http://www.flotcharts.org/</ulink></para>
+		</section>
+		<section id="jqplot">
+			<title>jqPlot</title>
+			<para><ulink url="http://www.jqplot.com/">http://www.jqplot.com/</ulink></para>
+		</section>
+		<section id="ECharts">
+			<title>ECharts</title>
+			<para><ulink url="http://ecomfe.github.io/echarts/">http://ecomfe.github.io/echarts/</ulink></para>
+		</section>
+		<section id="d3">
+			<title>D3 gallery</title>
+			<para><ulink url="https://github.com/mbostock/d3/wiki/Gallery" /></para>
+		</section>
+	</section>
+	<section id="chart.image">
+		<title>Image Charts</title>
+		<section id="PHPGraphLib">
+			<title>PHPGraphLib Graphing Library</title>
+			<para>http://www.ebrueggeman.com/phpgraphlib</para>
+		</section>
+		<section>
+			<title>pChart - a PHP class to build charts</title>
+			<para>http://pchart.sourceforge.net/</para>
+		</section>
+	</section>
+</chapter>

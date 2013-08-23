@@ -1,0 +1,36 @@
+<section id="defect.management">
+	<title>缺陷管理工具</title>
+	<section id="mantis">
+		<title>Mantis</title>
+		<para>http://www.mantisbt.org/</para>
+		<section>
+			<title>JpGraph</title>
+			<para>http://www.aditus.nu/jpgraph/index.php</para>
+			<screen>
+# wget http://hem.bredband.net/jpgraph2/jpgraph-3.0.7.tar.bz2
+# tar jxvf jpgraph-3.0.7.tar.bz2
+# mkdir /usr/local/share/php
+# mv docportal /usr/local/share/php
+
+# mkdir /var/www/html/mantisbt/jpgraph
+# mv src/* mantisbt/jpgraph/
+			</screen>
+			<para>php.ini</para>
+			<screen>
+# vim /etc/php.ini
+include_path = ".:/usr/share/pear/:/var/www/html/mantisbt/jpgraph/"
+			</screen>
+			<para>config_inc.php</para>
+			<screen>
+# vim config_inc.php
+$g_use_jpgraph = ON;
+$g_jpgraph_path = '/var/www/html/mantisbt/jpgraph/';
+			</screen>
+			<para>Don't forget to add the trailing '/'.</para>
+		</section>
+	</section>
+	<section id="bugzilla">
+		<title>Bugzilla</title>
+		<para><ulink url="http://www.bugzilla.org/">http://www.bugzilla.org/</ulink></para>
+	</section>
+</section>

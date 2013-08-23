@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- $Id: chapter.developer.xml 658 2013-08-07 10:08:09Z netkiller $ -->
+<part id="developer">
+	<title>Developer &amp; Language</title>
+<chapter id="language">
+	<title>Programming language</title>
+	<section>
+		<title>System programming language</title>
+		<para>A System programming language is usually used to mean "a language for system programming": that is, a language designed for writing system software as distinct from application software.</para>
+		<para>http://en.wikipedia.org/wiki/System_programming_language</para>
+	</section>
+	<section id="tiobe">
+		<title>TIOBE Programming Community Index - 编程语言排行榜</title>
+		<para><ulink url="http://www.tiobe.com/index.php/content/paperinfo/tpci/index.html">编程语言排行榜</ulink></para>
+	</section>
+	<section id="hyperpolyglot">
+		<title>Programming Languages Reference Sheets - Hyperpolyglot</title>
+		<ulink url="http://hyperpolyglot.org/" />
+	</section>
+	<section id="db.design">
+		<title>DB-Engines - DB-Engines Ranking</title>
+		<para><ulink url="http://db-engines.com/en/ranking" /></para>
+	</section>
+	<section id="framework.test">
+		<title>Web Framework Benchmarks</title>
+		<para><ulink url="http://www.techempower.com/benchmarks/" /></para>
+	</section>
+</chapter>
+
+	&chapter.editor;
+
+
+<chapter id="code">
+	<title>代码托管</title>
+	<section id="sourceforge">
+		<title>sourceforge.net</title>
+		<section>
+			<title>http://netkiller.users.sourceforge.net/ 页面</title>
+			<para>使用 sftp命令连接netkiller@frs.sourceforge.net，然后切换目录cd userweb/htdocs/，上传页面文件 put index.html，sourceforge.net 支持php</para>
+			<screen>
+			<![CDATA[
+$ sftp netkiller@frs.sourceforge.net
+netkiller@frs.sourceforge.net's password:
+Connected to frs.sourceforge.net.
+sftp> ls -l
+lrwxrwxrwx    1 root     root           28 Apr 26  2012 userweb
+sftp> cd userweb/htdocs/
+sftp> put /tmp/index.html
+Uploading /tmp/index.html to /home/user-web/n/ne/netkiller/htdocs/index.html
+/tmp/index.html                     100%   10     0.0KB/s   00:00
+sftp> put /tmp/index.php
+Uploading /tmp/index.php to /home/user-web/n/ne/netkiller/htdocs/index.php
+/tmp/index.php                      100%   17     0.0KB/s   00:00
+sftp> pwd
+Remote working directory: /home/user-web/n/ne/netkiller/htdocs
+sftp> ls
+index.html  index.php
+sftp> exit
+			]]>
+			</screen>
+			<para>将上面netkiller改为你注册的用户名即可</para>
+			<para>帮助: https://sourceforge.net/apps/trac/sourceforge/wiki/Developer%20web</para>
+		</section>
+	</section>
+</chapter>
+	&chapter.project.xml;
+</part>

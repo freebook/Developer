@@ -1,0 +1,9 @@
+[submodule "PHP"]
+	path = PHP
+	url = https://github.com/freebook/PHP.git
+[submodule "Python"]
+	path = Python
+	url = https://github.com/freebook/Python.git
+[submodule "Perl"]
+	path = Perl
+	url = https://github.com/freebook/Perl.git

@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+	<!ENTITY part.ruby.xml 						SYSTEM "part.ruby.xml">
+	<!ENTITY chapter.ruby.xml 						SYSTEM "chapter.ruby.xml">
+	<!ENTITY chapter.ruby.class.xml			SYSTEM "chapter.ruby.class.xml">	
+	<!ENTITY chapter.ror.xml 					SYSTEM "chapter.ror.xml">

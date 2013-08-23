@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<chapter id="regular">
+	<title>Regular expression (正则表达式)</title>
+	<chapterinfo>
+		<keywordset>
+			<keyword>grep,egrep</keyword>
+		</keywordset>
+	</chapterinfo>
+	<section id="regular.network">
+		<title>Network 网络地址处理</title>
+		<screen>
+		<![CDATA[
+$ wget -q -O - checkip.dyndns.org|sed -e 's/.*Current IP Address: //' -e 's/<.*$//'
+202.130.101.34
+
+$ curl -q -s http://checkip.dyndns.org | egrep -o '[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+'
+202.130.101.34
+
+$ curl -q -s http://checkip.dyndns.org | egrep -o '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}'
+202.130.101.34
+		]]>
+		</screen>
+	</section>
+	<section id="regular.html">
+		<title>HTML 处理</title>
+		<para>url 抓取</para>
+		<screen>
+		<![CDATA[
+$ curl -sq http://www.163.com | grep -o -E 'http://([^"#]+)'
+		]]>
+		</screen>
+	</section>
+</chapter>

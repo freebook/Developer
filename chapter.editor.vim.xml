@@ -1,0 +1,283 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section id="vim">
+	<title>VIM</title>
+	<para><graphic  format="gif" fileref="http://www.viemu.com/vi-vim-cheat-sheet.gif" srccredit="neo" width=""/></para>
+	<para>Vi IMproved - enhanced vi editor (transitional package)</para>
+	<screen>
+	<![CDATA[
+sudo apt-get install vim-perl vim-python vim-latexsuite
+	]]>
+	</screen>
+	<section>
+		<title>New text file line delimiter</title>
+		<screen>
+		<![CDATA[
+:set ff
+:set ff=dos
+:set ff=unix
+:set ff=mac
+		]]>
+		</screen>
+	</section>
+	<section>
+		<title>vim中的出现^M</title>
+		<screen>
+			<![CDATA[
+sudo apt-get install tofrodos
+dos2unix
+			]]>
+		</screen>
+		<para>输入</para>
+		<screen>
+:set notextmode		
+		</screen>
+	</section>
+	<section>
+		<title>tab 符</title>
+		<screen>
+		<![CDATA[
+set expandtab tabstop=4 shiftwidth=4 softtabstop=4 foldmethod=marker
+		]]>
+		</screen>
+	</section>
+	<section>
+		<title>粘贴是禁用格式化功能</title>
+		<para>:set paste</para>
+	</section>
+	<section>
+		<title>Regular Expressions</title>
+		<section>
+			<title>search &amp; replace</title>
+			<screen>
+%s/neo/leo/g
+%s#/logs#/www#g
+			</screen>
+		</section>
+		<section>
+			<title>会去掉vim文件中的空白行</title>
+			<screen>
+				<![CDATA[
+:%s/^\s*\n/
+				]]>
+			</screen>
+		</section>
+	</section>
+	<section>
+		<title>大小写转换</title>
+		<para>将光标移动到想要大小写转换的地方然后键入</para>
+		<para>guw (大写转换成小写)</para>
+		<para>gUw (小写转换成大写)</para>
+		<para>g~w (是改变光标到词尾)</para>
+		<para>guu gUU g~~ (是改变一行)</para>
+	</section>
+	<section id="vim.split">
+		<title>split</title>
+		<screen>
+		<![CDATA[
+:split <filename> 	按拆分模式打开文件，默认为上下拆分
+:vsplit <filename>	左右拆分
+		]]>
+		</screen>
+
+		<variablelist>
+			<title></title>
+			<varlistentry>
+				<term>Ctrl-w w</term>
+				<listitem>
+					<para>切换活动窗口</para>
+				</listitem>
+			</varlistentry>
+			<varlistentry>
+				<term>Ctrl-w Ctrl-w</term>
+				<listitem>
+					<para>同上</para>
+				</listitem>
+			</varlistentry>
+			<varlistentry>
+				<term>Ctrl-w h/j/k/l</term>
+				<listitem>
+					<para>切换活动窗口为 左/上/下/右 边的窗口</para>
+				</listitem>
+			</varlistentry>
+			<varlistentry>
+				<term>:q</term>
+				<listitem>
+					<para>关闭光标所在的分屏</para>
+				</listitem>
+			</varlistentry>
+		</variablelist>
+	</section>
+	<section>
+		<title>vimrc</title>
+		<screen>
+		<![CDATA[
+neo@netkiller:~$ cat /home/neo/.vimrc
+set expandtab tabstop=4 shiftwidth=4 softtabstop=4 foldmethod=marker
+set paste
+set ruler
+set number
+set nocp " don't open Vim in Vi-compatible mode
+set bs=2 " setup backspace to delete previous char in insert mode
+set encoding=utf-8 fileencodings= " set UTF-8 for all files
+set autoindent
+set smartindent
+set t_Co=256
+syntax on
+set syntax=tt2html
+set hlsearch
+colorscheme elflord
+		]]>
+		</screen>
+	</section>
+	<section id="vimdiff">
+		<title>vimdiff - edit two or three versions of a file with Vim and show differences</title>
+		<screen>
+# vimdiff  FILE_LEFT  FILE_RIGHT
+# vim -d  FILE_LEFT  FILE_RIGHT
+		</screen>
+		<screen>
+# vim FILE_LEFT
+:vertical diffsplit FILE_RIGHT
+		</screen>
+		<section>
+			<title>光标移动</title>
+			<para>左右窗口联动控制</para>
+			<screen>
+:set scrollbind
+:set noscrollbind
+			</screen>
+			<para>在各个差异点之间快速移动。</para>
+			<screen>
+]c	跳转到下一个差异点
+[c	跳转到上一个差异点
+			</screen>
+			<para>如果在命令前加上数字的话，可以跳过一个或数个差异点，从而实现跳的更远。比如如果在位于第一个差异点的行输入"2]c"，将越过下一个差异点，跳转到第三个差异点。</para>
+		</section>
+		<section>
+			<title>文件合并</title>
+			<screen>
+			<![CDATA[
+文件比较的最终目的之一就是合并，以消除差异。如果希望把一个差异点中当前文件的内容复制到另一个文件里，可以使用命令
+dp （diff "put"）
+
+如果希望把另一个文件的内容复制到当前行中，可以使用命令
+do (diff "get"，之所以不用dg，是因为dg已经被另一个命令占用了)
+
+如果希望手工修改某一行，可以使用通常的vim操作。如果希望在两个文件之间来回跳转，可以用下列命令序列：
+Ctrl-w, w
+
+在修改一个或两个文件之后，vimdiff会试图自动来重新比较文件，来实时反映比较结果。但是也会有处理失败的情况，这个时候需要手工来刷新比较结果：
+:diffupdate
+
+如果希望撤销修改，可以和平常用vim编辑一样，直接
+<ESC>, u
+
+但是要注意一定要将光标移动到需要撤销修改的文件窗口中。
+			]]>
+			</screen>
+		</section>
+
+		<section>
+			<title>上下文</title>
+			<screen>
+上下文的展开和查看
+比较和合并文件的时候经常需要结合上下文来确定最终要采取的操作。Vimdiff 缺省是会把不同之处上下各 6 行的文本都显示出来以供参考。其他的相同的文本行被自动折叠。如果希望修改缺省的上下文行数，可以这样设置：
+:set diffopt=context:3
+
+可以用简单的折叠命令来临时展开被折叠的相同的文本行：
+zo （folding open，之所以用z这个字母，是因为它看上去比较像折叠着的纸）
+
+然后可以用下列命令来重新折叠：
+zc （folding close）
+			</screen>
+		</section>
+		<section>
+			<title>保存于退出</title>
+			<screen>
+同时操作两个文件
+在比较和合并告一段落之后，可以用下列命令对两个文件同时进行操作。比如同时退出：
+:qa （quit all）
+
+如果希望保存全部文件：
+:wa （write all）
+
+或者是两者的合并命令，保存全部文件，然后退出：
+:wqa （write, then quit all）
+
+如果在退出的时候不希望保存任何操作的结果：
+:qa! （force to quit all）
+			</screen>
+		</section>
+	</section>
+	<section>
+		<title>vim backup script</title>
+		<screen>
+			<![CDATA[
+#!/bin/bash
+########################################
+# vim script for automatic backup by neo
+########################################
+
+datetime=`date +"%Y-%m-%d.%H:%M:%S"`
+current_date=`date +"%Y-%m-%d"`
+current_time=`date +"%H:%M:%S"`
+filename=`basename $1`
+original=$1
+
+if [ -f ${original}.original ]
+then
+    echo "[${datetime}] [B] ${original} to ${original}.original" >> ~/backup/history.log
+else
+    cp ${original} ${original}.original
+fi
+
+if [ -d ~/backup/${current_date} ]
+then
+    echo "[${datetime}] [O] ${original}" >> ~/backup/history.log
+else
+    mkdir -p ~/backup/${current_date}
+    echo [${datetime}] [C] mkdir ~/backup/${current_date} >> ~/backup/history.log
+fi
+
+backup=~/backup/${current_date}/${filename}.${current_time}
+if [ -f ${original} ];
+then
+    cp ${original} ${backup}
+    echo "[${datetime}] [B] ${original} to ${backup}" >> ~/backup/history.log
+fi
+
+vim ${original}
+
+
+
+datetime=`date +"%Y-%m-%d.%H:%M:%S"`
+current_date=`date +"%Y-%m-%d"`
+current_time=`date +"%H:%M:%S"`
+newfile=~/backup/${current_date}/${filename}.${current_time}
+
+if [ -f ${original} ];
+then
+    if [ -f ${backup} ];
+    then
+        original_sha=`sha1sum ${backup} |awk -F ' ' '{print $1}'`
+        newfile_sha=`sha1sum ${original} |awk -F ' ' '{print $1}'`
+
+        if [ $original_sha = $newfile_sha ];
+        then
+            echo "[${datetime}] --- " >> ~/backup/history.log
+            exit
+        fi
+
+    fi
+    cp ${original} ${newfile}
+    echo "[${datetime}] [M] ${original}" >> ~/backup/history.log
+    echo "[${datetime}] [B] ${original} to ${newfile}" >> ~/backup/history.log
+
+fi
+echo "[${datetime}] --- " >> ~/backup/history.log
+exit
+
+			]]>
+		</screen>
+	</section>
+</section>

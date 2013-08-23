@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- $Id: part.webpage.xml 642 2013-07-19 01:28:13Z netkiller $ -->
+<part id="index"><?dbhtml dir="html" ?>
+	<title>Web page</title>
+	&chapter.html.xml;
+</part>

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section id="rabbitmq">
+	<title>RabbitMQ</title>
+	<para><ulink url="http://www.rabbitmq.com/">RabbitMQ</ulink></para>
+	<para>running on 127.0.0.1 (localhost) on port 5672 (standard AMQP port).</para>
+	<screen>
+$ sudo apt-get install rabbitmq-server
+	</screen>
+	<section>
+		<title>rabbitmqctl - command line tool for managing a RabbitMQ broker</title>
+		<screen>
+rabbitmqctl status
+		</screen>
+	</section>
+	<section id="rabbitmq.python.pika">
+		<title>Python - Pika</title>
+		<para><ulink url="http://pika.github.com/">http://pika.github.com/</ulink></para>
+		<screen>
+sudo apt-get install python-setuptools python-pip git-core
+sudo pip install pika
+
+sudo easy_install pika
+		</screen>
+	</section>	
+	<section id="rabbitmq.ruby.amqp">
+		<title>Ruby amqp</title>
+<!--
+$ gem sources -a http://gems.github.com
+http://gems.github.com added to sources
+-->
+		<screen>
+$ sudo gem install amqp
+		</screen>
+		<example>
+			<title>Ruby on RabbitMQ</title>
+			<para>subscriber.rb</para>
+			<screen>
+$ cat subscriber.rb
+require 'rubygems'
+require 'amqp'
+
+EM.run {
+  amq = MQ.new
+  amq.queue("logins").subscribe do |login|
+    puts login
+  end
+}
+			</screen>
+			<para>producer.rb</para>
+			<screen>
+$ cat producer.rb 
+require 'rubygems'
+require 'amqp'
+
+EM.run {
+  amq = MQ.new
+  queue = amq.queue("logins")
+  %w[scott nic robi].each { |login|
+      queue.publish(login)
+  }
+}
+			</screen>
+			<para>test</para>
+			<screen>
+$ ruby subscriber.rb
+
+$ ruby producer.rb
+			</screen>
+		</example>
+	</section>
+</section>

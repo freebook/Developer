@@ -1,0 +1,936 @@
+<chapter id="ui.design">
+	<title>Div+CSS页面设计</title>
+	<para>最近几年，随着业界越来越关注XHTML+CSS的标准化设计，一个新兴职业已经诞生，这就是“网站重构师”，这个新兴职业人才紧缺，他们主要的职责是将HTML+Table+Javascript的架构向XHTML+CSS+Ajax迁移。</para>
+	<section id="ui.name">
+		<title>页面元素命名</title>
+		<programlisting>
+		<![CDATA[
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>恒信贵金属报表系统</title>
+    </head>
+    <body>
+    	<div id="header">
+    		<div id="logo"></div>
+    		<div id="banner"></div>
+    		<div id="navigation"></div>
+    	</div>
+    	<div id="wrapper">
+    		<div id="sidebar"></div>
+    		<div id="content"></div>
+    	</div>
+    	<div id="footer">
+    		<div id="footer-nav"></div>
+    		<div id="copyright"></div>
+    		<div id="legal"></div>
+    	</div>
+    </body>
+<html>
+		]]>
+		</programlisting>
+
+	</section>
+	<section id="ui.xhtml.div.css">
+		<title>XHTML+DIV+CSS</title>
+		<para>为何使用表格排版是不明智的选择？为什么要选择DIV+CSS？</para>
+		<para>首选我来说说表格排版，表格排版也是有好处的，一是排版速度快，二是兼容性比CSS好。做为一般的小网站还是比较适合的，如果在大型网站使用表格就不太合适。
+			表格必须定义很多属性如width="100%" border="0" cellpadding="0" cellspacing="0"，并且有时候tr标签显得多余。
+		</para>
+		<example>
+			<title>表格排版范例</title>
+			<programlisting>
+			<![CDATA[
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+
+<title>Table Example</title>
+</head>
+
+<body>
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td>Logo</td>
+    <td>Banner</td>
+  </tr>
+</table>
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td>Home</td>
+    <td>News</td>
+    <td>Contact</td>
+    <td>About</td>
+  </tr>
+</table>
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><table width="100%" border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <td>Top 10 </td>
+      </tr>
+      <tr>
+        <td>xxxxxxxx</td>
+      </tr>
+      <tr>
+        <td>xxxxxxxx</td>
+      </tr>
+      <tr>
+        <td>xxxxxxxx</td>
+      </tr>
+      <tr>
+        <td>xxxxxxxx</td>
+      </tr>
+    </table>
+      <table width="100%" border="0" cellspacing="0" cellpadding="0">
+        <tr>
+          <td>Link </td>
+        </tr>
+        <tr>
+          <td>xxxxxxxx</td>
+        </tr>
+        <tr>
+          <td>xxxxxxxx</td>
+        </tr>
+        <tr>
+          <td>xxxxxxxx</td>
+        </tr>
+        <tr>
+          <td>xxxxxxxx</td>
+        </tr>
+      </table></td>
+    <td><table width="100%" border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <td align="center">Article Title </td>
+      </tr>
+      <tr>
+        <td><p>Contect</p>
+          <p>XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</p>
+          <p>XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</p>
+          <p>XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</p>
+          <p>XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</p></td>
+      </tr>
+      <tr>
+        <td>Feedback</td>
+      </tr>
+    </table></td>
+  </tr>
+</table>
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td align="center">Copyright XXXX </td>
+  </tr>
+</table>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+</body>
+</html>
+
+			]]>
+			</programlisting>
+		</example>
+		<para>你可以对比上面看看div+css是如何规划版面，并且css很多定义是可以重用的。</para>
+		<example>
+			<title>XHTML+DIV+CSS排版范例</title>
+			<programlisting role="html">
+			<![CDATA[
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>hello world</title>
+<style type="text/css">
+<!--
+body{
+	width: 795px;
+}
+div1{
+	border-color: #119EBA;
+	border-width: 1px;
+	border-style: solid;
+	margin: 5px;
+}
+#header{
+}
+#logo, #banner{
+	float:left;
+	height: 75px;
+}
+#nav{
+	clear:both;
+}
+#nav ul {
+	list-style-type:none;
+	margin: 0px;
+	padding:0px;
+}
+#nav ul li{
+	float:left;
+	width: 100px;
+}
+#main{ clear:both;}
+#main #left {
+	float:left;
+	width: 30%;
+}
+#main #right {
+	float:right;
+	width: 70%;
+}
+.box{}
+.box h2 {
+	margin: 0;
+	padding: 0px;
+}
+.box a { display:block;}
+#footer{ clear:both}
+#footer #copyright {
+	text-align:center;
+}
+
+.article {
+	border-color: black;
+	border-width: 1px;
+	border-style: solid;
+	margin: 5px;
+	padding: 10px;
+}
+.article .article_title{
+	font-size: 24px;
+	font-weight:bold;
+	text-align:center;
+}
+.article .article_content{ font-size:10px;}
+-->
+</style>
+</head>
+
+<body>
+
+<div id="header">
+	<div id="logo"> Logo </div>
+	<div id="banner"> Banner </div>
+</div>
+
+<div id="nav">
+	<ul>
+		<li><a href="#"> Home </a></li>
+		<li><a href="#"> News </a></li>
+		<li><a href="#"> Person </a></li>
+		<li><a href="#"> Group </a></li>
+		<li><a href="#"> Network </a></li>
+	</ul>
+</div>
+
+<div id="main">
+	<div id="left">
+		<div class="box">
+			<h2>title</h2>
+			<a href="#"> link </a>
+			<a href="#"> link </a>
+			<a href="#"> link </a>
+		</div>
+
+		<div class="box">
+			<h2>title</h2>
+			<a href="#"> link </a>
+			<a href="#"> link </a>
+			<a href="#"> link </a>
+		</div>
+	</div>
+	<div id="right">
+		<div class="article">
+			<div class="article_title">
+				Article Title
+			</div>
+			<div class="article_content">
+				<p>XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</p>
+				<p>XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</p>
+				<p>XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</p>
+				<p>XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</p>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div id="footer">
+	<div id="copyright"> Copyright Neo Chan</div>
+</div>
+
+</body>
+</html>
+			]]>
+			</programlisting>
+		</example>
+		<para>上面例子我们可以看到div与table相比所使用的标签更少，无形中给网站减了肥。</para>
+		<para>CSS 的class,id 名称定义规范：</para>
+		<orderedlist>
+			<listitem><para>一定要简单，可读例如header，footer</para></listitem>
+			<listitem><para>对于在页面中不重复，自始至终只出现一次可定义为id，例如id="header"，id="footer"</para></listitem>
+			<listitem><para>对于在页面中经常重复出现的，可定义为class，例如id="article_block"，id="news_block"</para></listitem>
+		</orderedlist>
+		<note>
+			<para>不要使用HTML属性，尽量使用css。 herf,src,class,id等属性除外。</para>
+			<para>下面是一个例子</para>
+			<programlisting role="html">
+			<![CDATA[
+<font color="red" size="12" face="Arial, Helvetica, sans-serif" >Hello workd</font>
+			]]>
+			</programlisting>
+			<para>你应该使用CSS实现,如果能使用CSS实现尽量不要多用一条HTML和属性。</para>
+			<programlisting role="html">
+			<![CDATA[
+<style type="text/css">
+.hello{
+	color:red;
+	font-size:12px;
+	font-family:Arial, Helvetica, sans-serif;
+}
+</style>
+<div id="hello">Hello workd</font>
+			]]>
+			</programlisting>
+		</note>
+	</section>
+	<section>
+		<title>页面结构设计</title>
+		<para>页面结构从上到下依次是</para>
+		<itemizedlist>
+			<listitem><para>header 主要包括导航，登录，Logo, Banner</para></listitem>
+			<listitem><para>body 网站主要内容，并且还可以分为左右两栏，左中右三栏。</para></listitem>
+			<listitem><para>footer 导航，版权</para></listitem>
+		</itemizedlist>
+		<para>header,footer将显示在所有页面，一般很少改动。</para>
+		<section>
+			<title>Home page (首页)</title>
+			<programlisting language="html">
+			<![CDATA[
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Title</title>
+</head>
+
+<body>
+
+<div id="header">
+	<div id="logo"></div>
+    <div id="banner"></div>
+    <div id="nav"></div>
+</div>
+
+<div id="page1">
+ 	<div class="left_nav"></div>
+    <div class="right"></div>
+</div>
+
+<div id="page2">
+
+</div>
+
+<div id="page3">
+
+</div>
+
+<div id="footer">
+  <div id="footer_nav"></div>
+  <div id="copyright"></div>
+</div>
+
+</body>
+</html>
+			]]>
+			</programlisting>
+			<para>page1 打开首页看到的第一屏页面，page2，page3需要按翻页键</para>
+			<para>不要将 page1，page2，page3 放到一个DIV中</para>
+		</section>
+		<section>
+			<title>导航烂</title>
+				<programlisting role="html">
+				<![CDATA[
+<table>
+	<tr>
+		<td>Home</td>
+		<td>News</td>
+		<td>About</td>
+		<td>Contact</td>
+	</tr>
+</table>
+				]]>
+				</programlisting>
+				<programlisting role="html">
+				<![CDATA[
+<div id="nav">
+	<ul>
+		<li><a href="#"> Home </a></li>
+		<li><a href="#"> News </a></li>
+		<li><a href="#"> Person </a></li>
+		<li><a href="#"> Group </a></li>
+		<li><a href="#"> Network </a></li>
+	</ul>
+</div>
+				]]>
+				</programlisting>
+		</section>
+		<section>
+
+			<title>Left Bar</title>
+
+				<programlisting role="html">
+				<![CDATA[
+	<div id="left">
+		<div class="box">
+			<h2>title</h2>
+			<a href="#"> link </a>
+			<a href="#"> link </a>
+			<a href="#"> link </a>
+		</div>
+
+		<div class="box">
+			<h2>title</h2>
+			<a href="#"> link </a>
+			<a href="#"> link </a>
+			<a href="#"> link </a>
+		</div>
+	</div>
+				]]>
+				</programlisting>
+		</section>
+		<section>
+			<title>区块设计 Block</title>
+			<para>网站经常用一些方块规划版面。</para>
+			<itemizedlist>
+				<listitem><para>一种是矩形方框</para></listitem>
+				<listitem><para>另一种是有标题，标题下方是矩形方框</para></listitem>
+				<listitem><para>现在流行的是标题栏有多个选项卡，标题下方是矩形方框，当选择不同标题时，矩形方框中的内容随之改变。</para></listitem>
+			</itemizedlist>
+
+			<para>传统方法如下：</para>
+			<example>
+				<title> 例子 </title>
+				<para>table block example</para>
+				<programlisting role="html">
+				<![CDATA[
+<table>
+	<tr>
+		<td>
+			内容
+		</td>
+	</tr>
+</table>
+				]]>
+				</programlisting>
+				<para>div+css block example</para>
+				<programlisting role="html">
+				<![CDATA[
+<div class="simple_box">
+			内容
+</table>
+				]]>
+				</programlisting>
+			</example>
+
+			<example>
+				<title> 例子 </title>
+				<para>table title block example</para>
+				<programlisting role="html">
+				<![CDATA[
+<table>
+	<tr>
+		<td>Top 10</td>
+	</tr>
+	<tr>
+		<td>
+			<table>
+				<tr>
+					<td>No.1</td>
+				</tr>
+				<tr>
+					<td>No.2</td>
+				</tr>
+				<tr>
+					<td>No.3</td>
+				</tr>
+				<tr>
+					<td>No.n</td>
+				</tr>
+			</table>
+		</td>
+	</tr>
+</table>
+				]]>
+				</programlisting>
+				<para>div+css title block example</para>
+				<programlisting role="html">
+				<![CDATA[
+<div class="title_block">
+	<h2>
+		Title
+	<h2>
+	<div>
+		Content
+	</div>
+</div>
+				]]>
+				</programlisting>
+				<para>使用dl标记实现</para>
+				<programlisting role="html">
+				<![CDATA[
+<dl class="title_block">
+	<dt>Title<dt>
+	<dd>
+		Content
+	</dd>
+</dl>
+				]]>
+				</programlisting>
+			</example>
+		</section>
+	</section>
+	<section>
+		<title>表格</title>
+		<para>这里的表格不是指用于排版，而是表格数据。</para>
+				<programlisting role="html">
+				<![CDATA[
+<style type="text/css">
+.hello{
+	width: 100%;
+}
+.hello tr{
+
+}
+.hello td{
+
+}
+</style>
+<table class="mytable">
+	<tr>
+		<td></td>
+	</tr>
+</table>
+				]]>
+				</programlisting>
+	</section>
+	<section>
+		<title>图片优化</title>
+		<section>
+			<title>onMouseOver/onMouseOut</title>
+			<para>我们在网站冲浪常常看会看到很多图片按钮，当鼠标入上去或鼠标移开图片会随之改变，这个的按钮至少需要三张小图片才能实现这样的功能。</para>
+			<para>我先说说这样做的缺点</para>
+			<itemizedlist>
+				<listitem><para>三张图片，你的浏览器会启动三个线程链接你的图片服务器，不划算。</para></listitem>
+				<listitem><para>一旦其中一幅图片下载过程中中断，用户当把鼠标放到按钮上时，可能会出现一个红叉叉。</para></listitem>
+				<listitem><para>图片太多不好维护，易产生垃圾，占用磁盘空间，linux ext3一个空文件占用2048</para></listitem>
+			</itemizedlist>
+			<para>最优方法是使用一张图片，将三幅图片平行或垂直排开，放到一幅图片中，然后使用CSS控制显示你需要的部分。</para>
+		</section>
+		<section>
+			<title>使用一幅图片处理BLOCK四角</title>
+			<para><ulink url="../images/design/corner.gif">corner.gif</ulink></para>
+			<para><graphic  format="gif" fileref="../images/design/corner.gif" srccredit="me" /></para>
+			<para>stylesheet</para>
+			<programlisting>
+			<![CDATA[
+<style type="text/css">
+<!--
+
+.clear { clear: both; height: 0; font-size: 0; line-height: 0; zoom: 1 }
+
+.containerPlain {
+	background-color: #fff;
+	border-right: 1px solid #cacaca;
+	border-left: 1px solid #cacaca;
+	padding: 0 3px;
+}
+
+.left_top_corner {
+	display: block;
+	width: 4px;
+	height: 4px;
+	background-position: top left;
+	float: left;
+	font-size: 0;
+}
+
+.right_top_corner {
+	display: block;
+	width: 4px;
+	height: 4px;
+	background-position: top right;
+	float: right;
+	font-size: 0;
+}
+
+.left_bottom_corner {
+	display: block;
+	width: 4px;
+	height: 4px;
+	background-position: bottom left;
+	float: left;
+	font-size: 0;
+}
+
+
+.right_bottom_corner {
+	display: block;
+	width: 4px;
+	height: 4px;
+	background-position: bottom right;
+	float: right;
+	font-size: 0;
+}
+.left_bottom_corner, .right_bottom_corner ,
+.left_top_corner, .right_top_corner{
+	background-image: url(corners/corner.gif);
+}
+
+.middle_top_line {
+	display: block;
+	float: left;
+	height: 3px;
+	line-height: 0;
+	border-top: 1px solid #cacaca;
+}
+
+.middle_bottom_line {
+	display: block;
+	float: left;
+	height: 3px;
+	border-bottom: 1px solid #cacaca;
+	font-size: 0;
+}
+
+.middle_top_line, .middle_bottom_line {
+		width: 167px;
+}
+
+-->
+</style>
+			]]>
+			</programlisting>
+			<para>HTML</para>
+			<programlisting>
+			<![CDATA[
+<div style="width:175px;">
+	<span class="left_top_corner"></span> <span class="middle_top_line"></span> <span class="right_top_corner"></span>
+	<div class="containerPlain">
+    	You Content
+	</div>
+	<span class="left_bottom_corner"></span> <span class="middle_bottom_line"></span> <span class="right_bottom_corner"></span>
+</div>
+			]]>
+			</programlisting>
+
+			<para>下面是一个更复杂的例子</para>
+			<itemizedlist>
+			 	<listitem><ulink url="../images/design/corner.gif">corner.gif</ulink></listitem>
+			 	<listitem><ulink url="../images/design/block_title_left.gif">block_title_left.gif</ulink></listitem>
+			 	<listitem><ulink url="../images/design/block_title_right.gif">block_title_right.gif</ulink></listitem>
+			</itemizedlist>
+			<para><graphic  format="gif" fileref="../images/design/corner.gif" srccredit="me" /></para>
+			<para><graphic  format="gif" fileref="../images/design/block_title_left.gif" srccredit="me" /></para>
+			<para><graphic  format="gif" fileref="../images/design/block_title_right.gif" srccredit="me" /></para>
+
+			<para>stylesheet</para>
+			<programlisting>
+			<![CDATA[
+<style type="text/css">
+<!--
+
+.clear { clear: both; height: 0; font-size: 0; line-height: 0; zoom: 1 }
+
+.containerPlain {
+	background-color: #fff;
+	border-right: 1px solid #cacaca;
+	border-left: 1px solid #cacaca;
+	padding: 0 3px;
+	clear: both;
+}
+
+.left_top_corner {
+	display: block;
+	width: 4px;
+	height: 4px;
+	background-position: top left;
+	float: left;
+	font-size: 0;
+}
+
+.right_top_corner {
+	display: block;
+	width: 4px;
+	height: 4px;
+	background-position: top right;
+	float: right;
+	font-size: 0;
+}
+
+.left_bottom_corner {
+	display: block;
+	width: 4px;
+	height: 4px;
+	background-position: bottom left;
+	float: left;
+	font-size: 0;
+}
+
+
+.right_bottom_corner {
+	display: block;
+	width: 4px;
+	height: 4px;
+	background-position: bottom right;
+	float: right;
+	font-size: 0;
+}
+.left_bottom_corner, .right_bottom_corner ,
+.left_top_corner, .right_top_corner{
+	background-image: url(corners/corner.gif);
+}
+
+.middle_top_line {
+	display: block;
+	float: left;
+	height: 3px;
+	line-height: 0;
+	border-top: 1px solid #cacaca;
+}
+
+.middle_bottom_line {
+	display: block;
+	float: left;
+	height: 3px;
+	border-bottom: 1px solid #cacaca;
+	font-size: 0;
+}
+
+.middle_top_line, .middle_bottom_line {
+		width: 167px;
+}
+
+
+.block_title {
+	line-height: 26px;
+	height: 26px;
+	background-image: url(corners/block_title_left.png);
+	background-repeat: no-repeat;
+	padding-left: 10px;
+	font-size: 13px;
+	font-weight: bold;
+	background-color: #dddbdc;
+}
+
+.block_title_right {
+	display: block;
+	background-image: url(corners/block_title_right.png);
+	background-repeat: no-repeat;
+	background-postition: right;
+	float: right;
+	width: 4px;
+	height: 26px;
+}
+-->
+</style>
+			]]>
+			</programlisting>
+			<para>HTML</para>
+			<programlisting>
+			<![CDATA[
+<div style="width:175px;">
+  <span class="left_top_corner"></span> <span class="middle_top_line"></span> <span class="right_top_corner"></span>
+  <div class="containerPlain">
+    <div class="block_title">
+		<span class="block_title_right"></span> Title
+    </div>
+    <div style="padding: 10px 7px 7px 7px">
+		Content
+	</div>
+  </div>
+  <span class="left_bottom_corner"></span> <span class="middle_bottom_line"></span> <span class="right_bottom_corner"></span>
+</div>
+			]]>
+			</programlisting>
+		</section>
+		<section>
+			<title>图片用背景图代替 img 标记</title>
+			<programlisting>
+			<![CDATA[
+图片用背景图代替<img src="">
+			]]>
+			</programlisting>
+		</section>
+		<section>
+			<title>合并图片</title>
+			<para>下面是摘取LinkedIn网页,作为例子.</para>
+			<para>合并多张小图片为一张图片,然后通过偏移量取其中一部分显示,这样做的目的是,加快浏览器下载速度,降低与服务器建立连接的开销.</para>
+			<para><graphic  format="png" fileref="../images/design/sprite3.png" srccredit="me" /></para>
+
+			<programlisting>
+			<![CDATA[
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
+<head profile="http://gmpg.org/xfn/11">
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>LinkedIn Blog</title>
+	<style type="text/css">
+/*
+Theme Name:  LinkedIn Blog
+Theme URI:   http://blog.linkedin.com/
+Description: LinkedIn's main blog theme
+Author:      Prajakta Godbole
+Author URI:  http://linkedin.com/
+Version:     2.0
+*/
+
+/*
+Reset styles
+Copyright (c) 2011, Yahoo! Inc. All rights reserved.
+Code licensed under the BSD License:
+http://developer.yahoo.com/yui/license.html
+version: 2.9.0
+*/
+html{color:#000;background:#FFF}body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,input,button,textarea,select,p,blockquote,th,td{margin:0;padding:0}table{border-collapse:collapse;border-spacing:0}fieldset,img{border:0}address,button,caption,cite,code,dfn,em,input,optgroup,option,select,strong,textarea,th,var{font:inherit}del,ins{text-decoration:none}li{list-style:none}caption,th{text-align:left}h1,h2,h3,h4,h5,h6{font-size:100%;font-weight:normal}q:before,q:after{content:''}abbr,acronym{border:0;font-variant:normal}sup{vertical-align:baseline}sub{vertical-align:baseline}legend{color:#000}
+
+/* Colors and fonts */
+html { background-color: #F5F5F5; }
+body { font-family: Arial, Helvetica, "Nimbus Sans L", sans-serif; padding-top: 20px;}
+a { color: #006fb3; text-decoration: none; }
+a:hover { color: #006fb3; text-decoration: underline;}
+
+/* Sidebar */
+#sidebar { width: 312px; float: left; margin-left: 20px;}
+#sidebar .widgets { border: 1px solid #ddd; background-color: #FFF; margin-bottom: 50px;
+	-webkit-border-radius: 5px; -moz-border-radius: 5px; border-radius: 5px;}
+#sidebar .widgets h2 { color: #4d4e54; font-size: 14px; clear: both; margin-bottom: 13px;}
+#sidebar .widgets ul li { font-size: 11.5px; }
+#sidebar .widgets ul li a { color: #4d4e54; }
+#sidebar .widgets .widget-bg { position: absolute; top: -13px; right: 15px; width: 35px; height: 40px; }
+
+/* Follow us list */
+#sidebar .follow-us-widget { overflow: hidden; padding-bottom: 35px; border-bottom: 1px solid #ccc; }
+#sidebar .follow-us-widget .widget-wrapper { padding: 15px;}
+#sidebar ul#follow-list li { float: left; position: relative; margin-right: 17px; zoom: 1; display: inline;}
+#sidebar ul#follow-list li:last-child { margin-right: 0;}
+#sidebar ul#follow-list li .follow-div { margin:0; padding:0; width: 33px; height: 38px; }
+#sidebar ul#follow-list li a { display: block; width: 33px; height: 38px; text-indent: -9999px; background: url('http://blog.linkedin.com/wp-content/themes/linkedin/images/sprite3.png');}
+#sidebar ul#follow-list li a#follow-lnkd { background-position: 0 0; }
+#sidebar ul#follow-list li a#follow-twtr { background-position: -33px 0; }
+#sidebar ul#follow-list li a#follow-fb { background-position: -66px 0; width: 32px; }
+#sidebar ul#follow-list li a#follow-flickr { background-position: -130px 0; width: 32px;}
+#sidebar ul#follow-list li a#follow-youtube { background-position: -98px 0; width: 32px;}
+#sidebar ul#follow-list li a#follow-rss { background-position: -162px 0; width: 32px; }
+#sidebar .widgets ul#follow-list li.last { margin-right: 0;}
+
+/* Flickr */
+#sidebar .flickr-widget { position: relative; border-bottom: 1px solid #ccc; }
+#sidebar .flickr-widget .widget-wrapper { padding: 15px;}
+#sidebar .flickr-widget h2 { margin-bottom: 20px; }
+#sidebar .flickr-widget .widget-bg { background: url('images/sprite3.png') -267px 0 no-repeat;}
+#sidebar #flickr-img-grp { margin-bottom: 10px; overflow:hidden; }
+#sidebar #flickr-img-grp .flickr-img { float: left; margin: 0 15px 15px 0; }
+	</style>
+</head>
+<body>
+	<div id="sidebar">
+
+		<div class="widgets">
+			<div class="follow-us-widget">
+				<div class="widget-wrapper">
+					<h2>Follow Us Links</h2>
+
+					<ul id="follow-list">
+						<li><a id="follow-lnkd"
+							href="https://www.linkedin.com/company/linkedin" target="_blank">LinkedIn</a>
+						</li>
+						<li><a id="follow-twtr" href="http://twitter.com/LinkedIn"
+							target="_blank">Twitter</a></li>
+						<li><a id="follow-fb"
+							href="https://www.facebook.com/LinkedIn" target="_blank">Facebook</a>
+						</li>
+						<li><a id="follow-youtube"
+							href="http://www.youtube.com/user/LinkedIn" target="_blank">YouTube</a>
+						</li>
+						<li><a id="follow-flickr"
+							href="http://www.flickr.com/groups/linkedin/pool/"
+							target="_blank">Flickr</a></li>
+						<li class="last"><a id="follow-rss"
+							href="http://feeds.feedburner.com/LinkedInBlog" target="_blank">RSS</a>
+						</li>
+					</ul>
+
+				</div>
+			</div>
+
+		</div>
+	</div>
+
+</body>
+</html>
+			]]>
+			</programlisting>
+		</section>
+	</section>
+	<section>
+		<title>HTML嵌入图片</title>
+		<screen>
+		<![CDATA[
+<img src="data:image/png;base64," />
+		]]>
+		</screen>
+	</section>
+	<section>
+		<title>页面内容安全</title>
+		<section>
+			<title>禁止鼠标右键</title>
+			<para>修改body标签，加入onContextMenu="return false" onSelectStart="return
+				false"。</para>
+			<screen>
+			<![CDATA[
+<body bgColor="#FFFFFF" onContextMenu="return false" onSelectStart="return false">
+			]]>
+			</screen>
+		</section>
+		<section>
+			<title>禁止复制剪切 及粘贴</title>
+			<para>禁止拷贝文字：</para>
+			<screen>
+			<![CDATA[
+<input name="textfield" type="text" value="不能复制里面的字" oncopy="return false;" oncut="return false;" onpaste="return false">
+			]]>
+			</screen>
+		</section>
+	</section>
+	<section>
+		<title>html,css 有效性检查 Validation</title>
+
+		<orderedlist>
+			<title>有效性检查包括</title>
+			<listitem><para>Markup Validation</para></listitem>
+			<listitem><para>CSS Validation.</para></listitem>
+			<listitem><para>URL Validation.</para></listitem>
+		</orderedlist>
+	</section>
+	<section>
+		<title>自适应宽度超出截取并显示省略字符</title>
+		<screen>
+		<![CDATA[
+<style type="text/css">
+.ellipsis {
+    white-space: nowrap; 		/*保留文字间的空白*/
+    width: 200px;
+    overflow: hidden;  			/*超出部分隐藏，*/
+    text-overflow: ellipsis; 	/*超出部分显示成... */
+    border:1px solid #333;
+}
+</style>
+
+<div class="ellipsis"> xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx </div>
+		]]>
+		</screen>
+	</section>
+</chapter>

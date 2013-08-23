@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- $Id: chapter.ssi.xml 515 2013-01-15 06:34:09Z netkiller $ -->
+<chapter id="ssi">
+	<title>SSI</title>
+	<section>
+		<title>SSI 环境变量</title>
+		<screen>
+		<![CDATA[
+<!--#echo var="SERVER_NAME"--> <br />
+<!--#echo var="DOCUMENT_URI"--> <br />
+<!--#echo var="HTTP_HOST"--> <br />
+<!--#echo var="SERVER_PORT"--> <br />
+		]]>
+		</screen>
+	</section>
+	<section>
+		<title>if 条件判断</title>
+		<screen>
+		<![CDATA[
+<!--#if expr="${SERVER_NAME}=/^(www|images|info|myid|ad).mydomain.com.*/" -->
+
+    <!--#set var="WWW_URL" 	value="http://www.mydomain.com"-->
+    <!--#set var="NEWS_URL" value="http://news.mydomain.com"-->
+    <!--#set var="IMG_URL" 	value="http://img.mydomain.com"-->
+    <!--#set var="JS_URL" 	value="http://img.mydomain.com/js"-->
+    <!--#set var="CSS_URL" 	value="http://img.mydomain.com/css"-->
+
+<!--#else -->
+
+...
+...
+
+<!--#endif -->
+
+
+<!--#if expr="${DOCUMENT_URI}=/\/cn\/.*/"-->
+        <!--#set var="LANG" value="cn"-->
+<!--#elif expr="${DOCUMENT_URI}=/\/tw\/.*/"-->
+        <!--#set var="LANG" value="tw"-->
+<!--#elif expr="${DOCUMENT_URI}=/\/en\/.*/"-->
+        <!--#set var="LANG" value="en"-->
+<!--#endif-->
+
+
+		]]>
+		</screen>
+	</section>
+</chapter>

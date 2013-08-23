@@ -1,0 +1,213 @@
+<chapter id="javascript">
+	<title>Javascript</title>
+	<section id="mouse">
+		<title>禁止复制与鼠标右键</title>
+		<screen>
+<![CDATA[
+<script language="JavaScript" type="text/javascript">
+document.oncontextmenu=new Function("event.returnValue=false;");
+document.onselectstart=new Function("event.returnValue=false;");
+</script>
+]]>
+		</screen>
+	</section>
+	<section id="dom">
+		<title>DOMDocument</title>
+		<section>
+			<title>createTextNode</title>
+			<literallayout>
+			<![CDATA[
+<SCRIPT>
+function fnChangeNode(){
+   var oTextNode = document.createTextNode("文本节点已创建");
+   var oReplaceNode = oSpan.childNodes(0);
+   oReplaceNode.replaceNode(oTextNode);
+}
+</SCRIPT>
+
+<span ID="oSpan" onclick="fnChangeNode()">
+点击此处
+</span>
+			]]>
+			</literallayout>
+		</section>
+	</section>
+
+	<section id="xmlhttp">
+		<title>Microsoft.XMLHTTP</title>
+
+		<section>
+			<title>Get</title>
+			<screen>
+			<![CDATA[
+<script type="text/javascript" language="javascript">
+    var http_request = false;
+    function makeRequest(url) {
+
+        http_request = false;
+
+        if (window.XMLHttpRequest) { // Mozilla, Safari,...
+            http_request = new XMLHttpRequest();
+            if (http_request.overrideMimeType) {
+                http_request.overrideMimeType('text/xml');
+            }
+        } else if (window.ActiveXObject) { // IE
+            try {
+                http_request = new ActiveXObject("Msxml2.XMLHTTP");
+            } catch (e) {
+                try {
+                    http_request = new ActiveXObject("Microsoft.XMLHTTP");
+                } catch (e) {}
+            }
+        }
+
+        if (!http_request) {
+            alert('Giving up :( Cannot create an XMLHTTP instance');
+            return false;
+        }
+        http_request.onreadystatechange = alertContents;
+        http_request.open('GET', url, true);
+        http_request.send(null);
+    }
+
+    function alertContents() {
+
+        if (http_request.readyState == 4) {
+            if (http_request.status == 200) {
+                alert(http_request.responseText);
+            } else {
+                alert('There was a problem with the request.');
+            }
+        }
+
+    }
+</script>
+<span
+    style="cursor: pointer; text-decoration: underline"
+    onclick="makeRequest('http://127.0.0.1/tmp/xml/test.php')">
+        Make a request
+</span>
+			]]>
+			</screen>
+
+		</section>
+
+		<section>
+			<title>POST</title>
+			<screen>
+			<![CDATA[
+<script type="text/javascript" language="javascript">
+    var http_request = false;
+    function makeRequest(url) {
+
+        http_request = false;
+
+        if (window.XMLHttpRequest) { // Mozilla, Safari,...
+            http_request = new XMLHttpRequest();
+            if (http_request.overrideMimeType) {
+                http_request.overrideMimeType('text/xml');
+            }
+        } else if (window.ActiveXObject) { // IE
+            try {
+                http_request = new ActiveXObject("Msxml2.XMLHTTP");
+            } catch (e) {
+                try {
+                    http_request = new ActiveXObject("Microsoft.XMLHTTP");
+                } catch (e) {}
+            }
+        }
+
+        if (!http_request) {
+            alert('Giving up :( Cannot create an XMLHTTP instance');
+            return false;
+        }
+        http_request.onreadystatechange = alertContents;
+
+        attr = 'name=neo&nickname=netkiller';
+        http_request.open('POST', url, true);
+        http_request.setRequestHeader ("Content-Length",attr.length);
+		http_request.setRequestHeader ("CONTENT-TYPE","application/x-www-form-urlencoded");
+        http_request.send(attr);
+
+    }
+
+    function alertContents() {
+
+        if (http_request.readyState == 4) {
+            if (http_request.status == 200) {
+                alert(http_request.responseText);
+            } else {
+                alert('There was a problem with the request.');
+            }
+        }
+
+    }
+</script>
+<input type="text" name="textbox">
+<br>
+<span
+    style="cursor: pointer; text-decoration: underline"
+    onclick="makeRequest('http://127.0.0.1/tmp/xml/test.php')">
+        Make a request
+</span>
+			]]>
+			</screen>
+		</section>
+	</section>
+	&chapter.javascript.jquery;
+	<section id="bootstrap">
+		<title>Bootstrap</title>
+		<para>http://twbs.github.io/bootstrap/</para>
+	</section>
+	<section id="angularjs">
+		<title>AngularJS</title>
+		<para>http://angularjs.org/</para>
+	</section>
+	<section id="activewidgets">
+		<title>ActiveWidgets - WebUI</title>
+	</section>
+
+	<section id="js.edit">
+		<title>所见即所得现在编辑工具</title>
+		<!-- http://www.kuqin.com/developtool/20090726/64339.html -->
+		<section>
+			<title>FCKeditor</title>
+		</section>
+		<section>
+			<title>NicEdit</title>
+		</section>
+		<section>
+			<title>TinyMCE</title>
+		</section>
+		<section>
+			<title>WYSIWYG</title>
+		</section>
+	</section>
+
+	<section id="highslide">
+		<title>Highslide</title>
+		<para><ulink url="http://highslide.com/"/></para>
+		<para>Highslide JS is an image, media and gallery viewer written in JavaScript.</para>
+	</section>
+	<section id="javascript.code">
+		<title>JavaScript 代码混淆</title>
+		<section id="javascript-packer">
+			<title>JavaScript Packer</title>
+			<ulink url="http://joliclic.free.fr/php/javascript-packer/index.php"/>
+		</section>
+	</section>
+	<section id="phantomjs">
+		<title>phantomjs - headless WebKit with JavaScript API</title>
+		<screen>
+
+		</screen>
+	</section>
+<section id="javascript.framework">
+	<title>Javascript MVC Frameworks</title>
+	<para>http://codebrief.com/2012/01/the-top-10-javascript-mvc-frameworks-reviewed/</para>
+	<section id="todomvc">
+		<title>example</title>
+		<para>http://todomvc.com/</para>
+	</section>
+</section>
+</chapter>

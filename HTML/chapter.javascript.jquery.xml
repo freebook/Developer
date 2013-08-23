@@ -1,0 +1,44 @@
+<section id="jquery">
+	<title>jQuery</title>
+	<procedure>
+		<title></title>
+		<step>
+		</step>
+	</procedure>
+	<section id="ajax">
+		<title>Ajax</title>
+		<section id="ajax.load">
+			<title>Load</title>
+		</section>
+	</section>
+	<section>
+		<title>jsonp</title>
+		<screen>
+		<![CDATA[
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
+<script>
+$.getJSON('http://www.foobar.com/json.php?callback=?', function(data){
+alert(data.foo);
+});
+</script>
+
+<?php
+echo $_GET['callback'], '(', json_encode(array('foo' => 'bar')), ')';
+?>
+		]]>
+		</screen>
+	</section>
+	<section id="garlic.js">
+		<title>Garlic.js - 表单数据持久化</title>
+		<para>http://garlicjs.org/</para>
+		<para>Garlic.js 可以让你自动的持久化表单中的数据到本地，直到表单被提交。这样用户就不用担心因为误操作导致表单输入的数据丢失。</para>
+		<para>使用方法很简单：</para>
+		<screen>
+		<![CDATA[
+<script type="text/javascript">
+  $( 'form' ).garlic();
+</script>
+		]]>
+		</screen>
+	</section>
+</section>

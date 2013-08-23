@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- $Id: chapter.editor.xml 656 2013-08-05 09:41:22Z netkiller $ -->
+<chapter id="editor">
+	<title>Editor</title>
+	<itemizedlist>
+		<listitem><para>vi</para><para>vi file</para></listitem>
+		<listitem><para>emacs</para><para>emacs</para></listitem>
+		<listitem><para>nano/pico</para><para>nano file / pico file</para></listitem>
+		<listitem><para>joe</para><para>joe file</para>
+			<screen>sudo apt-get install joe</screen>
+		</listitem>
+	</itemizedlist>
+	&chapter.editor.vim;
+	<section id="eclipse">
+		<title>Eclipse</title>
+		<section id="eclipse.anyedit">
+			<title>AnyEdit</title>
+			<para>http://andrei.gmxhome.de/anyedit/</para>
+			<para>Remove trailing whitespace:</para>
+			<para>Window -> Preferences -> PHP -> Editor -> Save Actions</para>
+			<para>[v] Remove trailing whitespace</para>
+			<para>() All lines (o) Ignore empty lines</para>
+
+			<para>AnyEdit tools plugin for Eclipse</para>
+		</section>
+		<section id="eclipse.eclim">
+			<title>Eclim</title>
+			<para><ulink url="http://eclim.org/index.html">http://eclim.org/index.html</ulink></para>
+			<para>安装Eclim</para>
+			<screen>
+java -jar eclim_1.7.0.jar
+			</screen>
+		</section>
+		<section id="Vrapper">
+			<title>Vrapper</title>
+			<para>Eclipse 的 VIM 插件</para>
+			<para>http://vrapper.sourceforge.net/home/</para>
+		</section>
+	</section>
+	<section id="komodo">
+		<title>Komodo Edit</title>
+		<para>http://www.activestate.com/komodo_edit/</para>
+	</section>
+	<section id="serna">
+		<title>Syntext Serna Free</title>
+		<para>http://www.syntext.com/downloads/serna-free/</para>
+	</section>
+	<section id="scite">
+		<title>SciTE</title>
+		<para>http://www.scintilla.org/</para>
+		<screen>
+$ apt-cache search SciTE
+scite - Lightweight GTK-based Programming Editor
+sciteproj - project manager for the SciTE editor
+		</screen>
+
+	</section>
+</chapter>
+
+<chapter id="comparison">
+	<title>Comparison, merge and patch utilities</title>
+	<section id="sdiff">
+		<title>comparison, merge</title>
+		<para>sdiff</para>
+		<screen>
+neo@netkiller:/tmp$ sdiff file1 file2
+#!/bin/bash                                                     #!/bin/bash
+echo "Helloworld"                                             | echo "Helloword"
+echo "Line 1"                                                   echo "Line 1"
+		</screen>
+		<para>vimdiff</para>
+		<screen>
+$ vimdiff file1 file2
+		</screen>
+	</section>
+	<section id="patch">
+		<title>patch - apply a diff file to an original</title>
+		<para>diff</para>
+		<para>-r 是一个递归选项，设置了这个选项，diff会将两个不同版本源代码目录中的所有对应文件全部都进行一次比较，包括子目录文件。</para>
+		<para>-N 选项确保补丁文件将正确地处理已经创建或删除文件的情况。</para>
+		<para>-u 选项以统一格式创建补丁文件，这种格式比缺省格式更紧凑些。</para>
+
+		<para>patch</para>
+		<para>-p0 选项要从当前目录查找目的文件（夹）</para>
+		<para>-p1 选项要忽略掉第一层目录，从当前目录开始查找。</para>
+		<para>-E 选项说明如果发现了空文件，那么就删除它</para>
+		<para>-R 选项说明在补丁文件中的“新”文件和“旧”文件现在要调换过来了（实际上就是给新版本打补丁，让它变成老版本）</para>
+		<example>
+			<title>single file</title>
+			<para>make a patch file</para>
+			<screen>
+$ diff -uN file.old file.new > file.patch
+			</screen>
+			<para>take a patch file </para>
+			<screen>
+			<![CDATA[
+$ patch -p0 < file.patch
+			]]>
+			</screen>
+		</example>
+		<example>
+			<title>a lot of file or directory</title>
+			<para></para>
+			<screen>
+$ diff –uNr dir.old dir.new >my.patch
+			</screen>
+			<para></para>
+			<screen>
+			<![CDATA[
+$ patch -p1 < file.patch
+			]]>
+			</screen>
+		</example>
+	</section>
+	<section id="winmerge">
+		<title>WinMerge</title>
+		<para>http://winmerge.org/</para>
+		<para>开源，一般化</para>
+	</section>
+	<section id="beyond">
+		<title>Beyond Compare Pro</title>
+		<para>最好用的文件比较合并工具</para>
+	</section>
+</chapter>

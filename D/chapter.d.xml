@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- $Id: chapter.d.xml 547 2013-03-28 04:47:40Z netkiller $ -->
+<part id="index"><?dbhtml dir="d" ?>
+	<title>D Programming Language</title>
+<chapter id="d">
+	<title>D Lang</title>
+	<ulink url="http://dlang.org/" />
+	<section id="install">
+		<title>dmd install</title>
+		<para>Ubuntu</para>
+		<screen>
+$ wget http://ftp.digitalmars.com/dmd_2.061-0_amd64.deb
+$ sudo apt-get install libc6-dev
+
+$ sudo dpkg -i dmd_2.061-0_amd64.deb
+		</screen>
+		<para>CentOS</para>
+		<screen>
+wget http://ftp.digitalmars.com/dmd-2.062-0.fedora.x86_64.rpm
+yum localinstall dmd-2.062-0.fedora.x86_64.rpm
+		</screen>
+	</section>
+	<section id="helloworld.d">
+		<title>helloworld</title>
+		<para></para>
+		<screen>
+$ cat hello.d
+import std.stdio;
+void main() {
+  writeln("Hello, world!");
+}
+		</screen>
+		<screen>
+$ chmod u+x hello.d
+$ ./hello.d
+Hello, world!
+		</screen>
+		<screen>
+$ dmd hello.d
+$ ./hello
+Hello, world!
+		</screen>
+		<screen>
+$ scp hello root@172.16.0.3:/tmp
+
+# cd /tmp/
+# ./hello
+Hello, world!
+		</screen>
+	</section>
+	<section id="dmd">
+		<title>dmd - Digital Mars D2.x Compiler</title>
+
+		<section id="dmd.cov">
+			<title>-cov do code coverage analysis</title>
+			<para>$ dmd hello.d -cov</para>
+			<screen>
+$ cat hello.d
+#!/usr/bin/rdmd
+import std.stdio;
+void main() {
+    writeln("Hello, world!");
+}
+
+$ dmd hello.d -cov
+
+$ ./hello
+Hello, world!
+
+$ cat hello.lst
+       |#!/usr/bin/rdmd
+       |import std.stdio;
+       |void main() {
+      1|    writeln("Hello, world!");
+       |}
+hello.d is 100% covered
+			</screen>
+		</section>
+	</section>
+
+	&chapter.dsource.xml;
+
+<!--
+	<section id="c.autoconf">
+		<title>autoconf/automake</title>
+		<para>autoconf</para>
+		<para>Makefile</para>
+
+		<para>使用make命令测试</para>
+		<screen>
+$ sudo apt-get install autoconf
+		</screen>
+		<para>automake</para>
+
+		<para>example</para>
+		<procedure>
+			<title>autoconf and automake step by step</title>
+			<step>
+				<para>create directory</para>
+				<screen>
+				</screen>
+				<para>create a file</para>
+				<screen>
+
+				</screen>
+			</step>
+			<step>
+				<para>autoscan</para>
+				<screen>
+
+				</screen>
+			</step>
+			<step>
+				<para>configure.in</para>
+				<screen>
+
+				</screen>
+			</step>
+			<step>
+				<para>Makefile.am</para>
+				<screen>
+
+				</screen>
+				<para></para>
+				<screen>
+
+				</screen>
+			</step>
+		</procedure>
+	</section>
+<section id="c.glibc">
+	<title>lib</title>
+		<section>
+			<title>syslog.h</title>
+			<screen>
+			<![CDATA[
+
+			]]>
+			</screen>
+			<screen>
+
+			</screen>
+		</section>
+
+</section>
+-->
+</chapter>
+<!--
+<chapter id="c++">
+	<title>C++</title>
+	<section id="c++.boost">
+		<title>Boost C++ Libraries</title>
+		<para>www.boost.org</para>
+	</section>
+	<section id="google-perftools">
+		<title>google-perftools</title>
+		<subtitle>Fast, multi-threaded malloc() and nifty performance analysis tools</subtitle>
+		<para>http://code.google.com/p/google-perftools/</para>
+	</section>
+</chapter>
+
+	<chapter id="c.debug">
+		<title>调试工具</title>
+		<section id="lsof">
+			<title>lsof - list open files</title>
+			<screen>
+
+			</screen>
+		</section>
+		<section id="strace">
+			<title>strace - trace system calls and signals</title>
+			<para>strace -v ps -e 2</para>
+			<para>strace -v ls</para>
+			<screen>
+
+			</screen>
+			<screen>
+
+			</screen>
+		</section>
+		<section id="ltrace">
+			<title>ltrace - A library call tracer</title>
+			<para>ltrace ls</para>
+			<screen>
+			<![CDATA[
+
+			]]>
+			</screen>
+		</section>
+		<section id="ldd">
+			<title> ldd - print shared library dependencies </title>
+			<screen>
+
+			</screen>
+		</section>
+		<section id="valgrind ">
+			<title>Valgrind</title>
+			<para>http://valgrind.org/</para>
+			<screen>
+
+			</screen>
+		</section>
+	</chapter>
+-->
+	&chapter.faq.xml;
+</part>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+	<!ENTITY part.webpage.xml				SYSTEM "part.webpage.xml">
+	<!ENTITY chapter.html.xml				SYSTEM "chapter.html.xml">
+	<!ENTITY chapter.xhtml.xml				SYSTEM "chapter.xhtml.xml">
+	<!ENTITY chapter.css.xml				SYSTEM "chapter.css.xml">
+	<!ENTITY chapter.javascript.xml 		SYSTEM "chapter.javascript.xml">
+	<!ENTITY chapter.javascript.jquery 		SYSTEM "chapter.javascript.jquery.xml">
+	<!ENTITY chapter.ssi.xml 				SYSTEM "chapter.ssi.xml">
+	<!ENTITY chapter.theme.xml 				SYSTEM "chapter.theme.xml">
+	<!ENTITY chapter.divcss.design.xml 		SYSTEM "chapter.divcss.design.xml">
+	<!ENTITY chapter.3rdparty.xml 			SYSTEM "chapter.3rdparty.xml">

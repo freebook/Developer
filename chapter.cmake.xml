@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section id="cmake">
+	<title>CMake</title>
+	<para><ulink url="http://www.cmake.org/" /></para>
+	<section>
+		<title>helloworld</title>
+		<para>安装CMake</para>
+		<screen>
+$ sudo yum install gcc gcc-c++
+$ sudo yum install make
+
+$ sudo yum install cmake28
+$ sudo ln -s /usr/bin/cmake28 /usr/bin/cmake
+$ cmake --version
+cmake version 2.8.9
+		</screen>
+		<para>创建 CMakeLists.txt 文件</para>
+		<screen>
+$ cat CMakeLists.txt
+PROJECT(example)
+ADD_EXECUTABLE(example main.c)
+		</screen>
+		<para>创建 main.c 文件</para>
+		<screen>
+		<![CDATA[
+$ cat main.c
+#include <stdio.h>
+int main() {
+   printf("helloworld!\n");
+   return 0;
+}
+		]]>
+		</screen>
+		<para>编译程序</para>
+		<screen>
+$ cmake .
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /home/neo/example
+
+$ make
+Scanning dependencies of target example
+[100%] Building C object CMakeFiles/example.dir/main.c.o
+Linking C executable example
+[100%] Built target example
+
+$ ./example
+helloworld!
+		</screen>
+	</section>
+	<section>
+		<title>cmake_minimum_required</title>
+		<screen>
+cmake_minimum_required(VERSION 2.8.7)
+		</screen>
+	</section>
+	<section>
+		<title>SET</title>
+		<screen>
+SET(CMAKE_INSTALL_PREFIX /usr/local)
+		</screen>
+		<para>改变 CMAKE_INSTALL_PREFIX 变量</para>
+		<screen>
+cmake -DCMAKE_INSTALL_PREFIX=/usr ..
+		</screen>
+	</section>
+	<section>
+		<title>ADD_SUBDIRECTORY</title>
+		<screen>
+ADD_SUBDIRECTORY(src bin)
+		</screen>
+	</section>
+	<section>
+		<title>INCLUDE_DIRECTORIES</title>
+		<screen>
+INCLUDE_DIRECTORIES(/usr/include/xen)
+		</screen>
+	</section>
+	<section>
+		<title>ADD_EXECUTABLE / ADD_LIBRARY</title>
+		<screen>
+SET(SRC_LIST main.cc
+        src/file1.c
+        src/file2.c
+        )
+
+ADD_EXECUTABLE(hello ${SRC_LIST})
+		</screen>
+	</section>
+	<section>
+		<title>EXECUTABLE_OUTPUT_PATH / LIBRARY_OUTPUT_PATH</title>
+		<screen>
+SET(EXECUTABLE_OUTPUT_PATH ${PROJECT_BINARY_DIR}/bin)
+SET(LIBRARY_OUTPUT_PATH ${PROJECT_BINARY_DIR}/lib)
+		</screen>
+	</section>
+	<section>
+		<title>TARGET_LINK_LIBRARIES</title>
+		<screen>
+TARGET_LINK_LIBRARIES(hello log4cpp)
+		</screen>
+	</section>
+	<section>
+		<title>INSTALL</title>
+		<screen>
+INSTALL(PROGRAMS hello DESTINATION bin)
+
+INSTALL(FILES COPYRIGHT README DESTINATION share/doc/hello)
+
+INSTALL(DIRECTORY doc/ DESTINATION share/doc/hello)
+		</screen>
+	</section>
+</section>

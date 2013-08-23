@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<chapter id="index"><?dbhtml dir="mqueue" ?>
+	<title>Message Queuing &amp; RPC</title>
+	<chapterinfo>
+		<keywordset>
+			<keyword>rabbitmq, zeromq, ActiveMQ, Kafka, Gearman</keyword>
+		</keywordset>
+	</chapterinfo>
+
+    &chapter.queuing.rabbitmq.xml;
+    &chapter.queuing.zeromq.xml;
+	&chapter.queuing.gearman.xml;
+
+	<section id="ActiveMQ">
+		<title>ActiveMQ</title>
+		<para><ulink url="http://activemq.apache.org/">Apache ActiveMQ</ulink></para>
+	</section>
+    <section id="kafka">
+    	<title>Apache Kafka is a distributed publish-subscribe messaging system</title>
+    	<para>http://kafka.apache.org/</para>
+    </section>
+</chapter>

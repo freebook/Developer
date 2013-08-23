@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<chapter id="ruby">
+	<title>Ruby</title>
+	<screen>
+sudo apt-get install ruby1.9.1
+	</screen>
+	<section id="rubygems">
+		<title>rubygems</title>
+		<screen>
+wget http://production.cf.rubygems.org/rubygems/rubygems-1.6.2.tgz
+tar zxvf rubygems-1.6.2.tgz
+cd rubygems-1.6.2/
+sudo  ruby setup.rb
+# gem1.8
+		</screen>
+		<para>ubuntu</para>
+		<screen>
+$ sudo apt-get install ruby1.9.1
+$ sudo apt-get install rubygems1.8
+		</screen>
+	</section>
+</chapter>
+<chapter id="ruby.syntax">
+	<title>Variable</title>
+	<section id="string">
+		<title>String</title>
+		<para></para>
+		<screen>
+		</screen>
+	</section>
+	<section id="array">
+		<title>Array</title>
+		<screen>
+		</screen>
+	</section>
+</chapter>
+	&chapter.ruby.class.xml;
+	&chapter.ror.xml;
+<chapter id="ruby.faq">
+	<title>FAQ</title>
+	<section>
+		<title>no such file to load — mkmf</title>
+		<screen>
+sudo apt-get install ruby-dev
+		</screen>
+	</section>
+</chapter>

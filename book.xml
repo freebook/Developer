@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- $Id: book.xml 660 2013-08-12 06:27:21Z netkiller $ -->
+<!DOCTYPE subject SYSTEM "/usr/share/xml/docbook/schema/dtd/5.0/docbook.dtd"
+	[
+	<!ENTITY homepage "http://netkiller.sf.net/">
+	<!ENTITY mirror "http://netkiller.githut.io/">
+
+	<!ENTITY Neo "http://netkiller.sf.net/">
+	<!ENTITY BG7NYT "&Neo;">
+	<!ENTITY Netkiller "<emphasis><trademark>Netkiller</trademark></emphasis>">
+	<!ENTITY book.info.legalnotice.xml		SYSTEM "../common/book.info.legalnotice.xml">
+	<!ENTITY book.info.abstract.xml			SYSTEM "../common/book.info.abstract.xml">
+	<!ENTITY book.info.author.xml			SYSTEM "../common/book.info.author.xml">
+    <!ENTITY book.preface.xml           	SYSTEM "../common/book.preface.xml">
+	<!ENTITY preface.about.me.xml       	SYSTEM "../common/about.me.xml">
+	<!ENTITY book.dedication.xml       		SYSTEM "../common/book.dedication.xml">
+<!--
+	<!ENTITY book.preface SYSTEM "book.preface.xml">
+	<!ENTITY book.dedication SYSTEM "book.dedication.xml">
+	<!ENTITY book.appendix SYSTEM "book.appendix.xml">
+	<!ENTITY book.history SYSTEM "book.history.xml">
+-->
+	<!ENTITY chapter.editor 				SYSTEM "chapter.editor.xml">
+	<!ENTITY chapter.editor.vim 			SYSTEM "chapter.editor.vim.xml">
+
+	<!ENTITY chapter.build.xml		 		SYSTEM "chapter.build.xml">
+	<!ENTITY chapter.cmake.xml		 		SYSTEM "chapter.cmake.xml">
+
+	<!ENTITY chapter.developer 				SYSTEM "chapter.developer.xml">
+	<!ENTITY chapter.developer.memcached 	SYSTEM "chapter.developer.memcached.xml">
+
+	<!ENTITY chapter.c.xml				  	SYSTEM "chapter.c.xml">
+	<!ENTITY chapter.d.xml				  	SYSTEM "D/chapter.d.xml">
+	<!ENTITY chapter.dsource.xml			SYSTEM "D/chapter.dsource.xml">
+	<!ENTITY chapter.faq.xml				SYSTEM "D/chapter.faq.xml">
+
+	<!ENTITY chapter.queuing.xml		   	SYSTEM "chapter.queuing.xml">
+    <!ENTITY chapter.queuing.rabbitmq.xml	SYSTEM "chapter.queuing.rabbitmq.xml">
+    <!ENTITY chapter.queuing.zeromq.xml	    SYSTEM "chapter.queuing.zeromq.xml">
+    <!ENTITY chapter.queuing.gearman.xml	SYSTEM "chapter.queuing.gearman.xml">
+
+	<!ENTITY % html.doctype.entity.xml 		SYSTEM "HTML/doctype.entity.xml">
+	%html.doctype.entity.xml;
+
+	<!ENTITY % php.doctype.entity.xml 		SYSTEM "PHP/doctype.entity.xml">
+	%php.doctype.entity.xml;
+
+	<!ENTITY % python.doctype.entity.xml 	SYSTEM "Python/doctype.entity.xml">
+	%python.doctype.entity.xml;
+
+	<!ENTITY % perl.doctype.entity.xml 		SYSTEM "Perl/doctype.entity.xml">
+	%perl.doctype.entity.xml;
+
+	<!ENTITY % ruby.doctype.entity.xml 		SYSTEM "Ruby/doctype.entity.xml">
+	%ruby.doctype.entity.xml;
+
+	<!ENTITY % java.doctype.entity.xml 		SYSTEM "Java/doctype.entity.xml">
+	%java.doctype.entity.xml;
+
+	<!ENTITY % graphics.doctype.entity.xml 	SYSTEM "Graphics/doctype.entity.xml">
+	%graphics.doctype.entity.xml;
+
+	<!ENTITY chapter.node.js.xml		    SYSTEM "Node.js/chapter.node.js.xml">
+
+	<!ENTITY chapter.project.xml			SYSTEM "Project/chapter.project.xml">
+	<!ENTITY chapter.project.trac.xml		SYSTEM "Project/chapter.project.trac.xml">
+	<!ENTITY chapter.project.tutos.xml		SYSTEM "Project/chapter.project.tutos.xml">
+
+	<!ENTITY chapter.uml.xml				SYSTEM "UML/chapter.uml.xml">
+	<!ENTITY chapter.regular.xml			SYSTEM "chapter.regular.xml">
+	<!ENTITY chapter.miscellaneous.xml		SYSTEM "chapter.miscellaneous.xml">
+
+	<!ENTITY home "<![CDATA[ <ulink url='&homepage;'>&homepage;</ulink> ]]>">
+
+]>
+<book xml:base="http://netkiller.sourceforge.net/developer/"
+	xmlns="http://docbook.org/ns/docbook" xml:lang="zh-cn">
+	<bookinfo>
+		<title>Netkiller Developer 手札</title>
+		<subtitle>November 15, 2008</subtitle>
+
+		<authorgroup>
+		&book.info.author.xml;
+		</authorgroup>
+
+		<copyright>
+			<year>2008</year>
+			<year>2009</year>
+			<year>2010</year>
+			<year>2011</year>
+			<year>2012</year>
+			<year>2013</year>
+			<holder>Netkiller(Neo Chan). All rights reserved.</holder>
+		</copyright>
+
+		<publisher>
+			<publishername>Neo</publishername>
+		</publisher>
+		<isbn>ISBN#</isbn>
+		<edition>User's Guide version 1.0 for Linux</edition>
+		<pagenums>120-126 pages</pagenums>
+		<pubdate>Tue Dec  6 17:22:53 CST 2011</pubdate>
+		<releaseinfo></releaseinfo>
+
+		&book.info.legalnotice.xml;
+		&book.info.abstract.xml;
+		<keywordset>
+		    <keyword>PHP</keyword>
+		    <keyword>Python</keyword>
+		    <keyword>Perl</keyword>
+		    <keyword>Ruby</keyword>
+		    <keyword>Java</keyword>
+		    <keyword>HTML, XHTML, HTML5</keyword>
+		    <keyword>CSS</keyword>
+		    <keyword>Javascript, JQuery</keyword>
+		    <keyword>C, C++, D</keyword>
+		</keywordset>
+	</bookinfo>
+
+<!-- =========================================================================== -->
+	&book.dedication.xml;
+<!--  =========================================================================== -->
+ 	&book.preface.xml;
+	&chapter.developer;
+	&chapter.build.xml;
+	&part.webpage.xml;
+	&part.php.xml;
+	&part.python.xml;
+	&chapter.perl;
+	&chapter.java.xml;
+	&part.ruby.xml;
+	&chapter.node.js.xml;
+<!-- =========================================================================== -->
+	&chapter.c.xml;
+	&chapter.d.xml;
+<!-- =========================================================================== -->
+	&chapter.queuing.xml;
+	&part.graphics.xml;
+<!-- =========================================================================== -->
+	&chapter.uml.xml;
+	&chapter.regular.xml;
+	&chapter.miscellaneous.xml;
+<!-- ===========================================================================
+	&book.history;
+	&book.appendix;
+-->
+</book>

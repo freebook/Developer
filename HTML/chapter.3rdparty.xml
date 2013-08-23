@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- $Id: chapter.3rdparty.xml 462 2012-09-07 10:48:54Z netkiller $ -->
+<chapter id="3rdparty">
+	<title>3rd party</title>
+	<section id="share">
+		<title>Share Buttons</title>
+		<subtitle>Share Buttons, Share Plugin, Share Analytics, Media Solutions</subtitle>
+		<para>http://sharethis.com</para>
+	</section>
+	<section id="discussions ">
+		<title>discussions</title>
+		<para>http://disqus.com/</para>
+	</section>
+</chapter>

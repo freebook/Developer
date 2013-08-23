@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<chapter id="build">
+	<title>Build tool</title>
+	<section id="gnu.make">
+		<title>make - GNU make utility to maintain groups of programs</title>
+		<para>Makefile</para>
+		<screen>
+$ sudo apt-get install make
+		</screen>
+		<para>使用make命令测试</para>
+
+		<section id="autoconf">
+			<title>autoconf - Generate configuration scripts</title>
+			<para>autoconf</para>
+			<screen>
+$ sudo apt-get install autoconf
+			</screen>
+			<para>automake</para>
+			<screen>
+$ sudo apt-get install automake
+			</screen>
+			<para>example</para>
+			<procedure>
+				<title>autoconf and automake step by step</title>
+				<step>
+					<para>create directory</para>
+					<screen>
+% mkdir devel
+% cd devel
+% mkdir hello
+% cd hello
+					</screen>
+					<para>create a file</para>
+					<screen>
+vim hello.c
+
+　　#include
+　　int main(int argc, char** argv)
+　　{
+　　printf(``Hello, GNU!\n'');
+　　return 0;
+　　}
+					</screen>
+				</step>
+				<step>
+					<para>autoscan</para>
+					<screen>
+neo@debian:~/workspace/devel/hello$ autoscan
+neo@debian:~/workspace/devel/hello$ ls
+autoscan.log  configure.scan  hello.c
+					</screen>
+				</step>
+				<step>
+					<para>configure.in</para>
+					<screen>
+cp configure.scan configure.in
+
+neo@debian:~/workspace/devel/hello$ aclocal
+neo@debian:~/workspace/devel/hello$ autoconf
+neo@debian:~/workspace/devel/hello$ ls
+autom4te.cache  autoscan.log  configure  configure.in  configure.scan  hello.c
+					</screen>
+				</step>
+				<step>
+					<para>Makefile.am</para>
+					<screen>
+neo@debian:~/workspace/devel/hello$ vim Makefile.am
+neo@debian:~/workspace/devel/hello$ cat Makefile.am
+AUTOMAKE_OPTIONS= foreign
+bin_PROGRAMS= hello
+hello_SOURCES= hello.c
+neo@debian:~/workspace/devel/hello$
+					</screen>
+					<para></para>
+					<screen>
+$ automake --add-missing
+configure.in: no proper invocation of AM_INIT_AUTOMAKE was found.
+configure.in: You should verify that configure.in invokes AM_INIT_AUTOMAKE,
+configure.in: that aclocal.m4 is present in the top-level directory,
+configure.in: and that aclocal.m4 was recently regenerated (using aclocal).
+automake: no `Makefile.am' found for any configure output
+automake: Did you forget AC_CONFIG_FILES([Makefile]) in configure.in?
+					</screen>
+				</step>
+			</procedure>
+		</section>
+	</section>
+
+	&chapter.cmake.xml;
+
+	<section id="scons">
+		<title>scons - a software construction tool</title>
+		<ulink url="http://www.scons.org/" />
+		<para>创建一个hello.c测试文件</para>
+		<screen>
+		<![CDATA[
+#include<stdio.h>
+
+main()
+{
+    printf("Hello World!\n");
+}
+		]]>
+		</screen>
+		<para>创建SConstruct文件（相当于Makefile）</para>
+		<screen>
+$ cat SConstruct
+Program('hello.c')
+		</screen>
+		<para>开始编译</para>
+		<screen>
+$ scons
+scons: Reading SConscript files ...
+scons: done reading SConscript files.
+scons: Building targets ...
+gcc -o hello.o -c hello.c
+gcc -o hello hello.o
+scons: done building targets.
+		</screen>
+		<para>编译后产生的文件，尝试运行hello程序</para>
+		<screen>
+$ ls
+hello  hello.c  hello.o  SConstruct
+
+$ ./hello
+Hello World!
+		</screen>
+		<para>下面操作想当于 make clean</para>
+		<screen>
+$ scons -c
+scons: Reading SConscript files ...
+scons: done reading SConscript files.
+scons: Cleaning targets ...
+Removed hello.o
+Removed hello
+scons: done cleaning targets.
+
+$ ls
+hello.c  SConstruct
+		</screen>
+	</section>
+	<section id="phing">
+		<title>Phing</title>
+		<para>http://www.phing.info/</para>
+		<screen>
+$ pear channel-discover pear.phing.info
+$ pear install phing/phing
+		</screen>
+	</section>
+
+</chapter>
