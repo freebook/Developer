@@ -80,6 +80,10 @@ Jan 11 23:52:27 dev1 slog[5056]: A different kind of Hello world ...
 		<para>http://sourcecodebrowser.com/newt/0.52.10/windows_8c.html</para>
 		<para>http://gnewt.sourceforge.net/tutorial-4.html#ss4.1</para>
 	</section>
+	<section id="spdylay">
+		<title>Spdylay - SPDY C Library</title>
+		<para><ulink url="http://spdylay.sourceforge.net/" /></para>
+	</section>
 </section>
 
 </chapter>
