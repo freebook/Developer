@@ -13,6 +13,13 @@
 	&chapter.editor.vim;
 	<section id="eclipse">
 		<title>Eclipse</title>
+		<screen>
+		<![CDATA[
+Window-Perferenes-General-Keys
+
+Remove Trailing Whitespace
+		]]>
+		</screen>
 		<section id="eclipse.anyedit">
 			<title>AnyEdit</title>
 			<para>http://andrei.gmxhome.de/anyedit/</para>
