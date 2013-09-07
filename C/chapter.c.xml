@@ -389,7 +389,7 @@ $ ldd /bin/ls
 $
 			</screen>
 		</section>
-		<section id="valgrind ">
+		<section id="valgrind">
 			<title>Valgrind</title>
 			<para>http://valgrind.org/</para>
 			<screen>
