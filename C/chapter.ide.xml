@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<chapter id="ide">
+	<title>Integrated development environment</title>
+	<section id="eclipse">
+		<title>Eclipse</title>
+		<subtitle>C/C++ Development Tools for Eclipse</subtitle>
+		<para>Ubuntu 13.04</para>
+		<screen>
+$ sudo apt-get install eclipse-cdt*			
+		</screen>
+		<para>AnyEdit</para>		
+		<screen>
+$ sudo apt-get install eclipse-anyedit
+		</screen>
+		<para>Git Version</para>
+		<screen>
+$ sudo apt-get install eclipse-egit		
+		</screen>
+				
+	</section>
+	<section id="vim">
+		<title>VIM</title>
+	</section>
+	<section id="emacs">
+		<title>Emacs</title>			
+	</section>
+</chapter>

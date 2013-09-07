@@ -11,7 +11,7 @@
 	</section>
 	<section id="tiobe">
 		<title>TIOBE Programming Community Index - 编程语言排行榜</title>
-		<para><ulink url="http://www.tiobe.com/index.php/content/paperinfo/tpci/index.html">编程语言排行榜</ulink></para>
+		<para>编程语言排行榜<ulink url="http://www.tiobe.com/index.php/content/paperinfo/tpci/index.html" /></para>
 	</section>
 	<section id="hyperpolyglot">
 		<title>Programming Languages Reference Sheets - Hyperpolyglot</title>

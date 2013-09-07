@@ -29,7 +29,9 @@
 	<!ENTITY chapter.developer 				SYSTEM "chapter.developer.xml">
 	<!ENTITY chapter.developer.memcached 	SYSTEM "chapter.developer.memcached.xml">
 
-	<!ENTITY chapter.c.xml				  	SYSTEM "chapter.c.xml">
+	<!ENTITY % c.doctype.entity.xml 		SYSTEM "C/doctype.entity.xml">
+	%c.doctype.entity.xml;
+
 	<!ENTITY chapter.d.xml				  	SYSTEM "D/chapter.d.xml">
 	<!ENTITY chapter.dsource.xml			SYSTEM "D/chapter.dsource.xml">
 	<!ENTITY chapter.faq.xml				SYSTEM "D/chapter.faq.xml">
@@ -131,7 +133,7 @@
 	&part.ruby.xml;
 	&chapter.node.js.xml;
 <!-- =========================================================================== -->
-	&chapter.c.xml;
+	&part.c.xml;
 	&chapter.d.xml;
 <!-- =========================================================================== -->
 	&chapter.queuing.xml;

@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- $Id: chapter.c.xml 664 2013-08-19 10:23:23Z netkiller $ -->
-<part id="index"><?dbhtml dir="c" ?>
-	<title>C/C++</title>
 <chapter id="c">
 	<title>gcc</title>
 	<section id="c.compiler">
@@ -447,4 +445,4 @@ total 4984
 			</screen>
 		</section>
 	</chapter>
-</part>
+
