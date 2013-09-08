@@ -23,9 +23,6 @@
 	<!ENTITY chapter.editor 				SYSTEM "chapter.editor.xml">
 	<!ENTITY chapter.editor.vim 			SYSTEM "chapter.editor.vim.xml">
 
-	<!ENTITY chapter.build.xml		 		SYSTEM "chapter.build.xml">
-	<!ENTITY chapter.cmake.xml		 		SYSTEM "chapter.cmake.xml">
-
 	<!ENTITY chapter.developer 				SYSTEM "chapter.developer.xml">
 	<!ENTITY chapter.developer.memcached 	SYSTEM "chapter.developer.memcached.xml">
 
@@ -124,7 +121,6 @@
 <!--  =========================================================================== -->
  	&book.preface.xml;
 	&chapter.developer;
-	&chapter.build.xml;
 	&part.webpage.xml;
 	&part.php.xml;
 	&part.python.xml;

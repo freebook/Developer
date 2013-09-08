@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <part id="index"><?dbhtml dir="c" ?>
 	<title>C/C++</title>
+	&chapter.build.xml;
 	&chapter.c.xml;
-</part>	
+</part>

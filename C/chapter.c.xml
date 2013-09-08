@@ -1,16 +1,49 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- $Id: chapter.c.xml 664 2013-08-19 10:23:23Z netkiller $ -->
 <chapter id="c">
-	<title>gcc</title>
+	<title>c</title>
 	<section id="c.compiler">
 		<title>compiler</title>
-		<section>
+		<section id="gcc">
 			<title>gcc - The GNU C compiler</title>
 			<para>$ sudo apt-get install gcc</para>
 			<screen>
 $ sudo apt-get install gcc
 			</screen>
 		</section>
+			<section id="clang">
+		<title>clang - Low-Level Virtual Machine (LLVM), C language family frontend</title>
+		<screen>
+$ apt-cache search clang
+llvm-3.0 - Low-Level Virtual Machine (LLVM)
+clang - Low-Level Virtual Machine (LLVM), C language family frontend
+libclang-common-dev - clang library - Common development package
+libclang-dev - clang library - Development package
+libclang1 - clang library
+libsclang1 - SuperCollider language interpreter library
+llvm-2.8 - Low-Level Virtual Machine (LLVM)
+llvm-2.9 - Low-Level Virtual Machine (LLVM)
+		</screen>
+		<screen>
+$ apt-get install clang
+		</screen>
+		<example>
+			<title>clang helloworld</title>
+			<screen>
+			<![CDATA[
+$ cat hello.c
+#include <stdio.h>
+int main(int argc, char **argv) { printf("hello world\n"); }
+			]]>
+			</screen>
+			<screen>
+$ vim hello.c
+$ clang hello.c -o hello
+$ ./hello
+hello world
+			</screen>
+		</example>
+	</section>
 	</section>
 	<section id="c.ldconfig">
 		<title>ldconfig</title>
@@ -83,6 +116,7 @@ Jan 11 23:52:27 dev1 slog[5056]: A different kind of Hello world ...
 		<para><ulink url="http://spdylay.sourceforge.net/" /></para>
 	</section>
 </section>
+
 
 </chapter>
 
@@ -397,39 +431,7 @@ valgrind --tool=memcheck --leak-check=full ./test
 			</screen>
 		</section>
 	</chapter>
-	<chapter id="clang">
-		<title>clang - Low-Level Virtual Machine (LLVM), C language family frontend</title>
-		<screen>
-$ apt-cache search clang
-llvm-3.0 - Low-Level Virtual Machine (LLVM)
-clang - Low-Level Virtual Machine (LLVM), C language family frontend
-libclang-common-dev - clang library - Common development package
-libclang-dev - clang library - Development package
-libclang1 - clang library
-libsclang1 - SuperCollider language interpreter library
-llvm-2.8 - Low-Level Virtual Machine (LLVM)
-llvm-2.9 - Low-Level Virtual Machine (LLVM)
-		</screen>
-		<screen>
-$ apt-get install clang
-		</screen>
-		<example>
-			<title>clang helloworld</title>
-			<screen>
-			<![CDATA[
-$ cat hello.c
-#include <stdio.h>
-int main(int argc, char **argv) { printf("hello world\n"); }
-			]]>
-			</screen>
-			<screen>
-$ vim hello.c
-$ clang hello.c -o hello
-$ ./hello
-hello world
-			</screen>
-		</example>
-	</chapter>
+
 	<chapter id="binutils">
 		<title>GNU Development Tools</title>
 		<section id="strip">
