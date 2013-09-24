@@ -1,8 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<chapter id="cplusplus.libraries">
+<section id="cplusplus.libraries">
 	<title>C++ library</title>
+	<section id="c++.boost">
+		<title>Boost C++ Libraries</title>
+		<para>www.boost.org</para>
+	</section>
+	<section id="google-perftools">
+		<title>google-perftools</title>
+		<subtitle>Fast, multi-threaded malloc() and nifty performance analysis tools</subtitle>
+		<para>http://code.google.com/p/google-perftools/</para>
+	</section>
 	<section id="TreeFrog">
 		<title>TreeFrog Framework</title>
 		<subtitle>High-speed C++ MVC Framework for Web Application</subtitle>
 	</section>
-</chapter>
+</section>

@@ -3,3 +3,5 @@
 <!ENTITY chapter.build.xml		 		SYSTEM "chapter.build.xml">
 <!ENTITY chapter.cmake.xml		 		SYSTEM "chapter.cmake.xml">
 <!ENTITY chapter.c.xml				  	SYSTEM "chapter.c.xml">
+<!ENTITY chapter.c.library.xml		  	SYSTEM "chapter.c.library.xml">
+<!ENTITY chapter.cplusplus.library.xml	SYSTEM "chapter.cplusplus.library.xml">

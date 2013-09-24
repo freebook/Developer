@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- $Id: chapter.c.xml 664 2013-08-19 10:23:23Z netkiller $ -->
 <chapter id="c">
-	<title>c</title>
+	<title>C</title>
 	<section id="c.compiler">
 		<title>compiler</title>
 		<section id="gcc">
@@ -60,63 +60,7 @@ hello world
 		</screen>
 	</section>
 
-<section id="c.glibc">
-	<title>lib</title>
-		<section>
-			<title>syslog.h</title>
-			<screen>
-			<![CDATA[
-# cat syslog.c
-#include <stdio.h>
-#include <unistd.h>
-#include <syslog.h>
-
-int main(void) {
-
- openlog("slog", LOG_PID|LOG_CONS, LOG_USER);
- syslog(LOG_INFO, "A different kind of Hello world ... ");
- closelog();
-
- return 0;
-}
-			]]>
-			</screen>
-			<screen>
-[root@dev1 test]# gcc syslog.c
-[root@dev1 test]# ls
-a.out  syslog.c
-[root@dev1 test]# ./a.out
-
-[root@dev1 test]# tail /var/log/messages
-Jan 11 23:52:27 dev1 slog[5056]: A different kind of Hello world ...
-			</screen>
-		</section>
-	<section id="libs.libssh2">
-		<title>libssh2</title>
-		<para><ulink url="http://www.libssh2.org/">http://www.libssh2.org/</ulink></para>
-	</section>
-	<section>
-		<title>libconfig – C/C++ Configuration File Library</title>
-		<para>http://www.hyperrealm.com/main.php?s=libconfig</para>
-		<para>libconfig 可用于处理 *.conf 配置文件</para>
-	</section>
-	<section id="libuv">
-		<title>libuv</title>
-		<para>提供Socket,进程线程处理等等</para>
-		<para>http://nikhilm.github.io/uvbook/</para>
-	</section>
-	<section id="newt">
-		<title>newt</title>
-		<para>https://fedorahosted.org/newt/</para>
-		<para>http://sourcecodebrowser.com/newt/0.52.10/windows_8c.html</para>
-		<para>http://gnewt.sourceforge.net/tutorial-4.html#ss4.1</para>
-	</section>
-	<section id="spdylay">
-		<title>Spdylay - SPDY C Library</title>
-		<para><ulink url="http://spdylay.sourceforge.net/" /></para>
-	</section>
-</section>
-
+	&chapter.c.library.xml;
 
 </chapter>
 
@@ -129,15 +73,9 @@ Jan 11 23:52:27 dev1 slog[5056]: A different kind of Hello world ...
 $ sudo apt-get install g++
 		</screen>
 	</section>
-	<section id="c++.boost">
-		<title>Boost C++ Libraries</title>
-		<para>www.boost.org</para>
-	</section>
-	<section id="google-perftools">
-		<title>google-perftools</title>
-		<subtitle>Fast, multi-threaded malloc() and nifty performance analysis tools</subtitle>
-		<para>http://code.google.com/p/google-perftools/</para>
-	</section>
+	
+	&chapter.cplusplus.library.xml;
+	
 </chapter>
 
 <chapter id="Objective-C">
