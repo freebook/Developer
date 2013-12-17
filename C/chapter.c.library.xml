@@ -32,6 +32,86 @@ a.out  syslog.c
 Jan 11 23:52:27 dev1 slog[5056]: A different kind of Hello world ...
 			</screen>
 		</section>
+		<section>
+			<title>stdio.h</title>
+			<subtitle>fscanf/fprintf</subtitle>
+			<screen>
+			<![CDATA[
+#include<stdio.h>
+int main()
+{
+	FILE *file; 
+	char name[20][20];
+
+	int a[10]={0};
+
+	int i,j;
+	if((file=fopen("1.txt","rt"))==NULL) 
+	{ 
+		printf("Cannot open file strike any key exit!"); 
+		return 0;
+	} 
+	i=0; 
+	while(fscanf(file,"%s %d\n",name[i],&a[i])!=EOF)
+	{
+		i++;
+	}
+	i=0;
+	while(a[i]!=0)
+	{
+		printf("%s %d\n",name[i],a[i]);
+		i++;
+	}
+	fclose(file);
+}			
+			]]>
+			</screen>
+			<screen>
+			<![CDATA[
+#include <stdio.h>
+#include <string.h>
+
+typedef struct _Address
+{
+	char *name;
+	int age;
+}Address;
+
+int main()
+{
+	FILE *file; 
+	int num;
+	char str[256];
+	int i;
+	char *p; 
+	Address addr[10]={0};
+
+	if((file=fopen("1.txt","rt"))==NULL) 
+	{ 
+		printf("Cannot open file strike any key exit!"); 
+		return 0;
+	} 
+	i=0; 
+	
+	while(fscanf(file,"%s %d\n",str,&num)!=EOF)
+	{
+		asprintf(&addr[i].name, "%s", str);
+		addr[i].age = num;
+		i++;
+	}
+	fclose(file);
+	addr[i].name = NULL;
+	
+	i=0;
+	while(1){
+		if(addr[i].name == NULL) break;
+		printf("%d: %s %d\n",i, addr[i].name,addr[i].age);
+		i++;
+	}
+}			
+			]]>
+			</screen>
+		</section>
 	</section>		
 	<section id="libs.libssh2">
 		<title>libssh2</title>
@@ -63,4 +143,5 @@ Jan 11 23:52:27 dev1 slog[5056]: A different kind of Hello world ...
 		<para>http://facebook.github.io/libphenom/</para>
 		<para>libPhenom is an eventing framework for building high performance and high scalability systems in C</para>
 	</section>
+	
 </section>
