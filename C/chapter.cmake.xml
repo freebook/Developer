@@ -77,15 +77,39 @@ INCLUDE_DIRECTORIES(/usr/include/xen)
 		</screen>
 	</section>
 	<section>
-		<title>ADD_EXECUTABLE / ADD_LIBRARY</title>
-		<screen>
+		<title>编译文件</title>
+		<section>
+			<title>ADD_EXECUTABLE 编译可执行</title>
+			<screen>
 SET(SRC_LIST main.cc
         src/file1.c
         src/file2.c
         )
 
 ADD_EXECUTABLE(hello ${SRC_LIST})
-		</screen>
+			</screen>
+		</section>
+		<section>
+			<title>ADD_LIBRARY 编译库文件</title>
+			<para>编译 *.a 文件</para>
+			<screen>
+$ cat  CMakeLists.txt 
+cmake_minimum_required(VERSION 2.8)
+PROJECT(zeromq)
+ADD_LIBRARY(zeromq zeromq.c)
+INCLUDE_DIRECTORIES(/usr/include/mysql)
+TARGET_LINK_LIBRARIES(zeromq zmq)
+			</screen>
+			<para>编译共享库 *.so 文件</para>
+			<screen>
+$ cat  CMakeLists.txt 
+cmake_minimum_required(VERSION 2.8)
+PROJECT(zeromq)
+ADD_LIBRARY(zeromq SHARED zeromq.c)
+INCLUDE_DIRECTORIES(/usr/include/mysql)
+TARGET_LINK_LIBRARIES(zeromq zmq)
+			</screen>
+		</section>
 	</section>
 	<section>
 		<title>EXECUTABLE_OUTPUT_PATH / LIBRARY_OUTPUT_PATH</title>
