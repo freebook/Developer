@@ -101,7 +101,7 @@ find / -type f | awk '{ print "gearman -f wc < " $1 }' | bash
 		<![CDATA[
 rpm -Uvh http://dl.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm
 
-install libgearman-devel
+yum install libgearman-devel
 pecl install channel://pecl.php.net/gearman-0.8.3
 
 cat >> /srv/php/etc/conf.d/gearman.ini <<EOF
