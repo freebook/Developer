@@ -77,20 +77,57 @@ hello.d is 100% covered
 			</screen>
 		</section>
 	</section>
+<!-- 
+<section id="extern">
+	<title>extern(C)</title>
+	<section>
+		<title>export extern(C)</title>
+		<para>math.d</para>
+		<screen>
 
+module math;
+export extern(C) int add(int x,int y){
+	return x+y;
+}
+
+		</screen>
+		<para>test.c</para>
+		<screen>
+		<![CDATA[
+#include <stdio.h>
+int add(int,int);
+
+int main(){
+  int x;
+  x=add(2,4);
+  printf("%d",x);
+  return 0;
+}
+		]]>
+		</screen>
+		<para>编译程序</para>
+		<screen>
+sudo apt-get install gdc
+gdc -c math.d
+ar crv libmath.a math.o
+gcc test.c -lmath -L.
+		</screen>
+	</section>
+</section>
+ -->
 	&chapter.dsource.xml;
 
 <!--
 	<section id="c.autoconf">
 		<title>autoconf/automake</title>
 		<para>autoconf</para>
-		<para>Makefile</para>
 
-		<para>使用make命令测试</para>
+
+
 		<screen>
 $ sudo apt-get install autoconf
 		</screen>
-		<para>automake</para>
+		
 
 		<para>example</para>
 		<procedure>
@@ -100,9 +137,7 @@ $ sudo apt-get install autoconf
 				<screen>
 				</screen>
 				<para>create a file</para>
-				<screen>
 
-				</screen>
 			</step>
 			<step>
 				<para>autoscan</para>
@@ -128,21 +163,7 @@ $ sudo apt-get install autoconf
 			</step>
 		</procedure>
 	</section>
-<section id="c.glibc">
-	<title>lib</title>
-		<section>
-			<title>syslog.h</title>
-			<screen>
-			<![CDATA[
 
-			]]>
-			</screen>
-			<screen>
-
-			</screen>
-		</section>
-
-</section>
 -->
 </chapter>
 <!--

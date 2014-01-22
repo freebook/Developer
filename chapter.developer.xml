@@ -25,6 +25,10 @@
 		<title>Web Framework Benchmarks</title>
 		<para><ulink url="http://www.techempower.com/benchmarks/" /></para>
 	</section>
+	<section>
+		<title>各种语言性能测试</title>
+		<para><ulink url="http://benchmarksgame.alioth.debian.org/" /></para>
+	</section>
 </chapter>
 
 	&chapter.editor;
