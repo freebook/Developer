@@ -163,6 +163,10 @@ function fnChangeNode(){
 		<title>AngularJS</title>
 		<para>http://angularjs.org/</para>
 	</section>
+	<section id="backbone.js">
+		<title>Backbone</title>
+		<para>http://backbonejs.org/</para>
+	</section>
 	<section id="activewidgets">
 		<title>ActiveWidgets - WebUI</title>
 	</section>

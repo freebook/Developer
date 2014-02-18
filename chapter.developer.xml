@@ -21,9 +21,13 @@
 		<title>DB-Engines - DB-Engines Ranking</title>
 		<para><ulink url="http://db-engines.com/en/ranking" /></para>
 	</section>
-	<section id="framework.test">
+	<section id="framework.benchmarks">
 		<title>Web Framework Benchmarks</title>
 		<para><ulink url="http://www.techempower.com/benchmarks/" /></para>
+	</section>
+	<section id="framework.javascript">
+		<title>The 10 hottest JavaScript framework projects</title>
+		<ulink url="http://www.infoworld.com/d/application-development/the-10-hottest-javascript-framework-projects-228335?source=footer">The 10 hottest JavaScript framework projects</ulink>
 	</section>
 	<section>
 		<title>各种语言性能测试</title>
