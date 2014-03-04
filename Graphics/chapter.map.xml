@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<chapter id="openstreetmap">
+	<title>OpenStreetMap</title>
+	<ulink url="https://www.openstreetmap.org/" />
+	
+<!-- 	<section id="tesseract">
+		<title>Tesseract</title>
+		<para>查找Tesseract安装包</para>
+		<screen>
+
+		</screen>
+		<screen>
+
+		</screen>
+		<screen>
+
+		</screen>
+	</section>
+
+	<section id="cuneiform">
+		<title>cuneiform - multi-language OCR system</title>
+		<para></para>
+	</section> -->
+<chapter>
