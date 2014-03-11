@@ -2,7 +2,10 @@
 <chapter id="openstreetmap">
 	<title>OpenStreetMap</title>
 	<ulink url="https://www.openstreetmap.org/" />
-	
+	<section id="openlayers">
+		<title>OpenLayers</title>
+		<para><ulink url="http://openlayers.org/" /></para>
+	</section>
 <!-- 	<section id="tesseract">
 		<title>Tesseract</title>
 		<para>查找Tesseract安装包</para>
@@ -16,10 +19,6 @@
 
 		</screen>
 	</section>
-
-	<section id="cuneiform">
-		<title>cuneiform - multi-language OCR system</title>
-		<para></para>
-	</section> -->
+-->
 	
 </chapter>
