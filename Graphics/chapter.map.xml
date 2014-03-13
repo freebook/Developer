@@ -6,11 +6,12 @@
 		<title>OpenLayers</title>
 		<para><ulink url="http://openlayers.org/" /></para>
 	</section>
-<!-- 	<section id="tesseract">
-		<title>Tesseract</title>
-		<para>查找Tesseract安装包</para>
+ 	<section id="leaflet">
+		<title>Leaflet</title>
+		<para><ulink url="http://leafletjs.com/" /></para>
 		<screen>
-
+map.setCenter(center,18);
+前面的center好理解，后面的18是个z参数，是一个表示缩放级别的数字，该参数的值范围为 0 到 17。缩放级别 0 表示最低的缩放级别（显示整个地球），增加该数字可以进一步放大。
 		</screen>
 		<screen>
 
@@ -18,7 +19,5 @@
 		<screen>
 
 		</screen>
-	</section>
--->
-	
+	</section>	
 </chapter>

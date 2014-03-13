@@ -159,14 +159,7 @@ function fnChangeNode(){
 		<title>Bootstrap</title>
 		<para>http://twbs.github.io/bootstrap/</para>
 	</section>
-	<section id="angularjs">
-		<title>AngularJS</title>
-		<para>http://angularjs.org/</para>
-	</section>
-	<section id="backbone.js">
-		<title>Backbone</title>
-		<para>http://backbonejs.org/</para>
-	</section>
+
 	<section id="activewidgets">
 		<title>ActiveWidgets - WebUI</title>
 	</section>
@@ -206,9 +199,28 @@ function fnChangeNode(){
 
 		</screen>
 	</section>
+	<section id="highlight">
+		<title>Highlight</title>
+		<section>
+			<title>SyntaxHighlighter</title>
+			<para>http://alexgorbatchev.com/SyntaxHighlighter/</para>
+			<screen>
+
+			</screen>			
+		</section>
+
+	</section>
 <section id="javascript.framework">
 	<title>Javascript MVC Frameworks</title>
 	<para>http://codebrief.com/2012/01/the-top-10-javascript-mvc-frameworks-reviewed/</para>
+	<section id="angularjs">
+		<title>AngularJS</title>
+		<para>http://angularjs.org/</para>
+	</section>
+	<section id="backbone.js">
+		<title>Backbone</title>
+		<para>http://backbonejs.org/</para>
+	</section>
 	<section id="todomvc">
 		<title>example</title>
 		<para>http://todomvc.com/</para>
