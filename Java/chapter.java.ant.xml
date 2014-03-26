@@ -163,4 +163,8 @@ JAVA_HOME="/usr/lib/jvm/java-6-openjdk/jre"
 MAVEN_HOME="/usr/share/maven2/"
 			</screen>
 </section>
+<section id="gradle">
+	<title>Gradle</title>
+	<para></para>
+</section>
 </section>
