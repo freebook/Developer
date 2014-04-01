@@ -125,7 +125,7 @@
 	&part.webpage.xml;
 	<!-- &part.php.xml; -->
 	<!-- &part.python.xml; -->
-	&chapter.perl;
+	<!-- &chapter.perl; -->
 	&chapter.java.xml;
 	&part.ruby.xml;
 	&chapter.node.js.xml;
