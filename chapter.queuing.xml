@@ -19,4 +19,7 @@
     	<title>Apache Kafka is a distributed publish-subscribe messaging system</title>
     	<para>http://kafka.apache.org/</para>
     </section>
+    <section id="beanstalkd">
+    	<title>http://kr.github.io/beanstalkd/</title>
+    </section>
 </chapter>
