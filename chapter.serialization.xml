@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<chapter id="index"><?dbhtml dir="serialization" ?>
+	<title>Serialization</title>
+	<chapterinfo>
+		<keywordset>
+			<keyword>MessagePack, BERT</keyword>
+		</keywordset>
+	</chapterinfo>
+
+	<section id="messagepack">
+		<title>MessagePack</title>
+		<para>http://msgpack.org/</para>
+		<para>MessagePack 是二进制序列化解决方案，用以替代JSON</para>
+		<screen>
+		<![CDATA[
+easy_install msgpack-python
+import msgpack
+msg = msgpack.packb([1,2,3])    #=> "\x93\x01\x02\x03"
+msgpack.unpackb(msg)            #=> [1,2,3]
+help(msgpack)
+		]]>
+		</screen>
+	</section>
+    <section id="bert">
+    	<title>BERT and BERT-RPC</title>
+    	<para>http://bert-rpc.org/</para>
+    </section>
+</chapter>
