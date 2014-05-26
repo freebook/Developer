@@ -2,15 +2,45 @@
 <section id="rabbitmq">
 	<title>RabbitMQ</title>
 	<para><ulink url="http://www.rabbitmq.com/">RabbitMQ</ulink></para>
-	<para>running on 127.0.0.1 (localhost) on port 5672 (standard AMQP port).</para>
-	<screen>
+	<section>
+		<title>安装 RabbitMQ</title>
+		<para>running on 127.0.0.1 (localhost) on port 5672 (standard AMQP port).</para>
+		<section>
+			<title>Ubuntu</title>
+			<screen>
 $ sudo apt-get install rabbitmq-server
-	</screen>
+			</screen>
+		</section>
+		<section>
+			<title>CentOS</title>
+			<screen>
+# yum install -y rabbitmq-server
+# chkconfig rabbitmq-server on
+# service rabbitmq-server start
+			</screen>
+			<para>添加用户, 添加权限, 删除guest用户</para>
+			<screen>
+# rabbitmqctl add_user rabbit password
+# rabbitmqctl set_permissions -p "/" rabbit ".*" ".*" ".*"
+# rabbitmqctl delete_user guest
+			</screen>
+		</section>
+	</section>
+
 	<section>
 		<title>rabbitmqctl - command line tool for managing a RabbitMQ broker</title>
 		<screen>
 rabbitmqctl status
 		</screen>
+		<section>
+			<title>list_users</title>
+			<screen>
+# rabbitmqctl list_users
+Listing users ...
+guest	[administrator]
+...done.
+			</screen>
+		</section>
 	</section>
 	<section id="rabbitmq.python.pika">
 		<title>Python - Pika</title>
@@ -21,7 +51,7 @@ sudo pip install pika
 
 sudo easy_install pika
 		</screen>
-	</section>	
+	</section>
 	<section id="rabbitmq.ruby.amqp">
 		<title>Ruby amqp</title>
 <!--
@@ -48,7 +78,7 @@ EM.run {
 			</screen>
 			<para>producer.rb</para>
 			<screen>
-$ cat producer.rb 
+$ cat producer.rb
 require 'rubygems'
 require 'amqp'
 
