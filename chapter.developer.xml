@@ -9,9 +9,10 @@
 		<para>A System programming language is usually used to mean "a language for system programming": that is, a language designed for writing system software as distinct from application software.</para>
 		<para>http://en.wikipedia.org/wiki/System_programming_language</para>
 	</section>
-	<section id="tiobe">
-		<title>TIOBE Programming Community Index - 编程语言排行榜</title>
-		<para>编程语言排行榜<ulink url="http://www.tiobe.com/index.php/content/paperinfo/tpci/index.html" /></para>
+	<section>
+		<title>编程语言排行榜</title>
+		<para>TIOBE Programming Community Index - 编程语言排行榜<ulink url="http://www.tiobe.com/index.php/content/paperinfo/tpci/index.html" /></para>
+		<para><ulink url="http://spectrum.ieee.org/static/interactive-the-top-programming-languages#index/0/0/1/1/1/50/1/50/1/50/1/30/1/30/1/30/1/20/1/20/1/5/1/5/1/20/1/100/">IEEE Spectrum’s 2014 Ranking</ulink></para>
 	</section>
 	<section id="hyperpolyglot">
 		<title>Programming Languages Reference Sheets - Hyperpolyglot</title>
