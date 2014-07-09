@@ -152,6 +152,10 @@ java memcached
 		<title>Hessian</title>
 		<para> 基于Binary-RPC协议实现</para>
 	</section>
+	<section id="quartz-scheduler">
+		<title>quartz-scheduler</title>
+		<para>http://quartz-scheduler.org/</para>
+	</section>
 </section>
 	&chapter.cache.xml;
 </chapter>
