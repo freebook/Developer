@@ -40,18 +40,18 @@ Jan 11 23:52:27 dev1 slog[5056]: A different kind of Hello world ...
 #include<stdio.h>
 int main()
 {
-	FILE *file; 
+	FILE *file;
 	char name[20][20];
 
 	int a[10]={0};
 
 	int i,j;
-	if((file=fopen("1.txt","rt"))==NULL) 
-	{ 
-		printf("Cannot open file strike any key exit!"); 
+	if((file=fopen("1.txt","rt"))==NULL)
+	{
+		printf("Cannot open file strike any key exit!");
 		return 0;
-	} 
-	i=0; 
+	}
+	i=0;
 	while(fscanf(file,"%s %d\n",name[i],&a[i])!=EOF)
 	{
 		i++;
@@ -63,7 +63,7 @@ int main()
 		i++;
 	}
 	fclose(file);
-}			
+}
 			]]>
 			</screen>
 			<screen>
@@ -79,20 +79,20 @@ typedef struct _Address
 
 int main()
 {
-	FILE *file; 
+	FILE *file;
 	int num;
 	char str[256];
 	int i;
-	char *p; 
+	char *p;
 	Address addr[10]={0};
 
-	if((file=fopen("1.txt","rt"))==NULL) 
-	{ 
-		printf("Cannot open file strike any key exit!"); 
+	if((file=fopen("1.txt","rt"))==NULL)
+	{
+		printf("Cannot open file strike any key exit!");
 		return 0;
-	} 
-	i=0; 
-	
+	}
+	i=0;
+
 	while(fscanf(file,"%s %d\n",str,&num)!=EOF)
 	{
 		asprintf(&addr[i].name, "%s", str);
@@ -101,18 +101,18 @@ int main()
 	}
 	fclose(file);
 	addr[i].name = NULL;
-	
+
 	i=0;
 	while(1){
 		if(addr[i].name == NULL) break;
 		printf("%d: %s %d\n",i, addr[i].name,addr[i].age);
 		i++;
 	}
-}			
+}
 			]]>
 			</screen>
 		</section>
-	</section>		
+	</section>
 	<section id="libs.libssh2">
 		<title>libssh2</title>
 		<para><ulink url="http://www.libssh2.org/">http://www.libssh2.org/</ulink></para>
@@ -137,11 +137,13 @@ int main()
 		<title>Spdylay - SPDY C Library</title>
 		<para><ulink url="http://spdylay.sourceforge.net/" /></para>
 	</section>
-	
+
 	<section id="libphenom">
 		<title>libPhenom</title>
 		<para>http://facebook.github.io/libphenom/</para>
 		<para>libPhenom is an eventing framework for building high performance and high scalability systems in C</para>
 	</section>
 	
+	&chapter.libcurl.xml;
+	&chapter.libxml.xml;
 </section>

@@ -6,3 +6,6 @@
 <!ENTITY chapter.c.library.xml		  	SYSTEM "chapter.c.library.xml">
 <!ENTITY chapter.cplusplus.library.xml	SYSTEM "chapter.cplusplus.library.xml">
 <!ENTITY chapter.debug.xml			  	SYSTEM "chapter.debug.xml">
+
+<!ENTITY chapter.libcurl.xml	  		SYSTEM "lib/chapter.libcurl.xml">
+<!ENTITY chapter.libxml.xml	  			SYSTEM "lib/chapter.libxml.xml">
