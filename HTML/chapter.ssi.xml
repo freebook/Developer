@@ -44,5 +44,41 @@
 
 		]]>
 		</screen>
+		<para>判断HTTP与HTTPS</para>
+		<screen>
+		<![CDATA[
+<!--#set var="HTML_HOST" value="http://www.example.com"-->
+<!--#set var="INFO_HOST" value="http://info.example.com"-->
+<!--#set var="NEWS_HOST" value="http://news.example.com"-->
+
+<!--#if expr="${SERVER_PORT}=/443/"-->
+
+<!--#set var="MYID_HOST" value="https://myid.example.com"-->
+<!--#set var="IMG_HOST" value="https://myid.example.com/images"-->
+<!--#set var="JS_HOST" value="https://myid.example.com/images"-->
+<!--#set var="CSS_HOST" value="https://myid.example.com/images"-->
+
+<!--#else -->
+
+<!--#set var="MYID_HOST" value="http://myid.example.com"-->
+<!--#set var="IMG_HOST" value="http://images.example.com"-->
+<!--#set var="JS_HOST" value="http://images.example.com"-->
+<!--#set var="CSS_HOST" value="http://images.example.com"-->
+
+<!--#endif -->
+
+<!--#set var="IMAGE_POST_HOST" value="http://card-up.example.com:4141"-->
+<!--#set var="IMAGE_UPLOAD_HOST" value="http://card-look.example.com:4242"-->
+
+
+<!--#if expr="${DOCUMENT_URI}=/\/cn\/.*/"-->
+        <!--#set var="LANG" value="cn"-->
+<!--#elif expr="${DOCUMENT_URI}=/\/tw\/.*/"-->
+        <!--#set var="LANG" value="tw"-->
+<!--#elif expr="${DOCUMENT_URI}=/\/en\/.*/"-->
+        <!--#set var="LANG" value="en"-->
+<!--#endif-->		
+		]]>
+		</screen>
 	</section>
 </chapter>
