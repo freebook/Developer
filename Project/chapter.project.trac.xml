@@ -12,28 +12,24 @@
 				<step>
 					<para>setup.py</para>
 					<screen>
-wget http://ftp.edgewall.com/pub/trac/Trac-0.11b1.tar.gz
-tar zxvf Trac-0.11b1.tar.gz
-sudo python ./setup.py install
+wget http://peak.telecommunity.com/dist/ez_setup.py
+python ez_setup.py
 					</screen>
 				</step>
 				<step>
-					<para>clearsilver</para>
+					<para>Trac</para>
 					<screen>
-sudo apt-get install python2.5-dev
-wget http://www.clearsilver.net/downloads/clearsilver-0.10.5.tar.gz
-tar zxvf clearsilver-0.10.5.tar.gz
-cd clearsilver-0.10.5/
-./configure --with-python=/usr/bin/python
-make
-sudo make install
+wget http://download.edgewall.org/trac/Trac-1.1.1.tar.gz
+tar zxvf Trac-1.1.1.tar.gz
+cd Trac-1.1.1
+sudo python ./setup.py install
+cd ..
 					</screen>
 				</step>
 			</procedure>
 		</section>
 		<section>
 			<title>easy_install</title>
-
 			<procedure>
 				<title>TRAC - easy_install</title>
 				<step>
@@ -62,6 +58,15 @@ sudo apt-get install python-clearsilver
 $ svnadmin create /home/netkiller/repos
 					</screen>
 				</step>
+			</procedure>
+		</section>
+	</section>
+
+	<section>
+		<title>Project Environment</title>
+		<section>
+			<title>Sqlite</title>
+			<procedure>
 				<step>
 					<para>Creating a Project Environment</para>
 					<screen>
@@ -261,11 +266,119 @@ $ tracd -d -s --port 8000 --auth trac,/home/neo/trac/conf/passwd.digest,localhos
 		<section id="trac.mysql">
 			<title>MySQL</title>
 			<screen>
-mysql>GRANT ALL PRIVILEGES ON *.* TO trac@'%' IDENTIFIED BY 'password' WITH GRANT OPTION;
-mysql>CREATE DATABASE IF NOT EXISTS trac default charset utf8 COLLATE utf8_general_ci;
+GRANT ALL PRIVILEGES ON trac.* TO trac@'localhost' IDENTIFIED BY 'password' WITH GRANT OPTION;
+CREATE DATABASE IF NOT EXISTS trac default charset utf8 COLLATE utf8_general_ci;
 			</screen>
 			<screen>
 Database connection string [sqlite:db/trac.db]> mysql://trac:password@localhost:3306/trac
+			</screen>
+			<para>下面开始创建项目</para>
+			<screen>
+			<![CDATA[
+# trac-admin /home/git/trac initenv
+Creating a new Trac environment at /home/git/trac
+
+Trac will first ask a few questions about your environment
+in order to initialize and prepare the project database.
+
+ Please enter the name of your project.
+ This name will be used in page titles and descriptions.
+
+Project Name [My Project]> 
+
+ Please specify the connection string for the database to use.
+ By default, a local SQLite database is created in the environment
+ directory. It is also possible to use an already existing
+ PostgreSQL database (check the Trac documentation for the exact
+ connection string syntax).
+
+Database connection string [sqlite:db/trac.db]> mysql://trac:trac@localhost:3306/trac
+
+Creating and Initializing Project
+ Installing default wiki pages
+  TracRepositoryAdmin imported from /root/.python-eggs/Trac-1.1.1-py2.6.egg-tmp/trac/wiki/default-pages/TracRepositoryAdmin
+  TracNavigation imported from /root/.python-eggs/Trac-1.1.1-py2.6.egg-tmp/trac/wiki/default-pages/TracNavigation
+  TracUpgrade imported from /root/.python-eggs/Trac-1.1.1-py2.6.egg-tmp/trac/wiki/default-pages/TracUpgrade
+  TracRevisionLog imported from /root/.python-eggs/Trac-1.1.1-py2.6.egg-tmp/trac/wiki/default-pages/TracRevisionLog
+  TracTickets imported from /root/.python-eggs/Trac-1.1.1-py2.6.egg-tmp/trac/wiki/default-pages/TracTickets
+  TracIni imported from /root/.python-eggs/Trac-1.1.1-py2.6.egg-tmp/trac/wiki/default-pages/TracIni
+  PageTemplates imported from /root/.python-eggs/Trac-1.1.1-py2.6.egg-tmp/trac/wiki/default-pages/PageTemplates
+  TracTimeline imported from /root/.python-eggs/Trac-1.1.1-py2.6.egg-tmp/trac/wiki/default-pages/TracTimeline
+  TracAccessibility imported from /root/.python-eggs/Trac-1.1.1-py2.6.egg-tmp/trac/wiki/default-pages/TracAccessibility
+  WikiHtml imported from /root/.python-eggs/Trac-1.1.1-py2.6.egg-tmp/trac/wiki/default-pages/WikiHtml
+  SandBox imported from /root/.python-eggs/Trac-1.1.1-py2.6.egg-tmp/trac/wiki/default-pages/SandBox
+  TracImport imported from /root/.python-eggs/Trac-1.1.1-py2.6.egg-tmp/trac/wiki/default-pages/TracImport
+  TracPlugins imported from /root/.python-eggs/Trac-1.1.1-py2.6.egg-tmp/trac/wiki/default-pages/TracPlugins
+  TracRoadmap imported from /root/.python-eggs/Trac-1.1.1-py2.6.egg-tmp/trac/wiki/default-pages/TracRoadmap
+  TracAdmin imported from /root/.python-eggs/Trac-1.1.1-py2.6.egg-tmp/trac/wiki/default-pages/TracAdmin
+  TracBatchModify imported from /root/.python-eggs/Trac-1.1.1-py2.6.egg-tmp/trac/wiki/default-pages/TracBatchModify
+  TracBrowser imported from /root/.python-eggs/Trac-1.1.1-py2.6.egg-tmp/trac/wiki/default-pages/TracBrowser
+  InterWiki imported from /root/.python-eggs/Trac-1.1.1-py2.6.egg-tmp/trac/wiki/default-pages/InterWiki
+  WikiRestructuredText imported from /root/.python-eggs/Trac-1.1.1-py2.6.egg-tmp/trac/wiki/default-pages/WikiRestructuredText
+  WikiProcessors imported from /root/.python-eggs/Trac-1.1.1-py2.6.egg-tmp/trac/wiki/default-pages/WikiProcessors
+  WikiNewPage imported from /root/.python-eggs/Trac-1.1.1-py2.6.egg-tmp/trac/wiki/default-pages/WikiNewPage
+  TracEnvironment imported from /root/.python-eggs/Trac-1.1.1-py2.6.egg-tmp/trac/wiki/default-pages/TracEnvironment
+  TracLogging imported from /root/.python-eggs/Trac-1.1.1-py2.6.egg-tmp/trac/wiki/default-pages/TracLogging
+  TracSupport imported from /root/.python-eggs/Trac-1.1.1-py2.6.egg-tmp/trac/wiki/default-pages/TracSupport
+  TracNotification imported from /root/.python-eggs/Trac-1.1.1-py2.6.egg-tmp/trac/wiki/default-pages/TracNotification
+  TracGuide imported from /root/.python-eggs/Trac-1.1.1-py2.6.egg-tmp/trac/wiki/default-pages/TracGuide
+  WikiStart imported from /root/.python-eggs/Trac-1.1.1-py2.6.egg-tmp/trac/wiki/default-pages/WikiStart
+  TracWorkflow imported from /root/.python-eggs/Trac-1.1.1-py2.6.egg-tmp/trac/wiki/default-pages/TracWorkflow
+  TracRss imported from /root/.python-eggs/Trac-1.1.1-py2.6.egg-tmp/trac/wiki/default-pages/TracRss
+  TracLinks imported from /root/.python-eggs/Trac-1.1.1-py2.6.egg-tmp/trac/wiki/default-pages/TracLinks
+  InterMapTxt imported from /root/.python-eggs/Trac-1.1.1-py2.6.egg-tmp/trac/wiki/default-pages/InterMapTxt
+  WikiPageNames imported from /root/.python-eggs/Trac-1.1.1-py2.6.egg-tmp/trac/wiki/default-pages/WikiPageNames
+  WikiFormatting imported from /root/.python-eggs/Trac-1.1.1-py2.6.egg-tmp/trac/wiki/default-pages/WikiFormatting
+  WikiRestructuredTextLinks imported from /root/.python-eggs/Trac-1.1.1-py2.6.egg-tmp/trac/wiki/default-pages/WikiRestructuredTextLinks
+  TracUnicode imported from /root/.python-eggs/Trac-1.1.1-py2.6.egg-tmp/trac/wiki/default-pages/TracUnicode
+  TracChangeset imported from /root/.python-eggs/Trac-1.1.1-py2.6.egg-tmp/trac/wiki/default-pages/TracChangeset
+  TitleIndex imported from /root/.python-eggs/Trac-1.1.1-py2.6.egg-tmp/trac/wiki/default-pages/TitleIndex
+  WikiDeletePage imported from /root/.python-eggs/Trac-1.1.1-py2.6.egg-tmp/trac/wiki/default-pages/WikiDeletePage
+  TracReports imported from /root/.python-eggs/Trac-1.1.1-py2.6.egg-tmp/trac/wiki/default-pages/TracReports
+  TracWiki imported from /root/.python-eggs/Trac-1.1.1-py2.6.egg-tmp/trac/wiki/default-pages/TracWiki
+  RecentChanges imported from /root/.python-eggs/Trac-1.1.1-py2.6.egg-tmp/trac/wiki/default-pages/RecentChanges
+  TracBackup imported from /root/.python-eggs/Trac-1.1.1-py2.6.egg-tmp/trac/wiki/default-pages/TracBackup
+  TracModPython imported from /root/.python-eggs/Trac-1.1.1-py2.6.egg-tmp/trac/wiki/default-pages/TracModPython
+  TracSearch imported from /root/.python-eggs/Trac-1.1.1-py2.6.egg-tmp/trac/wiki/default-pages/TracSearch
+  TracModWSGI imported from /root/.python-eggs/Trac-1.1.1-py2.6.egg-tmp/trac/wiki/default-pages/TracModWSGI
+  TracTicketsCustomFields imported from /root/.python-eggs/Trac-1.1.1-py2.6.egg-tmp/trac/wiki/default-pages/TracTicketsCustomFields
+  TracQuery imported from /root/.python-eggs/Trac-1.1.1-py2.6.egg-tmp/trac/wiki/default-pages/TracQuery
+  TracStandalone imported from /root/.python-eggs/Trac-1.1.1-py2.6.egg-tmp/trac/wiki/default-pages/TracStandalone
+  InterTrac imported from /root/.python-eggs/Trac-1.1.1-py2.6.egg-tmp/trac/wiki/default-pages/InterTrac
+  TracFineGrainedPermissions imported from /root/.python-eggs/Trac-1.1.1-py2.6.egg-tmp/trac/wiki/default-pages/TracFineGrainedPermissions
+  TracInterfaceCustomization imported from /root/.python-eggs/Trac-1.1.1-py2.6.egg-tmp/trac/wiki/default-pages/TracInterfaceCustomization
+  TracCgi imported from /root/.python-eggs/Trac-1.1.1-py2.6.egg-tmp/trac/wiki/default-pages/TracCgi
+  TracFastCgi imported from /root/.python-eggs/Trac-1.1.1-py2.6.egg-tmp/trac/wiki/default-pages/TracFastCgi
+  TracPermissions imported from /root/.python-eggs/Trac-1.1.1-py2.6.egg-tmp/trac/wiki/default-pages/TracPermissions
+  TracInstall imported from /root/.python-eggs/Trac-1.1.1-py2.6.egg-tmp/trac/wiki/default-pages/TracInstall
+  TracSyntaxColoring imported from /root/.python-eggs/Trac-1.1.1-py2.6.egg-tmp/trac/wiki/default-pages/TracSyntaxColoring
+  CamelCase imported from /root/.python-eggs/Trac-1.1.1-py2.6.egg-tmp/trac/wiki/default-pages/CamelCase
+  WikiMacros imported from /root/.python-eggs/Trac-1.1.1-py2.6.egg-tmp/trac/wiki/default-pages/WikiMacros
+
+---------------------------------------------------------------------
+Project environment for 'My Project' created.
+
+You may now configure the environment by editing the file:
+
+  /home/git/trac/conf/trac.ini
+
+If you'd like to take this new project environment for a test drive,
+try running the Trac standalone web server `tracd`:
+
+  tracd --port 8000 /home/git/trac
+
+Then point your browser to http://localhost:8000/trac.
+There you can also browse the documentation for your installed
+version of Trac, including information on further setup (such as
+deploying Trac to a real web server).
+
+The latest documentation can also always be found on the project
+website:
+
+  http://trac.edgewall.org/
+
+Congratulations!			
+			]]>
 			</screen>
 		</section>
 		<section id="plugin">
@@ -274,9 +387,8 @@ Database connection string [sqlite:db/trac.db]> mysql://trac:password@localhost:
 				<title>Subtickets</title>
 				<para>http://trac-hacks.org/wiki/SubticketsPlugin</para>
 			</section>
-		</section>
+		</section>		
 	</section>
-
 	<section id="trac.ini">
 		<title>trac.ini</title>
 		<section id="repository">
@@ -330,7 +442,35 @@ htdigest -c /opt/trac/conf/passwd.digest localhost $user
 			</screen>
 		</section>
 	</section>
-
+	<section>
+		<title>FAQ</title>
+		<section>
+			<title>TracError: Cannot load Python bindings for MySQL</title>
+			<para>检查 MySQLdb 是否安装</para>
+			<screen>
+			<![CDATA[
+# /usr/bin/python -c 'import MySQLdb'
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+ImportError: No module named MySQLdb
+			]]>
+			</screen>
+			<para>安装MySQLdb</para>
+			<screen>
+# yum install python-devel
+# pip install MySQL-python
+			</screen>
+			<para>或者</para>
+			<screen>
+# yum install python-devel
+# easy_install MySQL-python
+			</screen>
+			<para>再次测试，如果不出现任何提示表示成功。</para>
+			<screen>
+# /usr/bin/python -c 'import MySQLdb'			
+			</screen>
+		</section>
+	</section>
 </section>
 <section id="bloodhound">
 	<title>Apache Bloodhound</title>
