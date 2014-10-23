@@ -60,6 +60,39 @@ $ svnadmin create /home/netkiller/repos
 				</step>
 			</procedure>
 		</section>
+		<section>
+			<title>Apache httpd</title>
+			<screen>
+			<![CDATA[
+# cat /etc/httpd/conf.d/trac.conf
+<VirtualHost *:80>
+  # Change this to the domain which points to your host, i.e. the domain
+  # you set as "phabricator.base-uri".
+  ServerName trac.repo
+
+  <Location />
+    SetHandler mod_python
+    PythonInterpreter main_interpreter
+    PythonHandler trac.web.modpython_frontend
+    PythonOption TracEnv /gitroot/trac/default
+    PythonOption TracUriRoot /
+  </Location>
+# Replace all occurrences of /srv/trac with your trac root below
+# and uncomment the respective SetEnv and PythonOption directives.
+#  <LocationMatch /cgi-bin/trac\.f?cgi>
+#	SetEnv TRAC_ENV /srv/trac
+#  </LocationMatch>
+#  <IfModule mod_python.c>
+#    <Location /cgi-bin/trac.cgi>
+#      SetHandler mod_python
+#      PythonHandler trac.web.modpython_frontend
+#      #PythonOption TracEnv /srv/trac
+#    </Location>
+#  </IfModule>
+</VirtualHost>
+			]]>
+			</screen>
+		</section>
 	</section>
 
 	<section>
@@ -284,7 +317,7 @@ in order to initialize and prepare the project database.
  Please enter the name of your project.
  This name will be used in page titles and descriptions.
 
-Project Name [My Project]> 
+Project Name [My Project]>
 
  Please specify the connection string for the database to use.
  By default, a local SQLite database is created in the environment
@@ -377,17 +410,29 @@ website:
 
   http://trac.edgewall.org/
 
-Congratulations!			
+Congratulations!
 			]]>
 			</screen>
 		</section>
 		<section id="plugin">
 			<title>Plugin</title>
 			<section>
+				<title>AccountManagerPlugin</title>
+				<para>http://trac-hacks.org/wiki/AccountManagerPlugin</para>
+				<screen>
+cd accountmanagerplugin/
+python setup.py install
+python setup.py bdist_egg
+
+cp dist/TracAccountManager-0.4.4-py2.6.egg /home/git/trac/plugins/
+				</screen>
+			</section>
+			<section>
 				<title>Subtickets</title>
 				<para>http://trac-hacks.org/wiki/SubticketsPlugin</para>
 			</section>
-		</section>		
+			
+		</section>
 	</section>
 	<section id="trac.ini">
 		<title>trac.ini</title>
@@ -467,7 +512,7 @@ ImportError: No module named MySQLdb
 			</screen>
 			<para>再次测试，如果不出现任何提示表示成功。</para>
 			<screen>
-# /usr/bin/python -c 'import MySQLdb'			
+# /usr/bin/python -c 'import MySQLdb'
 			</screen>
 		</section>
 	</section>
