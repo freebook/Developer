@@ -68,5 +68,9 @@
 			<title>pChart - a PHP class to build charts</title>
 			<para>http://pchart.sourceforge.net/</para>
 		</section>
+		<section>
+			<title>FnordMetric ChartSQL</title>
+			<para>http://fnordmetric.io/</para>
+		</section>
 	</section>
 </chapter>
