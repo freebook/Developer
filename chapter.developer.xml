@@ -34,6 +34,10 @@
 		<title>各种语言性能测试</title>
 		<para><ulink url="http://benchmarksgame.alioth.debian.org/" /></para>
 	</section>
+	<section>
+		<title>IDE 横向比较</title>
+		<para><ulink url="http://en.wikipedia.org/wiki/Comparison_of_integrated_development_environments" /></para>
+	</section>
 </chapter>
 
 	&chapter.editor;
