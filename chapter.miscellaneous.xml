@@ -5,4 +5,10 @@
 		<title>图像处理框架语言 Processing</title>
 		<para>http://processing.org/</para>
 	</section>
+	<section id="docopt">
+		<title>docopt - Command-line interface description language</title>
+		<para>http://docopt.org/</para>
+		<para>docopt 是处理命令行参数的包，支持多种语言</para>
+		<para>类似 http://argparse4j.sourceforge.net/, http://commons.apache.org/proper/commons-cli/</para>
+	</section>
 </chapter>
