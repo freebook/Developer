@@ -199,17 +199,6 @@ function fnChangeNode(){
 
 		</screen>
 	</section>
-	<section id="highlight">
-		<title>Highlight</title>
-		<section>
-			<title>SyntaxHighlighter</title>
-			<para>http://alexgorbatchev.com/SyntaxHighlighter/</para>
-			<screen>
-
-			</screen>			
-		</section>
-
-	</section>
 <section id="javascript.framework">
 	<title>Javascript MVC Frameworks</title>
 	<para>http://codebrief.com/2012/01/the-top-10-javascript-mvc-frameworks-reviewed/</para>

@@ -11,4 +11,19 @@
 		<title>discussions</title>
 		<para>http://disqus.com/</para>
 	</section>
+	<section id="highlight">
+		<title>Highlight</title>
+		<section>
+			<title>SyntaxHighlighter</title>
+			<para>http://alexgorbatchev.com/SyntaxHighlighter/</para>
+			<screen>
+
+			</screen>			
+		</section>
+		<section id="highlight.js">
+			<title>highlight.js</title>
+			<para>https://highlightjs.org</para>
+		</section>
+	</section>
+	
 </chapter>
