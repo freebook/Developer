@@ -46,39 +46,4 @@
 
 	&chapter.editor;
 
-
-<chapter id="code">
-	<title>代码托管</title>
-	<section id="sourceforge">
-		<title>sourceforge.net</title>
-		<section>
-			<title>http://netkiller.users.sourceforge.net/ 页面</title>
-			<para>使用 sftp命令连接netkiller@frs.sourceforge.net，然后切换目录cd userweb/htdocs/，上传页面文件 put index.html，sourceforge.net 支持php</para>
-			<screen>
-			<![CDATA[
-$ sftp netkiller@frs.sourceforge.net
-netkiller@frs.sourceforge.net's password:
-Connected to frs.sourceforge.net.
-sftp> ls -l
-lrwxrwxrwx    1 root     root           28 Apr 26  2012 userweb
-sftp> cd userweb/htdocs/
-sftp> put /tmp/index.html
-Uploading /tmp/index.html to /home/user-web/n/ne/netkiller/htdocs/index.html
-/tmp/index.html                     100%   10     0.0KB/s   00:00
-sftp> put /tmp/index.php
-Uploading /tmp/index.php to /home/user-web/n/ne/netkiller/htdocs/index.php
-/tmp/index.php                      100%   17     0.0KB/s   00:00
-sftp> pwd
-Remote working directory: /home/user-web/n/ne/netkiller/htdocs
-sftp> ls
-index.html  index.php
-sftp> exit
-			]]>
-			</screen>
-			<para>将上面netkiller改为你注册的用户名即可</para>
-			<para>帮助: https://sourceforge.net/apps/trac/sourceforge/wiki/Developer%20web</para>
-		</section>
-	</section>
-</chapter>
-	&chapter.project.xml;
 </part>

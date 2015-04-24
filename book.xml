@@ -61,10 +61,6 @@
 
 	<!ENTITY chapter.node.js.xml		    SYSTEM "Node.js/chapter.node.js.xml">
 
-	<!ENTITY chapter.project.xml			SYSTEM "Project/chapter.project.xml">
-	<!ENTITY chapter.project.trac.xml		SYSTEM "Project/chapter.project.trac.xml">
-	<!ENTITY chapter.project.tutos.xml		SYSTEM "Project/chapter.project.tutos.xml">
-
 	<!ENTITY chapter.uml.xml				SYSTEM "UML/chapter.uml.xml">
 	<!ENTITY chapter.regular.xml			SYSTEM "chapter.regular.xml">
 	<!ENTITY chapter.miscellaneous.xml		SYSTEM "chapter.miscellaneous.xml">
