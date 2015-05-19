@@ -73,4 +73,11 @@
 			<para>http://fnordmetric.io/</para>
 		</section>
 	</section>
+	<section id="html5">
+		<title>HTML 5</title>
+		<section id="stockchartx">
+			<title>StockChartX HTML5</title>
+			<para><ulink url="http://modulus.net/products/web-mobile-stock-chart-library/stockchartx-html5-web-mobile/" /></para>
+		</section>
+	</section>
 </chapter>
