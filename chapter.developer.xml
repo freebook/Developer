@@ -42,6 +42,10 @@
 		<title>Top 10 Programming Languages</title>
 		<para><ulink url="http://spectrum.ieee.org/computing/software/top-10-programming-languages" /></para>
 	</section>
+	<section id="pypl">
+		<title>PYPL PopularitY of Programming Language</title>
+		<para><ulink url="http://pypl.github.io/PYPL.html" /></para>
+	</section>
 </chapter>
 
 	&chapter.editor;
