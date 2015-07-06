@@ -46,6 +46,10 @@
 		<title>PYPL PopularitY of Programming Language</title>
 		<para><ulink url="http://pypl.github.io/PYPL.html" /></para>
 	</section>
+	<section>
+		<title>RedMonk 编程语言排行榜</title>
+		<para><ulink url="http://redmonk.com/sogrady/" /></para>
+	</section>
 </chapter>
 
 	&chapter.editor;
