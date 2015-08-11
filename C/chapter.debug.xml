@@ -300,7 +300,7 @@ $
 valgrind --tool=memcheck --leak-check=full ./test
 		</screen>
 	</section>
-	<section>
+	<section id="nm">
 		<title>nm - list symbols from object files</title>
 		<screen>
 $ nm libzeromq.so 
@@ -362,5 +362,12 @@ $ nm libzeromq.so
 000000000000133b T zmq_write_deinit
 0000000000001162 T zmq_write_init
 		</screen>
+	</section>
+	<section id="objdump">
+		<title>objdump - display information from object files.</title>
+	</section>
+	<section id="readelf">
+		<title>readelf - Displays information about ELF files.</title>
+		
 	</section>
 </chapter>
