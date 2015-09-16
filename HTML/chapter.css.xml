@@ -35,4 +35,19 @@
 		]]>
 		</screen>
 	</section>
+	
+<section id="css.frameworks">
+	<title>CSS Frameworks</title>
+	<section id="sass">
+		<title>Sass</title>
+		<para>http://sass-lang.com/</para>
+		<screen>
+gem install sass
+		</screen>		
+	</section>
+	<section id="less">
+		<title>Less</title>
+		<para>http://www.lesscss.net/</para>
+	</section>
+</section>
 </chapter>
