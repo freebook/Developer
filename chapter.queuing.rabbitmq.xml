@@ -26,7 +26,6 @@ $ sudo apt-get install rabbitmq-server
 			</screen>
 		</section>
 	</section>
-
 	<section>
 		<title>rabbitmqctl - command line tool for managing a RabbitMQ broker</title>
 		<screen>
@@ -39,6 +38,14 @@ rabbitmqctl status
 Listing users ...
 guest	[administrator]
 ...done.
+			</screen>
+		</section>
+		<section>
+			<title>虚拟机管理</title>
+			<screen>
+$ rabbitmqctl add_vhost test
+$ rabbitmqctl add_user testuser password
+$ rabbitmqctl set_permissions -p test testuser ".*" ".*" ".*"			
 			</screen>
 		</section>
 	</section>
