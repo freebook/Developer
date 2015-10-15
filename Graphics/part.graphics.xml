@@ -4,7 +4,6 @@
 	&chapter.gnuplot.xml;
 	&chapter.ttdtool.xml;
 	&chapter.graphviz.xml;
-	&chapter.chart.xml;
 	&chapter.openbr.xml;
 	&chapter.map.xml;
 </part>

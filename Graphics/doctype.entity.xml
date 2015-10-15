@@ -3,6 +3,5 @@
 <!ENTITY chapter.gnuplot.xml		SYSTEM "chapter.gnuplot.xml">
 <!ENTITY chapter.ttdtool.xml		SYSTEM "chapter.ttdtool.xml">
 <!ENTITY chapter.graphviz.xml		SYSTEM "chapter.graphviz.xml">
-<!ENTITY chapter.chart.xml			SYSTEM "chapter.chart.xml">
 <!ENTITY chapter.openbr.xml			SYSTEM "chapter.openbr.xml">
 <!ENTITY chapter.map.xml			SYSTEM "chapter.map.xml">

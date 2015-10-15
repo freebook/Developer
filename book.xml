@@ -58,6 +58,9 @@
 
 	<!ENTITY % graphics.doctype.entity.xml 	SYSTEM "Graphics/doctype.entity.xml">
 	%graphics.doctype.entity.xml;
+	
+	<!ENTITY % chart.doctype.entity.xml 	SYSTEM "Chart/doctype.entity.xml">
+	%chart.doctype.entity.xml;
 
 	<!ENTITY chapter.node.js.xml		    SYSTEM "Node.js/chapter.node.js.xml">
 
@@ -122,7 +125,6 @@
 	&part.webpage.xml;
 	<!-- &part.php.xml; -->
 	<!-- &part.python.xml; -->
-	<!-- &chapter.perl; -->
 	&chapter.java.xml;
 	&part.ruby.xml;
 	&chapter.node.js.xml;
@@ -132,6 +134,7 @@
 <!-- =========================================================================== -->
 	&chapter.queuing.xml;
 	&part.graphics.xml;
+	&chapter.chart.xml;
 <!-- =========================================================================== -->
 	&chapter.uml.xml;
 	&chapter.regular.xml;

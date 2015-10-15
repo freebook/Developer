@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- $Id: chapter.chart.xml 653 2013-07-29 10:12:42Z netkiller $ -->
-<chapter id="chart">
+<chapter id="index"><?dbhtml dir="chart" ?>
 	<title>Chart 图表</title>
 	<section id="chart.flash">
 		<title>Flash Charts</title>
@@ -23,6 +23,7 @@
 		</section>
 	</section>
 	<section id="chart.js">
+		&chapter.google.xml;
 		<title>JavaScript Charts</title>
 		<section id="dojochart">
 			<title>Dojo Chart</title>
@@ -31,10 +32,6 @@
 		<section id="amcharts">
 			<title>amcharts</title>
 			<para><ulink url="http://www.amcharts.com/">http://www.amcharts.com/</ulink></para>
-		</section>
-		<section id="GoogleChartTools">
-			<title>Google Chart Tools </title>
-			<para><ulink url="https://developers.google.com/chart/" /></para>
 		</section>
 		<section id="highcharts">
 			<title>Highcharts JS</title>

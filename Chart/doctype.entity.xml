@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!ENTITY part.chart.xml				SYSTEM "part.chart.xml">
+<!ENTITY chapter.chart.xml			SYSTEM "chapter.chart.xml">
+<!ENTITY chapter.google.xml			SYSTEM "chapter.google.xml">
+<!ENTITY chapter.baidu.xml			SYSTEM "chapter.baidu.xml">
