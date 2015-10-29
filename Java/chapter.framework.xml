@@ -1,4 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<chapter id="index"><?dbhtml dir="struts" ?>
+	<title>Struts</title>
+	<para><ulink url="http://struts.apache.org/" /></para>
+	
+</chapter>
 <chapter id="play">
 	<title>Play</title>
 	<para>https://www.playframework.com/</para>

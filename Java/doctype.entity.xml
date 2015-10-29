@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!ENTITY chapter.java.xml		 		SYSTEM "chapter.java.xml">
-<!ENTITY chapter.java.ant.xml		 	SYSTEM "chapter.java.ant.xml">
+<!ENTITY chapter.build.xml				SYSTEM "chapter.build.xml">
+<!ENTITY section.ant.xml				SYSTEM "build/section.ant.xml">
+<!ENTITY section.gradle.xml				SYSTEM "build/section.gradle.xml">
+<!ENTITY section.maven.xml				SYSTEM "build/section.maven.xml">
+
 <!ENTITY chapter.cache.xml			 	SYSTEM "chapter.cache.xml">
 <!ENTITY chapter.framework.xml			SYSTEM "chapter.framework.xml">

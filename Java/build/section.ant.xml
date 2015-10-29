@@ -1,6 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<section id="build">
-	<title>Build Tools</title>
 <section id="ant">
 	<title>Apache Ant</title>
 	<para><ulink url="http://ant.apache.org/">http://ant.apache.org/</ulink></para>
@@ -145,26 +143,4 @@ capitalized by org.apache.commons.lang.WordUtils : Hello Ivy !
 	</section>
 </section>
 
-<section id="maven">
-	<title>maven2</title>
-	<screen>
-$ sudo apt-get install maven2
 
-$ mvn -version
-Apache Maven 2.2.1 (rdebian-4)
-Java version: 1.6.0_22
-Java home: /usr/lib/jvm/java-6-openjdk/jre
-Default locale: en_US, platform encoding: UTF-8
-OS name: "linux" version: "2.6.38-8-generic" arch: "amd64" Family: "unix"
-
-	</screen>
-			<screen>
-JAVA_HOME="/usr/lib/jvm/java-6-openjdk/jre"
-MAVEN_HOME="/usr/share/maven2/"
-			</screen>
-</section>
-<section id="gradle">
-	<title>Gradle</title>
-	<para></para>
-</section>
-</section>
