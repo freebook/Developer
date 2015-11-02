@@ -7,3 +7,6 @@
 [submodule "Perl"]
 	path = Perl
 	url = https://github.com/freebook/Perl.git
+[submodule "Java"]
+	path = Java
+	url = https://github.com/freebook/Java.git
