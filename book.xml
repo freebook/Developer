@@ -52,10 +52,10 @@
 
 	<!ENTITY % ruby.doctype.entity.xml 		SYSTEM "Ruby/doctype.entity.xml">
 	%ruby.doctype.entity.xml;
-
+<!--
 	<!ENTITY % java.doctype.entity.xml 		SYSTEM "Java/doctype.entity.xml">
 	%java.doctype.entity.xml;
-
+-->
 	<!ENTITY % graphics.doctype.entity.xml 	SYSTEM "Graphics/doctype.entity.xml">
 	%graphics.doctype.entity.xml;
 	
@@ -125,7 +125,7 @@
 	&part.webpage.xml;
 	<!-- &part.php.xml; -->
 	<!-- &part.python.xml; -->
-	&chapter.java.xml;
+	<!-- &chapter.java.xml; -->
 	&part.ruby.xml;
 	&chapter.node.js.xml;
 <!-- =========================================================================== -->

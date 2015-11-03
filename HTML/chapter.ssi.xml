@@ -2,8 +2,40 @@
 <!-- $Id: chapter.ssi.xml 515 2013-01-15 06:34:09Z netkiller $ -->
 <chapter id="ssi">
 	<title>SSI</title>
-	<section>
+	<section id="env">
 		<title>SSI 环境变量</title>
+		<para>显示所有环境变量</para>
+		<screen>
+		<![CDATA[
+<!--#printenv -->
+		]]>
+		</screen>
+		<screen>
+HTTP_USER_AGENT=curl/7.29.0
+HTTP_ACCEPT=*/*
+LAST_MODIFIED=Tuesday, 03-Nov-2015 09:57:28 HKT
+DOCUMENT_URI=/
+REMOTE_PORT=37482
+SERVER_NAME=224.25.22.70
+SERVER_SOFTWARE=Apache Tomcat/7.0.65 OpenJDK 64-Bit Server VM/20.0-b12 Linux
+SCRIPT_FILENAME=/srv/apache-tomcat/webapps/ROOT/index.html
+DATE_LOCAL=Tuesday, 03-Nov-2015 09:57:31 HKT
+SERVER_ADDR=224.25.22.70
+SERVER_PROTOCOL=HTTP/1.1
+REQUEST_METHOD=GET
+DOCUMENT_NAME=
+SERVER_PORT=8080
+SCRIPT_NAME=/index.html
+REMOTE_ADDR=202.130.11.34
+DATE_GMT=Tuesday, 03-Nov-2015 01:57:31 GMT
+REMOTE_HOST=202.130.101.34
+HTTP_HOST=224.25.22.70:8080
+QUERY_STRING=
+GATEWAY_INTERFACE=CGI/1.1
+org.apache.catalina.ssi.SSIServlet=true
+REQUEST_URI=/
+		</screen>
+		<para>显示环境变量</para>
 		<screen>
 		<![CDATA[
 <!--#echo var="SERVER_NAME"--> <br />
@@ -12,9 +44,36 @@
 <!--#echo var="SERVER_PORT"--> <br />
 		]]>
 		</screen>
+		<para>设置环境变量</para>
+		<screen>
+		<![CDATA[
+<!--#set var="foo" value="Bar" -->
+<!--#echo var="foo"-->
+		]]>
+		</screen>
 	</section>
+	<section id="include">
+		<title>包含网页</title>
+		<screen>
+		<![CDATA[
+<!--#include virtual="file-name" -->		
+		]]>
+		</screen>
+	</section>	
 	<section>
 		<title>if 条件判断</title>
+		<screen>
+		<![CDATA[
+<!--#config timefmt="%A" -->
+<!--#if expr="$DATE_LOCAL = /Monday/" -->
+<p>Meeting at 10:00 on Mondays</p>
+<!--#elif expr="$DATE_LOCAL = /Friday/" -->
+<p>Turn in your time card</p>
+<!--#else -->
+<p>Yoga class at noon.</p>
+<!--#endif -->
+		]]>
+		</screen>
 		<screen>
 		<![CDATA[
 <!--#if expr="${SERVER_NAME}=/^(www|images|info|myid|ad).mydomain.com.*/" -->
@@ -77,7 +136,7 @@
         <!--#set var="LANG" value="tw"-->
 <!--#elif expr="${DOCUMENT_URI}=/\/en\/.*/"-->
         <!--#set var="LANG" value="en"-->
-<!--#endif-->		
+<!--#endif-->
 		]]>
 		</screen>
 	</section>
