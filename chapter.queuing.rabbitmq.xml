@@ -48,6 +48,48 @@ $ rabbitmqctl add_user testuser password
 $ rabbitmqctl set_permissions -p test testuser ".*" ".*" ".*"			
 			</screen>
 		</section>
+		
+		<section>
+			<title>list_queues</title>
+			<screen>
+# rabbitmqctl list_queues
+Listing queues ...
+amq.gen-RhBwbb9EdZ8Fgk_heGZQ2w	0
+bb	0
+customer	276930
+demo	0
+email	0
+example	0
+hello	1
+members_id	282
+new_members_id	0
+q_linvo	0
+real	0
+...done.
+			</screen>
+			<screen>
+
+			</screen>
+			<screen>
+			</screen>
+		</section>		
+		<section>
+			<title>list_exchanges</title>
+			<screen>
+# rabbitmqctl list_exchanges
+Listing exchanges ...
+	direct
+amq.direct	direct
+amq.fanout	fanout
+amq.headers	headers
+amq.match	headers
+amq.rabbitmq.log	topic
+amq.rabbitmq.trace	topic
+amq.topic	topic
+email	direct
+...done.
+			</screen>
+		</section>
 	</section>
 	<section id="rabbitmq.python.pika">
 		<title>Python - Pika</title>

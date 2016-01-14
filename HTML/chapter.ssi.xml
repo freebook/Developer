@@ -59,6 +59,17 @@ REQUEST_URI=/
 <!--#include virtual="file-name" -->		
 		]]>
 		</screen>
+		<para>包含一个配置文件</para>
+		<screen>
+		<![CDATA[
+<!--# if expr="${SERVER_NAME}=/^(www|images|info|myid|ad).example.com.*/" -->
+	<!--#include file="/include/cn/config.html"-->
+<!--# else -->
+	<!--#include virtual="/include/cn/config.html"-->
+<!--# endif -->		
+		]]>
+		</screen>
+		
 	</section>	
 	<section>
 		<title>if 条件判断</title>
@@ -101,6 +112,14 @@ REQUEST_URI=/
 <!--#endif-->
 
 
+<!--# if expr="${SERVER_NAME}=/.*.example.com/" -->
+    <!--#set var="WWW_URL"      value="//www.example1.com"-->
+    <!--#set var="CSS_URL"      value="//css.example1.com"-->
+    <!--#set var="IMG_URL"      value="//img.example1.com"-->
+<!--# else -->
+    <!--#set var="WWW_URL"      value="//www.example.com"-->
+    <!--#set var="IMG_URL"      value="//img.example.com"-->
+<!--# endif --> 
 		]]>
 		</screen>
 		<para>判断HTTP与HTTPS</para>
@@ -137,6 +156,24 @@ REQUEST_URI=/
 <!--#elif expr="${DOCUMENT_URI}=/\/en\/.*/"-->
         <!--#set var="LANG" value="en"-->
 <!--#endif-->
+		]]>
+		</screen>
+		<para>判断是否经过反向代理</para>
+		<screen>
+		<![CDATA[
+<!--#if expr="${X_FORWARDED_FOR}"-->
+
+<!--#set var="IMG_HOST" value="/images"-->
+<!--#set var="JS_HOST" value="/images"-->
+<!--#set var="CSS_HOST" value="/images"-->
+
+<!--#else -->
+
+<!--#set var="IMG_HOST" value="http://images.example.com"-->
+<!--#set var="JS_HOST" value="http://images.example.com"-->
+<!--#set var="CSS_HOST" value="http://images.example.com"-->
+
+<!--#endif -->		
 		]]>
 		</screen>
 	</section>
