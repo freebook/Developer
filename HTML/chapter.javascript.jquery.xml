@@ -5,10 +5,41 @@
 		<step>
 		</step>
 	</procedure>
+	<section id="time">
+		<title>时间触发</title>
+		<section>
+			<title>setTimeout 定时执行一次</title>
+			<screen>
+$(document).ready(function(){
+	setTimeout(function(){
+		$("#error").hide();
+	},3000);
+});
+			</screen>
+		</section>
+		<section>
+			<title>setInterval 间隔执行</title>
+			<screen>
+$(document).ready(function(){
+	setInterval(function(){
+		alert("test");
+	},3000);
+});
+			</screen>
+		</section>
+	</section>
 	<section id="ajax">
 		<title>Ajax</title>
 		<section id="ajax.load">
 			<title>Load</title>
+		</section>
+		<section>
+			<title>Post</title>
+			<screen>
+			<![CDATA[
+
+			]]>
+			</screen>
 		</section>
 	</section>
 	<section>
