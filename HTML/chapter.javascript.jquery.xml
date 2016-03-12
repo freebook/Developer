@@ -28,6 +28,23 @@ $(document).ready(function(){
 			</screen>
 		</section>
 	</section>
+	<section id="text">
+		<title>text</title>
+		<programlisting>
+		<![CDATA[
+<p>hello</p>
+
+<p id="hello">hello</p>
+<script type="text/javascript">
+
+$("p").text("Helloworld");
+$("#hello").text("Helloworld");
+
+</script> 
+		
+		]]>
+		</programlisting>
+	</section>
 	<section id="ajax">
 		<title>Ajax</title>
 		<section id="ajax.load">
