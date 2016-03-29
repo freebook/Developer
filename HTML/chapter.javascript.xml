@@ -18,6 +18,64 @@
 javascript:alert(document.referrer);
 		</screen>
 	</section>
+	<section>
+		<title>Date and Time</title>
+		<screen>
+var dateObject=new Date();
+document.writeln(dateObject.toDateString());
+Mon Mar 28 2016
+
+document.writeln(dateObject.toLocaleDateString());
+‎2016‎年‎3‎月‎28‎日
+
+document.writeln(dateObject.toISOString())
+2016-03-28T08:57:30.244Z
+
+document.writeln(dateObject.toISOString().slice(0,10));
+2016-03-28
+
+document.writeln(dateObject.toISOString().slice(11,19));
+09:11:12
+
+document.writeln(dateObject.toTimeString().slice(0,9));
+17:16:11
+
+document.writeln(new Date("2016-3-30").getTime());
+1459267200000
+		</screen>
+		<screen>
+var today = new Date();
+var h = today.getHours();
+var m = today.getMinutes();
+var s = today.getSeconds();
+		</screen>
+		<example>
+			<title>倒数计时例子</title>
+			<screen>
+			<![CDATA[
+function checkTime(i)    
+{    
+   if (i < 10) {    
+       i = "0" + i;    
+    }    
+   return i;    
+}
+			
+var ts = (new Date("2016-3-30")) - (new Date());//计算剩余的毫秒数  
+var dd = parseInt(ts / 1000 / 60 / 60 / 24, 10);//计算剩余的天数  
+var hh = parseInt(ts / 1000 / 60 / 60 % 24, 10);//计算剩余的小时数  
+var mm = parseInt(ts / 1000 / 60 % 60, 10);//计算剩余的分钟数  
+var ss = parseInt(ts / 1000 % 60, 10);//计算剩余的秒数  
+day = checkTime(dd);  
+hour = checkTime(hh);  
+minute = checkTime(mm);  
+second = checkTime(ss);  
+
+document.writeln(day + "天" + hour + "时" + minute + "分" + second + "秒");  			
+			]]>
+			</screen>
+		</example>
+	</section>
 	<section id="form">
 		<title>from 表单相关事件</title>
 		<section>
