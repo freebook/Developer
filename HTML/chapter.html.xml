@@ -2,6 +2,7 @@
 
 	&chapter.css.xml;
 	&chapter.xhtml.xml;
+	&chapter.html5.xml;
 	&chapter.javascript.xml;
 	&chapter.ssi.xml;
 	&chapter.theme.xml;
