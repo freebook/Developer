@@ -35,6 +35,26 @@ GATEWAY_INTERFACE=CGI/1.1
 org.apache.catalina.ssi.SSIServlet=true
 REQUEST_URI=/
 		</screen>
+	</section>
+	<section id="set">
+		<title>set</title>
+		<para>设置环境变量</para>
+		<screen>
+		<![CDATA[
+<!--#set var="foo" value="Bar" -->
+<!--#echo var="foo"-->
+		]]>
+		</screen>
+		<para>环境变量</para>		
+		<screen>
+		<![CDATA[
+<!--#set var="WWW_URL"      value="//${SERVER_NAME}"-->
+<!--#set var="IMG_URL"      value="//${SERVER_NAME}"-->
+		]]>
+		</screen>
+	</section>
+	<section id="echo">
+		<title>echo</title>
 		<para>显示环境变量</para>
 		<screen>
 		<![CDATA[
@@ -42,13 +62,6 @@ REQUEST_URI=/
 <!--#echo var="DOCUMENT_URI"--> <br />
 <!--#echo var="HTTP_HOST"--> <br />
 <!--#echo var="SERVER_PORT"--> <br />
-		]]>
-		</screen>
-		<para>设置环境变量</para>
-		<screen>
-		<![CDATA[
-<!--#set var="foo" value="Bar" -->
-<!--#echo var="foo"-->
 		]]>
 		</screen>
 	</section>
@@ -71,7 +84,7 @@ REQUEST_URI=/
 		</screen>
 		
 	</section>	
-	<section>
+	<section id="if">
 		<title>if 条件判断</title>
 		<screen>
 		<![CDATA[

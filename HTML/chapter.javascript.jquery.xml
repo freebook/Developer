@@ -127,7 +127,24 @@ $.ajax({
 			<para>将 dataType: 'JSON' 替换为 dataType: 'JSONP'</para>
 		</section>
 	</section>
-	
+	<section>
+		<title>Form 表单处理</title>
+		<section>
+			<title>select</title>
+			<programlisting>
+			<![CDATA[
+	var select = $('#bank');
+	//$('option', select).remove();
+	$.each(banklist, function(key,code) {
+		var option = new Option(key, code)
+	    select.append( option );
+	});			
+			
+	$('#bank').append($("<option></option>").attr("value","CMB").text("招商银行"));
+			]]>
+			</programlisting>
+		</section>
+	</section>
 	<section id="garlic.js">
 		<title>Garlic.js - 表单数据持久化</title>
 		<para>http://garlicjs.org/</para>

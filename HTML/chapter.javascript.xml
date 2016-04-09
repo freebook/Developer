@@ -19,6 +19,20 @@ javascript:alert(document.referrer);
 		</screen>
 	</section>
 	<section>
+		<title>String 字符串处理</title>
+		<section>
+			<title>JSON.parse</title>
+			<programlisting>
+			<![CDATA[
+var json = '{"result":true,"count":1}',
+    obj = JSON.parse(json);
+
+alert(obj.count);
+			]]>
+			</programlisting>
+		</section>
+	</section>
+	<section>
 		<title>Date and Time</title>
 		<screen>
 var dateObject=new Date();
