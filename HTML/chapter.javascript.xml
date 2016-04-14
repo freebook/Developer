@@ -4,11 +4,28 @@
 		<title>window</title>
 		<section>
 			<title>window.location</title>
+			<para>href</para>
+			<screen>
+			<![CDATA[
+var source=window.location.href;
+if(source.indexOf('www.example.com')>0){
+	... 
+}		
+			]]>
+			</screen>
+			<para>hostname</para>
+			<screen>
+			<![CDATA[
+if(window.location.hostname == "www.example.com"){
+	...
+}			
+			]]>
+			</screen>
 			<screen>
 			<![CDATA[
 <span>网址： <script>document.write(window.location.hostname);</script></span>		
 			]]>
-			</screen>
+			</screen>			
 		</section>
 	</section>
 	<section id="document">
