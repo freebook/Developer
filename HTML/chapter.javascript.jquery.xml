@@ -5,6 +5,75 @@
 		<step>
 		</step>
 	</procedure>
+	<section>
+		<title>jQuery 属性操作</title>
+		
+	<section id="is">
+		<title>is</title>
+		<programlisting>
+		<![CDATA[
+<a id="startMenu" href="#" class="more">
+		
+<section id="menu" class="right_menu disnone">
+  <dl>
+    <dt><i></i></dt>
+    <Dd>您好！创富金融欢迎您</Dd>
+  </dl>
+  <ul>
+    <li><a href="#">首页</a></li>
+    <li><a href="#">简介</a></li>
+    <li><a href="#">...</a></li>
+    <div style="clear:both;"></div>
+  </ul>
+</section>
+
+<script>
+	$(document).ready(function() {
+		
+		$("#startMenu").click(function() {
+			if($("#menu").is(":visible")){
+				$("#menu").hide();	
+			}else{
+				$("#menu").show();
+			}
+			
+		});
+	});
+</script>
+		]]>
+		</programlisting>
+	</section>
+	<section id="css">
+		<title>css</title>
+		<programlisting>
+		<![CDATA[
+$("button").click(function(){
+  $("p:first").addClass("intro");
+});
+
+
+	
+$( "p" ).removeClass( "myClass yourClass" )
+$( "p" ).removeClass( "myClass noClass" ).addClass( "yourClass" );
+
+		
+<p>hello</p>
+
+<p id="hello">hello</p>
+<script type="text/javascript">
+
+$("p").addClass("Helloworld");
+$("#hello").addClass("Helloworld");
+
+</script> 
+		
+		]]>
+		</programlisting>
+	</section>
+	
+	
+	
+	</section>
 	<section id="time">
 		<title>时间触发</title>
 		<section>
@@ -127,7 +196,7 @@ $.ajax({
 			<para>将 dataType: 'JSON' 替换为 dataType: 'JSONP'</para>
 		</section>
 	</section>
-	<section>
+	<section id="form">
 		<title>Form 表单处理</title>
 		<section>
 			<title>select</title>
@@ -144,6 +213,53 @@ $.ajax({
 			]]>
 			</programlisting>
 		</section>
+	</section>
+	<section id="event">
+		<title>Jquery 事件</title>
+		<section>
+			<title>click 事件</title>
+		</section>
+		<programlisting>
+		<![CDATA[
+$(document).ready(function() {
+
+	$("#Button1").click(function() {
+		$("#Tab1").hide();
+		$("#Tab2").show();
+	});
+	$("#Button2").click(function() {
+		$("#Tab1").show();
+		$("#Tab2").hide();
+	});	
+});			
+		]]>
+		</programlisting>
+		<para>解除事件绑定</para>
+		<programlisting>
+		<![CDATA[
+$( "#Button1").unbind( "click" );
+$( "#Button2").unbind( "click" );		
+		]]>
+		</programlisting>
+		<para>事件中绑定事件</para>
+		<programlisting>
+		<![CDATA[
+			
+$("#Button").click(function() {	
+	$( "#Button1").unbind( "click" );
+	$( "#Button2").unbind( "click" );
+	
+	$("#Button1").click(function() {
+		$("#Tab1").hide();
+		$("#Tab2").show();
+	});
+	$("#Button2").click(function() {
+		$("#Tab1").show();
+		$("#Tab2").hide();
+	});	
+});	
+		]]>
+		</programlisting>		
 	</section>
 	<section id="garlic.js">
 		<title>Garlic.js - 表单数据持久化</title>
