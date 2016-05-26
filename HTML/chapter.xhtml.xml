@@ -8,7 +8,7 @@
 
 	]]>
 	</screen>
-	<section>
+	<section id="tel">
 		<title>iPhone WebApp</title>
 		<subtitle>移动设备开发</subtitle>
 		<section>
@@ -51,5 +51,29 @@
 			]]>
 			</screen>
 		</section>
+	</section>
+	<section id="frame">
+		<title>frame</title>
+		<para></para>
+		<screen>
+		<![CDATA[
+<!DOCTYPE html>
+<html>
+<head>
+<title>HTML Frames</title>
+</head>
+<frameset rows="0,100%" frameborder="0">
+   <frame name="top" src="" />
+   <frame name="main" src="http://www.netkiller.cn/" />
+   <noframes>
+   <body>
+      Your browser does not support frames.
+   </body>
+   </noframes>
+</frameset>
+</html>
+		
+		]]>
+		</screen>
 	</section>
 </chapter>

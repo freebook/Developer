@@ -35,6 +35,21 @@ GATEWAY_INTERFACE=CGI/1.1
 org.apache.catalina.ssi.SSIServlet=true
 REQUEST_URI=/
 		</screen>
+		<screen>
+			<title>QUERY_STRING GET参数传递</title>
+			<para>例如我们需要实现一个功能，test.html?后面的参数需要传递到页面中。</para>
+			<screen>
+			<![CDATA[
+http://www.netkiller.cn/lp/test.html?utm_source=ss&utm_medium=baidusem&utm_campaign=lpgrant			
+			]]>
+			</screen>
+			
+			<screen>
+			<![CDATA[
+<a href="<!--#echo var="WWW_URL"-->/customer/CreateAccount.do?<!--#echo var="QUERY_STRING"-->">新建用户</a>
+			]]>
+			</screen>
+		</screen>
 	</section>
 	<section id="set">
 		<title>set</title>
