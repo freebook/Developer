@@ -30,10 +30,24 @@ if(window.location.hostname == "www.example.com"){
 	</section>
 	<section id="document">
 		<title>document</title>
-		<para>referrer</para>
-		<screen>
+		<section>
+			<title>referrer</title>
+			<para>referrer</para>
+			<screen>
 javascript:alert(document.referrer);
-		</screen>
+			</screen>
+		</section>	
+		<section>
+			<title>domain</title>
+			<para>document.domain;</para>
+			<para>去掉主机，例如www</para>
+			<screen>
+			<![CDATA[
+
+document.domain.split(".").slice(-2).join(".");			
+			]]>
+			</screen>
+		</section>
 	</section>
 	<section>
 		<title>String 字符串处理</title>
