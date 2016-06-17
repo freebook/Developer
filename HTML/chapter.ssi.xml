@@ -79,6 +79,12 @@ http://www.netkiller.cn/lp/test.html?utm_source=ss&utm_medium=baidusem&utm_campa
 <!--#echo var="SERVER_PORT"--> <br />
 		]]>
 		</screen>
+		<para>默认值</para>
+		<screen>
+		<![CDATA[
+<!--# echo var="name" default="neo" -->		
+		]]>
+		</screen>
 	</section>
 	<section id="include">
 		<title>包含网页</title>
@@ -101,6 +107,16 @@ http://www.netkiller.cn/lp/test.html?utm_source=ss&utm_medium=baidusem&utm_campa
 	</section>	
 	<section id="if">
 		<title>if 条件判断</title>
+		<screen>
+		<![CDATA[
+<!--# if expr="$name" -->
+	<!--# echo var="name" -->
+<!--# else -->
+	netkiller
+<!--# endif -->
+		]]>
+		</screen>
+		
 		<screen>
 		<![CDATA[
 <!--#config timefmt="%A" -->
