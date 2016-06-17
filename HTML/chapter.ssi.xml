@@ -205,4 +205,32 @@ http://www.netkiller.cn/lp/test.html?utm_source=ss&utm_medium=baidusem&utm_campa
 		]]>
 		</screen>
 	</section>
+	<section id="ssi.faq">
+		<title>FAQ 常见问题</title>
+		<section>
+			<title>SERVER_NAME 与  HTTP_HOST 有什么不同？</title>
+			<para>SERVER_NAME 与  HTTP_HOST 有什么不同，下面是nginx配置:</para>
+			<screen>
+server {
+    listen       80 ;
+    server_name www.example.com example.com www.netkiller.cn;
+    	
+    charset utf-8;
+    access_log  /var/log/nginx/www.example.com.access.log;
+    error_log  /var/log/nginx/www.example.com.error.log;
+
+    if ($query_string = "") {
+       set $args "";
+    }
+
+    location / {
+        root /www/example.com/www.example.com;
+        index index.html;
+	}
+}
+			</screen>
+			<para>当你使用上面的域名访问服务器时 SERVER_NAME 取到的永远是 server_name 配置的第一个域名，即：www.example.com</para>
+			<para>而 HTTP_HOST 是你浏览器URL上面的域名</para>
+		</section>
+	</section>
 </chapter>
