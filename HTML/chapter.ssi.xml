@@ -220,6 +220,18 @@ http://www.netkiller.cn/lp/test.html?utm_source=ss&utm_medium=baidusem&utm_campa
 <!--#endif -->		
 		]]>
 		</screen>
+		<para>&amp;&amp; 操作</para>
+		<screen>
+		<![CDATA[
+<!--#if expr="(${HTTP_USER_AGENT} = /Mozilla\/4/) && (${HTTP_USER_AGENT} != /MSIE/)" -->
+ Netscape styles
+<!--#elif expr="(${HTTP_USER_AGENT} = /Mozilla\/4/) && (${HTTP_USER_AGENT} = /MSIE/)" -->
+MSIE styles
+<!--#else -->
+You must be using Opera or other?
+<!--#endif -->		
+		]]>
+		</screen>
 	</section>
 	<section id="ssi.faq">
 		<title>FAQ 常见问题</title>

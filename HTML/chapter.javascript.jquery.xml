@@ -6,6 +6,21 @@
 		</step>
 	</procedure>
 	<section>
+		<title>Selectors(选择器)</title>
+		<programlisting>
+		<![CDATA[
+    if(window.location.hostname.indexOf("example.com") !== -1 ){
+    	$("#nav3").hide();
+    	$("#platform-nav li:nth-child(3)").hide();
+    	$("#platform-nav li:nth-child(4)").hide();
+    	$(".footer .fcon .coll").hide();
+    	$(".footer .fcon .col3").hide();
+    	$(".footer .fcon .col4").hide();
+    }
+		]]>
+		</programlisting>
+	</section>
+	<section>
 		<title>jQuery 属性操作</title>
 		
 	<section id="is">
