@@ -297,23 +297,6 @@ function fnChangeNode(){
 		<title>ActiveWidgets - WebUI</title>
 	</section>
 
-	<section id="js.edit">
-		<title>所见即所得现在编辑工具</title>
-		<!-- http://www.kuqin.com/developtool/20090726/64339.html -->
-		<section>
-			<title>FCKeditor</title>
-		</section>
-		<section>
-			<title>NicEdit</title>
-		</section>
-		<section>
-			<title>TinyMCE</title>
-		</section>
-		<section>
-			<title>WYSIWYG</title>
-		</section>
-	</section>
-
 	<section id="highslide">
 		<title>Highslide</title>
 		<para><ulink url="http://highslide.com/"/></para>

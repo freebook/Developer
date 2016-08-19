@@ -25,5 +25,24 @@
 			<para>https://highlightjs.org</para>
 		</section>
 	</section>
-	
+	<section id="js.edit">
+		<title>所见即所得现在编辑工具</title>
+		<!-- http://www.kuqin.com/developtool/20090726/64339.html -->
+		<section>
+			<title>FCKeditor</title>
+		</section>
+		<section>
+			<title>NicEdit</title>
+		</section>
+		<section>
+			<title>TinyMCE</title>
+		</section>
+		<section>
+			<title>WYSIWYG</title>
+		</section>
+		<section id="Quill">
+			<title>Quill</title>
+			<para>http://quilljs.com/</para>
+		</section>
+	</section>	
 </chapter>
