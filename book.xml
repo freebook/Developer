@@ -67,6 +67,7 @@
 	<!ENTITY chapter.uml.xml				SYSTEM "UML/chapter.uml.xml">
 	<!ENTITY chapter.regular.xml			SYSTEM "chapter.regular.xml">
 	<!ENTITY chapter.miscellaneous.xml		SYSTEM "chapter.miscellaneous.xml">
+	<!ENTITY chapter.faq.xml 				SYSTEM "chapter.faq.xml">
 
 	<!ENTITY home "<![CDATA[ <ulink url='&homepage;'>&homepage;</ulink> ]]>">
 
@@ -139,6 +140,7 @@
 	&chapter.uml.xml;
 	&chapter.regular.xml;
 	&chapter.miscellaneous.xml;
+	&chapter.faq.xml;
 <!-- ===========================================================================
 	&book.history;
 	&book.appendix;

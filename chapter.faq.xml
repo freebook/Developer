@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<chapter>
+	<title></title>
+	<section>
+		<title>微信下载apk解决方案</title>
+		<para>创建一个网页 http://www.netkiller.cn/download/android.html 内容如下：</para>
+		<screen>
+		<![CDATA[
+<script>
+if(navigator.userAgent.indexOf("MicroMessenger") > 0 ){
+        document.write("<h1>由于微信限制，请点击右上角，选择\"在浏览器中打开\"下载</h1>");
+}else{
+        document.location = "your_app_1.0.0.apk";
+}
+</script>
+		
+		]]>
+		</screen>
+	</section>
+</chapter>

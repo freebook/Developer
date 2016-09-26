@@ -28,6 +28,16 @@ if(window.location.hostname == "www.example.com"){
 			</screen>			
 		</section>
 	</section>
+	<section id="navigator">
+		<title>navigator</title>
+		<section>
+			<title>userAgent</title>
+			<screen>
+document.write(navigator.userAgent);
+document.write(navigator.userAgent.indexOf("MicroMessenger"));
+			</screen>
+		</section>
+	</section>
 	<section id="document">
 		<title>document</title>
 		<section>

@@ -15,11 +15,11 @@
 		<title>ActiveMQ</title>
 		<para><ulink url="http://activemq.apache.org/">Apache ActiveMQ</ulink></para>
 	</section>
-    <section id="kafka">
-    	<title>Apache Kafka is a distributed publish-subscribe messaging system</title>
-    	<para>http://kafka.apache.org/</para>
-    </section>
     <section id="beanstalkd">
     	<title>http://kr.github.io/beanstalkd/</title>
+    </section>
+    <section>
+    	<title>gRPC</title>
+    	<para>http://www.grpc.io/</para>
     </section>
 </chapter>
