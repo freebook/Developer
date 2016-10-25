@@ -5,7 +5,7 @@
 		<step>
 		</step>
 	</procedure>
-	<section>
+	<section id="selector">
 		<title>Selectors(选择器)</title>
 		<programlisting>
 		<![CDATA[
@@ -20,7 +20,7 @@
 		]]>
 		</programlisting>
 	</section>
-	<section>
+	<section id="attr">
 		<title>jQuery 属性操作</title>
 		
 	<section id="is">
@@ -128,6 +128,20 @@ $("#hello").text("Helloworld");
 		
 		]]>
 		</programlisting>
+	</section>
+	<section id="inArray">
+		<title>inArray</title>
+		<para>返回值是数组的key</para>
+		<screen>
+	var host = window.location.hostname;
+	var domains = ["netkiller.github.io","www.netkiller.cn"];
+
+	if(jQuery.inArray( host, domains ) != -1) {
+	...
+	...		
+	}
+		</screen>
+		
 	</section>
 	<section id="ajax">
 		<title>Ajax</title>
