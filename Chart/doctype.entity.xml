@@ -3,3 +3,4 @@
 <!ENTITY chapter.chart.xml			SYSTEM "chapter.chart.xml">
 <!ENTITY chapter.google.xml			SYSTEM "chapter.google.xml">
 <!ENTITY chapter.baidu.xml			SYSTEM "chapter.baidu.xml">
+<!ENTITY chapter.svg.xml			SYSTEM "chapter.svg.xml">
