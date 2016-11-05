@@ -24,7 +24,7 @@ xdot - interactive viewer for Graphviz dot files
 			</screen>
 			<para></para>
 			<screen>
-$ sudo apt-get install graphviz
+$ sudo apt install graphviz
 			</screen>
 			<para>Test, A "Hello World" example made by giving the command:</para>
 			<screen>
@@ -34,7 +34,8 @@ echo "digraph G {Hello->World}" | dot -Tpng >hello.png
 		<section>
 			<title>Yum</title>
 			<screen>
-yum list 'graphviz*'
+# yum list 'graphviz*'
+# yum install graphviz
 			</screen>
 		</section>
 	</section>
@@ -60,6 +61,16 @@ yum list 'graphviz*'
 		<section>
 			<title>Node Shapes</title>
 			<para>http://www.graphviz.org/doc/info/shapes.html</para>
+		</section>
+		<section>
+			<title>箭头</title>
+			<screen>
+digraph G {  
+	A -> B [arrowhead="vee"]
+	AA -> BB [dir="back" arrowtail="vee"]
+	AAA -> BBB [dir="both" arrowhead="vee" arrowtail="odiamond"]
+}			
+			</screen>
 		</section>
 	</section>
 
