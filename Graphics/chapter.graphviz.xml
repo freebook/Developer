@@ -44,6 +44,32 @@ echo "digraph G {Hello->World}" | dot -Tpng >hello.png
 		<title>The DOT Language</title>
 		<section id="graphviz.dot">
 			<title>dot</title>
+			<section>
+				<title>布局</title>
+				<subtitle> -Kv         - Set layout engine to 'v' (overrides default based on command name)</subtitle>
+				<para>主要用于有向图</para>
+				<screen>
+dot 默认布局方式
+neato 基于spring-model(又称force-based)算法   基于斥力+张力的布局
+twopi 径向布局
+circo 圆环布局
+osage
+				</screen>
+				<para>无向图布局</para>
+				<screen>
+fdp 用于无向图
+sfdp 用于无向图
+				</screen>
+				<para>演示</para>
+				<screen> 
+ dot test.gv  -Kdot -Tpng -o test.png
+ dot test.gv  -Kcirco -Tpng -o test.png
+ dot test.gv  -Kneato -Tpng -o test.png
+ dot test.gv  -Ktwopi  -Tpng -o test.png
+ dot test.gv  -Ksfdp  -Tpng -o test.png
+ dot test.gv  -Kosage  -Tpng -o test.png
+				</screen>
+			</section>
 		</section>
 		<section id="graphviz.twopi">
 			<title>twopi</title>
@@ -57,6 +83,20 @@ echo "digraph G {Hello->World}" | dot -Tpng >hello.png
 		<section>
 			<title>Color Names</title>
 			<para>http://www.graphviz.org/doc/info/colors.html</para>
+			<para>线颜色</para>
+			<screen>
+	subgraph cluster_api {
+		#rank=same;
+		node [style=filled];
+		label = "api";
+		#color=blue
+		api [label = "api.netkiller.cn"];
+		api->redis [color="red"];
+		api->mongodb [color="green"];
+		api->oracle [color="blue"];
+		
+	}
+			</screen>
 		</section>
 		<section>
 			<title>Node Shapes</title>
@@ -69,7 +109,7 @@ digraph G {
 	A -> B [arrowhead="vee"]
 	AA -> BB [dir="back" arrowtail="vee"]
 	AAA -> BBB [dir="both" arrowhead="vee" arrowtail="odiamond"]
-}			
+}
 			</screen>
 		</section>
 	</section>
