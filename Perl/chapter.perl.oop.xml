@@ -1,0 +1,55 @@
+<chapter id="perl.oop">
+	<title>Perl OOP</title>
+	<para>Person.pm</para>
+	<programlisting>
+		<![CDATA[
+package Person;s
+use strict;
+
+sub new {
+	my $self = {};
+	$self->{NAME} = undef;
+	$self->{AGE} 	= undef;
+	$self->{PEERS}= [];
+	bless($self);
+	return $self;
+}
+
+sub name {
+	my $self = shift;
+	if(@_) {$self->{NAME}=shift}
+	return $self->{NAME};
+}
+
+sub age {
+	my $self = shift;
+	if(@_) {$self->{AGE} = shift}
+	return $self->{AGE};
+}
+
+sub peers {
+	my $self = shift;
+	if(@_) { @{$self->{PEER}} = @_}
+	return @{$self->{PEERS}};
+}
+
+
+1;
+		]]>
+	</programlisting>
+	<programlisting>
+		<![CDATA[
+use Person;
+
+$person = Person->new();
+$person->name('name');
+
+print  $person->{NAME}		
+		]]>
+	</programlisting>
+	<section id="moose">
+		<title>Moose - A postmodern object system for Perl 5</title>
+		<subtitle>MooseX::Declare - Declarative syntax for Moose</subtitle>
+		
+	</section>
+</chapter>

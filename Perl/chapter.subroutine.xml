@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+	<chapter id="array">
+		<title>Array, Hash</title>
+		<screen>
+		<![CDATA[
+my @source = qw( title text1 text2 text3 text4 title text1 text2 text3 );
+
+my $i = 0;
+my @records = ();
+foreach my $sour (@source)
+{
+    if ($sour eq 'title')
+    {
+        $records[$i] = { title => $sour };
+        $i++;
+    }
+    else
+    {
+        push @{ $records[$i - 1]->{value} }, $sour;
+    }
+}
+
+use Data::Dumper;
+print Dumper \@records;
+		]]>
+		</screen>
+	</chapter>
+
+	<chapter>
+		<title>perl中的文件测试参数</title>
+		<screen>
+-r 文件或是目录对该（有效）用户或组可读
+-w 文件或是目录对该（有效）用户或组可写
+-x 文件或是目录对该（有效）用户或组可
+-o 文件或是目录被该（有效）用户所有
+
+-R 文件或目录对该实际用户或组可读
+-W 文件或目录对该实际用户或组可写
+-X 文件或目录对该实际用户或组可执行
+-O 文件或目录被该实际用户所有
+
+-e 文件或目录存在
+-z 文件存在，大小为零，判断文件是否大小为零（对目录总为假）
+-s 文件存在，大小非零（即，文件大小，单位为字节）
+
+-f 条目是个普通文件
+-d 条目是个普通目录
+-l 条目是个符号连接
+-S 条目是个套接字
+-p 条目是个命名管道（一个fifo）
+-b 条目是个特殊(block-special)文件（如一个可装载磁盘）
+-c 条目是个字符特殊(character-special)文件（如一个I/O设备）
+
+-u 文件或目录是setuid
+-g 文件或目录是setgid
+-k 文件或目录的粘着位(sticky bit)被设置
+
+-t 文件句柄是个TTY（可由isatty()系统函数返回；文件名不能由本测试来测试）
+
+-T 文件像是个“文本”文件
+-B 文件像是个“二进制”文件
+
+-M 更改年龄（单位：天）
+-A 访问年龄（单位：天）
+-C Inode更改年龄（单位：天）
+		</screen>
+	</chapter>
+
+	<chapter id="dumper">
+		<title>Data::Dumper</title>
+		<screen>
+use Data::Dumper;
+warn Dumper $variable
+		</screen>
+	</chapter>

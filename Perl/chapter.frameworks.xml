@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<chapter>
+	<title>Frameworks</title>
+	<section id="catalyst">
+		<title>Catalyst Web framework</title>
+		<para>Install</para>
+		<screen>
+sudo apt-get update
+sudo apt-get install libdbd-sqlite3-perl libcatalyst-perl libcatalyst-modules-perl libconfig-general-perl
+		</screen>
+		<para>Setup</para>
+		<screen>
+$ catalyst.pl MyApp
+$ cd MyApp
+$ script/myapp_create.pl controller Library::Login
+		</screen>
+		<para>Run</para>
+		<screen>
+$ script/myapp_server.pl
+		</screen>
+		<para>Test</para>
+		<screen>
+http://localhost:3000/
+http://localhost:3000/library/login/
+		</screen>
+
+		<section>
+			<title>Template</title>
+			<screen>
+			<![CDATA[
+[% api_key.${page.current_domain} %]
+			]]>
+			</screen>
+		</section>
+	</section>
+	<section id="mojolicious">
+		<title>Mojolicious</title>
+		<para>http://mojolicio.us/</para>
+	</section>
+</chapter>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- $Id: chapter.perl.xml 359 2012-03-02 13:12:30Z netkiller $ -->
+	<chapter id="parrot">
+		<title>Parrot</title>
+		<subtitle>parrot - A virtual machine for dynamic languages</subtitle>
+		<screen>
+$ sudo apt-get install parrot
+
+		</screen>
+	</chapter>
+	<chapter id="cpan">
+		<title>CPAN</title>
+		<subtitle>cpan - easily interact with CPAN from the command line</subtitle>
+		<ulink url="http://search.cpan.org/" />
+		<screen>
+user@host:~$ perl -MCPAN -e 'install UI::Dialog'
+		</screen>
+	</chapter>
+	&chapter.subroutine.xml;
+	&chapter.perl.module.xml;
+	&chapter.perl.oop.xml;
+	&chapter.frameworks.xml;

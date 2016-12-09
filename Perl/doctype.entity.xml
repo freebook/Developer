@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+	<!ENTITY chapter.perl.xml			SYSTEM "chapter.perl.xml">
+	<!ENTITY chapter.subroutine.xml		SYSTEM "chapter.subroutine.xml">
+	<!ENTITY chapter.perl.module.xml	SYSTEM "chapter.perl.module.xml">
+	<!ENTITY chapter.perl.oop.xml		SYSTEM "chapter.perl.oop.xml">
+	<!ENTITY chapter.frameworks.xml		SYSTEM "chapter.frameworks.xml">
