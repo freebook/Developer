@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<chapter id="gevent">
+	<title>gevent: A coroutine-based network library for Python</title>
+	<para>http://www.gevent.org/</para>
+</chapter>

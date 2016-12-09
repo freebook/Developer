@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<chapter id="faq">
+	<title>FAQ</title>
+	<section id="faq.zlib">
+		<title>ImportError: No module named 'zlib'</title>
+		<para>问题：编译安装的python3.4.2使用中提示 ImportError: No module named 'zlib'</para>
+		<para>原因：这个原因是你没有安装zlib</para>
+		<para>解决方法：安装 zlib-devel 后重新编译安装</para>
+		<screen>
+yum install zlib-devel
+
+./configure --prefix=/srv/python-3.4.2
+make -j8
+make install		
+		</screen>
+	</section>
+	
+	<section id="UnicodeDecodeError">
+		<title>UnicodeDecodeError: 'utf-8' codec can't decode byte 0xb2 in position 679: invalid start byte</title>
+		<para>解决方法指定编码encoding='utf-8', errors='ignore'</para>
+		<screen>
+with open(cfgfile+'.in','r', encoding='utf-8', errors='ignore') as f:
+     for line in f.readlines():
+     	pring(line)
+		</screen>
+	</section>
+</chapter>

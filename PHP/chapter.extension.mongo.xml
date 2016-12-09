@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section id="mongo">
+	<title>MongoDB</title>
+	<section>
+		<title>安装</title>
+		<screen>
+sudo pecl install mongo
+		</screen>
+		<screen>
+vim /srv/php/etc/conf.d/mongo.ini
+extension=mongo.so
+		</screen>
+	</section>
+	<section>
+		<title>GridFS</title>
+		<section>
+			<title>上传文件</title>
+			<screen>
+			<![CDATA[
+<?php
+$connection = new MongoClient( "mongodb://neo:chen@192.168.6.1" );
+$db = $connection->test;
+
+$grid = $db->getGridFS();
+$id = $grid->put("/etc/passwd");
+			]]>
+			</screen>
+		</section>
+		<section>
+			<title>读取文件</title>
+			<screen>
+			<![CDATA[
+<?php
+$connection = new MongoClient( "mongodb://neo:chen@192.168.6.1" );
+$db = $connection->test;
+
+$grid = $db->getGridFS();
+$id = $grid->put("/etc/passwd");
+
+$oid = new MongoId($id);
+
+$file = $grid->get($oid);
+
+echo $file->getBytes();			
+			]]>
+			</screen>
+		</section>
+		<section>
+			<title>storeFile</title>
+			<para>storeFile 与 put 类似</para>
+			<screen>
+			<![CDATA[
+<?php
+$connection = new MongoClient( "mongodb://neo:chen@192.168.6.1" );
+$db = $connection->test;
+
+$grid = $db->getGridFS();
+$storedfile = $grid->storeFile("/etc/passwd", array("date" => new MongoDate()));
+
+// Return newly stored file's Document ID
+echo $storedfile;			
+			]]>
+			</screen>
+		</section>
+		<section>
+			<title>查找文件</title>
+			<para>findOne 与 get 类似，get 只能通过id取出文件，findOne可以查找文件名，日期，尺寸，以及md5值。</para>
+			<screen>
+			<![CDATA[
+<?php
+$connection = new MongoClient( "mongodb://neo:chen@192.168.6.1" );
+$db = $connection->test;
+
+$grid = $db->getGridFS();
+$file = $grid->findOne("/etc/passwd");
+
+echo $file->getBytes();
+
+			]]>
+			</screen>
+			<para>指定 collections</para>
+			<screen>
+			<![CDATA[
+<?php
+
+$images = $db->mydb->getGridFS('images');
+
+$image = $images->findOne('jwage.png');
+
+header('Content-type: image/png;');
+echo $image->getBytes();
+?>			
+			]]>
+			</screen>
+		</section>
+		<section>
+			<title>遍历文件</title>
+			<para>findOne一直只返回一条数据，find可以返回结果集，实现遍历文件。</para>
+			<screen>
+			<![CDATA[
+<?php
+$connection = new MongoClient( "mongodb://neo:chen@192.168.6.1" );
+$db = $connection->test;
+
+$grid = $db->getGridFS();
+$files = $grid->find();
+foreach ($files as $file){
+	print_r($file);
+}			
+			]]>
+			</screen>		
+		</section>
+	</section>
+</section>

@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- $Id: chapter.python.xml 659 2013-08-09 10:01:31Z netkiller $ -->
+<chapter id="stdio">
+	<title>Input/Output</title>
+	<section id="sys">
+		<title>Standard</title>
+		<section>
+			<title>Standard Input</title>
+			<screen>
+sys.stdin.readline().strip()
+			</screen>
+		</section>
+		<section>
+			<title>Standard Output</title>
+			<screen>
+sys.stdout.write("输出的字串")
+			</screen>
+		</section>
+	</section>
+	<section id="io.file">
+		<title>File</title>
+		<programlisting role="python">
+f = open('/tmp/workfile', 'r+')
+f.write('0123456789abcdef')
+f.seek(5)     # Go to the 6th byte in the file
+f.read(1)
+f.seek(-3, 2) # Go to the 3rd byte before the end
+f.read(1)
+f.readline()
+f.close()
+		</programlisting>
+		<screen>
+for line in open("myfile.txt"):
+    print line
+
+with open("myfile.txt") as f:
+    for line in f:
+        print line
+		</screen>
+		<para></para>
+		<programlisting>
+with open('beak', 'rb+') as f:
+    content = f.read()
+    f.seek(0)
+    f.write(content.replace(b'\r', b''))
+    f.truncate()		
+		</programlisting>
+	</section>
+</chapter>
+	&chapter.python.type.xml;
+<chapter id="data">
+	<title>数据结构</title>
+	<section id="data.list">
+		<title>List</title>
+		<para>随机抽取list成员</para>
+		<screen>
+import random
+
+# random choice from a list
+for i in range(5):
+    print random.choice([1, 2, 3, 5, 9])
+		</screen>
+	</section>
+	<section id="data.set">
+		<title>Set</title>
+	</section>
+</chapter>
+
+<chapter id="class">
+    <title>Class</title>
+    <screen>
+class MyClass:
+    """A simple example class"""
+    i = 12345
+    def f(self):
+        return 'hello world'
+
+x = MyClass()
+    </screen>
+    <section id="class.init">
+        <title>__init__</title>
+        <screen>
+def __init__(self):
+    self.data = []
+        </screen>
+        <screen>
+>>> class Complex:
+...     def __init__(self, realpart, imagpart):
+...         self.r = realpart
+...         self.i = imagpart
+...
+>>> x = Complex(3.0, -4.5)
+>>> x.r, x.i
+        </screen>
+    </section>
+</chapter>

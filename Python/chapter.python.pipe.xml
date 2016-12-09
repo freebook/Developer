@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<chapter id="pipe">
+	<title>Pipe</title>
+	<section id="stdin">
+		<title>stdin</title>
+		<screen>
+#!/usr/bin/python
+#filename:demo.py
+
+import sys
+
+for line in sys.stdin:
+    print line,
+
+
+#ls -lh | python demo.py
+		</screen>
+	</section>
+	<section id="forkpty">
+		<title>forkpty</title>
+		<screen>
+#!/usr/bin/env python
+
+import os
+import sys
+
+pid, fd = os.forkpty()
+
+if pid == 0:
+    # child
+    os.execlp("ssh","ssh","hostname","uname")
+else:
+    # parent
+    print os.read(fd, 1000)
+    os.write(fd,"password\n")
+
+    c = os.read(fd, 1)
+    while c:
+        c = os.read(fd, 1)
+        sys.stdout.write(c)
+		</screen>
+	</section>
+	<section id="popen">
+		<title>Popen</title>
+		<screen>
+#!/usr/bin/python
+
+from  subprocess import *
+p = Popen(["cat", "-n"], bufsize=1024,stdin=PIPE,
+                    stdout=PIPE, close_fds=True)
+
+(fin, fout) =  (p.stdin, p.stdout)
+for i in range(10):
+   fin.write("line" + str(i))
+   fin.write('\n')
+   fin.flush()
+   print fout.readline(),
+		</screen>
+	</section>
+	<section id="socketpair">
+		<title>socketpair</title>
+		<para>socketpair 实现双向管道</para>
+	</section>
+</chapter>

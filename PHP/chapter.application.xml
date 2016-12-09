@@ -1,0 +1,351 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- $Id: chapter.application.xml 662 2013-08-14 02:46:24Z netkiller $ -->
+<chapter id="index"><?dbhtml dir="application"?>
+	<title>PEAR - PHP Extension and Application Repository</title>
+	<section id="pear">
+		<title>PEAR 使用说明</title>
+		<section id="php.pear">
+			<title>php-pear 安装</title>
+			<screen>
+$ sudo apt-get install php-pear
+			</screen>
+		</section>
+		<section>
+			<title>channel-update</title>
+			<para>channel-update</para>
+			<command>pear channel-update pear.php.net</command>
+			<para>list-all</para>
+			<command>pear list-all</command>
+		</section>
+		<section>
+			<title>install/uninstall</title>
+			<para>install</para>
+			<command>pear install Packages</command>
+			<para>uninstall</para>
+			<command>pear uninstall Packages</command>
+		</section>
+	</section>
+	<section id="composer">
+		<title>Composer</title>
+		<section>
+			<title>安装 Composer</title>
+			<screen>
+curl -sS https://getcomposer.org/installer | PHP
+			</screen>
+		</section>
+		<section>
+			<title>安装 composer.json</title>
+			<para>创建 composer.json 文件，然后运行</para>
+			<screen>
+php composer.phar install
+			</screen>
+		</section>
+	</section>
+	<section id="pyrus">
+		<title>Pyrus</title>
+		<screen>
+wget http://pear2.php.net/pyrus.phar
+
+# Set where to install packages:
+$ php pyrus.phar mypear ~/src/my-project/vendor
+# Install a package:
+$ php pyrus.phar install PEAR2_HTTP_Request
+# List installed packages:
+$ php pyrus.phar list-packages
+		</screen>
+	</section>
+	<section id="pirum">
+		<title>Pirum is a simple PEAR Channel Server Manager</title>
+		<ulink url="http://pirum.sensiolabs.org/">http://pirum.sensiolabs.org/</ulink>
+		<screen>
+$ pear channel-discover pear.pirum-project.org
+$ pear install pirum/Pirum
+
+$ php pirum
+		</screen>
+	</section>
+
+<section id="phpunit">
+	<title>PHPUnit - Unit testing framework for PHP</title>
+	<para>https://phpunit.de/</para>
+	<section>
+		<title>安装</title>
+		<section>
+			<title>使用 pear 安装</title>
+			<para>查找 phpunit</para>
+			<screen>
+# pear search PHPUnit
+Retrieving data...0%
+.Matched packages, channel pear.php.net:
+=======================================
+Package  Stable/(Latest) Local
+PHPUnit  1.3.2 (stable)        Regression testing framework for unit tests.
+PHPUnit2 2.3.6 (stable)        Regression testing framework for unit tests.			
+			</screen>
+			<para>安装 PHPUnit2</para>
+			<procedure>
+				<title>PHPUnit2</title>
+				<step>
+					<para>install</para>
+					<screen>
+pear install PHPUnit2
+					</screen>
+				</step>
+				<step>
+					<para>phpunit your.php</para>
+				</step>
+			</procedure>
+			<para>由于 PHPUnit2 之后 pear 库就没有再更新过，建议采用 phar 方案</para>
+		</section>
+		<section>
+			<title>phar 安装</title>
+			<para></para>
+			<para>手工安装</para>
+			<screen>
+wget https://phar.phpunit.de/phpunit.phar
+chmod +x phpunit.phar
+mv phpunit.phar /usr/local/bin/phpunit
+phpunit --version
+			</screen>
+		</section>
+		<section>
+			<title>测试安装是否正确</title>
+			<para>测试代码</para>
+			<screen>
+			<![CDATA[
+# cat test.php
+<?php
+
+class Test extends PHPUnit_Framework_TestCase
+{
+  function test1() { $this->assertTrue( 1 + 2  == 3 ); }
+  function test2() { $this->assertTrue( 1 + 1  == 2 ); }
+}
+?>
+			]]>
+			</screen>
+			<para>运行测试脚本</para>
+			<screen>
+# phpunit test.php
+PHPUnit 3.7.32 by Sebastian Bergmann.
+
+..
+
+Time: 40 ms, Memory: 2.50Mb
+
+OK (2 tests, 2 assertions)
+			</screen>
+		</section>
+	</section>
+
+</section>
+
+	<section id="php-xml-rss">
+		<title>XML_RSS</title>
+		<para>http://pear.php.net/package/XML_RSS</para>
+		<screen>
+$ sudo apt-get install php-xml-rss
+		</screen>
+		<example>
+			<title>RSS.php</title>
+			<programlisting>
+			<![CDATA[
+ <?php
+require_once "XML/RSS.php";
+
+$rss = new XML_RSS("http://rss.slashdot.org/Slashdot/slashdot");
+$rss->parse();
+
+echo "<h1>Headlines from <a href=\"http://slashdot.org\">Slashdot</a></h1>\n";
+echo "<ul>\n";
+
+foreach ($rss->getItems() as $item) {
+    echo "<li><a href=\"" . $item['link'] . "\">" . $item['title'] . "</a></li>\n";
+}
+
+echo "</ul>\n";
+?>
+			]]>
+			</programlisting>
+		</example>
+	</section>
+	<section id="propel">
+		<title>Propel - smart, easy object persistence</title>
+			<para>ORM （ object relation mapping ）</para>
+			<para>即将数据库表映射成对像，实现通过实例化对像来访问数据库</para>
+			<para>本文主要介绍Propel - smart, easy object persistence</para>
+		<section>
+			<title>环境配置</title>
+			<para>配置php.ini</para>
+			<para>在php.ini文件中加入：</para>
+			<para>extension=php_pdo.dll</para>
+		</section>
+		<section>
+			<title>PEAR Installer</title>
+			<screen>
+$> pear channel-discover pear.phpdb.org
+$> pear install phpdb/propel_generator
+$> pear install phpdb/propel_runtime
+			</screen>
+			<para>Adding Channel</para>
+			<screen>
+D:\>pear channel-discover pear.phpdb.org
+Adding Channel "pear.phpdb.org" succeeded
+Discovery of channel "pear.phpdb.org" succeeded
+			</screen>
+			<para>propel_generator 安装日志</para>
+			<screen>
+D:\php-5.1.4-Win32>pear install phpdb/propel_generator
+phpdb/propel_generator requires package "channel://pear.phing.info/phing" (versi
+on >= 2.2.0)
+downloading creole-1.1.0.tgz ...
+Starting to download creole-1.1.0.tgz (92,633 bytes)
+.....................done: 92,633 bytes
+install ok: channel://pear.phpdb.org/creole-1.1.0
+			</screen>
+			<para>propel_runtime 安装日志</para>
+			<screen>
+D:\php-5.1.4-Win32>pear install phpdb/propel_runtime
+downloading propel_runtime-1.2.0.tgz ...
+Starting to download propel_runtime-1.2.0.tgz (45,959 bytes)
+.............done: 45,959 bytes
+install ok: channel://pear.phpdb.org/propel_runtime-1.2.0
+
+D:\php-5.1.4-Win32>
+			</screen>
+		</section>
+	</section>
+	<section id="doctrine">
+		<title>Doctrine</title>
+		<screen>
+pear channel-discover pear.doctrine-project.org
+pear install doctrine/DoctrineDBAL-2.3.4
+pear install doctrine/DoctrineORM-2.3.4
+		</screen>
+		<para>安装目录 /path/to/php/lib/php/Doctrine/</para>
+	</section>
+	<section id="cache">
+		<title>Cache</title>
+		<screen>
+# pear install Cache
+		</screen>
+		<para>文件缓存例子</para>
+		<screen>
+		<![CDATA[
+<?php
+require_once('Cache.php');
+
+$cache = new Cache('file', array('cache_dir' => '/tmp/cache/') );
+
+$id = $cache->generateID('test');
+
+if ($data = $cache->get($id)) {
+    print "Cache hit. Data: $data";
+
+} else {
+    $data = 'Hello world!!!';
+    $cache->save($id, $data);
+    print 'Cache miss.';
+}
+		]]>
+		</screen>
+	</section>
+	<section id="Net_Socket">
+		<title>Net_Socket</title>
+		<screen>
+pear install Net_Socket
+		</screen>
+		<para><ulink url="http://pear.php.net/manual/en/package.networking.net-socket.readall.php" /></para>
+	</section>
+	<section id="unirest">
+		<title>Unirest - Unirest is a set of lightweight HTTP libraries</title>
+		<para>http://unirest.io/php.html</para>
+	</section>
+	<section id="mail">
+		<title>Mail</title>
+		<para>http://pear.php.net/package/Mail/</para>
+		<screen>
+# pear search Mail
+Retrieving data...0%
+....50%....Matched packages, channel pear.php.net:
+=======================================
+Package          Stable/(Latest) Local
+Mail             1.2.0 (stable)  1.2.0 Class that provides multiple interfaces for sending emails
+Mail2            0.1.0 (beta)          Mail, but PHP5 friendly
+Mail_IMAP        1.1.0RC2 (beta)       Provides a c-client backend for webmail.
+Mail_IMAPv2      0.2.1 (beta)          Provides a c-client backend for webmail.
+Mail_Mbox        0.6.3 (beta)          Read and modify Unix MBOXes
+Mail_Mime        1.10.0 (stable)       Mail_Mime provides classes to create MIME messages.
+Mail_mimeDecode  1.5.5 (stable)        Provides a class to decode mime messages.
+Mail_Queue       1.2.7 (stable)        Class for put mails in queue and send them later in background.
+Net_Vpopmaild    0.3.2 (beta)          Class for accessing Vpopmail's vpopmaild daemon
+Services_Mailman 0.1.0 (beta)          Integrates Mailman into a website using PHP		
+		</screen>
+		<screen>
+pear install Mail		
+		</screen>
+	</section>
+</chapter>
+
+<chapter id="index"><?dbhtml dir="3rdparty"?>
+	<title>3rdparty Application</title>
+<section id="php.phpmailer">
+		<title>phpmailer</title>
+		<para>安装</para>
+		<screen>
+git clone https://github.com/Synchro/PHPMailer.git /srv/php/lib/php/PHPMailer
+		</screen>
+		<para>SMTP发送邮件</para>
+		<programlisting>
+		<![CDATA[
+<?php
+/**
+* Simple example script using PHPMailer with exceptions enabled
+* @package phpmailer
+* @version $Id: chapter.application.xml 662 2013-08-14 02:46:24Z netkiller $
+*/
+
+require 'PHPMailer/class.phpmailer.php';
+
+try {
+        $mail = new PHPMailer(true); //New instance, with exceptions enabled
+
+        $body             = file_get_contents('contents.html');
+        $body             = preg_replace('/\\\\/','', $body); //Strip backslashes
+
+        $mail->IsSMTP();                           // tell the class to use SMTP
+        $mail->SMTPAuth   = true;                  // enable SMTP authentication
+        $mail->Port       = 25;                    // set the SMTP server port
+        $mail->Host       = "mail.yourdomain.com"; // SMTP server
+        $mail->Username   = "name@domain.com";     // SMTP server username
+        $mail->Password   = "password";            // SMTP server password
+
+        $mail->IsSendmail();  // tell the class to use Sendmail
+
+        $mail->AddReplyTo("name@domain.com","First Last");
+
+        $mail->From       = "name@domain.com";
+        $mail->FromName   = "First Last";
+
+        $to = "someone@example...com";
+
+        $mail->AddAddress($to);
+
+        $mail->Subject  = "First PHPMailer Message";
+
+        $mail->AltBody    = "To view the message, please use an HTML compatible email viewer!"; // optional, comment out and test
+        $mail->WordWrap   = 80; // set word wrap
+
+        $mail->MsgHTML($body);
+
+        $mail->IsHTML(true); // send as HTML
+
+        $mail->Send();
+        echo 'Message has been sent.';
+} catch (phpmailerException $e) {
+        echo $e->errorMessage();
+}
+		]]>
+		</programlisting>
+	</section>	
+</chapter>

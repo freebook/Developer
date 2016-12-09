@@ -1,0 +1,156 @@
+<section id="python.pylons">
+	<title>Pylons</title>
+<section>
+	<title>Getting Started with Pylons</title>
+	<section>
+		<title>Installing</title>
+	<screen>
+[neo@development ~]$ curl http://pylonshq.com/download/1.0/go-pylons.py | python - mydevenv
+[neo@development ~]$ source mydevenv/bin/activate
+(mydevenv)[neo@development ~]$
+
+(mydevenv)[neo@development ~]$ paster create -t pylons helloworld	
+	</screen>
+	<para>Running the application</para>
+	<screen>
+(mydevenv)[neo@development ~]$ cd helloworld
+(mydevenv)[neo@development helloworld]$ paster serve --reload development.ini
+Starting subprocess with file monitor
+Starting server in PID 26895.
+16:38:39,051 INFO  [paste.httpserver.ThreadPool] Cannot use kill_thread_limit as ctypes/killthread is not available
+serving on http://127.0.0.1:5000	
+	</screen>
+	<para>create a controller</para>
+	<screen>
+(mydevenv)[neo@development helloworld]$ paster controller hello
+Creating /home/neo/helloworld/helloworld/controllers/hello.py
+Creating /home/neo/helloworld/helloworld/tests/functional/test_hello.py	
+	</screen>
+	<para>http://192.168.3.9:5000/hello/index</para>
+	</section>
+	<section>
+		<title>Debian/Ubuntu</title>
+		<screen>
+$ sudo apt-cache search pylons
+$ sudo apt-get install python-pylons
+$ paster create -t pylons helloworld
+/usr/lib/pymodules/python2.6/pylons/templating.py:610: UserWarning: Unbuilt egg for setuptools [unknown version] (/usr/lib/python2.6/dist-packages)
+  Engine = entry_point.load()
+Selected and implied templates:
+  Pylons#pylons  Pylons application template
+
+Variables:
+  egg:      helloworld
+  package:  helloworld
+  project:  helloworld
+Enter template_engine (mako/genshi/jinja2/etc: Template language) ['mako']:
+Enter sqlalchemy (True/False: Include SQLAlchemy 0.5 configuration) [False]: True
+Creating template pylons
+Creating directory ./helloworld
+  Recursing into +package+
+    Creating ./helloworld/helloworld/
+    Copying __init__.py_tmpl to ./helloworld/helloworld/__init__.py
+    Recursing into config
+      Creating ./helloworld/helloworld/config/
+      Copying __init__.py_tmpl to ./helloworld/helloworld/config/__init__.py
+      Copying deployment.ini_tmpl_tmpl to ./helloworld/helloworld/config/deployment.ini_tmpl
+      Copying environment.py_tmpl to ./helloworld/helloworld/config/environment.py
+      Copying middleware.py_tmpl to ./helloworld/helloworld/config/middleware.py
+      Copying routing.py_tmpl to ./helloworld/helloworld/config/routing.py
+    Recursing into controllers
+      Creating ./helloworld/helloworld/controllers/
+      Copying __init__.py_tmpl to ./helloworld/helloworld/controllers/__init__.py
+      Copying error.py_tmpl to ./helloworld/helloworld/controllers/error.py
+    Recursing into lib
+      Creating ./helloworld/helloworld/lib/
+      Copying __init__.py_tmpl to ./helloworld/helloworld/lib/__init__.py
+      Copying app_globals.py_tmpl to ./helloworld/helloworld/lib/app_globals.py
+      Copying base.py_tmpl to ./helloworld/helloworld/lib/base.py
+      Copying helpers.py_tmpl to ./helloworld/helloworld/lib/helpers.py
+    Recursing into model
+      Creating ./helloworld/helloworld/model/
+      Copying __init__.py_tmpl to ./helloworld/helloworld/model/__init__.py
+      Copying meta.py_tmpl to ./helloworld/helloworld/model/meta.py
+    Recursing into public
+      Creating ./helloworld/helloworld/public/
+      Copying bg.png to ./helloworld/helloworld/public/bg.png
+      Copying favicon.ico to ./helloworld/helloworld/public/favicon.ico
+      Copying index.html_tmpl to ./helloworld/helloworld/public/index.html
+      Copying pylons-logo.gif to ./helloworld/helloworld/public/pylons-logo.gif
+    Recursing into templates
+      Creating ./helloworld/helloworld/templates/
+    Recursing into tests
+      Creating ./helloworld/helloworld/tests/
+      Copying __init__.py_tmpl to ./helloworld/helloworld/tests/__init__.py
+      Recursing into functional
+        Creating ./helloworld/helloworld/tests/functional/
+        Copying __init__.py_tmpl to ./helloworld/helloworld/tests/functional/__init__.py
+      Copying test_models.py_tmpl to ./helloworld/helloworld/tests/test_models.py
+    Copying websetup.py_tmpl to ./helloworld/helloworld/websetup.py
+  Copying MANIFEST.in_tmpl to ./helloworld/MANIFEST.in
+  Copying README.txt_tmpl to ./helloworld/README.txt
+  Copying development.ini_tmpl to ./helloworld/development.ini
+  Recursing into docs
+    Creating ./helloworld/docs/
+    Copying index.txt_tmpl to ./helloworld/docs/index.txt
+  Copying ez_setup.py to ./helloworld/ez_setup.py
+  Copying setup.cfg_tmpl to ./helloworld/setup.cfg
+  Copying setup.py_tmpl to ./helloworld/setup.py
+  Copying test.ini_tmpl to ./helloworld/test.ini
+Running /usr/bin/python setup.py egg_info
+
+		</screen>
+		<para>配置host监听地址</para>
+		<screen>
+$ cd helloworld
+$ vim development.ini		
+host = 0.0.0.0
+		</screen>
+		<para>启动服务</para>
+		<screen>
+$ paster serve --reload development.ini
+		</screen>
+	</section>
+</section>
+<section>
+	<title>config/routing.py</title>
+	<para>url routing 做为静态化让所有后缀加上.html</para>
+	<screen>
+(mydevenv)[neo@development helloworld]$ vim helloworld/config/routing.py
+
+    map.connect('/{controller}/{action}.html')
+    map.connect('/{controller}/{action}/{id}.html')
+	</screen>
+</section>
+<section id="mako">
+	<title>mako template</title>
+	<para><ulink url="http://www.makotemplates.org/">http://www.makotemplates.org/</ulink></para>
+	<section>
+		<title>include</title>
+		<programlisting>
+		<![CDATA[
+<%include file="header.html"/>
+
+    hello world
+
+<%include file="footer.html"/>
+		]]>
+		</programlisting>
+		<para>传递参数</para>
+		<programlisting>
+		<![CDATA[
+<%include file="toolbar.html" args="current_section='members', username='ed'"/>
+		]]>
+		</programlisting>
+	</section>
+	<section>
+		<title>inherit</title>
+		<programlisting role="mako">
+		<![CDATA[
+<%inherit file="base.html"/>
+		]]>
+		</programlisting>
+	
+	</section>
+</section>
+</section>

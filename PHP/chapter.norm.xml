@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<chapter id="norm">
+	<title>开发规范</title>
+	<!-- development norm -->
+	<section>
+		<title>文件</title>
+		<para></para>
+		<sidebar>
+			<title>格式</title>
+			<para>使用 UNIX 风格换行, 请在你的编辑器内调整</para>
+			<screen>
+UNIX (LF或"\n") MAC OS (CR 或"\r") Windows CRLF \r\n			
+			</screen>
+		</sidebar>
+		<sidebar>
+			<title>编码</title>
+			<para>我们使用UTF-8，有些IDE环境 UTF-8 BOM，我们不需要 BOM</para>
+		</sidebar>
+		<sidebar>
+			<title>标签</title>
+			<para>禁止这样使用</para>
+			<screen>
+			<![CDATA[
+<? ... ?> 
+			]]>
+			</screen>
+			<para>正确的使用方法</para>
+			<screen>
+			<![CDATA[
+<?php ...
+
+or
+
+<?php ... ?>
+			]]>
+			</screen>
+		</sidebar>
+		<sidebar>
+			<title>头部注释</title>
+			<![CDATA[
+<?php 
+/*
+Project Name *
+@author $Author$
+@copyright Copyright (c) 2012 Company
+@version $Id$ 
+*/
+
+<?php 
+/*
+Project Name *
+@author $Author$
+@license GNU General Public License 2.0
+@version $Id$ 
+*/			
+			]]>
+		</sidebar>
+	</section>
+	<section>
+		<title>String</title>
+		<para>双引号要处理字符串转义，性能上不如单引号，如果你不需要转义字符串，或者字符串中不含原转译字符，建议你使用单引号</para>
+		<para>printf("string") 每次输出会检索特殊字符串如： \r, \n, \t, \0xFF 等等</para>
+		<para>printf('string') 不会处理字符串转义</para>
+		<screen>
+		<![CDATA[
+$sql = <<<SQL
+
+CREATE TABLE IF NOT EXISTS ticket_hist (
+
+tid int(11) NOT NULL, trqform varchar(40) NOT NULL, trsform varchar(40) NOT NULL, tgen datetime NOT NULL, tterm datetime, tstatus tinyint(1) NOT NULL
+
+) ENGINE=ARCHIVE COMMENT='ticket archive';
+SQL;
+		]]>
+		</screen>
+	</section>
+	<section>
+		<title>数据库开发规范</title>
+		<section>
+			<title>使用pdo_mysql替代mysql</title>
+			<para>禁止通过字符串链接拼接sql语句，极容易出现注入漏洞</para>
+			<para>错误的写法:</para>
+			<screen>
+$sql = "select * from table where id='".$id."'"; 
+$sql = "INSERT INTO fruit(name, colour) VALUES ('".$name."', '".$colour."')"; 
+			</screen>
+			<para>$sql = "select * from table where id=".$id; 这种写法如果id没有做检查可以100%注入成功</para>
+			<para>正确的写法</para>
+			<screen>
+$sql = "select * from table where id=?"; 
+$sql = "INSERT INTO fruit(name, colour) VALUES (?, ?)"; 	
+			</screen>
+			<para>使用“？”优势不便于我们排查调试有可能你传入的数字不对称，我们建议使用bindParam() 和 bindValue()</para>
+			<screen>
+$sql = "select * from table where id = :id"; 
+$sql = "INSERT INTO fruit(name, colour) VALUES (:name, :colour)"; 				
+			</screen>
+		</section>
+		<section>
+			<title>查询规范</title>
+			<para>禁止使用 * 例如：</para>
+			<screen>
+select * from member;
+			</screen>
+			<para>查询记录是否存在</para>
+			<screen>
+select count(id) from member where username = :username
+			</screen>
+		</section>
+		<section>
+			<title>结果集使用注意事项</title>
+			<sidebar>
+				<title>返回数据库查询结果有几种形式</title>
+				<para>数组形式</para>
+				<screen>
+Array (
+
+[0] => banana [1] => yellow
+
+)
+
+Array (
+
+[NAME] => banana [COLOUR] => yellow
+
+)				
+				</screen>
+				<para>对象形式</para>
+				<screen>
+Object (
+
+Obj->NAME Obj->COLOUR
+
+) 
+				</screen>
+				<para>正确的使用方式</para>
+				<screen>
+print($row['name']);
+print($row->name);
+				</screen>
+			</sidebar>
+			<para>错误的使用使方式</para>
+			<screen>
+print($row[0]);
+print($row[1]); 
+			</screen>
+			<para>这种方式，有可能当数据库结构改变，增加字段，字段顺序发生变化，输出数据都会出错</para>
+		</section>
+	</section>
+</chapter>

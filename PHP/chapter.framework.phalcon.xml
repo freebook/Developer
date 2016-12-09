@@ -1,0 +1,312 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<chapter id="index"><?dbhtml dir="phalcon"?>
+	<title>Phalcon - High performance PHP framework</title>
+
+	<para>http://phalconphp.com/</para>
+	<para>与其他框架实现方法不同，Phalcon直接采用C代码编写，编译成PHP共享库载入。所以速度是最快的。 </para>
+
+	<section id="install">
+		<title>安装配置 Phalcon </title>
+		<section>
+			<title>Ubuntu</title>
+			<screen>
+sudo apt-add-repository ppa:phalcon/stable
+sudo apt-get update
+sudo apt-get install php5-phalcon
+			</screen>
+		</section>
+		<section id="cphalcon">
+			<title>编译安装</title>
+			<screen>
+			<![CDATA[
+cd /usr/local/src/
+
+git clone git://github.com/phalcon/cphalcon.git
+cd cphalcon/build
+./install
+
+cat > /srv/php/etc/conf.d/phalcon.ini <<EOF
+extension=phalcon.so
+EOF
+			]]>
+			</screen>
+			<para>确认安装是否成功</para>
+			<screen>
+# php -m | grep phalcon
+phalcon
+			</screen>
+		</section>
+		<section id="nginx">
+			<title>Nginx 配置</title>
+			<screen>
+			<![CDATA[
+server {
+    listen       80;
+    server_name  localhost;
+
+    charset utf-8;
+
+    access_log  /var/log/nginx/host.access.log  main;
+
+    location / {
+        root   /www/phalcon/public;
+        index  index.html index.php;
+    		if ($request_filename !~ (js|css|img|/images|robots/.txt|index/.php) ) {
+        		rewrite ^/(.*)$ /index.php?_url=/$1 last;
+        		break;
+    		}
+    }
+
+    #error_page  404              /404.html;
+
+    # redirect server error pages to the static page /50x.html
+    #
+    error_page   500 502 503 504  /50x.html;
+    location = /50x.html {
+        root   /usr/local/www/nginx-dist;
+    }
+
+    # pass the PHP scripts to FastCGI server listening on 127.0.0.1:9000
+    #
+    location ~ /index.php {
+        root           /www/phalcon/public;
+        fastcgi_pass   127.0.0.1:9000;
+        fastcgi_index  index.php;
+        fastcgi_param  SCRIPT_FILENAME  /www/phalcon/public$fastcgi_script_name;
+        include        fastcgi_params;
+    }
+
+    # deny access to .htaccess files, if Apache's document root
+    # concurs with nginx's one
+    #
+    location ~ /\.ht {
+        deny  all;
+    }
+}
+			]]>
+			</screen>
+			<para>注意两点： </para>
+			<para>一是rewrite设置需要 $request_filename 过滤文件与目录</para>
+			<para>二是fastcgi配置location ~ /index.php 这样的设置是为了".php"只能运行 index.php，其他目录下的.php文件无法运行，这样解决的注入与非法脚本运行。</para>
+		</section>
+		<section id="phalcon-devtools">
+			<title>Phalcon Developer Tools</title>
+			<screen>
+# pear channel-discover pear.phalconphp.com
+# pear install phalcon/Devtools
+			</screen>
+			<para>运行 phalcon 测试是否正确安装</para>
+			<screen>
+# phalcon
+
+Phalcon DevTools (2.0.7)
+
+Help:
+  Lists the commands availables in Phalcon devtools
+
+Available commands:
+  commands (alias of: list, enumerate)
+  controller (alias of: create-controller)
+  model (alias of: create-model)
+  all-models (alias of: create-all-models)
+  project (alias of: create-project)
+  scaffold
+  migration
+  webtools
+			</screen>
+		</section>
+	</section>
+	<section id="devtools">
+		<title>DevTools</title>
+		<section>
+			<title>创建项目</title>
+			<screen>
+# phalcon project --help
+
+Phalcon DevTools (2.0.7)
+
+Help:
+  Creates a project
+
+Usage:
+  project [name] [type] [directory] [enable-webtools]
+
+Arguments:
+  help	Shows this help text
+
+Example
+  phalcon project store simple
+
+Options:
+ --name               Name of the new project
+ --enable-webtools    Determines if webtools should be enabled [optional]
+ --directory=s        Base path on which project will be created [optional]
+ --type=s             Type of the application to be generated (micro, simple, multi-module)
+ --template-path      Specify a template path [optional]
+ --use-config-ini     Use a ini file as configuration file [optional]
+ --trace              Shows the trace of the framework in case of exception. [optional]
+ --help               Shows this help
+
+			</screen>
+			<para>创建test项目</para>
+			<screen>
+# phalcon project test
+
+Phalcon DevTools (2.0.7)
+
+  Success: Controller "index" was successfully created.
+  Success: Project "test" was successfully created.
+			</screen>
+			<screen>
+
+[root@netkiller example.com]# phalcon project www.example.com
+
+Phalcon DevTools (2.0.7)
+
+
+  Success: Controller "index" was successfully created.
+
+
+  Success: Project "www.example.com" was successfully created.
+
+
+[root@netkiller example.com]# find www.example.com/
+www.example.com/
+www.example.com/app
+www.example.com/app/logs
+www.example.com/app/views
+www.example.com/app/views/index
+www.example.com/app/views/index/index.phtml
+www.example.com/app/views/layouts
+www.example.com/app/views/index.phtml
+www.example.com/app/config
+www.example.com/app/config/config.php
+www.example.com/app/models
+www.example.com/app/controllers
+www.example.com/app/controllers/ControllerBase.php
+www.example.com/app/controllers/IndexController.php
+www.example.com/public
+www.example.com/public/img
+www.example.com/public/css
+www.example.com/public/temp
+www.example.com/public/files
+www.example.com/public/js
+www.example.com/public/index.php
+www.example.com/public/.htaccess
+www.example.com/.phalcon
+www.example.com/.htaccess
+www.example.com/index.html
+
+			</screen>
+		</section>
+		<section>
+			<title>创建控制器</title>
+			<screen>
+# phalcon controller sample
+
+Phalcon DevTools (2.0.7)
+
+  Success: Controller "sample" was successfully created.			
+			</screen>
+			<screen>
+			<![CDATA[
+# cat app/controllers/SampleController.php
+<?php
+
+class SampleController extends \Phalcon\Mvc\Controller
+{
+
+    public function indexAction()
+    {
+
+    }
+
+}
+			]]>
+			</screen>
+		</section>
+	</section>
+	<section id="dispatcher">
+		<title>dispatcher</title>
+		<para>取当前的控制器、方法，参数</para>
+		<screen>
+$this->dispatcher->getControllerName(),
+$this->dispatcher->getActionName(),
+$this->dispatcher->getParams()
+		</screen>
+	</section>
+
+	<section id="cache">
+		<title>cache</title>
+		<section>
+			<title>Redis 缓存</title>
+			<para>配置 Redis 缓存</para>
+			<screen>
+			<![CDATA[
+	//Set the models cache service
+	$di->set('cache', function() use ($config) {
+
+		//Cache data for one day by default
+		$frontCache = new \Phalcon\Cache\Frontend\Data(array(
+				"lifetime" => 86400
+		));
+
+		//Create the Cache setting redis connection options
+		$cache = new Phalcon\Cache\Backend\Redis($frontCache, array(
+				'host' => $config->redis->host,
+				'port' => $config->redis->port,
+				'auth' => $config->redis->auth,
+				'persistent' => true,
+				/*'statsKey' => 'info',*/
+				'index' => 1 /*选择redis数据库*/
+
+		));
+
+		return $cache;
+	});
+			]]>
+			</screen>
+		</section>
+		<section>
+			<title>多种缓存混合使用</title>
+			<para>多个缓存同事使用，我们借助 $cache = new stdClass(); 将多种缓存 $cache->redis 与 $cache->file 同时返回</para>
+			<screen>
+			<![CDATA[
+	//Set the models cache service
+	$di->set('cache', function() use ($config) {
+
+		//Cache data for one day by default
+		$frontCache = new \Phalcon\Cache\Frontend\Data(array(
+				"lifetime" => 86400
+		));
+
+		//Create the Cache setting redis connection options
+		$redis = new Phalcon\Cache\Backend\Redis($frontCache, array(
+				'host' => $config->redis->host,
+				'port' => $config->redis->port,
+// 				'auth' => $config->redis->auth,
+//				'persistent' => true,
+// 				'statsKey' => 'info',
+				'index' => 1
+
+		));
+
+		$frontCache = new \Phalcon\Cache\Frontend\Data(array(
+				"lifetime" => 86400
+		));
+		$file = new \Phalcon\Cache\Backend\File($frontCache, array(
+				"cacheDir" => "../app/cache/"
+		));
+
+		$cache = new stdClass();
+		$cache->redis = $redis;
+		$cache->file = $file;
+		//$cache->mem = $mem;
+
+		return $cache;
+	});
+			]]>
+			</screen>
+		</section>
+	</section>
+</chapter>

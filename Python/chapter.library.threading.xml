@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section id="threading">
+	<title>Python 多线程</title>
+	<section>
+		<title>threading 高级线程接口</title>
+		<subtitle>threading — Higher-level threading interface</subtitle>
+		<screen>
+import threading  
+class MyThread(threading.Thread):  
+    def __init__(self, name=None):  
+        threading.Thread.__init__(self)  
+        self.name = name  
+      
+    def run(self):  
+        print self.name  
+  
+def test():  
+    for i in range(0, 100):  
+        t = MyThread("thread_" + str(i))  
+        t.start()  
+  
+if __name__=='__main__':  
+    test()  	
+		</screen>	
+	</section>
+	<section>
+		<title>Lock 线程锁</title>
+		<para>这里实现了一个计数器 count 这个全局变量会被多个线程同时操作，使其能够被顺序相加，需要靠线程锁的帮助。</para>
+		<programlisting>
+		<![CDATA[
+#-*- encoding: utf-8 -*-
+import threading
+import time
+ 
+class Test(threading.Thread):
+    def __init__(self, num):
+        threading.Thread.__init__(self)
+        self._run_num = num
+ 
+    def run(self):
+        global count, mutex
+        threadname = threading.currentThread().getName()
+ 
+        for x in range(int(self._run_num)):
+            mutex.acquire()
+            count = count + 1
+            mutex.release()
+            print (threadname, x, count)
+            time.sleep(1)
+ 
+if __name__ == '__main__':
+    global count, mutex
+    threads = []
+    num = 5
+    count = 0
+    # 创建锁
+    mutex = threading.Lock()
+    # 创建线程对象
+    for x in range(num):
+        threads.append(Test(10))
+    # 启动线程
+    for t in threads:
+        t.start()
+    # 等待子线程结束
+    for t in threads:
+        t.join()
+        ]]>
+		</programlisting>
+	</section>
+	<section>
+		<title>Queue 队列</title>
+		<para>ref: http://www.ibm.com/developerworks/aix/library/au-threadingpython/</para>
+		<programlisting>
+		<![CDATA[
+ #!/usr/bin/env python
+import Queue
+import threading
+import urllib2
+import time
+
+hosts = ["http://yahoo.com", "http://google.com", "http://amazon.com",
+"http://ibm.com", "http://apple.com"]
+
+queue = Queue.Queue()
+
+class ThreadUrl(threading.Thread):
+	"""Threaded Url Grab"""
+	def __init__(self, queue):
+	  threading.Thread.__init__(self)
+	  self.queue = queue
+
+	def run(self):
+	  while True:
+		#grabs host from queue
+		host = self.queue.get()
+
+		#grabs urls of hosts and prints first 1024 bytes of page
+		url = urllib2.urlopen(host)
+		print url.read(1024)
+
+		#signals to queue job is done
+		self.queue.task_done()
+
+start = time.time()
+def main():
+
+#spawn a pool of threads, and pass them queue instance 
+for i in range(5):
+  t = ThreadUrl(queue)
+  t.setDaemon(True)
+  t.start()
+  
+#populate queue with data   
+  for host in hosts:
+    queue.put(host)
+
+#wait on the queue until everything has been processed     
+queue.join()
+
+main()
+print "Elapsed Time: %s" % (time.time() - start)
+		]]>
+		</programlisting>
+	</section>
+</section>

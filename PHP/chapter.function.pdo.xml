@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section id="pdo">
+	<title>PHP Data Objects (PDO)</title>
+	<section id="driver_options">
+		<title>$driver_options</title>
+		<para>持久链接</para>
+		<screen>
+PDO::ATTR_PERSISTENT => true,
+		</screen>
+		<para>压缩传输，适合远程连接数据库，压缩查询结果后返回给客户端</para>
+		<screen>
+PDO::MYSQL_ATTR_COMPRESS => true
+		</screen>
+		<para>初始化命令，就是链接数据库首先会运行的命令</para>
+		<screen>
+PDO::MYSQL_ATTR_INIT_COMMAND => "set names ".$cfg['charset'],
+		</screen>
+	</section>
+	<section id="setAttribute">
+		<title>setAttribute</title>
+		<screen>
+$db = new MyPDO();
+$db->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_OBJ);
+		</screen>
+	</section>
+	<section id="getAttribute">
+		<title>getAttribute</title>
+		<screen>
+ $status = $pdo->getAttribute(PDO::ATTR_SERVER_INFO);
+
+ if($status == 'MySQL server has gone away')
+ {
+     /* 进行PDO连接 */
+ }		
+		</screen>
+	</section>
+	<section id="PDO">
+		<title>PDO</title>
+		<section>
+			<title>lastInsertId</title>
+			<screen>
+			<![CDATA[
+$dbh->lastInsertId(); 
+			]]>
+			</screen>
+		</section>
+	</section>
+	<section id="PDOStatement">
+		<title>The PDOStatement class</title>
+		<section>
+			<title>fetch 返回数组</title>
+			<screen>
+$stmt->fetch(PDO::FETCH_ASSOC);
+			</screen>
+		</section>
+		<section>
+			<title>返回对象</title>
+			<screen>
+$stmt->fetch(PDO::FETCH_OBJ);
+			</screen>
+		</section>
+	</section>
+	<section id="faq">
+		<title>FAQ</title>
+		<section>
+			<title>调试 PDO 程序</title>
+			<para>使用pdo你会经常发现无法执行，却找不到问题，可以通过下面设置开启调试模式</para>
+			<screen>
+			<![CDATA[
+$dbo->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING );		
+			]]>
+			</screen>
+			<para>PDOStatement 调试 </para>
+			<screen>
+			<![CDATA[
+echo $sth->queryString;
+echo $sth->debugDumpParams();
+			]]>
+			</screen>
+		</section>
+	</section>
+	<section>
+		<title></title>
+		<screen>
+		<![CDATA[
+		
+		]]>
+		</screen>
+	</section>
+</section>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<chapter id="gui">
+	<title>PHP GUI</title>
+<section id="wxPHP">
+	<title>wxPHP - wxWidgets for PHP</title>
+	<para>http://wxphp.org/</para>
+</section>
+</chapter>

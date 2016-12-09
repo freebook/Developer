@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section id="pypy">
+	<title>pypy - fast alternative implementation of Python - PyPy interpreter</title>
+	<para>http://pypy.org/</para>
+	<section>
+		<title>Ubuntu 环境安装</title>
+		<screen>
+$ apt-cache search pypy | grep pypy
+pypy - fast alternative implementation of Python - PyPy interpreter
+pypy-dev - header files for PyPy (an alternative Python interpreter)
+pypy-doc - developer Documentation for PyPy (an alternative Python interpreter)
+pypy-lib - standard library for PyPy (an alternative Python interpreter)
+python-pypy.translator.sandbox - sandboxed PyPy interpreter
+		</screen>
+		<screen>
+$ sudo apt-get install pypy
+		</screen>
+	</section>
+	<section>
+		<title>CentOS 环境安装</title>
+		<screen>
+# yum install pypy
+		</screen>
+	</section>
+</section>

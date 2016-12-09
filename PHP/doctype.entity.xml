@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+	<!ENTITY part.php.xml		 				SYSTEM "part.php.xml">
+	<!ENTITY chapter.php.xml		 			SYSTEM "chapter.php.xml">
+	<!ENTITY chapter.function.xml				SYSTEM "chapter.function.xml">
+	<!ENTITY chapter.php.class.xml	 			SYSTEM "chapter.php.class.xml">
+	
+	<!ENTITY chapter.function.soap.xml			SYSTEM "chapter.function.soap.xml">
+	<!ENTITY chapter.function.pdo.xml			SYSTEM "chapter.function.pdo.xml">
+	<!ENTITY chapter.function.xml.xml			SYSTEM "chapter.function.xml.xml">	
+	
+	<!ENTITY chapter.extension.xml	 			SYSTEM "chapter.extension.xml">
+	<!ENTITY chapter.extension.pcntl.xml		SYSTEM "chapter.extension.pcntl.xml">
+	<!ENTITY chapter.extension.pthreads.xml	 	SYSTEM "chapter.extension.pthreads.xml">
+	<!ENTITY chapter.extension.libevent.xml	 	SYSTEM "chapter.extension.libevent.xml">
+	<!ENTITY chapter.extension.mongo.xml	 	SYSTEM "chapter.extension.mongo.xml">
+	<!ENTITY chapter.extension.amqp.xml		 	SYSTEM "chapter.extension.amqp.xml">
+	
+	<!ENTITY chapter.application.xml 			SYSTEM "chapter.application.xml">
+	<!ENTITY chapter.framework.xml	 			SYSTEM "chapter.framework.xml">
+	<!ENTITY chapter.framework.phalcon.xml	 	SYSTEM "chapter.framework.phalcon.xml">
+	<!ENTITY chapter.framework.codeigniter.xml	SYSTEM "chapter.framework.codeigniter.xml">
+	<!ENTITY chapter.framework.smarty.xml		SYSTEM "chapter.framework.smarty.xml">
+	
+	<!ENTITY chapter.debug.xml		 			SYSTEM "chapter.debug.xml">
+	<!ENTITY chapter.ext.xml		 			SYSTEM "chapter.ext.xml">
+	<!ENTITY chapter.gui.xml		 			SYSTEM "chapter.gui.xml">
+	<!ENTITY chapter.faq.xml		 			SYSTEM "chapter.faq.xml">
+
+	<!ENTITY chapter.language.xml	 			SYSTEM "chapter.language.xml">
+	<!ENTITY chapter.miscellaneous.xml			SYSTEM "chapter.miscellaneous.xml">
+	
+	<!ENTITY chapter.norm.xml	 				SYSTEM "chapter.norm.xml">
+	

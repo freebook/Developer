@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section id="tui">
+	<title>TUI</title>
+	<title>Widget toolkit</title>
+	<section id="console">
+		<title>Console</title>
+		<para>http://www.effbot.org/zone/console-handbook.htm</para>
+	</section>
+	<section>
+		<title>urwid</title>
+		<ulink url="http://excess.org/urwid/" />
+	</section>
+	<section>
+		<title>pycdk</title>
+		<ulink url="http://pycdk.sourceforge.net/" />
+	</section>
+	<section>
+		<title>python-newt - A NEWT module for Python</title>
+		<ulink url="https://fedorahosted.org/newt/" />
+		<screen>
+
+		</screen>
+	</section>
+</section>
+<!--
+<chapter id="tui">
+	<title>TUI</title>
+
+	<section id="Urwid">
+		<title>Urwid</title>
+		<screen>
+		</screen>
+	</section>
+	<section id="newt">
+		<title>Newt</title>
+	</section>
+</chapter>
+ -->

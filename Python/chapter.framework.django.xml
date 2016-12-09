@@ -1,0 +1,49 @@
+<section id="django">
+		<title>Django</title>
+		<screen>
+wget http://www.djangoproject.com/download/0.96/tarball/
+tar zxvf Django-0.96.tar.gz
+cd Django-0.96
+python setup.py install
+		</screen>
+		<para>生成项目</para>
+		<screen>
+django-admin.py startproject newtest
+		</screen>
+		<para>web server</para>
+		<screen>
+cd newtest/
+./manage.py runserver
+		</screen>
+		<para>helloworld.py</para>
+		<screen>
+from django.http import HttpResponse
+
+def index(request):
+    return HttpResponse("Hello, Django.")
+		</screen>
+		<para>urls.py</para>
+		<screen>
+from django.conf.urls.defaults import *
+
+urlpatterns = patterns('',
+    # Example:
+    # (r'^newtest/', include('newtest.foo.urls')),
+    (r'^$', 'newtest.helloworld.index'),
+
+    # Uncomment this for admin:
+#     (r'^admin/', include('django.contrib.admin.urls')),
+)
+		</screen>
+		<para>启动Web Server</para>
+		<screen>
+# ./manage.py runserver
+Validating models...
+0 errors found.
+
+Django version 0.96, using settings 'newtest.settings'
+Development server is running at http://127.0.0.1:8000/
+Quit the server with CTRL-BREAK.
+		</screen>
+		<para>curl http://127.0.0.1:8000/</para>
+</section>

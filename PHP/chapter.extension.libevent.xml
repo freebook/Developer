@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section id="index"><?dbhtml dir="libevent"?>
+	<title>libevent</title>
+	<section>
+		<title>event_base_loop</title>
+		<para>永远循环</para>
+		<screen>
+		<![CDATA[
+<?php
+$timeouts = 10000000;
+//callback function
+function func($fd, $event,$arg) {
+$time = time();
+for($i=0;$i<2;$i++) {
+    echo "Timer-$arg: $time : out-$i\n";
+    sleep(3);
+}
+}
+//create base and event 
+$base = event_base_new();
+for($i=0;$i<2;$i++) {
+$event[$i] = event_new();
+//set event flags
+event_set($event[$i], $i , EV_PERSIST, 'func', "$i");
+//set event base
+event_base_set($event[$i], $base);
+//enable event
+event_add($event[$i], $timeouts);
+}
+//start event loop
+event_base_loop($base);
+		]]>
+		</screen>
+		<para>运行一次然后退出</para>
+		<screen>
+event_base_loop($base, EVLOOP_ONCE );
+		</screen>
+		<screen>
+		<![CDATA[
+<?php
+$timeouts = 10;
+//callback function
+function func($fd, $event,$arg) {
+$time = time();
+    echo "Timer-$arg: $time\n";
+}
+//create base and event 
+$base = event_base_new();
+for($i=0;$i<10;$i++) {
+$event[$i] = event_new();
+//set event flags
+event_set($event[$i], $i , EV_PERSIST, 'func', "$i");
+//set event base
+event_base_set($event[$i], $base);
+//enable event
+event_add($event[$i], $timeouts);
+}
+//start event loop
+event_base_loop($base, EVLOOP_ONCE );
+event_base_loop($base, EVLOOP_ONCE );
+event_base_loop($base, EVLOOP_ONCE );
+event_base_loop($base, EVLOOP_ONCE );		
+		]]>
+		</screen>
+	</section>
+	<section>
+		<title></title>
+		
+	</section>
+</section>

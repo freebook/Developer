@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<chapter id="type">
+	<title>数据类型</title>
+	<section id="type">
+		<title>type 数据类型检测</title>
+		<para>http://docs.python.org/library/types.html</para>
+		<screen>
+		<![CDATA[
+>>> type( [] ) == list
+True
+>>> type( {} ) == dict
+True
+>>> type( "" ) == str
+True
+>>> type( 0 ) == int
+True
+>>> class Test1 ( object ):
+    pass
+>>> class Test2 ( Test1 ):
+    pass
+>>> a = Test1()
+>>> b = Test2()
+>>> type( a ) == Test1
+True
+>>> type( b ) == Test2
+True
+>>> type( b ) == Test1
+False
+>>> isinstance( b, Test1 )
+True
+>>> isinstance( b, Test2 )
+True
+>>> isinstance( a, Test1 )
+True
+>>> isinstance( a, Test2 )
+False
+>>> isinstance( [], list )
+True
+>>> isinstance( {}, dict )
+True
+		]]>
+		</screen>
+		<screen>
+		<![CDATA[
+>>> a = []
+>>> type(a)
+<type 'list'>
+>>> f = ()
+>>> type(f)
+<type 'tuple'>
+		]]>
+		</screen>
+	</section>
+	<section id="string">
+		<title>String</title>
+		<section id="str.fun">
+			<title>String function</title>
+			<section id="str.find">
+				<title>str.find()</title>
+				<para>找到字符，返回字符串位置。没有找到返回 -1</para>
+				<screen>
+"aaa bbb ccc".find('aaa')
+				</screen>
+			</section>
+			<section id="str.replace">
+				<title>str.find()</title>
+				<para>查找并替换字符串</para>
+				<screen>
+a = 'hello word'
+a.replace('word','python')
+				</screen>
+			</section>
+		</section>
+		<section>
+			<title>Convert str to bytes in python</title>
+			<programlisting role="python">
+			<![CDATA[
+>>> b = str.encode(y)
+>>> type(b) >>> b b’Hello World!’
+To alter from bytes to str, capitalize on bytes.decode().
+>>> z = b”Hello World!”
+>>> y = “Hello World!”
+>>> type(z)
+
+>>> type(y)
+
+To alter from str to bytes, capitalize on str.encode().
+>>> a = bytes.decode(z)
+>>> type(a)
+
+>>> a
+‘Hello World!’
+
+
+# to utf-8		
+'BG7NYT'.encode('utf-8')
+# to utf-16
+'BG7NYT'.encode('utf-16')
+			]]>
+			</programlisting>
+		</section>
+		<section>
+			<title>String format</title>
+			<para>
+strHello = "the length of (%s) is %d" %('Hello World',len('Hello World'))
+print strHello
+			</para>
+		</section>
+	</section>
+	<section>
+		<title>Array</title>
+		<section>
+			<title>split / join </title>
+			<screen>
+>>> str = 'a|b|c|d|e'
+>>> str.split("|")
+['a', 'b', 'c', 'd', 'e']
+
+>>> list = ['a', 'b', 'c', 'd', 'e']
+>>> "|".join(list)
+'a|b|c|d|e'
+			</screen>
+		</section>
+	</section>
+	<section id="datetime">
+		<title>Datetime</title>
+		<section>
+			<title>datetime</title>
+			<screen>
+from datetime import datetime
+datetime.today().strftime('%Y-%m-%d.%H:%M:%S')
+			</screen>
+		</section>
+	</section>
+	<section id="bytes">
+		<title>bytes 类型</title>
+
+		<screen>
+		<![CDATA[
+
+		]]>
+		</screen>
+		<section>
+			<title>BOM头</title>
+			<screen>
+BOM          : fffe
+BOM_BE       : feff
+BOM_LE       : fffe
+BOM_UTF8     : efbb bf
+BOM_UTF16    : fffe
+BOM_UTF16_BE : feff
+BOM_UTF16_LE : fffe
+BOM_UTF32    : fffe 0000
+BOM_UTF32_BE : 0000 feff
+BOM_UTF32_LE : fffe 0000
+			</screen>
+		</section>
+		<section>
+			<title>replace</title>
+			<para>bytes类型的数据，替换方法，不要忘记b""</para>
+			<programlisting>
+a = b"abc"
+b = a.replace(b"a", b"f")
+print(b)
+			</programlisting>
+		</section>
+		<section>
+			<title>pack/unpack</title>
+			<programlisting>
+			<![CDATA[
+
+
+			]]>
+			</programlisting>
+		</section>
+	</section>
+</chapter>
+

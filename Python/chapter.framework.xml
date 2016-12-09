@@ -1,0 +1,16 @@
+<chapter id="index"><?dbhtml dir="framework" ?>
+	<title>Frameworks</title>
+	<section>
+		<title>REST web service framework</title>
+		<para>http://wiki.secondlife.com/wiki/Mulib</para>
+	</section>
+	&chapter.framework.pylons.xml;
+	&chapter.framework.django.xml;
+	&chapter.framework.pyramid.xml;
+	&chapter.framework.gevent.xml;
+	
+	<section id="robotframework">
+		<title>Robot Framework</title>
+		<para>http://robotframework.org/</para>
+	</section>
+</chapter>

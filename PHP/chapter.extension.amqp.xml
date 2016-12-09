@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section id="amqp">
+	<title>AMQP</title>
+	<section>
+		<title>安装 AMQP</title>
+		<screen>
+		<![CDATA[
+yum install -y librabbitmq-devel
+pecl install amqp
+
+cat > /srv/php/etc/conf.d/amqp.ini <<EOF
+extension=amqp.so
+EOF		
+		]]>
+		</screen>
+	</section>
+	<section>
+		<title>Recv</title>
+		<screen>
+		<![CDATA[
+<?php  
+$credentials = array( 'host'=>'localhost' , 'port'=> '5672', 'login'=>'guest' , 'password'=> 'guest','vhost' =>'/');  
+$conn = new AMQPConnection($credentials);  
+$conn->connect(); 
+$channel = new AMQPChannel($conn);  
+ 
+//设置queue名称，使用exchange名称，绑定routing_key  
+$queue = new AMQPQueue($channel);  
+$queue->setName('queue_name');  
+$queue->setFlags(AMQP_DURABLE | AMQP_AUTODELETE);  
+$queue->declare();  
+$queue->bind('exchange_name', 'routing_key');     
+
+//消息获取  
+$messages = $queue->get(AMQP_AUTOACK) ;  
+if ($messages){
+      var_dump(json_decode($messages->getBody(), true ));  
+}  
+$conn->disconnect();  
+?> 		
+		]]>
+		</screen>
+	</section>
+	<section>
+		<title>Send</title>
+		<screen>
+		<![CDATA[
+<?php  
+//连接RabbitMQ  
+$credentials = array( 'host'=>'localhost' , 'port'=> '5672', 'login'=>'guest', 'password'=> 'guest','vhost' =>'/');  
+$conn = new AMQPConnection($credentials);  
+$conn->connect();  
+
+//创建exchange名称和类型  
+$channel = new AMQPChannel($conn);  
+$exchange = new AMQPExchange($channel);  
+$exchange->setName('exchange_name');  
+$exchange->setType(AMQP_EX_TYPE_DIRECT);  
+$exchange->setFlags(AMQP_DURABLE | AMQP_AUTODELETE);  
+$exchange->declare();  
+
+//创建queue名称，使用exchange，绑定routing_key  
+$queue = new AMQPQueue($channel);  
+$queue->setName('queue_name');  
+$queue->setFlags(AMQP_DURABLE | AMQP_AUTODELETE);  
+$queue->declare();  
+$queue->bind('exchange_name', 'routing_key');  
+
+//消息发布  
+$channel->startTransaction();  
+$message = json_encode(array('Hello World!','DIRECT'));  
+$exchange->publish($message, 'routing_key');  
+$channel->commitTransaction();  
+$conn->disconnect();  
+?>  
+		]]>
+		</screen>
+	</section>
+</section>

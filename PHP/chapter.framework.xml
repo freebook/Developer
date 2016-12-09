@@ -1,0 +1,529 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<part id="index"><?dbhtml dir="framework"?>
+	<title>Frameworks</title>
+	<para><ulink url="http://www.phpframeworks.com/">PHP Frameworks 比较</ulink></para>
+	<para><ulink url="http://www.sitepoint.com/best-php-frameworks-2014/" /></para>
+	
+	&chapter.framework.smarty.xml;
+
+	&chapter.framework.phalcon.xml;
+	&chapter.framework.codeigniter.xml;
+
+<chapter id="fuel">
+	<title>Fuel PHP</title>
+	<para>Fuel PHP 源自 CodeIgniter</para>
+	<section>
+		<title>框架安装</title>
+		<para>http://fuelphp.com/</para>
+		<section id="oil">
+			<title>oil</title>
+			<screen>
+			<![CDATA[
+$ curl get.fuelphp.com/oil | sh
+
+$ oil create <project_name>
+			]]>
+			</screen>
+			<para>zip包安装</para>
+			<screen>
+
+$ unzip fuelphp-v1.1.zip
+
+$ ls /www/fuelphp
+CHANGELOG.md  docs  fuel  oil  public  README.md
+			</screen>
+		</section>
+		<section>
+			<title>Apache</title>
+			<screen>
+			<![CDATA[
+<IfModule mod_rewrite.c>
+    RewriteEngine on
+
+    RewriteBase /public
+
+    RewriteRule ^(/)?$ index.php/$1 [L]
+
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+
+    RewriteRule ^(.*)$ index.php/$1 [L]
+</IfModule>
+			]]>
+			</screen>
+		</section>
+		<section>
+			<title>Nginx</title>
+			<screen>
+$ cat /etc/nginx/sites-available/fuel
+
+server {
+        #listen   80; ## listen for ipv4; this line is default and implied
+        #listen   [::]:80 default ipv6only=on; ## listen for ipv6
+
+        root /www/fuelphp/public;
+        index index.html index.php;
+
+        # Make site accessible from http://localhost/
+        server_name localhost;
+
+        location / {
+                # First attempt to serve request as file, then
+                # as directory, then fall back to index.html
+                try_files $uri $uri/ /index.html;
+        }
+
+        #location /doc {
+        #       root /usr/share;
+        #       autoindex on;
+        #       allow 127.0.0.1;
+        #       deny all;
+        #}
+
+        #location /images {
+        #       root /usr/share;
+        #       autoindex off;
+        #}
+
+        #error_page 404 /404.html;
+
+        # redirect server error pages to the static page /50x.html
+        #
+        #error_page 500 502 503 504 /50x.html;
+        #location = /50x.html {
+        #       root /usr/share/nginx/www;
+        #}
+
+        # proxy the PHP scripts to Apache listening on 127.0.0.1:80
+        #
+        #location ~ \.php$ {
+        #       proxy_pass http://127.0.0.1;
+        #}
+
+        # pass the PHP scripts to FastCGI server listening on 127.0.0.1:9000
+        #
+        location ~ \.php$ {
+                fastcgi_pass 127.0.0.1:9000;
+                fastcgi_index index.php;
+                include fastcgi_params;
+        }
+
+        # deny access to .htaccess files, if Apache's document root
+        # concurs with nginx's one
+        #
+        #location ~ /\.ht {
+        #       deny all;
+        #}
+}
+			</screen>
+		</section>
+	</section>
+
+</chapter>
+
+<chapter id="laravel">
+	<title>Laravel - The PHP framework for web artisans.</title>
+	<para>http://laravel.com/</para>
+</chapter>
+
+<chapter id="Kohana">
+	<title>Kohana</title>
+	<para>Kohana 源自 CodeIgniter</para>
+	<para><ulink url="http://kohanaframework.org/" /></para>
+</chapter>
+<chapter id="yii">
+	<title>Yii</title>
+</chapter>
+	<chapter id="zend_framework">
+		<title>Zend Framework</title>
+		<section>
+			<title>Install Zend Framework</title>
+			<screen>
+			<![CDATA[
+sudo mv ZendFramework-1.10.2 /usr/local/share/
+sudo ln -s
+/usr/local/share/ZendFramework-1.10.2 /usr/local/share/zend
+			]]>
+			</screen>
+			<para>~/.bashrc</para>
+			<para>alias zf.sh=path/to/ZendFramework/bin/zf.sh</para>
+			<screen>
+			<![CDATA[
+alias zf.sh=/usr/local/share/zend/bin/zf.sh
+			]]>
+			</screen>
+		</section>
+		<section>
+			<title>Create Your Project</title>
+			<screen>
+			<![CDATA[
+$ zf.sh create project quickstart
+			]]>
+			</screen>
+			<para></para>
+			<screen>
+			<![CDATA[
+$ cd quickstart/library; ln -s
+/usr/local/share/zend/library/Zend .
+			]]>
+			</screen>
+			<para>Rewrite</para>
+			<para>.htaccess内容如下：</para>
+			<screen>
+			<![CDATA[
+RewriteEngine on
+RewriteRule !".(js|ico|gif|jpg|png|css)$ index.php
+			]]>
+			</screen>
+		</section>
+		<section>
+			<title>Create a virtual host</title>
+			<screen>
+		<![CDATA[
+<VirtualHost *:80>
+    ServerName quickstart.local
+    DocumentRoot /path/to/quickstart/public
+
+    SetEnv APPLICATION_ENV "development"
+
+    <Directory /path/to/quickstart/public>
+        DirectoryIndex index.php
+        AllowOverride All
+        Order allow,deny
+        Allow from all
+    </Directory>
+</VirtualHost>
+		]]>
+			</screen>
+			<para>/etc/hosts</para>
+			<screen>
+			<![CDATA[
+127.0.0.1 quickstart.local
+			]]>
+			</screen>
+		</section>
+		<section>
+			<title>Database</title>
+			<section>
+				<title>MySQL</title>
+				<screen>
+			<![CDATA[
+zf configure dbadapter "adapter=Pdo_Mysql&username=test&password=test&dbname=test"
+			]]>
+				</screen>
+			</section>
+			<section>
+				<title>SQLite</title>
+				<screen>
+		<![CDATA[
+$ sudo apt-get install php5-sqlite
+mkdir -p data/db; chmod -R a+rwX data
+		]]>
+				</screen>
+				<screen>
+		<![CDATA[
+zf.sh configure db-adapter \
+'adapter=PDO_SQLITE&dbname=APPLICATION_PATH "/../data/db/guestbook.db"' \
+production
+
+zf.sh configure db-adapter \
+'adapter=PDO_SQLITE&dbname=APPLICATION_PATH "/../data/db/guestbook-testing.db"' \
+testing
+
+zf.sh configure db-adapter \
+'adapter=PDO_SQLITE&dbname=APPLICATION_PATH "/../data/db/guestbook-dev.db"' \
+development
+		]]>
+				</screen>
+			</section>
+		</section>
+		<section>
+			<title>zf.sh</title>
+
+			<section>
+				<title>controller</title>
+				<screen>
+		<![CDATA[
+zf create controller Guestbook
+		]]>
+				</screen>
+				<section>
+					<title>action</title>
+					<screen>
+			<![CDATA[
+	zf create action sign Guestbook
+			]]>
+					</screen>
+				</section>
+			</section>
+			<section>
+				<title>model</title>
+				<screen>
+		<![CDATA[
+zf create model Guestbook
+		]]>
+				</screen>
+				<section>
+					<title>db-table</title>
+					<screen>
+			<![CDATA[
+zf create db-table Guestbook guestbook
+			]]>
+					</screen>
+				</section>
+			</section>
+
+			<section>
+				<title>layout</title>
+				<screen>
+		<![CDATA[
+zf enable layout
+		]]>
+				</screen>
+			</section>
+			<section>
+				<title>form</title>
+				<screen>
+		<![CDATA[
+zf create form Guestbook
+		]]>
+				</screen>
+			</section>
+		</section>
+		<section>
+			<title>Smarty</title>
+			<screen>
+			<![CDATA[
+<?php
+
+//打开错误提示
+
+error_reporting(E_ALL|E_STRICT);
+
+//设定时区
+
+date_default_timezone_set("Asia/Shanghai");
+
+//指明引用文件的路径
+
+set_include_path('.'.PATH_SEPARATOR.'./library'.PATH_SEPARATOR.'./app/model/'.PATH_SEPARATOR.get_include_path());
+
+//必须手动加载Loader.php
+
+include "Zend/Loader.php";
+
+//自动加载类，使用时，直接实例化使用
+
+function __autoload($class){
+
+    Zend_Loader::loadClass($class);
+
+}
+
+   //getInstance()方法用来获取前端控制器实例
+
+   $frontController = Zend_Controller_Front::getInstance();
+
+   //设定前端路由器的工作目录，即cotroller
+
+   $frontController->setControllerDirectory(array("default"=>"app/controller"));
+
+   //抛出异常
+
+   $frontController->throwExceptions(true);
+
+   //设置基地址,方便以后url的跳转用户,注意，区分大小写！
+
+   $frontController->setBaseUrl("/phpzend");
+
+//使用smarty模版需关闭本身的视图助手.
+
+$frontController->setParam("noViewRenderer", true);
+
+       // 关闭错误提示，发生请求错误时候，转到ErrorController的errorAction控制器
+
+//$frontController->throwExceptions(false);
+
+//对。。进行注册
+
+Zend_Registry::set("font", $frontController);
+
+//------------配置Smarty模版 ----------------
+
+include "smarty/Smarty.class.php";
+
+/**
+
+* 对smarty模版进行初始化
+
+**/
+
+$views = new Smarty();
+
+//$views->left_delimiter = "{{";
+
+//$views->right_delimiter = "}}";
+
+$views->compile_dir = "app/template_c";
+$views->cache_dir = "app/template_c/cache_c";
+$views->template_dir = "app/template";
+function smarty_block_dynamic($param,$content,&$views)
+{
+      return $content;
+}
+
+$views->register_block("dynamic","smarty_block_dynamic",false);
+
+Zend_Registry::set("views", $views);
+
+//开始运行程序
+
+$frontController->dispatch();
+			]]>
+			</screen>
+			<para></para>
+			<screen>
+			<![CDATA[
+<?php
+
+   //控制器层
+
+   class IndexController extends Zend_Controller_Action{
+
+     var $views;   /*模板对象*/
+
+     var $data;    /*传递模版变量的对象*/
+
+      function init()
+
+      {
+
+             //拿回注册过的对象
+
+             $this->views = Zend_Registry::get("views");
+
+    }
+
+      function indexAction()
+
+      {
+
+             //定义模版显示的变量
+
+             $data['title']="hello world";
+
+             //传递变量到模版
+
+             $this->views->assign($data);
+
+             //显示模版
+
+             $this->views->display("index/index.tpl");
+
+                       echo "<p>in IndexController::indexAction()</p>";
+
+    }
+
+      function addAction()
+
+      {
+
+      }
+
+}
+			]]>
+			</screen>
+		</section>
+	</chapter>
+<chapter id="propel">
+	<title>Propel</title>
+	<para>Propel is an open-source Object-Relational Mapping (ORM) for SQL-Databases in PHP 5.4. It allows you to access your database using a set of objects, providing a simple API for storing and retrieving data.</para>
+	<para>But not only plain ORM but it also provides database schema migration, reverse engineering of existing database and much more.</para>
+	<para>http://propelorm.org/</para>
+</chapter>
+<chapter id="doctrine">
+	<title>Doctrine</title>
+	<para></para>
+	<section>
+		<title>example</title>
+		<programlisting>
+		<![CDATA[
+<?php
+use Doctrine\Common\ClassLoader;
+use Doctrine\DBAL\DriverManager;
+use Doctrine\DBAL\Configuration;
+
+require 'Doctrine/Common/ClassLoader.php';
+
+$classLoader = new ClassLoader('Doctrine', '/www/DoctrineDBAL-2.3.4/');
+$classLoader->register();
+
+$config = new Configuration();
+
+$connectionParams = array(
+    'dbname' => 'test',
+    'user' => 'www',
+    'password' => 'passw0rd',
+    'host' => '192.168.2.1',
+    'driver' => 'pdo_mysql',
+);
+$conn = DriverManager::getConnection($connectionParams, $config);
+
+$sql = "SELECT * FROM members limit 5";
+$stmt = $conn->query($sql);
+
+while ($row = $stmt->fetch()) {
+    printf("%s\r\n", $row['username']);
+}
+		]]>
+		</programlisting>
+
+	</section>
+</chapter>
+
+<chapter id="react">
+	<title>React - Event-driven, non-blocking I/O with PHP. (Node.PHP)</title>
+	<para>http://reactphp.org/</para>
+	<programlisting>
+AN EXAMPLE: WEBSERVER
+
+This simple web server written in React responds with "Hello World" for every request.
+
+require 'vendor/autoload.php';
+
+$app = function ($request, $response) {
+    $response->writeHead(200, array('Content-Type' => 'text/plain'));
+    $response->end("Hello World\n");
+};
+
+$loop = React\EventLoop\Factory::create();
+$socket = new React\Socket\Server($loop);
+$http = new React\Http\Server($socket, $loop);
+
+$http->on('request', $app);
+echo "Server running at http://127.0.0.1:1337\n";
+
+$socket->listen(1337);
+$loop->run();
+To install, just run this command:
+
+% composer init --require=react/http:0.3.* -n
+% composer install
+To run the server, put the code into a file example.php and execute it with the php program:
+
+% php example.php
+Server running at http://127.0.0.1:1337
+	</programlisting>
+</chapter>
+<chapter id="ratchet">
+	<title>Ratchet - WebSockets for PHP</title>
+	<section>
+		<title></title>
+		<screen>
+curl -sS https://getcomposer.org/installer | php
+php composer.phar
+php ~/composer.phar require cboden/ratchet		
+		</screen>
+	</section>
+</chapter>
+</part>
