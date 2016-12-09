@@ -1,0 +1,714 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<chapter id="index"><?dbhtml dir="data" ?>
+	<title>Spring Data</title>
+	<section id="JdbcTemplate">
+		<title>JdbcTemplate</title>
+		<section id="execute">
+			<title>execute</title>
+			<programlisting>
+jdbcTemplate.execute("CREATE TABLE USER (id integer, name varchar(100))");  			
+			</programlisting>
+		</section>
+		<section id="queryForInt">
+			<title>queryForInt</title>
+			<programlisting>
+int count = jdbcTemplate.queryForInt("SELECT COUNT(*) FROM USER");			
+			</programlisting>
+		</section>
+		
+		<section id="queryForObject">
+			<title>queryForObject</title>
+			<programlisting>
+	private static final Logger log = LoggerFactory.getLogger(ScheduledTasks.class);
+	private static final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd HH:mm:ss");
+	
+	@Autowired
+	private JdbcTemplate jdbcTemplate;
+
+	@Scheduled(initialDelay = 1000, fixedRate = 60000)
+	public void currentDate() {
+		Date date = jdbcTemplate.queryForObject("select sysdate from dual", Date.class);
+		log.info("The oracle sysdate is {}", dateFormat.format(date));
+	}			
+			</programlisting>
+			<programlisting>
+			<![CDATA[
+	@Autowired
+	private JdbcTemplate jdbcTemplate;
+
+	@RequestMapping(value = "/article")
+	public @ResponseBody String dailyStats(@RequestParam Integer id) {
+		String query = "SELECT id, title, content from article where id = " + id;
+
+		return jdbcTemplate.queryForObject(query, (resultSet, i) -> {
+			System.out.println(resultSet.getLong(1) + "," + resultSet.getString(2) + "," + resultSet.getString(3));
+			return (resultSet.getLong(1) + "," + resultSet.getString(2) + "," + resultSet.getString(3));
+		});
+
+	}			
+			]]>
+			</programlisting>
+			<programlisting>
+Integer age = queryForObject("select age from emp", Integer.class);
+String name = queryForObject("select name from emp",String.class);
+			</programlisting>
+		</section>
+		<section id="queryForList">
+			<title>queryForList</title>
+			<programlisting>
+			<![CDATA[
+List rows = jdbcTemplate.queryForList("SELECT * FROM USER");  
+Iterator it = rows.iterator();  
+while(it.hasNext()) {  
+    Map userMap = (Map) it.next();  
+    System.out.print(userMap.get("id") + "\t");  
+    System.out.print(userMap.get("name") + "\t");  
+    System.out.print(userMap.get("sex") + "\t");  
+    System.out.println(userMap.get("age") + "\t");  
+}  			
+			]]>
+			</programlisting>
+		</section>
+	</section>
+	
+	<section id="example">
+		<title>Example</title>
+	
+	<section id="SpringDataRedis">
+		<title>Redis</title>
+		<section>
+			<title>pom.xml</title>
+			<screen>
+			<![CDATA[
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-redis</artifactId>
+		</dependency>			
+			]]>
+			</screen>
+		</section>
+		<section>
+			<title>springframework-servlet.xml</title>
+			<screen>
+			<![CDATA[
+	<!-- Redis Connection Factory -->
+	<bean id="jedisConnFactory"
+		class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory"
+		p:host-name="192.168.2.1" p:port="6379" p:use-pool="true" />
+
+	<!-- redis template definition -->
+	<bean id="redisTemplate" class="org.springframework.data.redis.core.RedisTemplate"
+		p:connection-factory-ref="jedisConnFactory" />
+			]]>
+			</screen>
+			<example>
+				<title>Spring Data Redis Example</title>
+				<screen>
+				<![CDATA[
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="
+        http://www.springframework.org/schema/beans     
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/mvc 
+        http://www.springframework.org/schema/mvc/spring-mvc.xsd
+        http://www.springframework.org/schema/context 
+        http://www.springframework.org/schema/context/spring-context.xsd">
+
+	<mvc:resources location="/images/" mapping="/images/**" />
+	<mvc:resources location="/css/" mapping="/css/**" />
+
+	<context:component-scan base-package="cn.netkiller.controller" />
+
+	<mvc:annotation-driven />
+
+	<bean
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="viewClass"
+			value="org.springframework.web.servlet.view.JstlView" />
+		<property name="prefix" value="/WEB-INF/jsp/" />
+		<property name="suffix" value=".jsp" />
+		<!-- <property name="viewNames" value="*.jsp" /> -->
+	</bean>
+
+	<bean id="configuracion"
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="location" value="classpath:resources/development.properties" />
+	</bean>
+
+	<bean id="dataSource"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="${jdbc.driverClassName}" />
+		<property name="url" value="${jdbc.url}" />
+		<property name="username" value="${jdbc.username}" />
+		<property name="password" value="${jdbc.password}" />
+	</bean>
+
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="cn.netkiller.mapper" />
+	</bean>
+
+	<bean id="userService" class="cn.netkiller.service.UserService">
+	</bean>
+
+	<!-- Redis Connection Factory -->
+	<bean id="jedisConnFactory"
+		class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory"
+		p:host-name="192.168.2.1" p:port="6379" p:use-pool="true" />
+
+	<!-- redis template definition -->
+	<bean id="redisTemplate" class="org.springframework.data.redis.core.RedisTemplate"
+		p:connection-factory-ref="jedisConnFactory" />
+</beans>				
+				]]>
+				</screen>
+			</example>
+		</section>
+		<section>
+			<title>Controller</title>
+			<screen>
+			<![CDATA[
+package cn.netkiller.controller;
+
+import javax.annotation.Resource;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.ListOperations;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.serializer.StringRedisSerializer;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
+
+import cn.netkiller.model.User;
+
+@Controller
+public class CacheController {
+
+	// inject the actual template
+	@Autowired
+	private RedisTemplate<String, String> template;
+
+	// inject the template as ListOperations
+	@Resource(name = "redisTemplate")
+	private ListOperations<String, String> listOps;
+
+	@RequestMapping("/cache")
+	public ModelAndView cache() {
+
+		String message = "";
+
+		User user = new User();
+		user.setId("1");
+		user.setName("Neo");
+		user.setAge(30);
+
+		String key = "user";
+		listOps.leftPush(key, user.toString());
+		message = listOps.leftPop(key);
+
+		template.setKeySerializer(new StringRedisSerializer());
+		template.setValueSerializer(new StringRedisSerializer());
+		template.opsForValue().set("key", user.toString());
+
+		return new ModelAndView("index/index", "variable", message);
+	}
+}
+			]]>
+			</screen>
+		</section>
+		<section>
+			<title>index.jsp</title>
+			<screen>
+			<![CDATA[
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+<br>
+	<div style="text-align:center">
+		<h2>
+			${variable}
+		</h2>
+	</div>
+</body>
+</html>			
+			]]>
+			</screen>
+		</section>
+		<section>
+			<title>测试</title>
+			<para>请求URL http://your.domain.com/your.html</para>
+			<screen>
+			<![CDATA[
+[root@master ~]# redis-cli 
+redis 127.0.0.1:6379> keys *
+1) "\xac\xed\x00\x05t\x00\x04user"
+2) "key"
+
+redis 127.0.0.1:6379> get key
+"\xac\xed\x00\x05t\x00\x1dUser [id=1, name=Neo, age=30]"
+			]]>
+			</screen>
+			<tip>
+				<para>Spring Redis 默认使用 Byte数据类型存储Key，在redis-cli中会看到 "\xac\xed\x00\x05t\x00\x04" 前缀不方便get操作，所以我们会设置使用字符串，通过 template.setKeySerializer(new StringRedisSerializer()); 实现 </para>
+			</tip>
+		</section>
+	</section>
+	<section id="SpringDataMongoDB">
+		<title>Spring Data MongoDB</title>
+		<section>
+			<title>pom.xml</title>
+			<para>注意Spring4 与 1.9.1.RELEASE有兼容性问题，日志提示 Error creating bean with name 'mongoTemplate' defined in ServletContext resource</para>
+			<screen>
+			<![CDATA[
+		<dependency>
+			<groupId>org.springframework.data</groupId>
+			<artifactId>spring-data-mongodb</artifactId>
+			<version>1.8.1.RELEASE</version>
+		</dependency>			
+			]]>
+			</screen>
+		</section>
+		<section>
+			<title>springframework-servlet.xml</title>
+			<screen>
+			<![CDATA[
+	<mongo:db-factory id="mongoDbFactory" host="${mongo.host}" port="${mongo.port}" dbname="${mongo.database}" />
+	<!-- username="${mongo.username}" password="${mongo.password}" -->
+
+	<bean id="mongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate">
+        <constructor-arg name="mongoDbFactory" ref="mongoDbFactory"/>
+    </bean>
+    
+    <mongo:mapping-converter id="converter" db-factory-ref="mongoDbFactory"/>
+    <bean id="gridFsTemplate" class="org.springframework.data.mongodb.gridfs.GridFsTemplate">
+      <constructor-arg ref="mongoDbFactory"/>
+      <constructor-arg ref="converter"/>
+    </bean>
+			]]>
+			</screen>
+			<example>
+				<title>Spring Data MongoDB - springframework-servlet.xml</title>
+				<screen>
+				<![CDATA[
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" 
+	xmlns:mvc="http://www.springframework.org/schema/mvc" 
+	xmlns:context="http://www.springframework.org/schema/context" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:mongo="http://www.springframework.org/schema/data/mongo"
+	xmlns:tx="http://www.springframework.org/schema/tx" xsi:schemaLocation="
+        http://www.springframework.org/schema/beans     
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/mvc 
+        http://www.springframework.org/schema/mvc/spring-mvc.xsd
+        http://www.springframework.org/schema/context 
+        http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/data/mongo
+		http://www.springframework.org/schema/data/mongo/spring-mongo-1.5.xsd        
+        ">
+
+	<mvc:resources location="/images/" mapping="/images/**" />
+	<mvc:resources location="/css/" mapping="/css/**" />
+	<mvc:resources location="/js/" mapping="/js/**" />
+	<mvc:resources location="/zt/" mapping="/zt/**" />
+	<mvc:resources location="/sm/" mapping="/sm/**" />
+	<mvc:resources location="/module/" mapping="/module/**" />
+
+	<context:component-scan base-package="cn.netkiller.controller" />
+	<!-- <context:property-placeholder location="classpath:resources/development.properties" /> -->
+	<mvc:annotation-driven />
+
+	<bean id="viewResolver" class="org.springframework.web.servlet.view.UrlBasedViewResolver">
+		<property name="viewClass" value="org.springframework.web.servlet.view.JstlView" />
+		<property name="prefix" value="/WEB-INF/jsp/" />
+		<property name="suffix" value=".jsp" />
+	</bean>
+
+	<bean id="configuracion" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="location" value="classpath:resources/development.properties" />
+	</bean>
+	
+	<!-- MongoDB Connection Factory -->
+	<mongo:db-factory id="mongoDbFactory" host="${mongo.host}" port="${mongo.port}" dbname="${mongo.database}" />
+	<!-- username="${mongo.username}" password="${mongo.password}" -->
+	
+	<!-- MongoDB template definition -->
+	<bean id="mongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate">
+        <constructor-arg name="mongoDbFactory" ref="mongoDbFactory"/>
+    </bean>
+    
+    <!-- MongoDB GridFS template definition -->
+    <mongo:mapping-converter id="converter" db-factory-ref="mongoDbFactory"/>
+    <bean id="gridFsTemplate" class="org.springframework.data.mongodb.gridfs.GridFsTemplate">
+      <constructor-arg ref="mongoDbFactory"/>
+      <constructor-arg ref="converter"/>
+    </bean>
+    
+	<!-- Redis Connection Factory -->
+	<bean id="jedisConnFactory" class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory" p:host-name="192.168.2.1" p:port="6379" p:use-pool="true" />
+
+	<!-- redis template definition -->
+	<bean id="redisTemplate" class="org.springframework.data.redis.core.RedisTemplate" p:connection-factory-ref="jedisConnFactory" />
+ 
+</beans>
+				]]>
+				</screen>
+			</example>
+			<para>development.properties 配置内容</para>
+			<screen>
+			<![CDATA[
+mongo.host=192.168.4.1
+mongo.port=27017
+mongo.username=test
+mongo.password=passw0rd
+mongo.database=website
+			]]>
+			</screen>
+		</section>
+		<section>
+			<title>POJO</title>
+			<screen>
+			<![CDATA[
+package cn.netkiller.pojo;
+
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
+@Document(collection = "tracker")
+public class Tracker {
+	@Id
+	private String id;
+	private String name;
+	private String unique;
+	private String hostname;
+	private String referrer;
+	private String href;
+
+	public Tracker() {
+		// TODO Auto-generated constructor stub
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getUnique() {
+		return unique;
+	}
+
+	public void setUnique(String unique) {
+		this.unique = unique;
+	}
+
+	public String getHostname() {
+		return hostname;
+	}
+
+	public void setHostname(String hostname) {
+		this.hostname = hostname;
+	}
+
+	public String getReferrer() {
+		return referrer;
+	}
+
+	public void setReferrer(String referrer) {
+		this.referrer = referrer;
+	}
+
+	public String getHref() {
+		return href;
+	}
+
+	public void setHref(String href) {
+		this.href = href;
+	}
+
+	@Override
+	public String toString() {
+		return "Tracker [id=" + id + ", name=" + name + ", unique=" + unique + ", hostname=" + hostname + ", referrer=" + referrer + ", href=" + href + "]";
+	}
+
+}		
+			]]>
+			</screen>
+		</section>
+		<section>
+			<title>Controller</title>
+			<screen>
+			<![CDATA[
+package cn.netkiller.controller;
+
+import cn.netkiller.pojo.Tracker;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.stereotype.*;
+import org.springframework.web.bind.annotation.*;
+
+@Controller
+public class TrackerController {
+
+	@Autowired
+	private MongoTemplate mongoTemplate;
+
+	public TrackerController() {
+
+	}
+
+	@RequestMapping("/tracker/test")
+	@ResponseBody
+	String hello() {
+		return "Hello World!";
+	}
+
+	@RequestMapping("/tracker")
+	@ResponseBody
+	String execute() {
+		Tracker tracker = new Tracker();
+		tracker.setName("test");
+		tracker.setUnique("111223456");
+		tracker.setHostname("www.example.com");
+		tracker.setHref("http://example.com/test.html");
+		tracker.setReferrer("http://example.com/");
+		this.mongoTemplate.insert(tracker);
+		
+		return tracker.toString();
+	}
+
+}
+			]]>
+			</screen>
+		</section>
+		<section>
+			<title>查看测试结果</title>
+			<screen>
+			<![CDATA[
+> db.tracker.find();
+{ "_id" : ObjectId("5757c0b92c526a6bda5eea3a"), "_class" : "cn.netkiller.repositories.Tracker", "name" : "test", "unique" : "111223456", "hostname" : "www.example.com", "referrer" : "http://example.com/", "href" : "http://example.com/test.html" }
+
+			]]>
+			</screen>
+		</section>
+		<section>
+			<title>条件查询</title>
+			<screen>
+			<![CDATA[
+	@RequestMapping("/read/name/{name}")
+	public ArrayList<Tracker> sort(@PathVariable String name) {
+	
+		Query query = new Query(Criteria.where("name").is(name)); 
+		 
+		ArrayList<Tracker> trackers =  (ArrayList<Tracker>) mongoTemplate.find(query, Tracker.class);
+		return trackers;
+	}			
+			]]>
+			</screen>
+		</section>
+	</section>
+	</section>
+	
+	<section id="MongoRepository">
+		<title>MongoRepository</title>
+		<section id="findAll">
+			<title>findAll()</title>
+			<programlisting>
+			<![CDATA[
+	@RequestMapping(value = "read", method = RequestMethod.GET, produces = { "application/xml", "application/json" })
+	@ResponseStatus(HttpStatus.OK)
+	public List<Withdraw> read() {
+		return repository.findAll();
+	}
+			]]>
+			</programlisting>
+		</section>
+		<section id="deleteAll">
+			<title>deleteAll()</title>
+			<programlisting>
+			<![CDATA[
+repository.deleteAll();
+			]]>
+			</programlisting>
+		</section>
+		<section id="save">
+			<title>save()</title>
+			<programlisting>
+			<![CDATA[
+repository.save(new City("Shenzhen", "China"));
+			]]>
+			</programlisting>
+		</section>
+		<section id="count">
+			<title>count()</title>
+			<programlisting>
+			<![CDATA[
+	@RequestMapping("count")
+	public long count() {
+		return repository.count();
+	}
+			]]>
+			</programlisting>
+		</section>
+		<section id="PageRequest">
+			<title>PageRequest</title>
+			<programlisting>
+			<![CDATA[
+	@RequestMapping(value = "read/{size}/{page}", method = RequestMethod.GET, produces = { "application/xml", "application/json" })
+	@ResponseStatus(HttpStatus.OK)
+	public List<Withdraw> readPage(@PathVariable int size, @PathVariable int page){
+		PageRequest pageRequest = new PageRequest(page-1,size);
+		return repository.findAll(pageRequest).getContent();
+	}
+			]]>
+			</programlisting>
+			<para>URL翻页参数，每次返回10条记录</para>
+			<screen>
+第一页 http://localhost:8080/v1/withdraw/read/10/1.json
+第二页 http://localhost:8080/v1/withdraw/read/10/2.json
+...
+第五页 http://localhost:8080/v1/withdraw/read/10/5.json
+			</screen>
+		</section>
+	</section>
+	<section id="Entity">
+		<title>@Entity</title>
+		<section>
+			<title>@NotNull 不能为空声明</title>
+			<programlisting>
+@NotNull
+public String username;			
+			</programlisting>
+		</section>
+		<section>
+			<title>处理日期时间</title>
+			<programlisting>
+public java.sql.Date createdate; 创建日期 YYYY-MM-DD 
+public java.util.Date finisheddate; 创建日期时间 YYYY-MM-DD HH:MM:SS
+			</programlisting>
+			<para>Json默认为 yyyy-MM-ddTHH:mm:ss 注意日期与时间中间的T，修改日期格式将T去掉</para>
+			<screen>
+@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")			
+			</screen>
+		</section>
+	</section>
+	<section id="Query">
+		<title>Query</title>
+		<programlisting>
+		<![CDATA[
+package api.repository.oracle;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
+
+import api.domain.oracle.Member;
+
+@Repository
+public interface MemberRepository extends CrudRepository<Member, Long> {
+	public Page<Member> findAll(Pageable pageable);
+
+	// public Member findByBillno(String billno);
+
+	public Member findById(String id);
+
+	@Query("SELECT m FROM Member m WHERE m.status = 'Y' AND m.id = :id")
+	public Member findFinishById(@Param("id") String id);
+
+}
+		]]>
+		</programlisting>
+	</section>
+<!-- 	<section>
+		<title></title>
+
+	</section> -->
+	<section id="faq">
+		<title>FAQ</title>
+		<section>
+			<title>No identifier specified for entity</title>
+			<para></para>
+		</section>
+		<section>
+			<title>Oracle Date 类型显示日期和时间</title>
+			<programlisting>
+			<![CDATA[
+package api.domain.oracle;
+
+import java.util.Date;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.format.annotation.DateTimeFormat.ISO;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+
+@Entity
+@Table(name = "test")
+public class Test {
+
+	@Id
+	@Column(name = "ID")
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "test_id_Sequence")
+	@SequenceGenerator(name = "test_id_Sequence", sequenceName = "test")
+	private Long id;
+
+	@NotNull
+	@DateTimeFormat(iso = ISO.DATE_TIME)
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+	public Date createdate;
+
+	public Member() {
+
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public Date getCreatedate() {
+		return createdate;
+	}
+
+	public void setCreatedate(Date createdate) {
+		this.createdate = createdate;
+	}
+
+}
+			]]>
+			</programlisting>
+		</section>
+	</section>
+</chapter>

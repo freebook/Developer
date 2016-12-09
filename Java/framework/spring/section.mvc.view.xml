@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section id="tag">
+	<title>Using Spring’s form tag library</title>
+	<section>
+		<title>css</title>
+		<programlisting>
+		<![CDATA[
+
+		]]>
+		</programlisting>
+		<section>
+			<title>cssClass</title>
+			<para>cssClass 使用该属性指定表单元素CSS样式名，相当于HTML元素的class属性</para>
+			<programlisting>
+			<![CDATA[
+<form:input path="userName" cssClass="inputStyle"/>
+			]]>
+			</programlisting>
+		</section>
+		<section>
+			<title>cssStyle</title>
+			<para>cssStyle 直接通过该属性指定样式，相当于HTML元素的style属性</para>
+			<programlisting>
+			<![CDATA[
+<form:input path="userName" cssStyle="width:100px"/>
+			]]>
+			</programlisting>
+		</section>
+		<section>
+			<title>cssErrorClass</title>
+			<para>cssError Class表示表单元素发生错误时对应的样式</para>
+			<programlisting>
+			<![CDATA[
+<form:input path="userName" cssClass="userNameClass" cssErrorClass= "userNameClassError"/>
+			]]>
+			</programlisting>
+		</section>
+	</section>
+	<section>
+		<title>cssClass</title>
+		<programlisting>
+		<![CDATA[
+
+		]]>
+		</programlisting>
+	</section>
+
+</section>
+
+<section id="freemarker">
+	<title>FreeMarker</title>
+	<para>http://freemarker.org/</para>
+</section>

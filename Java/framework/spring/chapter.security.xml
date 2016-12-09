@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<chapter id="index"><?dbhtml dir="security" ?>
+	<title>Spring Security</title>
+	<section id="EnableWebSecurity">
+		<title>EnableWebSecurity</title>
+		<section id="HttpSecurity">
+			<title>访问控制列表（Access Control List，ACL）</title>
+			<para>放行所有请求</para>
+			<programlisting>
+http.authorizeRequests().antMatchers("/**" ).permitAll();		
+			</programlisting>
+			<programlisting>
+			<![CDATA[
+package cn.netkiller.config;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+
+@Configuration
+@EnableWebSecurity
+public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+
+	public WebSecurityConfig() {
+		// TODO Auto-generated constructor stub
+	}
+
+	@Override
+	protected void configure(HttpSecurity http) throws Exception {
+
+		http
+	        .authorizeRequests()
+	            .antMatchers("/", "/about.html", "/doc/**").permitAll()
+	            .anyRequest().authenticated()
+	            .and()
+	        .formLogin()
+	            .loginPage("/login.html")
+	            .permitAll()
+	            .and()
+	        .logout()
+	            .permitAll();
+           
+	}
+	
+	@Autowired
+    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+        auth
+            .inMemoryAuthentication()
+                .withUser("user").password("password").roles("USER")
+                .and()
+                .withUser("admin").password("admin").roles("ADMIN");
+
+    }
+}
+
+			]]>
+			</programlisting>
+		</section>
+		<section id="httpBasic">
+			<title>HTTP Auth</title>		
+			<programlisting>
+			<![CDATA[
+	@Override
+	protected void configure(HttpSecurity http) throws Exception {
+		http.authorizeRequests().antMatchers("/ping","/v1/*/ping","/v1/public/**" ).permitAll()
+		.anyRequest().authenticated()
+		.and().rememberMe().and().httpBasic()
+		.and().csrf().disable();
+	}
+			]]>
+			</programlisting>	
+		</section>
+		<section id="HttpMethod">
+			<title>Rest</title>		
+			<programlisting>
+			<![CDATA[
+protected void configure(HttpSecurity http) throws Exception {
+    http
+      .csrf().disable()
+      .authorizeRequests()
+        .antMatchers(HttpMethod.POST, "/api/**").authenticated()
+        .antMatchers(HttpMethod.PUT, "/api/**").authenticated()
+        .antMatchers(HttpMethod.DELETE, "/api/**").authenticated()
+        .anyRequest().permitAll()
+        .and()
+      .httpBasic().and()
+      .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+}
+			]]>
+			</programlisting>	
+		</section>
+		<section>
+			<title></title>
+			<programlisting>
+			<![CDATA[
+		
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+       
+      http.authorizeRequests()
+        .antMatchers("/", "/member").access("hasRole('USER') or hasRole('ADMIN') or hasRole('DBA')")
+        .and().formLogin().loginPage("/login")
+        .usernameParameter("sso").passwordParameter("password")
+        .and().exceptionHandling().accessDeniedPage("/403");
+    }
+			]]>
+			</programlisting>
+		</section>
+		<section id="withUser">
+			<title>Add User</title>
+			<programlisting>
+			<![CDATA[
+	@Autowired
+    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+        auth
+            .inMemoryAuthentication()
+                .withUser("user").password("password").roles("USER");
+
+    }
+			]]>
+			</programlisting>
+			<para>添加多个用户</para>
+			<programlisting>
+			<![CDATA[
+	
+	@Autowired
+    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+        auth
+            .inMemoryAuthentication()
+                .withUser("user").password("password").roles("USER")
+                .and()
+                .withUser("admin").password("admin").roles("ADMIN")
+                .and()
+                .withUser("admin").password("super").roles("ADMIN","SYS","DBA")
+                ;
+    }
+			]]>
+			</programlisting>
+		</section>
+	</section>
+	<section>
+		<title></title>
+		<programlisting>
+		<![CDATA[
+		]]>
+		</programlisting>
+	</section>
+	<section>
+		<title></title>
+		<programlisting>
+		<![CDATA[
+		]]>
+		</programlisting>
+	</section>
+</chapter>	
