@@ -352,10 +352,7 @@ function fnChangeNode(){
 <section id="javascript.framework">
 	<title>Javascript MVC Frameworks</title>
 	<para>http://codebrief.com/2012/01/the-top-10-javascript-mvc-frameworks-reviewed/</para>
-	<section id="angularjs">
-		<title>AngularJS</title>
-		<para>http://angularjs.org/</para>
-	</section>
+
 	<section id="backbone.js">
 		<title>Backbone</title>
 		<para>http://backbonejs.org/</para>

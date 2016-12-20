@@ -1,0 +1,41 @@
+<abstract>
+	<title>我的系列文档</title>
+	<para>编程语言</para>
+	<simplelist type='horiz' columns='6'>
+		<member>
+			<ulink url="../architect/index.html">Netkiller Architect 手札</ulink>
+		</member>
+		<member>
+			<ulink url="../developer/index.html">Netkiller Developer 手札</ulink>
+		</member>
+		<member>
+			<ulink url="../java/index.html">Netkiller Java 手札</ulink>
+		</member>		
+		<member>
+			<ulink url="../php/index.html">Netkiller PHP 手札</ulink>
+		</member>
+		<member>
+			<ulink url="../python/index.html">Netkiller Python 手札</ulink>
+		</member>
+		<member>
+			<ulink url="../testing/index.html">Netkiller Testing 手札</ulink>
+		</member>
+		<member>
+			<ulink url="../cryptography/index.html">Netkiller Cryptography 手札</ulink>
+		</member>
+
+		<member>
+			<ulink url="../perl/index.html">Netkiller Perl 手札</ulink>
+		</member>
+
+		<member>
+			<ulink url="../docbook/index.html">Netkiller Docbook 手札</ulink>
+		</member>
+		<member>
+			<ulink url="../project/index.html">Netkiller Project 手札</ulink>
+		</member>
+		<member>
+			<ulink url="../management/index.html">Netkiller Management 手札</ulink>
+		</member>
+	</simplelist>
+</abstract>
