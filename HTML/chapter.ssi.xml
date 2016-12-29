@@ -35,7 +35,7 @@ GATEWAY_INTERFACE=CGI/1.1
 org.apache.catalina.ssi.SSIServlet=true
 REQUEST_URI=/
 		</screen>
-		<screen>
+		<section>
 			<title>QUERY_STRING GET参数传递</title>
 			<para>例如我们需要实现一个功能，test.html?后面的参数需要传递到页面中。</para>
 			<screen>
@@ -49,7 +49,19 @@ http://www.netkiller.cn/lp/test.html?utm_source=ss&utm_medium=baidusem&utm_campa
 <a href="<!--#echo var="WWW_URL"-->/customer/CreateAccount.do?<!--#echo var="QUERY_STRING"-->">新建用户</a>
 			]]>
 			</screen>
-		</screen>
+		</section>
+		<section>
+			<title>SERVER_NAME 与 HTTP_HOST</title>
+			<screen>
+server {
+    listen      80;
+    listen 		443 ssl http2;
+    server_name api.netkiller.com api.neo.com api.chen.com;
+}
+			</screen>
+			<para>SERVER_NAME 如果一个主机配置多个域名，那么SERVER_NAME是域名列表中的第一个域名api.netkiller.com</para>
+			<para>HTTP_HOST 是当前进入网站的域名</para>
+		</section>
 	</section>
 	<section id="set">
 		<title>set</title>
