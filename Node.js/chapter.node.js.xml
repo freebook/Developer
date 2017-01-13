@@ -1,21 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- $Id: chapter.node.js.xml 355 2012-02-24 12:29:31Z netkiller $ -->
-<part id="index"><?dbhtml dir="node.js" ?>
-	<title>Node.js</title>
-<chapter id="node.js">
+<chapter id="install">
 	<title>Node.js 安装</title>
 	<ulink url="http://nodejs.org/" />
-	<screen>
+	<section id="ubuntu">
+		<title>Ubuntu</title>
+		<screen>
 $ sudo apt-get install nodejs
-	</screen>	
-	<section>
+$ sudo apt-get install npm
+		</screen>		
+	</section>
+	<section id="centos">
+		<title>CentOS</title>
+		<screen>
+[root@netkiller www]# yum install -y nodejs
+[root@netkiller www]# node --version
+v6.9.1
+		</screen>
+	</section>
+	<section id="npm">
 		<title>npm -- node package manager</title>
 		<para>npm registry</para>
 		<screen>
-$ sudo apt-get install npm
-		
 $ npm install mysql
 		</screen>
 	</section>
+	<section id="pm2">
+		<title>pm2</title>
+		<subtitle>Production process manager for Node.js apps with a built-in load balancer http://pm2.io</subtitle>
+		<screen>
+npm install -g pm2		
+		</screen>
+		<section>
+			<title>logs</title>
+			<screen>
+$ pm2 logs project --lines 100			
+			</screen>
+		</section>
+	</section>
 </chapter>
-</part>
+

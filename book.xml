@@ -62,7 +62,10 @@
 	<!ENTITY % chart.doctype.entity.xml 	SYSTEM "Chart/doctype.entity.xml">
 	%chart.doctype.entity.xml;
 
+	<!ENTITY part.node.xml				    SYSTEM "Node.js/part.node.xml">
 	<!ENTITY chapter.node.js.xml		    SYSTEM "Node.js/chapter.node.js.xml">
+	<!ENTITY chapter.meteor.xml		    	SYSTEM "Node.js/chapter.meteor.xml">
+	<!ENTITY chapter.express.xml		    SYSTEM "Node.js/chapter.express.xml">
 
 	<!ENTITY chapter.uml.xml				SYSTEM "UML/chapter.uml.xml">
 	<!ENTITY chapter.regular.xml			SYSTEM "chapter.regular.xml">
@@ -121,7 +124,7 @@
 	<!-- &part.python.xml; -->
 	<!-- &chapter.java.xml; -->
 	&part.ruby.xml;
-	&chapter.node.js.xml;
+	&part.node.xml;
 <!-- =========================================================================== -->
 	&part.c.xml;
 	&chapter.d.xml;
