@@ -3,7 +3,7 @@
 	<title>Apache Kafka is a distributed publish-subscribe messaging system</title>
 	<para>http://kafka.apache.org/</para>
 	<section>
-		<title>安装</title>
+		<title>安装 Kafka</title>
 		<para>安装脚本如下</para>
 		<screen>
 #!/bin/bash
@@ -25,6 +25,39 @@ mv kafka_2.12-0.10.2.0 /srv/
 cp /srv/kafka_2.12-0.10.2.0/config/server.properties{,.original}
 ln -s /srv/kafka_2.12-0.10.2.0 /srv/kafka
 /srv/kafka/bin/kafka-server-start.sh -daemon /srv/kafka/config/server.properties
+		</screen>
+	</section>
+	<section>
+		<title>配置 Kafka</title>
+		<para>创建Topic</para>
+		<screen>
+$ /srv/kafka/bin/kafka-topics.sh --create --topic kafkatopic --replication-factor 1 --partitions 1 --zookeeper localhost:2181		
+Created topic "kafkatopic".
+		</screen>
+		<para>查看Topic</para>
+		<screen>
+$ /srv/kafka/bin/kafka-topics.sh --list --zookeeper localhost:2181		
+kafkatopic
+		</screen>
+		<para>启动Producer 生产消息</para>
+		<screen>
+$ /srv/kafka/bin/kafka-console-producer.sh --broker-list localhost:9092 --topic kafkatopic		
+		</screen>
+		<para>启动Consumer 消费消息</para>
+		<screen>
+$ /srv/kafka/bin/kafka-console-consumer.sh --zookeeper localhost:2181 --topic kafkatopic --from-beginning
+		
+		</screen>
+		<para>删除Topic</para>
+		<screen>
+$ /srv/kafka/bin/kafka-run-class.sh kafka.admin.TopicCommand --delete --topic kafkatopic --zookeeper localhost:2181
+		</screen>
+		<para>查看Topic 的 offset</para>
+		<screen>
+$ /srv/kafka/bin/kafka-consumer-offset-checker.sh  --zookeeper localhost:2181 --topic kafkatopic --group consumer	
+		</screen>
+		<para></para>
+		<screen>
 		</screen>
 	</section>
 </section>
