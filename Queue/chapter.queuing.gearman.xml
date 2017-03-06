@@ -116,7 +116,3 @@ EOF
 		</screen>
 	</section>
 </section>
-<section id="celery">
-	<title>Celery</title>
-	<para>http://www.celeryproject.org/</para>
-</section>

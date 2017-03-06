@@ -8,18 +8,12 @@
 	<!ENTITY Neo "http://netkiller.sf.net/">
 	<!ENTITY BG7NYT "&Neo;">
 	<!ENTITY Netkiller "<emphasis><trademark>Netkiller</trademark></emphasis>">
-	<!ENTITY book.info.legalnotice.xml		SYSTEM "../common/book.info.legalnotice.xml">
-	<!ENTITY book.info.abstract.xml			SYSTEM "book.info.abstract.xml">
-	<!ENTITY book.info.author.xml			SYSTEM "../common/book.info.author.xml">
-    <!ENTITY book.preface.xml           	SYSTEM "../common/book.preface.xml">
-	<!ENTITY preface.about.me.xml       	SYSTEM "../common/about.me.xml">
-	<!ENTITY book.dedication.xml       		SYSTEM "../common/book.dedication.xml">
-<!--
-	<!ENTITY book.preface SYSTEM "book.preface.xml">
-	<!ENTITY book.dedication SYSTEM "book.dedication.xml">
-	<!ENTITY book.appendix SYSTEM "book.appendix.xml">
-	<!ENTITY book.history SYSTEM "book.history.xml">
--->
+
+	<!ENTITY % common.doctype.entity.xml 	SYSTEM "../common/doctype.entity.xml">
+	%common.doctype.entity.xml;
+	
+	<!ENTITY book.info.abstract.xml 		SYSTEM "book.info.abstract.xml">
+
 	<!ENTITY chapter.editor 				SYSTEM "chapter.editor.xml">
 	<!ENTITY chapter.editor.vim 			SYSTEM "chapter.editor.vim.xml">
 
@@ -33,10 +27,8 @@
 	<!ENTITY chapter.dsource.xml			SYSTEM "D/chapter.dsource.xml">
 	<!ENTITY chapter.faq.xml				SYSTEM "D/chapter.faq.xml">
 
-	<!ENTITY chapter.queuing.xml		   	SYSTEM "chapter.queuing.xml">
-    <!ENTITY chapter.queuing.rabbitmq.xml	SYSTEM "chapter.queuing.rabbitmq.xml">
-    <!ENTITY chapter.queuing.zeromq.xml	    SYSTEM "chapter.queuing.zeromq.xml">
-    <!ENTITY chapter.queuing.gearman.xml	SYSTEM "chapter.queuing.gearman.xml">
+	<!ENTITY % queue.doctype.entity.xml		SYSTEM "Queue/doctype.entity.xml">
+	%queue.doctype.entity.xml;
 
 	<!ENTITY % html.doctype.entity.xml 		SYSTEM "HTML/doctype.entity.xml">
 	%html.doctype.entity.xml;
@@ -96,7 +88,7 @@
 		<isbn>ISBN#</isbn>
 		<edition>User's Guide version 1.0 for Linux</edition>
 		<pagenums>120-126 pages</pagenums>
-		<pubdate>Tue Dec  6 17:22:53 CST 2011</pubdate>
+		<pubdate>2017-02-13</pubdate>
 		<releaseinfo></releaseinfo>
 
 		&book.info.legalnotice.xml;

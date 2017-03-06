@@ -10,7 +10,12 @@
     &chapter.queuing.rabbitmq.xml;
     &chapter.queuing.zeromq.xml;
 	&chapter.queuing.gearman.xml;
-
+	&chapter.kafka.xml;
+	
+	<section id="celery">
+		<title>Celery</title>
+		<para>http://www.celeryproject.org/</para>
+	</section>
 	<section id="ActiveMQ">
 		<title>ActiveMQ</title>
 		<para><ulink url="http://activemq.apache.org/">Apache ActiveMQ</ulink></para>

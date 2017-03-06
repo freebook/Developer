@@ -8,6 +8,12 @@
 	<!ENTITY BG7NYT "&Neo;">
 	<!ENTITY Netkiller "<emphasis><trademark>Netkiller</trademark></emphasis>">
 
+	<!ENTITY % common.doctype.entity.xml 		SYSTEM "../../common/doctype.entity.xml">
+	%common.doctype.entity.xml;
+	
+	<!ENTITY book.info.abstract.xml 	SYSTEM "../book.info.abstract.xml">
+
+
 	<!ENTITY book.info.author.xml		SYSTEM "../common/book.info.author.xml">
 	<!ENTITY book.info.legalnotice.xml 	SYSTEM "../common/book.info.legalnotice.xml">
 	<!ENTITY book.info.abstract.xml 	SYSTEM "../common/book.info.abstract.xml">
