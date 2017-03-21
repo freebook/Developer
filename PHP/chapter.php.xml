@@ -92,6 +92,15 @@ Additional .ini files parsed:      /srv/php-5.5.13/etc/conf.d/amqp.ini,
 /srv/php-5.5.13/etc/conf.d/xdebug.ini
 			</screen>
 		</section>
+		<section>
+			<title>配置扫描目录</title>
+			<para>编译PHP的时候可以通过 --with-config-file-scan-dir=来指定配置文件扫描目录。那么我们怎样再运行时修改这个目录呢？</para>
+			<screen>
+export PHP_INI_SCAN_DIR=/srv/php/etc/cli.d
+export PHP_INI_SCAN_DIR=/srv/php/etc/conf.d:/srv/php/etc/fpm.d
+			</screen>
+			<para></para>
+		</section>
 	</section>
 	<section id="php.ini">
 		<title>php.ini</title>
@@ -158,6 +167,13 @@ expose_php On
 expose_php Off
 			</screen>
 		</section>
+	</section>
+	<section id="php-config">
+		<title>php-config</title>
+		<para>显示 extension-dir 目录</para>
+		<screen>
+php-config --extension-dir
+		</screen>
 	</section>
 	<section id="pdt">
 		<title>Eclipse PDT</title>

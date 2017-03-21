@@ -879,13 +879,14 @@ extension=zip.so
 		</screen>
 	</section>
 
-	<section id="process.control">
+	<!-- <section id="process.control">
 		<title>Process Control Extensions</title>
+	</section> -->
+	
 		&chapter.extension.pcntl.xml;
 		&chapter.extension.pthreads.xml;
 		&chapter.extension.libevent.xml;
-	</section>
-	
+			
 	<section id="mbstring">
 		<title>mbstring</title>
 		<screen>

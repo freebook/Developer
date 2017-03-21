@@ -429,5 +429,37 @@ install failed
 			]]>
 			</screen>
 		</section>
+		<section>
+			<title>Class 'Stackable' not found in /path/to/file.php</title>
+			<para>故障出现在PHP 7.x，pecl 已经升级至 3.1.6</para>
+			<para>Stackable 是 Threaded 的一个别名，这个类使用直到 pthreads v.2.0.0，之后便取消Stackable。</para>
+			<screen>
+$ pecl search pthread
+Retrieving data...0%
+Matched packages, channel pecl.php.net:
+=======================================
+Package  Stable/(Latest) Local
+pthreads 3.1.6 (stable)        Threading API			
+			</screen>
+			<para>测试</para>
+			<screen>
+$stackable = new Stackable;
+var_dump(get_class($stackable));
+
+Outputs: string(8) "Threaded"			
+			</screen>
+			<para>源码</para>
+			<screen>
+/**
+ * Stackable is an alias of Threaded. This class name was used in pthreads until
+ * version 2.0.0
+ * @link http://www.php.net/manual/en/class.threaded.php
+ */
+class Stackable extends Threaded implements Traversable, Countable, ArrayAccess {
+
+}
+			</screen>
+			<para>解决方案，将 Stackable 改为 Threaded</para>
+		</section>
 	</section>	
 </section>
