@@ -83,7 +83,7 @@ document.domain.split(".").slice(-2).join(".");
 			</screen>
 		</section>
 	</section>
-	<section>
+	<section id="string">
 		<title>String 字符串处理</title>
 		<section>
 			<title>JSON.parse</title>
@@ -96,8 +96,18 @@ alert(obj.count);
 			]]>
 			</programlisting>
 		</section>
+		<section>
+			<title>replace 替换</title>
+			<para>正则替换手机号码</para>
+			<programlisting>
+			<![CDATA[
+    var str = "13113668890"; 
+    var res = str.replace(/([0-9]{1,3})([0-9]{1,4})([0-9]{1,4})/, "$1****$3");
+    		]]>
+			</programlisting>
+		</section>
 	</section>
-	<section>
+	<section id="date">
 		<title>Date and Time</title>
 		<screen>
 var dateObject=new Date();

@@ -73,4 +73,33 @@ cd curl-7.28.1
 * SSL connection using DHE-RSA-AES256-SHA
 		</screen>
 	</section>
+	<section id="2002">
+		<title>SQLSTATE[HY000] [2002] No such file or directory</title>
+		<para>查看 mysql unix_socket 地址</para>
+		<screen>
+		<![CDATA[
+mysql> show variables like '%socket%';
++-----------------------------------------+---------------------------+
+| Variable_name                           | Value                     |
++-----------------------------------------+---------------------------+
+| performance_schema_max_socket_classes   | 10                        |
+| performance_schema_max_socket_instances | -1                        |
+| socket                                  | /var/lib/mysql/mysql.sock |
++-----------------------------------------+---------------------------+
+3 rows in set (0.02 sec)
+		]]>
+		</screen>
+		<para>查看 php.ini 中的 pdo_mysql.default_socket 配置</para>
+		<screen>
+		<![CDATA[
+# php -i | grep pdo_mysql.default_socket
+pdo_mysql.default_socket => /tmp/mysql.sock => /tmp/mysql.sock
+		]]>
+		</screen>
+		<para>打开php.ini文件将 pdo_mysql.default_socket 配置为 /var/lib/mysql/mysql.sock</para>
+		<para>重启 php-fpm 后配置生效</para>
+		<screen>
+systemctl restart php-fpm		
+		</screen>
+	</section>
 </chapter>
