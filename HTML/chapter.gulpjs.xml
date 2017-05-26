@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<chapter id="gulpjs">
+<chapter id="index"><?dbhtml dir="gulpjs" ?>
 	<title>gulpjs</title>
 	<!-- https://julienrenaux.fr/2014/05/25/introduction-to-gulp-js-with-practical-examples/ -->
 	<para>安装</para>
@@ -30,8 +30,9 @@ gulp.task('css', function(){
 
 gulp.task('default', [ 'html', 'css' ]);
 	]]>
-	</screen>	
-	<section>
+	</screen>
+	<para></para>
+	<section id="gulp-minify-html">
 		<title>HTML Minification</title>
 		<para></para>
 		<screen>
@@ -39,12 +40,12 @@ gulp.task('default', [ 'html', 'css' ]);
 npm install --save-dev gulp-minify-html
 		]]>
 		</screen>
-		<para></para>
+		<para>gulpfile.js:</para>
 		<screen>
 		<![CDATA[
 // including plugins
-var gulp = require('gulp')
-, minifyHtml = require("gulp-minify-html");
+var gulp = require('gulp');
+var minifyHtml = require("gulp-minify-html");
  
 // task
 gulp.task('minify-html', function () {
@@ -61,7 +62,7 @@ gulp minify-html
 		]]>
 		</screen>
 	</section>
-	<section>
+	<section id="gulp-minify-css">
 		<title>CSS Minification</title>
 		<section>
 			<title>gulp-minify-css</title>
@@ -75,8 +76,8 @@ npm install --save-dev gulp-minify-css
 			<screen>
 			<![CDATA[
 // including plugins
-var gulp = require('gulp')
-, minifyCss = require("gulp-minify-css");
+var gulp = require('gulp');
+var minifyCss = require("gulp-minify-css");
  
 // task
 gulp.task('minify-css', function () {
@@ -134,7 +135,7 @@ gulp.task('minify-js', function(){
 			</screen>
 		</section>
 	</section>
-	<section>
+	<section id="gulp-uglify">
 		<title>JS Minification</title>
 		<para></para>
 		<screen>
@@ -142,14 +143,12 @@ gulp.task('minify-js', function(){
 npm install --save-dev gulp-uglify
 		]]>
 		</screen>
-		<para></para>
+		<para>gulpfile.js:</para>
 		<screen>
 		<![CDATA[
-gulpfile.js:
-
 // including plugins
-var gulp = require('gulp')
-, uglify = require("gulp-uglify");
+var gulp = require('gulp');
+var uglify = require("gulp-uglify");
  
 // task
 gulp.task('minify-js', function () {
@@ -157,7 +156,6 @@ gulp.task('minify-js', function () {
     .pipe(uglify())
     .pipe(gulp.dest('path/to/destination'));
 });
-
 		]]>
 		</screen>
 		<para>Run:</para>
@@ -166,12 +164,230 @@ gulp.task('minify-js', function () {
 gulp minify-js
 		]]>
 		</screen>
-	</section>
-	<section>
-		<title>Example</title>
-		<para></para>
+	</section>		
+	<section id="gulp-sass">
+		<title>Sass Compilation</title>
+		<para>Using gulp-sass</para>
 		<screen>
 		<![CDATA[
+npm install --save-dev gulp-sass
+		]]>
+		</screen>
+		<para>gulpfile.js:</para>
+		<screen>
+		<![CDATA[
+// including plugins
+var gulp = require('gulp');
+var sass = require("gulp-sass");
+ 
+// task
+gulp.task('compile-sass', function () {
+    gulp.src('./Sass/one.sass') // path to your file
+    .pipe(sass())
+    .pipe(gulp.dest('path/to/destination'));
+});
+		]]>
+		</screen>
+		<para>Run:</para>
+		<screen>
+		<![CDATA[
+gulp compile-sass
+		]]>
+		</screen>
+	</section>
+	<section id="gulp-less">
+		<title>Less Compilation</title>
+		<para>Using gulp-less</para>
+		<screen>
+		<![CDATA[
+npm install --save-dev gulp-less
+		]]>
+		</screen>
+		<para>gulpfile.js:</para>
+		<screen>
+		<![CDATA[
+// including plugins
+var gulp = require('gulp');
+var less = require("gulp-less");
+
+// task
+gulp.task('compile-less', function () {
+    gulp.src('./Less/one.less') // path to your file
+    .pipe(less())
+    .pipe(gulp.dest('path/to/destination'));
+});	
+		]]>
+		</screen>
+		<para>Run:</para>
+		<screen>
+		<![CDATA[
+gulp compile-less
+		]]>
+		</screen>
+	</section>	
+	
+	<section id="gulp-rename">
+		<title>重命名文件名</title>
+		<screen>
+		<![CDATA[
+Using gulp-rename
+
+npm install --save-dev gulp-rename
+		]]>
+		</screen>
+		<para>gulpfile.js:</para>
+		<screen>
+		<![CDATA[
+// including plugins
+var gulp = require('gulp');
+var rename = require('gulp-rename');
+var coffee = require("gulp-coffee");
+ 
+// task
+gulp.task('rename', function () {
+    gulp.src('./CoffeeScript/one.coffee') // path to your file
+    .pipe(coffee())  // compile coffeeScript
+    .pipe(rename('renamed.js')) // rename into "renamed.js" (original name "one.js")
+    .pipe(gulp.dest('path/to/destination'));
+});
+		]]>
+		</screen>
+		<para>Run:</para>
+		<screen>
+		<![CDATA[
+gulp rename
+		]]>
+		</screen>
+	</section>
+	<section id="gulp-concat">
+		<title>合并文件</title>
+		<para>Concatenate files using gulp-concat</para>
+		<screen>
+		<![CDATA[
+npm install --save-dev gulp-concat		
+		]]>
+		</screen>
+		<para>gulpfile.js:</para>
+		<screen>
+		<![CDATA[
+// including plugins
+var gulp = require('gulp');
+var concat = require("gulp-concat");
+ 
+// task
+gulp.task('concat', function () {
+    gulp.src('./JavaScript/*.js') // path to your files
+    .pipe(concat('concat.js'))  // concat and name it "concat.js"
+    .pipe(gulp.dest('path/to/destination'));
+});
+		]]>
+		</screen>
+		<para>Run:</para>
+		<screen>
+		<![CDATA[
+gulp concat			
+		]]>
+		</screen>
+	</section>
+	<section id="gulp-header">
+		<title>文件头</title>
+		<screen>
+		<![CDATA[
+Using gulp-header and Node’s file system
+
+npm install --save-dev gulp-header		
+		]]>
+		</screen>
+		<para>Copyright 头文件</para>
+		<screen>
+		<![CDATA[
+# vim Copyright
+
+/*
+Author: netkiller <netkiller@msn.com>
+Website: https://www.netkiller.cn
+Version: <%= version %>
+*/
+		]]>
+		</screen>
+		<para>Version 文件</para>
+		<screen>
+		<![CDATA[
+# vim Version
+1.0.0
+		]]>
+		</screen>
+		<para>gulpfile.js:</para>
+		<screen>
+		<![CDATA[
+// including plugins
+var gulp = require('gulp')
+, fs = require('fs')
+, concat = require("gulp-concat")
+, header = require("gulp-header");
+ 
+// functions
+ 
+// Get version using NodeJs file system
+var getVersion = function () {
+    return fs.readFileSync('Version');
+};
+ 
+// Get copyright using NodeJs file system
+var getCopyright = function () {
+    return fs.readFileSync('Copyright');
+};
+ 
+// task
+gulp.task('concat-copyright-version', function () {
+    gulp.src('./javascript/*.js')
+    .pipe(concat('finaly.js')) // concat and name it "concat-copyright-version.js"
+    .pipe(header(getCopyrightVersion(), {version: getVersion()}))
+    .pipe(gulp.dest('path/to/destination'));
+});
+		]]>
+		</screen>
+		<para>Run:</para>
+		<screen>
+		<![CDATA[
+gulp concat-copyright-version			
+		]]>
+		</screen>
+	</section>
+	<section id="task">
+		<title>Tasks automation</title>
+		<screen>
+		<![CDATA[
+// including plugins
+var gulp = require('gulp');
+var watch = require('gulp-watch');
+
+gulp.task('watch', function() {
+    watch(__dirname + "/css/**/*.css", function() {
+        gulp.run('minify-css');
+    });
+    watch(__dirname + "/js/**/*.js", function() {
+        gulp.run('minify-js');
+    });
+});		
+		]]>
+		</screen>
+		<screen>
+		<![CDATA[
+gulp watch		
+		]]>
+		</screen>
+		<screen>
+		<![CDATA[]]>
+		</screen>
+	</section>
+	<section id="gulpjs.example">
+		<title>Example</title>
+		<section>
+			<title>HTML,JS,CSS</title>		
+			<para></para>
+			<screen>
+			<![CDATA[
 var gulp = require('gulp');
 var minifyHtml = require("gulp-minify-html");
 var minifycss = require('gulp-clean-css');
@@ -221,9 +437,23 @@ gulp.task('watch', function() {
         gulp.run('minify-js');
     });
 });
-		]]>
-		</screen>
+			]]>
+			</screen>
+		</section>
+		<section>
+			<title>处理 jsp 文件</title>
+			<screen>
+			<![CDATA[]]>
+			</screen>
+			<screen>
+			<![CDATA[]]>
+			</screen>
+			<screen>
+			<![CDATA[]]>
+			</screen>
+		</section>
 	</section>
+
 </chapter>
 
 <chapter id="sass">
@@ -234,10 +464,10 @@ gulp.task('watch', function() {
 	<title>webpack</title>
 </chapter>
 
-	<chapter id="minifier ">
-		<title>minifier</title>
-		<screen>
-		<![CDATA[
+<chapter id="yuicompressor">
+	<title>minifier</title>
+	<screen>
+	<![CDATA[
 #!/bin/bash
 
 cd /usr/local/src/
@@ -279,6 +509,6 @@ JavaScript Options
 If no input file is specified, it defaults to stdin. In this case, the 'type'
 option is required. Otherwise, the 'type' option is required only if the input
 file extension is neither 'js' nor 'css'.
-		]]>
-		</screen>
-	</chapter>
+	]]>
+	</screen>
+</chapter>
