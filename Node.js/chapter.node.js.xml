@@ -38,5 +38,22 @@ $ pm2 logs project --lines 100
 			</screen>
 		</section>
 	</section>
+	<section>
+		<title>Loop</title>
+		<section>
+			<title>forEach</title>
+			<screen>
+			<![CDATA[
+arr.forEach(function (item) {
+  someFn(item);
+})
+
+elements.forEach(function(element){
+  
+});
+			]]>
+			</screen>
+		</section>
+	</section>
 </chapter>
 

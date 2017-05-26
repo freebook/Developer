@@ -12,4 +12,5 @@
 	<!ENTITY chapter.divcss.design.xml 		SYSTEM "chapter.divcss.design.xml">
 	<!ENTITY chapter.3rdparty.xml 			SYSTEM "chapter.3rdparty.xml">
 	<!ENTITY chapter.angular.xml 			SYSTEM "Angular/chapter.angular.xml">
+	<!ENTITY chapter.gulpjs.xml				SYSTEM "chapter.gulpjs.xml">
 	

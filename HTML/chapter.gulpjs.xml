@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<chapter id="gulpjs">
+	<title>gulpjs</title>
+	<!-- https://julienrenaux.fr/2014/05/25/introduction-to-gulp-js-with-practical-examples/ -->
+	<para>安装</para>
+	<screen>
+npm install gulp-cli
+npm install gulp -D
+	</screen>
+	<para>创建  gulpfile.js 文件</para>
+	<screen>
+	<![CDATA[
+var gulp = require('gulp');
+var pug = require('gulp-pug');
+var less = require('gulp-less');
+var minifyCSS = require('gulp-csso');
+
+gulp.task('html', function(){
+  return gulp.src('client/templates/*.pug')
+    .pipe(pug())
+    .pipe(gulp.dest('build/html'))
+});
+
+gulp.task('css', function(){
+  return gulp.src('client/templates/*.less')
+    .pipe(less())
+    .pipe(minifyCSS())
+    .pipe(gulp.dest('build/css'))
+});
+
+gulp.task('default', [ 'html', 'css' ]);
+	]]>
+	</screen>	
+	<section>
+		<title>HTML Minification</title>
+		<para></para>
+		<screen>
+		<![CDATA[
+npm install --save-dev gulp-minify-html
+		]]>
+		</screen>
+		<para></para>
+		<screen>
+		<![CDATA[
+// including plugins
+var gulp = require('gulp')
+, minifyHtml = require("gulp-minify-html");
+ 
+// task
+gulp.task('minify-html', function () {
+    gulp.src('./html/*.html') // path to your files
+    .pipe(minifyHtml())
+    .pipe(gulp.dest('path/to/destination'));
+});		
+		]]>
+		</screen>
+		<para></para>
+		<screen>
+		<![CDATA[
+gulp minify-html
+		]]>
+		</screen>
+	</section>
+	<section>
+		<title>CSS Minification</title>
+		<section>
+			<title>gulp-minify-css</title>
+			<para></para>
+			<screen>
+			<![CDATA[
+npm install --save-dev gulp-minify-css
+			]]>
+			</screen>
+			<para></para>
+			<screen>
+			<![CDATA[
+// including plugins
+var gulp = require('gulp')
+, minifyCss = require("gulp-minify-css");
+ 
+// task
+gulp.task('minify-css', function () {
+    gulp.src('./css/one.css') // path to your file
+    .pipe(minifyCss())
+    .pipe(gulp.dest('path/to/destination'));
+});
+
+// task
+gulp.task('minify-multi-css', function () {
+    gulp.src(__dirname+'/css/*.css') // path to your file
+    .pipe(minifyCss())
+    .pipe(gulp.dest('path/to/destination'));
+});
+			]]>
+			</screen>
+			<para></para>
+			<screen>
+			<![CDATA[
+gulp minify-css
+gulp minify-multi-css
+			]]>
+			</screen>
+		</section>
+		<section>
+			<title>gulp-clean-css</title>
+			<screen>
+			<![CDATA[
+var gulp = require('gulp');
+var minifycss = require('gulp-clean-css');
+var concat = require('gulp-concat');
+var uglify = require('gulp-uglify');
+var rename = require('gulp-rename');
+
+gulp.task('minify-css', function () {
+
+        gulp.src('./css/*.css')
+        .pipe(concat("finally.css"))
+        .pipe(rename({ suffix: '.min' }))
+        .pipe(minifycss())
+        .pipe(gulp.dest('build/css'));
+
+});
+
+gulp.task('minify-js', function(){
+
+        gulp.src(__dirname + "/js/*.js")
+        .pipe(concat("finally.js"))
+        .pipe(rename({ suffix: '.min' }))
+        .pipe(uglify())
+        .pipe(gulp.dest('build/js'))
+
+});
+			]]>
+			</screen>
+		</section>
+	</section>
+	<section>
+		<title>JS Minification</title>
+		<para></para>
+		<screen>
+		<![CDATA[
+npm install --save-dev gulp-uglify
+		]]>
+		</screen>
+		<para></para>
+		<screen>
+		<![CDATA[
+gulpfile.js:
+
+// including plugins
+var gulp = require('gulp')
+, uglify = require("gulp-uglify");
+ 
+// task
+gulp.task('minify-js', function () {
+    gulp.src('./JavaScript/*.js') // path to your files
+    .pipe(uglify())
+    .pipe(gulp.dest('path/to/destination'));
+});
+
+		]]>
+		</screen>
+		<para>Run:</para>
+		<screen>
+		<![CDATA[
+gulp minify-js
+		]]>
+		</screen>
+	</section>
+	<section>
+		<title>Example</title>
+		<para></para>
+		<screen>
+		<![CDATA[
+var gulp = require('gulp');
+var minifyHtml = require("gulp-minify-html");
+var minifycss = require('gulp-clean-css');
+//var minifycss = require("gulp-minify-css");
+var concat = require('gulp-concat');
+var uglify = require('gulp-uglify');
+var rename = require('gulp-rename');
+var path = require("path");
+var glob = require("glob");
+var watch = require('gulp-watch');
+
+gulp.task('minify-html', function () {
+    gulp.src('./*.html')
+    .pipe(minifyHtml())
+    .pipe(gulp.dest('build/'));
+});
+
+gulp.task('minify-css', function () {
+
+	gulp.src('./css/*.css')
+	.pipe(concat("finally.css"))
+	.pipe(rename({ suffix: '.min' }))
+	.pipe(minifycss())
+	.pipe(gulp.dest('build/css'));
+
+});
+
+gulp.task('minify-js', function(){
+
+	gulp.src(__dirname + "/js/*.js")
+	.pipe(concat("finally.js"))
+        .pipe(rename({ suffix: '.min' }))
+	.pipe(uglify())
+	.pipe(gulp.dest('build/js'))
+
+});
+
+gulp.task('default',function() {
+    gulp.start('minify-css','minify-js');
+});
+
+gulp.task('watch', function() {
+    watch(__dirname + "/css/**/*.css", function() {
+        gulp.run('minify-css');
+    });
+    watch(__dirname + "/js/**/*.js", function() {
+        gulp.run('minify-js');
+    });
+});
+		]]>
+		</screen>
+	</section>
+</chapter>
+
+<chapter id="sass">
+	<title>sass</title>
+</chapter>
+
+<chapter id="webpack">
+	<title>webpack</title>
+</chapter>
+
+	<chapter id="minifier ">
+		<title>minifier</title>
+		<screen>
+		<![CDATA[
+#!/bin/bash
+
+cd /usr/local/src/
+wget https://github.com/yui/yuicompressor/releases/download/v2.4.8/yuicompressor-2.4.8.jar
+mv yuicompressor-2.4.8.jar /usr/local/libexec/
+
+cat >> /usr/local/bin/yuicompressor <<'EOF'
+java -jar /usr/local/libexec/yuicompressor-2.4.8.jar $@
+EOF
+
+chmod +x /usr/local/bin/yuicompressor
+		]]>
+		</screen>
+		<screen>
+		<![CDATA[
+$ yuicompressor
+
+YUICompressor Version: 2.4.8
+
+Usage: java -jar yuicompressor-2.4.8.jar [options] [input file]
+
+Global Options
+  -V, --version             Print version information
+  -h, --help                Displays this information
+  --type <js|css>           Specifies the type of the input file
+  --charset <charset>       Read the input file using <charset>
+  --line-break <column>     Insert a line break after the specified column number
+  -v, --verbose             Display informational messages and warnings
+  -o <file>                 Place the output into <file>. Defaults to stdout.
+                            Multiple files can be processed using the following syntax:
+                            java -jar yuicompressor.jar -o '.css$:-min.css' *.css
+                            java -jar yuicompressor.jar -o '.js$:-min.js' *.js
+
+JavaScript Options
+  --nomunge                 Minify only, do not obfuscate
+  --preserve-semi           Preserve all semicolons
+  --disable-optimizations   Disable all micro optimizations
+
+If no input file is specified, it defaults to stdin. In this case, the 'type'
+option is required. Otherwise, the 'type' option is required only if the input
+file extension is neither 'js' nor 'css'.
+		]]>
+		</screen>
+	</chapter>
