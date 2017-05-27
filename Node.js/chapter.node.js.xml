@@ -24,6 +24,13 @@ v6.9.1
 		<screen>
 $ npm install mysql
 		</screen>
+		<section>
+			<title>link</title>
+			<screen>
+# npm link gulp
+/root/node_modules/gulp -> /srv/node-v7.10.0-linux-x64/lib/node_modules/gulp
+			</screen>
+		</section>
 	</section>
 	<section id="pm2">
 		<title>pm2</title>

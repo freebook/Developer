@@ -31,7 +31,24 @@ gulp.task('css', function(){
 gulp.task('default', [ 'html', 'css' ]);
 	]]>
 	</screen>
+	<para>排除目录</para>
+	<screen>
+	<![CDATA[
+gulp.src(['js/**/*.js', '!js/**/*.min.js'])
+	]]>
+	</screen>
 	<para></para>
+	<screen>
+	<![CDATA[]]>
+	</screen>
+	<para></para>
+	<screen>
+	<![CDATA[]]>
+	</screen>
+	<para></para>
+	<screen>
+	<![CDATA[]]>
+	</screen>
 	<section id="gulp-minify-html">
 		<title>HTML Minification</title>
 		<para></para>
@@ -102,7 +119,7 @@ gulp minify-multi-css
 			]]>
 			</screen>
 		</section>
-		<section>
+		<section id="gulp-clean-css">
 			<title>gulp-clean-css</title>
 			<screen>
 			<![CDATA[
@@ -131,6 +148,63 @@ gulp.task('minify-js', function(){
         .pipe(gulp.dest('build/js'))
 
 });
+			]]>
+			</screen>
+			<para>compatibility</para>
+			<screen>
+			<![CDATA[
+var gulp = require('gulp');
+var cleanCSS = require('gulp-clean-css');
+ 
+gulp.task('minify-css', function() {
+  return gulp.src('styles/*.css')
+    .pipe(cleanCSS({compatibility: 'ie8'}))
+    .pipe(gulp.dest('dist'));
+});			
+			]]>
+			</screen>
+			<para>callback</para>
+			<screen>
+			<![CDATA[
+var gulp = require('gulp');
+var cleanCSS = require('gulp-clean-css');
+ 
+gulp.task('minify-css', function() {
+    return gulp.src('styles/*.css')
+        .pipe(cleanCSS({debug: true}, function(details) {
+            console.log(details.name + ': ' + details.stats.originalSize);
+            console.log(details.name + ': ' + details.stats.minifiedSize);
+        }))
+        .pipe(gulp.dest('dist'));
+});			
+			]]>
+			</screen>
+		</section>
+		<section id="gulp-make-css-url-version">
+			<title>gulp-make-css-url-version</title>
+			<para>给css文件里引用url加版本号（md5sum），像这样：</para>
+			<screen>
+			<![CDATA[
+background: url(../images/pc-banner-bg.jpg?v=4facbd0914639f296faec4dba4d358f0) no-repeat;}
+			]]>
+			</screen>
+			<screen>
+			<![CDATA[
+npm install --save-dev gulp-make-css-url-version 
+			]]>			
+			</screen>
+			<screen>
+			<![CDATA[
+var gulp = require('gulp'),
+minifier = require('gulp-minify-css');
+cssver = require('gulp-make-css-url-version'); 
+ 
+gulp.task('testCssmin', function () {
+    gulp.src('src/css/*.css')
+        .pipe(cssver()) //给css文件里引用文件加版本号（文件MD5）
+        .pipe(minifier())
+        .pipe(gulp.dest('dist/css'));
+});			
 			]]>
 			</screen>
 		</section>
@@ -164,7 +238,65 @@ gulp.task('minify-js', function () {
 gulp minify-js
 		]]>
 		</screen>
-	</section>		
+	</section>
+	<section id="gulp-spriter">
+		<title>CSS Sprite</title>
+		<screen>
+		<![CDATA[
+简介
+gulp-spriter：帮助前端工程师将css代码中的切片图片合并成雪碧图，支持retina图片。
+
+功能
+使用二叉树排列算法，对图片排序优化
+自动收集css中带切片的图片（仅对background-image:url("slice/xx.png")有效）
+自动在原来的css中添加background-position属性
+支持生成适用于高清设备的雪碧图，并在css文件追加媒体查询css代码
+依赖
+gulp-spriter使用spritesmith作为图片生成的基础算法
+
+安装
+npm install gulp-spriter
+配置
+导入gulp-spriter依赖：
+
+var spriter = require("gulp-spriter");
+ 
+gulpfile配置文件中增加task，如下：
+
+gulp.task("css",["clean"],function(){
+  return gulp.src("./src/css/xxx.css")
+         .pipe(spriter({
+            sprite:"test.png",
+            slice:"./src/slice",
+            outpath:"./build/tests"
+          }))
+         .pipe(gulp.dest('./build/css'))
+})
+参数
+sprite:[string] 必须，设置输出的雪碧图名称
+slice：[string] 必须，切片文件存放位置，基于根目录
+outpath：[string] 必须，输出的雪碧图位置
+		]]>
+		</screen>
+		<screen>
+		<![CDATA[]]>
+		</screen>
+	</section>
+	<section id="gulp-imagemin">
+		<title>Compress Images</title>
+		<screen>
+		<![CDATA[
+var imagemin = require('gulp-imagemin');
+ 
+gulp.task('images', function() {
+  return gulp.src('src/images/**/*')
+    .pipe(imagemin({ optimizationLevel: 3, progressive: true, interlaced: true }))
+    .pipe(gulp.dest('dist/assets/img'))
+    .pipe(notify({ message: 'Images task complete' }));
+});		
+		]]>
+		</screen>
+	</section>
 	<section id="gulp-sass">
 		<title>Sass Compilation</title>
 		<para>Using gulp-sass</para>
@@ -276,7 +408,7 @@ var concat = require("gulp-concat");
  
 // task
 gulp.task('concat', function () {
-    gulp.src('./JavaScript/*.js') // path to your files
+    gulp.src('./javascript/*.js') // path to your files
     .pipe(concat('concat.js'))  // concat and name it "concat.js"
     .pipe(gulp.dest('path/to/destination'));
 });
@@ -377,8 +509,212 @@ gulp.task('watch', function() {
 gulp watch		
 		]]>
 		</screen>
+		<section id="notify">
+			<title>notify</title>
+			<screen>
+var notify = require('gulp-notify');
+			</screen>
+			<screen>
+			<![CDATA[
+.pipe(notify({ message: 'Styles task complete' }));
+			]]>
+			</screen>
+		</section>
+		<section>
+			<title>del</title>
+			<screen>
+			<![CDATA[
+// Clean
+gulp.task('clean', function() {
+	return del(['dist/styles', 'dist/scripts', 'dist/images']);
+});
+			]]>
+			</screen>
+		</section>
+		<section>
+			<title>start</title>
+			<screen>
+			<![CDATA[
+// Default task
+gulp.task('default', ['clean'], function() {
+	gulp.start('styles', 'scripts', 'images');
+});
+			]]>
+			</screen>
+		</section>
+	</section>
+	<section id="yargs">
+		<title>yargs 命令行参数传递</title>
+		<para></para>
 		<screen>
-		<![CDATA[]]>
+		<![CDATA[
+npm install --save-dev yargs
+		]]>
+		</screen>
+		
+		<screen>
+		<![CDATA[
+var argv = require('yargs').argv;
+
+gulp.task('my-task', function() {
+    return gulp.src(argv.a == 1 ? options.SCSS_SOURCE : options.OTHER_SOURCE)
+        .pipe(sass({style:'nested'}))
+        .pipe(autoprefixer('last 10 version'))
+        .pipe(concat('style.css'))
+        .pipe(gulp.dest(options.SCSS_DEST));
+});		
+		]]>
+		</screen>
+		<screen>
+		<![CDATA[
+var argv = require('yargs').argv,
+    gulpif = require('gulp-if'),
+    rename = require('gulp-rename'),
+    uglify = require('gulp-uglify');
+
+gulp.task('my-task-stage', function() {
+  gulp.src('src/**/*.js')
+    .pipe(concat('out.js'))
+    .pipe(gulpif(argv.production, uglify()))
+    .pipe(gulpif(argv.production, rename({suffix: '.min'})))
+    .pipe(gulp.dest('dist/'));
+});		
+		]]>
+		</screen>
+		<screen>
+		<![CDATA[
+gulp my-task -a 1
+gulp my-task-stage --production
+		]]>
+		</screen>
+		<section id="gulp-util">
+			<title>gulp-util</title>
+			<screen>
+			<![CDATA[
+var util = require('gulp-util');
+
+gulp.task('styles', function() {
+  return gulp.src(['src/styles/' + (util.env.theme ? util.env.theme : 'main') + '.scss'])
+    .pipe(compass({
+        config_file: './config.rb',
+        sass   : 'src/styles',
+        css    : 'dist/styles',
+        style  : 'expanded'
+
+    }))
+    .pipe(autoprefixer('last 2 version', 'safari 5', 'ie 8', 'ie 9', 'ff 17', 'opera 12.1', 'ios 6', 'android 4'))
+    .pipe(livereload(server))
+    .pipe(gulp.dest('dist/styles'))
+    .pipe(notify({ message: 'Styles task complete' }));
+});		
+			]]>
+			</screen>
+			<screen>
+gulp watch --theme literature
+			</screen>
+		</section>
+		<section id="minimist">
+			<title>minimist</title>
+			<screen>
+			<![CDATA[
+var gulp   = require('gulp');
+
+// npm install gulp yargs gulp-if gulp-uglify
+var args   = require('yargs').argv;
+var gulpif = require('gulp-if');
+var uglify = require('gulp-uglify');
+
+var isProduction = args.env === 'production';
+
+gulp.task('scripts', function() {
+  return gulp.src('**/*.js')
+    .pipe(gulpif(isProduction, uglify())) // only minify if production
+    .pipe(gulp.dest('dist'));
+});
+
+gulp scripts --env production
+			]]>
+			</screen>
+			<screen>
+			<![CDATA[
+Pass arguments from the command line
+
+// npm install --save-dev gulp gulp-if gulp-uglify minimist
+
+var gulp = require('gulp');
+var gulpif = require('gulp-if');
+var uglify = require('gulp-uglify');
+
+var minimist = require('minimist');
+
+var knownOptions = {
+  string: 'env',
+  default: { env: process.env.NODE_ENV || 'production' }
+};
+
+var options = minimist(process.argv.slice(2), knownOptions);
+
+gulp.task('scripts', function() {
+  return gulp.src('**/*.js')
+    .pipe(gulpif(options.env === 'production', uglify())) // only minify in production
+    .pipe(gulp.dest('dist'));
+});
+Then run gulp with:
+
+$ gulp scripts --env development
+			]]>
+			</screen>
+		</section>
+	</section>
+
+	
+	<section id="gulp-sourcemaps">
+		<title>gulp-sourcemaps</title>
+		<screen>
+		<![CDATA[
+var gulp = require('gulp');
+var plugin1 = require('gulp-plugin1');
+var plugin2 = require('gulp-plugin2');
+var sourcemaps = require('gulp-sourcemaps');
+
+gulp.task('javascript', function() {
+  gulp.src('src/**/*.js')
+    .pipe(sourcemaps.init())
+      .pipe(plugin1())
+      .pipe(plugin2())
+    .pipe(sourcemaps.write())
+    .pipe(gulp.dest('dist'));
+});	
+		]]>
+		</screen>
+	</section>
+	<section id="gulp-zip">
+		<title>gulp-zip</title>
+		<screen>
+		<![CDATA[	
+var gulp             = require( 'gulp' ),
+    zip              = require( 'gulp-zip' );
+
+gulp.task( 'zip', function() {
+
+  return gulp.src( [
+    '!{.gitignore,README.md}',
+    '!node_modules', '!node_modules/**',
+    '!dist', '!dist/**',
+    './**',
+  ] )
+    .pipe( zip('archive.zip') )
+    .pipe( gulp.dest( 'dist' ) );
+
+});	
+		]]>
+		</screen>
+	</section>
+	<section>
+		<title></title>
+		<screen>
+		<![CDATA[
+		]]>
 		</screen>
 	</section>
 	<section id="gulpjs.example">
@@ -441,12 +777,81 @@ gulp.task('watch', function() {
 			</screen>
 		</section>
 		<section>
-			<title>处理 jsp 文件</title>
+			<title>命令行传递参数</title>
 			<screen>
 			<![CDATA[]]>
 			</screen>
 			<screen>
-			<![CDATA[]]>
+			<![CDATA[
+var gulp = require('gulp');
+var argv = require('yargs').argv;
+//var minifyHtml = require("gulp-minify-html");
+var minifycss = require('gulp-clean-css');
+//var minifycss = require("gulp-minify-css");
+var spriter = require("gulp-spriter");
+var concat = require('gulp-concat');
+var uglify = require('gulp-uglify');
+var rename = require('gulp-rename');
+var path = require("path");
+var glob = require("glob");
+var watch = require('gulp-watch');
+
+//var src = __dirname + "/" + argv.stage + "/build/" + argv.src;
+//var dest = __dirname + "/" + argv.stage + "/build/" + argv.src;
+var src = __dirname + "/" + argv.src;
+var dest = __dirname + "/dist/" + argv.src;
+console.log(src);
+
+gulp.task('minify-html', function () {
+    gulp.src( src +'/*.html') // path to your files
+    .pipe(minifyHtml())
+    .pipe(gulp.dest( dest + '/'));
+});
+
+gulp.task('minify-css', function () {
+
+	gulp.src(src + '/css/**/*.css')
+	.pipe(concat("finally.css"))
+	.pipe(rename({ suffix: '.min' }))
+	.pipe(minifycss())
+	.pipe(gulp.dest(dest + '/css'));
+
+});
+
+gulp.task('minify-js', function(){
+
+	gulp.src(src + "/js/**/*.js")
+	.pipe(concat("finally.js"))
+        .pipe(rename({ suffix: '.min' }))
+	.pipe(uglify())
+	.pipe(gulp.dest( dest + '/js'))
+
+});
+
+gulp.task("spriter",["clean"],function(){
+  return gulp.src( dest + "/css/finally.min.css")
+         .pipe(spriter({
+            sprite:"finally.png",
+            slice: src + "/images",
+            outpath: dest + "/images"
+          }))
+         .pipe(gulp.dest( dest + '/images'))
+})
+
+
+gulp.task('default',function() {
+    gulp.start('minify-css','minify-js');
+});
+
+gulp.task('watch', function() {
+    watch(src + "/css/**/*.css", function() {
+        gulp.run('minify-css');
+    });
+    watch(src + "/js/**/*.js", function() {
+        gulp.run('minify-js');
+    });
+});			
+			]]>
 			</screen>
 			<screen>
 			<![CDATA[]]>
