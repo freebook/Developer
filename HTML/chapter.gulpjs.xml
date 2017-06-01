@@ -37,18 +37,137 @@ gulp.task('default', [ 'html', 'css' ]);
 gulp.src(['js/**/*.js', '!js/**/*.min.js'])
 	]]>
 	</screen>
+
 	<para></para>
 	<screen>
 	<![CDATA[]]>
 	</screen>
-	<para></para>
-	<screen>
-	<![CDATA[]]>
-	</screen>
-	<para></para>
-	<screen>
-	<![CDATA[]]>
-	</screen>
+	<section id="task">
+		<title>Tasks automation</title>
+		<section id="gulp-changed">
+			<title>gulp-changed</title>
+			<para></para>
+			<screen>
+			<![CDATA[
+// npm install --save-dev gulp gulp-changed gulp-jscs gulp-uglify
+
+var gulp = require('gulp');
+var changed = require('gulp-changed');
+var jscs = require('gulp-jscs');
+var uglify = require('gulp-uglify');
+
+var SRC = 'src/**/*.js';
+var DEST = 'dist';
+
+gulp.task('default', function() {
+    return gulp.src(SRC)
+        .pipe(changed(DEST)) // changed 任务需要提前知道目标目录位置才能找出哪些文件是被修改过的,只有被更改过的文件才会通过这里
+        .pipe(jscs())
+        .pipe(uglify())
+        .pipe(gulp.dest(DEST));
+});	
+			]]>
+			</screen>
+		
+		</section>
+		<section id="on">
+			<title>显示处理进度</title>
+			<para>显示处理中的文件</para>
+			<screen>
+			<![CDATA[
+gulp.task('minify-css', function () {
+
+        gulp.src([src + '/**/css/**/*.css', "!"+src + '/**/css/**/*.min.css'])
+        .on('data', function(file) {
+                console.log('%s Read %d bytes of data', file.path, file.contents.length);
+        })
+        .pipe(concat("finally.css"))
+        .pipe(rename({ suffix: '.min' }))
+        .pipe(minifycss())
+        .pipe(gulp.dest( dist ));
+
+});	
+			]]>
+			</screen>
+		</section>
+		<section id="notify">
+			<title>notify</title>
+			<screen>
+			<![CDATA[
+npm install --save-dev gulp-notify
+			]]>
+			</screen>
+			<screen>
+			<![CDATA[
+var notify = require('gulp-notify');
+			]]>
+			</screen>
+			<screen>
+			<![CDATA[
+.pipe(notify({ message: 'Styles task complete' }));
+			]]>
+			</screen>
+		</section>
+		<section id="del">
+			<title>del</title>
+			<screen>
+			<![CDATA[
+var gulp = require('gulp');
+var del = require('del');
+
+gulp.task('clean:mobile', function (cb) {
+  del([
+    'dist/**/css/*.min.css',
+    'dist/mobile/**/*',
+    '!dist/mobile/deploy.json'
+  ], cb);
+});
+
+gulp.task('default', ['clean:mobile']);			
+
+// Clean
+gulp.task('clean', function() {
+	return del(['dist/styles', 'dist/scripts', 'dist/images']);
+});
+			]]>
+			</screen>
+		</section>
+		<section id="start">
+			<title>start</title>
+			<screen>
+			<![CDATA[
+// Default task
+gulp.task('default', ['clean'], function() {
+	gulp.start('styles', 'scripts', 'images');
+});
+			]]>
+			</screen>
+		</section>
+	</section>
+	<section id="watch">
+		<title>watch</title>
+		<screen>
+		<![CDATA[
+// including plugins
+var gulp = require('gulp');
+var watch = require('gulp-watch');
+
+gulp.task('watch', function() {
+    watch(__dirname + "/css/**/*.css", function() {
+        gulp.run('minify-css');
+    });
+    watch(__dirname + "/js/**/*.js", function() {
+        gulp.run('minify-js');
+    });
+});		
+		]]>
+		</screen>
+		<screen>
+		<![CDATA[
+gulp watch		
+		]]>
+		</screen>		
+	</section>
 	<section id="gulp-minify-html">
 		<title>HTML Minification</title>
 		<para></para>
@@ -238,6 +357,31 @@ gulp.task('minify-js', function () {
 gulp minify-js
 		]]>
 		</screen>
+		<section>
+			<title>JS 校验</title>
+			<screen>
+			<![CDATA[
+var gulp = require('gulp');
+var header = require('gulp-header');  //给文本文件头部追加内容
+var footer = require('gulp-footer');
+var concat = require('gulp-concat');
+var jshint = require('gulp-jshint'); //js代码校验
+var cached = require('gulp-cached');
+var remember = require('gulp-remember'); //gulp-remember is a gulp plugin that remembers files that have passed through it. gulp-remember adds all the files it has ever seen back into the stream.
+
+gulp.task('scripts', function() {
+  return gulp.src('src/**/*.js')
+      .pipe(cached('scripts'))        // 只传递更改过的文件 
+      .pipe(jshint())                 // 对这些更改过的文件做一些特殊的处理...
+      .pipe(header('(function () {')) // 比如 jshinting ^^^
+      .pipe(footer('})();'))          // 增加一些类似模块封装的东西
+      .pipe(remember('scripts'))      // 把所有的文件放回 stream
+      .pipe(concat('main.js'))         // 合并文件的操作
+      .pipe(gulp.dest('public/'));
+});
+			]]>
+			</screen>
+		</section>
 	</section>
 	<section id="gulp-spriter">
 		<title>CSS Sprite</title>
@@ -297,6 +441,22 @@ gulp.task('images', function() {
 		]]>
 		</screen>
 	</section>
+	<section id="gulp-imageisux">
+		<title>WEBP格式图片</title>
+		<screen>
+		<![CDATA[
+npm install --global gulp-imageisux
+npm install --save-dev gulp-imageisux
+
+var imageisux = require('gulp-imageisux');
+
+gulp.task('imageisux', function() {
+	return gulp.src(['img/*'])
+			   .pipe(imageisux('/dirpath/',true));
+});
+		]]>
+		</screen>
+	</section>
 	<section id="gulp-sass">
 		<title>Sass Compilation</title>
 		<para>Using gulp-sass</para>
@@ -311,7 +471,7 @@ npm install --save-dev gulp-sass
 // including plugins
 var gulp = require('gulp');
 var sass = require("gulp-sass");
- 
+
 // task
 gulp.task('compile-sass', function () {
     gulp.src('./Sass/one.sass') // path to your file
@@ -374,7 +534,7 @@ npm install --save-dev gulp-rename
 var gulp = require('gulp');
 var rename = require('gulp-rename');
 var coffee = require("gulp-coffee");
- 
+
 // task
 gulp.task('rename', function () {
     gulp.src('./CoffeeScript/one.coffee') // path to your file
@@ -486,63 +646,7 @@ gulp concat-copyright-version
 		]]>
 		</screen>
 	</section>
-	<section id="task">
-		<title>Tasks automation</title>
-		<screen>
-		<![CDATA[
-// including plugins
-var gulp = require('gulp');
-var watch = require('gulp-watch');
-
-gulp.task('watch', function() {
-    watch(__dirname + "/css/**/*.css", function() {
-        gulp.run('minify-css');
-    });
-    watch(__dirname + "/js/**/*.js", function() {
-        gulp.run('minify-js');
-    });
-});		
-		]]>
-		</screen>
-		<screen>
-		<![CDATA[
-gulp watch		
-		]]>
-		</screen>
-		<section id="notify">
-			<title>notify</title>
-			<screen>
-var notify = require('gulp-notify');
-			</screen>
-			<screen>
-			<![CDATA[
-.pipe(notify({ message: 'Styles task complete' }));
-			]]>
-			</screen>
-		</section>
-		<section>
-			<title>del</title>
-			<screen>
-			<![CDATA[
-// Clean
-gulp.task('clean', function() {
-	return del(['dist/styles', 'dist/scripts', 'dist/images']);
-});
-			]]>
-			</screen>
-		</section>
-		<section>
-			<title>start</title>
-			<screen>
-			<![CDATA[
-// Default task
-gulp.task('default', ['clean'], function() {
-	gulp.start('styles', 'scripts', 'images');
-});
-			]]>
-			</screen>
-		</section>
-	</section>
+	
 	<section id="yargs">
 		<title>yargs 命令行参数传递</title>
 		<para></para>
@@ -667,7 +771,6 @@ $ gulp scripts --env development
 		</section>
 	</section>
 
-	
 	<section id="gulp-sourcemaps">
 		<title>gulp-sourcemaps</title>
 		<screen>
@@ -710,6 +813,21 @@ gulp.task( 'zip', function() {
 		]]>
 		</screen>
 	</section>
+	<section id="gulp-strip-debug">
+		<title>清理JS中的console.log()调试语句 </title>
+		<screen>
+		<![CDATA[
+var gulp = require('gulp');
+var stripDebug = require('gulp-strip-debug');
+
+gulp.task('default', function () {
+    return gulp.src('src/app.js')
+        .pipe(stripDebug())
+        .pipe(gulp.dest('dist'));
+});
+		]]>
+		</screen>
+	</section>	
 	<section>
 		<title></title>
 		<screen>
@@ -860,11 +978,6 @@ gulp.task('watch', function() {
 	</section>
 
 </chapter>
-
-<chapter id="sass">
-	<title>sass</title>
-</chapter>
-
 <chapter id="webpack">
 	<title>webpack</title>
 </chapter>

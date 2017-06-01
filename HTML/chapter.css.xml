@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- $Id: chapter.css.xml 499 2012-11-30 08:15:20Z netkiller $ -->
-<chapter id='stylesheet'>
-	<title>CSS</title>
+<chapter id="index"><?dbhtml dir="css" ?>
+	<title>CSS Frameworks</title>
 	<screen>
 	<![CDATA[
 <style>
@@ -35,19 +35,25 @@
 		]]>
 		</screen>
 	</section>
-	
-<section id="css.frameworks">
-	<title>CSS Frameworks</title>
-	<section id="sass">
-		<title>Sass</title>
-		<para>http://sass-lang.com/</para>
-		<screen>
+
+<section id="sass">
+	<title>Sass: Syntactically Awesome Style Sheets</title>
+	<para>http://sass-lang.com/</para>
+	<screen>
 gem install sass
-		</screen>		
-	</section>
-	<section id="less">
-		<title>Less</title>
-		<para>http://www.lesscss.net/</para>
-	</section>
+	</screen>
+	<section id="sass.install">
+		<title></title>
+	</section>		
 </section>
+
+<section id="less">
+	<title>Less</title>
+	<para>http://www.lesscss.net/</para>
+</section>
+
+<chapter id="sass">
+	<title>stylesheet</title>
+</chapter>
+
 </chapter>
