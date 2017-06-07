@@ -15,10 +15,16 @@
 			</screen>
 		</section>
 		<section>
-			<title></title>
+			<title>ng-bind</title>
 			<screen>
 			<![CDATA[
+<div>
+  Hello, {{user.name}}
+</div>
 
+<div>
+  Hello, <span ng-bind="user.name"></span>
+</div>
 			]]>
 			</screen>
 		</section>

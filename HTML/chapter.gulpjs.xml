@@ -197,6 +197,16 @@ gulp.task('minify-html', function () {
 gulp minify-html
 		]]>
 		</screen>
+		<para>禁止处理 SSI 服务器端包含</para>
+		<screen>
+		<![CDATA[
+gulp.task('minify-html', function () {
+    gulp.src( src +'/cfd/*.html')
+    .pipe(minifyHtml({ssi:true, quotes:false}))
+    .pipe(gulp.dest( dist + '/cfd/'));
+});
+		]]>
+		</screen>
 	</section>
 	<section id="gulp-minify-css">
 		<title>CSS Minification</title>
@@ -825,6 +835,83 @@ gulp.task('default', function () {
         .pipe(stripDebug())
         .pipe(gulp.dest('dist'));
 });
+		]]>
+		</screen>
+	</section>
+	<section id="copy-dir">
+		<title>copy-dir</title>
+		<para>install</para>
+		<screen>
+		<![CDATA[
+npm install copy-dir		
+		]]>
+		</screen>
+		<para>usage</para>
+		<screen>
+		<![CDATA[
+Sync:
+
+var copydir = require('copy-dir');
+ 
+copydir.sync('/my/from/path', '/my/target/path');
+Async:
+
+var copydir = require('copy-dir');
+ 
+copydir('/my/from/path', '/my/target/path', function(err){
+  if(err){
+    console.log(err);
+  } else {
+    console.log('ok');
+  }
+});
+add a filter
+When you want to copy a directory, but some file or sub directory is not you want, you can do like this:
+
+Sync:
+
+var path = require('path');
+var copydir = require('copy-dir');
+ 
+copydir.sync('/my/from/path', '/my/target/path', function(stat, filepath, filename){
+  if(stat === 'file' && path.extname(filepath) === '.html') {
+    return false;
+  }
+  if (stat === 'directory' && filename === '.svn') {
+    return false;
+  }
+  return true;
+}, function(err){
+  console.log('ok');
+});
+Async:
+
+var path = require('path');
+var copydir = require('copy-dir');
+ 
+copydir('/a/b/c', '/a/b/e', function(stat, filepath, filename){
+  //... 
+}, function(err) {
+  //... 
+});
+		]]>
+		</screen>
+	</section>
+	<section id="gulp-copy">
+		<title>gulp-copy</title>
+		<para>Usage</para>
+		<screen>
+		<![CDATA[
+// gulpfile.js
+ 
+var gulpCopy = require('gulp-copy');
+var sourceFiles = [ 'source1/*', 'source2/*.txt' ];
+var destination = 'dest/';
+ 
+return gulp
+    .src(sourceFiles)
+    .pipe(gulpCopy(outputPath, options))
+    .dest(destination);
 		]]>
 		</screen>
 	</section>	
