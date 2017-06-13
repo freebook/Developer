@@ -97,6 +97,13 @@ server {
 <!--# echo var="name" default="neo" -->		
 		]]>
 		</screen>
+		<para>禁止编码数据，例如下面LIVE800_URL显示出来后&amp;会被编码.</para>
+		<screen>
+		<![CDATA[
+<!--#set var="LIVE800_URL" value="//${SERVER_NAME}/index.jsp?id=111&pid=122&cid=222"-->
+<!--#echo var='LIVE800_URL' default='' encoding='none'-->		
+		]]>
+		</screen>
 	</section>
 	<section id="include">
 		<title>包含网页</title>

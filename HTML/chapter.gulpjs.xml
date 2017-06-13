@@ -337,6 +337,28 @@ gulp.task('testCssmin', function () {
 			]]>
 			</screen>
 		</section>
+		<section id="gulp-csscss">
+			<title>CSS 冗余分析</title>
+			<para>检查出重复定义的CSS</para>
+			<para>Installation</para>
+			<screen>
+			<![CDATA[
+npm install gulp-csscss --save-dev			
+			]]>
+			</screen>
+			<para>Example</para>
+			<screen>
+			<![CDATA[
+var gulp = require('gulp');
+var csscss = require('gulp-csscss');
+ 
+gulp.task('default', function() {
+  gulp.src('src/style.css')
+    .pipe(csscss())
+});
+			]]>
+			</screen>
+		</section>
 	</section>
 	<section id="gulp-uglify">
 		<title>JS Minification</title>
@@ -438,6 +460,12 @@ outpath：[string] 必须，输出的雪碧图位置
 	</section>
 	<section id="gulp-imagemin">
 		<title>Compress Images</title>
+		<screen>		
+optimizationLevel: 5, //类型：Number  默认：3  取值范围：0-7（优化等级）
+progressive: true, //类型：Boolean 默认：false 无损压缩jpg图片
+interlaced: true, //类型：Boolean 默认：false 隔行扫描gif进行渲染
+multipass: true //类型：Boolean 默认：false 多次优化svg直到完全优化
+		</screen>
 		<screen>
 		<![CDATA[
 var imagemin = require('gulp-imagemin');

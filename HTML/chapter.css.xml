@@ -56,4 +56,22 @@ gem install sass
 	<title>stylesheet</title>
 </chapter>
 
+	<section id="css-redundancy-checker">
+		<title>css 冗余/废弃样式检查</title>
+		<para>https://code.google.com/archive/p/css-redundancy-checker/</para>
+		<screen>
+wget https://storage.googleapis.com/google-code-archive-source/v2/code.google.com/css-redundancy-checker/source-archive.zip
+unzip source-archive.zip
+gem install hpricot 
+ruby css-redundancy-checker.rb [cssfile] [directory of html files OR .txt file listing urls to use]
+		</screen>
+		<screen>
+# vim url.txt
+http://www.netkiller.cn/zh-cn/
+http://www.netkiller.cn/index.html
+http://www.netkiller.cn/zh-tw/index.html
+
+ruby css-redundancy-checker.rb your.css url.txt
+		</screen>
+	</section>
 </chapter>
