@@ -2,7 +2,7 @@
 <section id="rabbitmq">
 	<title>RabbitMQ</title>
 	<para><ulink url="http://www.rabbitmq.com/">RabbitMQ</ulink></para>
-	<section>
+	<section id="install">
 		<title>安装 RabbitMQ</title>
 		<para>running on 127.0.0.1 (localhost) on port 5672 (standard AMQP port).</para>
 		<section>
@@ -23,6 +23,15 @@ $ sudo apt-get install rabbitmq-server
 # rabbitmqctl add_user rabbit password
 # rabbitmqctl set_permissions -p "/" rabbit ".*" ".*" ".*"
 # rabbitmqctl delete_user guest
+			</screen>
+		</section>
+		<section>
+			<title>OSCM 一键安装</title>
+			<screen>
+curl -s https://raw.githubusercontent.com/oscm/shell/master/mq/rabbitmq/rabbitmq-server-3.6.10.sh | bash
+
+rabbitmqctl add_user admin admin123
+rabbitmqctl set_user_tags admin administrator
 			</screen>
 		</section>
 	</section>
