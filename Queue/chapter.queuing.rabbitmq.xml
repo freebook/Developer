@@ -32,6 +32,15 @@ curl -s https://raw.githubusercontent.com/oscm/shell/master/mq/rabbitmq/rabbitmq
 
 rabbitmqctl add_user admin admin123
 rabbitmqctl set_user_tags admin administrator
+rabbitmqctl set_permissions -p "/" admin ".*" ".*" ".*"
+			</screen>
+		</section>
+		<section>
+			<title>检查端口</title>
+			<screen>
+[root@netkiller ~]# ss -lnt | grep 5672
+LISTEN     0      128          *:25672                    *:*                  
+LISTEN     0      128         :::5672                    :::*
 			</screen>
 		</section>
 	</section>
@@ -40,7 +49,13 @@ rabbitmqctl set_user_tags admin administrator
 		<screen>
 rabbitmqctl status
 		</screen>
-		<section>
+		<section id="change_password">
+			<title>change_password</title>
+			<screen>
+rabbitmqctl change_password admin <new_password>
+			</screen>
+		</section>
+		<section id="list_users">
 			<title>list_users</title>
 			<screen>
 # rabbitmqctl list_users
@@ -49,7 +64,7 @@ guest	[administrator]
 ...done.
 			</screen>
 		</section>
-		<section>
+		<section id="add_vhost">
 			<title>虚拟机管理</title>
 			<screen>
 $ rabbitmqctl add_vhost test
@@ -58,7 +73,7 @@ $ rabbitmqctl set_permissions -p test testuser ".*" ".*" ".*"
 			</screen>
 		</section>
 		
-		<section>
+		<section id="list_queues">
 			<title>list_queues</title>
 			<screen>
 # rabbitmqctl list_queues
@@ -82,7 +97,7 @@ real	0
 			<screen>
 			</screen>
 		</section>		
-		<section>
+		<section id="list_exchanges">
 			<title>list_exchanges</title>
 			<screen>
 # rabbitmqctl list_exchanges
