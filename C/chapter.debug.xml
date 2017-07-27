@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-	<chapter id="c.debug">
-		<title>调试工具</title>
-		<section id="lsof">
-			<title>lsof - list open files</title>
-			<screen>
+<chapter id="c.debug">
+	<title>调试工具</title>
+	<section id="lsof">
+		<title>lsof - list open files</title>
+		<screen>
 neo@netkiller:~/workspace/Document$ lsof -p $$
 COMMAND  PID USER   FD   TYPE DEVICE SIZE/OFF   NODE NAME
 zsh     4536  neo  cwd    DIR    8,6     4096     30 /home/neo/workspace/Document
@@ -69,6 +69,26 @@ _  PID    #FD  USER      COMMAND
 	</section>
 	<section id="strace">
 		<title>strace - trace system calls and signals</title>
+		<screen>
+-tt  在每行输出的前面,显示毫秒级别的时间
+-T   显示每次系统调用所花费的时间
+-v   对于某些相关调用,把完整的环境变量,文件stat结构等打出来.
+-f   跟踪目标进程,以及目标进程创建的所有子进程.
+-e  控制要跟踪的事件和跟踪行为,比如指定要跟踪的系统调用名称.
+     trace=file     跟踪和文件访问相关的调用(参数中有文件名)
+     trace=process  和进程管理相关的调用,比如fork/exec/exit_group
+      trace=network  和网络通信相关的调用,比如socket/sendto/connect
+      trace=signal    信号发送和处理相关,比如kill/sigaction
+      trace=desc  和文件描述符相关,比如write/read/select/epoll等    
+      trace=ipc 进程见通信相关,比如shmget等
+      
+-o  把strace的输出单独写到指定的文件
+-s  当系统调用的某个参数是字符串时,最多输出指定长度的内容，默认是32个字节.
+-p  指定要跟踪的进程pid,要同时跟踪多个pid,重复多次-p选项即可.		
+		</screen>
+		<screen>
+strace -tt -T -v -f -e trace=file -o ~/strace.log.2 -s 1024 -p  25849		
+		</screen>
 		<para>strace -v ps -e 2</para>
 		<para>strace -v ls</para>
 		<screen>
