@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<chapter id="index"><?dbhtml dir="crawler" ?>
+	<title>Crawler</title>
+<section id="scrapy">
+	<title>scrapy</title>
+	<para>https://scrapy.org</para>
+	<section id="setup">
+		<title>安装 scrapy 开发环境</title>
+		<section>
+			<title>Mac</title>
+			<screen>
+neo@MacBook-Pro ~ % brew install python3
+neo@MacBook-Pro ~ % pip3 install scrapy
+			</screen>
+		</section>
+		<section>
+			<title>Ubuntu</title>
+			<para>搜索 scrapy 包，scrapy 支持 Python2.7 和 Python3 我们只需要 python3 版本</para>
+			<screen>
+neo@netkiller ~ % apt-cache search scrapy | grep python3
+python3-scrapy - Python web scraping and crawling framework (Python 3)
+python3-scrapy-djangoitem - Scrapy extension to write scraped items using Django models (Python3 version)
+python3-w3lib - Collection of web-related functions (Python 3)			
+			</screen>
+			<para>Ubuntu 17.04 默认 scrapy 版本为 1.3.0-1 如果需要最新的 1.4.0 请使用 pip 命令安装</para>
+			<screen>
+neo@netkiller ~ % apt search python3-scrapy
+Sorting... Done
+Full Text Search... Done
+python3-scrapy/zesty,zesty 1.3.0-1~exp2 all
+  Python web scraping and crawling framework (Python 3)
+
+python3-scrapy-djangoitem/zesty,zesty 1.1.1-1 all
+  Scrapy extension to write scraped items using Django models (Python3 version)
+			</screen>
+			<para>安装 scrapy</para>
+			<screen>
+neo@netkiller ~ % sudo apt install python3-scrapy
+[sudo] password for neo: 
+Reading package lists... Done
+Building dependency tree       
+Reading state information... Done
+The following additional packages will be installed:
+  ipython3 libmysqlclient20 libwebpmux2 mysql-common python-pexpect python-ptyprocess python3-attr python3-boto python3-bs4 python3-cffi-backend python3-click python3-colorama python3-constantly
+  python3-cryptography python3-cssselect python3-decorator python3-html5lib python3-idna python3-incremental python3-ipython python3-ipython-genutils python3-libxml2 python3-lxml python3-mysqldb
+  python3-openssl python3-pam python3-parsel python3-pexpect python3-pickleshare python3-pil python3-prompt-toolkit python3-ptyprocess python3-pyasn1 python3-pyasn1-modules python3-pydispatch
+  python3-pygments python3-queuelib python3-serial python3-service-identity python3-setuptools python3-simplegeneric python3-traitlets python3-twisted python3-twisted-bin python3-w3lib python3-wcwidth
+  python3-webencodings python3-zope.interface
+Suggested packages:
+  python-pexpect-doc python-attr-doc python-cryptography-doc python3-cryptography-vectors python3-genshi python3-lxml-dbg python-lxml-doc default-mysql-server | virtual-mysql-server
+  python-egenix-mxdatetime python3-mysqldb-dbg python-openssl-doc python3-openssl-dbg python3-pam-dbg python-pil-doc python3-pil-dbg doc-base python-pydispatch-doc ttf-bitstream-vera python-scrapy-doc
+  python3-wxgtk3.0 | python3-wxgtk python-setuptools-doc python3-tk python3-gtk2 python3-glade2 python3-qt4 python3-wxgtk2.8 python3-twisted-bin-dbg
+The following NEW packages will be installed:
+  ipython3 libmysqlclient20 libwebpmux2 mysql-common python-pexpect python-ptyprocess python3-attr python3-boto python3-bs4 python3-cffi-backend python3-click python3-colorama python3-constantly
+  python3-cryptography python3-cssselect python3-decorator python3-html5lib python3-idna python3-incremental python3-ipython python3-ipython-genutils python3-libxml2 python3-lxml python3-mysqldb
+  python3-openssl python3-pam python3-parsel python3-pexpect python3-pickleshare python3-pil python3-prompt-toolkit python3-ptyprocess python3-pyasn1 python3-pyasn1-modules python3-pydispatch
+  python3-pygments python3-queuelib python3-scrapy python3-serial python3-service-identity python3-setuptools python3-simplegeneric python3-traitlets python3-twisted python3-twisted-bin python3-w3lib
+  python3-wcwidth python3-webencodings python3-zope.interface
+0 upgraded, 49 newly installed, 0 to remove and 0 not upgraded.
+Need to get 7,152 kB of archives.
+After this operation, 40.8 MB of additional disk space will be used.
+Do you want to continue? [Y/n]
+			</screen>
+			<para>输入大写 “Y” 然后回车</para>
+		</section>
+		<section>
+			<title>使用 pip 安装 scrapy</title>
+			<screen>
+neo@netkiller ~ % sudo apt install python3-pip
+neo@netkiller ~ % pip3 install scrapy
+			</screen>
+		</section>
+		<section>
+			<title>测试 scrapy</title>
+			<para>创建测试程序，用于验证 scrapy 安装是否存在问题。</para>
+			<screen>
+			<![CDATA[
+$ cat > myspider.py <<EOF
+import scrapy
+
+class BlogSpider(scrapy.Spider):
+    name = 'blogspider'
+    start_urls = ['https://blog.scrapinghub.com']
+
+    def parse(self, response):
+        for title in response.css('h2.entry-title'):
+            yield {'title': title.css('a ::text').extract_first()}
+
+        for next_page in response.css('div.prev-post > a'):
+            yield response.follow(next_page, self.parse)
+EOF
+			]]>
+			</screen>
+			<para>运行爬虫</para>
+			<screen>
+$ scrapy runspider myspider.py
+			</screen>
+		</section>
+	</section>
+	<section id="shell">
+		<title>爬虫 Shell</title>
+		<screen>
+		<![CDATA[
+neo@MacBook-Pro /tmp % scrapy shell http://www.netkiller.cn
+2017-09-01 15:23:05 [scrapy.utils.log] INFO: Scrapy 1.4.0 started (bot: scrapybot)
+2017-09-01 15:23:05 [scrapy.utils.log] INFO: Overridden settings: {'DUPEFILTER_CLASS': 'scrapy.dupefilters.BaseDupeFilter', 'LOGSTATS_INTERVAL': 0}
+2017-09-01 15:23:05 [scrapy.middleware] INFO: Enabled extensions:
+['scrapy.extensions.corestats.CoreStats',
+ 'scrapy.extensions.telnet.TelnetConsole',
+ 'scrapy.extensions.memusage.MemoryUsage']
+2017-09-01 15:23:05 [scrapy.middleware] INFO: Enabled downloader middlewares:
+['scrapy.downloadermiddlewares.httpauth.HttpAuthMiddleware',
+ 'scrapy.downloadermiddlewares.downloadtimeout.DownloadTimeoutMiddleware',
+ 'scrapy.downloadermiddlewares.defaultheaders.DefaultHeadersMiddleware',
+ 'scrapy.downloadermiddlewares.useragent.UserAgentMiddleware',
+ 'scrapy.downloadermiddlewares.retry.RetryMiddleware',
+ 'scrapy.downloadermiddlewares.redirect.MetaRefreshMiddleware',
+ 'scrapy.downloadermiddlewares.httpcompression.HttpCompressionMiddleware',
+ 'scrapy.downloadermiddlewares.redirect.RedirectMiddleware',
+ 'scrapy.downloadermiddlewares.cookies.CookiesMiddleware',
+ 'scrapy.downloadermiddlewares.httpproxy.HttpProxyMiddleware',
+ 'scrapy.downloadermiddlewares.stats.DownloaderStats']
+2017-09-01 15:23:05 [scrapy.middleware] INFO: Enabled spider middlewares:
+['scrapy.spidermiddlewares.httperror.HttpErrorMiddleware',
+ 'scrapy.spidermiddlewares.offsite.OffsiteMiddleware',
+ 'scrapy.spidermiddlewares.referer.RefererMiddleware',
+ 'scrapy.spidermiddlewares.urllength.UrlLengthMiddleware',
+ 'scrapy.spidermiddlewares.depth.DepthMiddleware']
+2017-09-01 15:23:05 [scrapy.middleware] INFO: Enabled item pipelines:
+[]
+2017-09-01 15:23:05 [scrapy.extensions.telnet] DEBUG: Telnet console listening on 127.0.0.1:6023
+2017-09-01 15:23:05 [scrapy.core.engine] INFO: Spider opened
+2017-09-01 15:23:05 [scrapy.core.engine] DEBUG: Crawled (200) <GET http://www.netkiller.cn> (referer: None)
+[s] Available Scrapy objects:
+[s]   scrapy     scrapy module (contains scrapy.Request, scrapy.Selector, etc)
+[s]   crawler    <scrapy.crawler.Crawler object at 0x103b2afd0>
+[s]   item       {}
+[s]   request    <GET http://www.netkiller.cn>
+[s]   response   <200 http://www.netkiller.cn>
+[s]   settings   <scrapy.settings.Settings object at 0x1049019e8>
+[s]   spider     <DefaultSpider 'default' at 0x104be2a90>
+[s] Useful shortcuts:
+[s]   fetch(url[, redirect=True]) Fetch URL and update local objects (by default, redirects are followed)
+[s]   fetch(req)                  Fetch a scrapy.Request and update local objects 
+[s]   shelp()           Shell help (print this help)
+[s]   view(response)    View response in a browser
+>>> 
+		]]>
+		</screen>
+	</section>
+	<section>
+		<title>爬虫项目</title>
+		<section>
+			<title>创建项目</title>
+			<para>创建爬虫项目</para>
+			<screen>
+scrapy startproject project
+			</screen>
+			<screen>
+			<![CDATA[
+neo@MacBook-Pro /tmp % scrapy startproject project
+New Scrapy project 'project', using template directory '/usr/local/lib/python3.6/site-packages/scrapy/templates/project', created in:
+    /private/tmp/project
+
+You can start your first spider with:
+    cd project
+    scrapy genspider example example.com
+neo@MacBook-Pro /tmp % cd project/ 
+neo@MacBook-Pro /tmp/project % find .
+.
+./project
+./project/__init__.py
+./project/__pycache__
+./project/items.py
+./project/middlewares.py
+./project/pipelines.py
+./project/settings.py
+./project/spiders
+./project/spiders/__init__.py
+./project/spiders/__pycache__
+./scrapy.cfg
+			
+			]]>
+			</screen>
+		</section>
+	</section>
+</section>
+</chapter>

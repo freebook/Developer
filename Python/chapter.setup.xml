@@ -140,38 +140,63 @@ curl -sS http://python-distribute.org/distribute_setup.py | python
 		</screen>
 	</section>
 	<section id="pip">
-		<title>pip</title>
-		<para>使用easy_install安装pip， 同时pip也是easy_install替代品</para>
-		<screen>
+		<title>pip - A tool for installing and managing Python packages</title>
+		<para>https://pip.readthedocs.io/en/stable/installing/</para>
+		<section>
+			<title>安装 pip</title>
+			<section>
+				<title>使用 easy_install 安装 pip</title>
+				<para>使用easy_install安装pip， 同时pip也是easy_install替代品</para>
+				<screen>
 # easy_install pip
-		</screen>
-		<para>查询包</para>
-		<screen>
+				</screen>
+			</section>
+			<section>
+				<title>Ubuntu 安装 pip</title>
+				<screen>
+$ sudo apt install python3-pip
+				</screen>
+			</section>
+			<section>
+				<title>Mac</title>
+				<screen>
+neo@MacBook-Pro ~ % brew install python3
+neo@MacBook-Pro ~ % pip3 install scrapy
+				</screen>
+				<para>安装 python3 会携带 pip3 命令</para>
+			</section>
+		</section>
+		<section>
+			<title>pip 命令</title>
+			<para>查询包</para>
+			<screen>
 $ pip search "Markdown"
-		</screen>
-		<para>安装包</para>
-		<screen>
+			</screen>
+			<para>安装包</para>
+			<screen>
 $ pip install Markdown
-		</screen>
-		<para>安装特定版本的包， 通过使用 <![CDATA[ ==, >=, <=, >, < ]]>来指定一个版本号。</para>
-		<screen>
-		<![CDATA[
+			</screen>
+			<para>安装特定版本的包， 通过使用 <![CDATA[ ==, >=, <=, >, < ]]>来指定一个版本号。</para>
+			<screen>
+			<![CDATA[
 $ pip install 'Markdown<2.0'
 $ pip install 'Markdown>2.0,<2.0.3'
-		]]>
-		</screen>
-		<para>列出安装包的描述信息</para>
-		<screen>
+			]]>
+			</screen>
+			<para>列出安装包的描述信息</para>
+			<screen>
 $ pip freeze
-		</screen>
-		<para>升级包, 升级包到当前最新的版本，可以使用-U 或者 --upgrade</para>
-		<screen>
+			</screen>
+			<para>升级包, 升级包到当前最新的版本，可以使用-U 或者 --upgrade</para>
+			<screen>
 # pip install distribute --upgrade
 $ pip install -U Markdown
-		</screen>
-		<para>卸载包</para>
-		<screen>
+			</screen>
+			<para>卸载包</para>
+			<screen>
 $ pip uninstall Markdown
-		</screen>
+			</screen>
+		</section>
 	</section>
+	
 </chapter>
