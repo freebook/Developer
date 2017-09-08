@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<chapter id="index"><?dbhtml dir="crawler" ?>
-	<title>Crawler</title>
-<section id="scrapy">
+<!-- <chapter id="index"><?dbhtml dir="crawler" ?>
+	<title>Crawler</title> -->
+<chapter id="index"><?dbhtml dir="scrapy" ?>
 	<title>scrapy</title>
 	<para>https://scrapy.org</para>
 	<section id="setup">
@@ -97,6 +97,86 @@ $ scrapy runspider myspider.py
 			</screen>
 		</section>
 	</section>
+	<section id="scrapy">
+		<title>scrapy 命令</title>
+		<screen>
+		<![CDATA[
+neo@MacBook-Pro ~/Documents/crawler % scrapy     
+Scrapy 1.4.0 - project: crawler
+
+Usage:
+  scrapy <command> [options] [args]
+
+Available commands:
+  bench         Run quick benchmark test
+  check         Check spider contracts
+  crawl         Run a spider
+  edit          Edit spider
+  fetch         Fetch a URL using the Scrapy downloader
+  genspider     Generate new spider using pre-defined templates
+  list          List available spiders
+  parse         Parse URL (using its spider) and print the results
+  runspider     Run a self-contained spider (without creating a project)
+  settings      Get settings values
+  shell         Interactive scraping console
+  startproject  Create new project
+  version       Print Scrapy version
+  view          Open URL in browser, as seen by Scrapy
+
+Use "scrapy <command> -h" to see more info about a command
+		]]>
+		</screen>
+		<section id="scrapy.startproject">
+			<title></title>
+			<screen>
+			<![CDATA[
+neo@MacBook-Pro ~/Documents % scrapy startproject crawler 
+New Scrapy project 'crawler', using template directory '/usr/local/lib/python3.6/site-packages/scrapy/templates/project', created in:
+    /Users/neo/Documents/crawler
+
+You can start your first spider with:
+    cd crawler
+    scrapy genspider example example.com
+			]]>
+			</screen>
+		</section>
+		<section id="scrapy.genspider">
+			<title>新建 spider</title>
+			<screen>
+			<![CDATA[
+neo@MacBook-Pro ~/Documents/crawler % scrapy genspider netkiller netkiller.cn
+Created spider 'netkiller' using template 'basic' in module:
+  crawler.spiders.netkiller
+			]]>
+			</screen>
+		</section>
+		<section id='scrapy.list'>
+			<title>列出可用的 spiders</title>
+			<screen>
+			<![CDATA[
+neo@MacBook-Pro ~/Documents/crawler % scrapy list
+bing
+book
+example
+netkiller			
+			]]>
+			</screen>
+		</section>
+		<section id="scrapy.crawl">
+			<title>运行 spider</title>
+			<screen>
+			<![CDATA[
+neo@MacBook-Pro ~/Documents/crawler % scrapy crawl netkiller
+			]]>
+			</screen>
+			<para>运行结果输出到 json 文件中</para>
+			<screen>
+			<![CDATA[
+neo@MacBook-Pro ~/Documents/crawler % scrapy crawl netkiller -o output.json					
+			]]>
+			</screen>
+		</section>
+	</section>
 	<section id="shell">
 		<title>Scrapy Shell</title>
 		<para>Scrapy Shell 是一个爬虫命令行交互界面调试工具，可以使用它分析被爬的页面</para>
@@ -150,11 +230,24 @@ neo@MacBook-Pro /tmp % scrapy shell http://www.netkiller.cn
 		</screen>
 		<section id="response">
 			<title>response</title>
-			<para>response 是爬虫返回的页面，可以通过 css(), xpath() 等方法取出你需要的内容。</para><section id="status">
+			<para>response 是爬虫返回的页面，可以通过 css(), xpath() 等方法取出你需要的内容。</para>
+			
+			<section id="response.url">
+				<title>当前URL地址</title>
+				<screen>
+				<![CDATA[
+>>> response.url
+'https://netkiller.cn/linux/index.html'
+				]]>
+				</screen>
+			</section>
+			<section id="status">
 				<title>status HTTP 状态</title>
 				<screen>
+				<![CDATA[
 >>> response.status
 200
+				]]>
 				</screen>
 			</section>
 			<section id="text">
@@ -506,7 +599,7 @@ neo@MacBook-Pro ~/Documents/crawler % scrapy crawl netkiller -o output.json
 			</screen>
 			<section id="response.follow">
 				<title>翻页操作</title>
-				<para>下面我们演示爬虫翻页，例如我们需要便利这部电子书 https://netkiller.cn/linux/index.html，首先创建一个爬虫任务</para>
+				<para>下面我们演示爬虫翻页，例如我们需要遍历这部电子书《Netkiller Linux 手札》 https://netkiller.cn/linux/index.html，首先创建一个爬虫任务</para>
 				<screen>
 				<![CDATA[
 neo@MacBook-Pro ~/Documents/crawler % scrapy genspider book netkiller.cn
@@ -527,7 +620,7 @@ class BookSpider(scrapy.Spider):
     start_urls = ['https://netkiller.cn/linux/index.html']
 
     def parse(self, response):
-        yield {'title': response.css('title::text').extract()};
+        yield {'title': response.css('title::text').extract()}
         # 这里取出下一页连接地址
         next_page = response.xpath('//a[@accesskey="n"]/@href').extract_first() 
         self.log('Next page: %s' % next_page)
@@ -538,15 +631,59 @@ class BookSpider(scrapy.Spider):
         pass
 				]]>
 				</screen>
+				
+			</section>
+			<section>
+				<title>采集内容保存到文件</title>
 				<screen>
-				<![CDATA[]]>
+				<![CDATA[
+# -*- coding: utf-8 -*-
+import scrapy
+
+
+class BookSpider(scrapy.Spider):
+    name = 'book'
+    allowed_domains = ['netkiller.cn']
+    start_urls = ['https://netkiller.cn/linux/index.html']
+
+    def parse(self, response):
+        yield {'title': response.css('title::text').extract()}
+
+        filename = '/tmp/%s' % response.url.split("/")[-1]
+
+        with open(filename, 'wb') as f:
+            f.write(response.body)
+        self.log('Saved file %s' % filename)
+
+        next_page = response.xpath('//a[@accesskey="n"]/@href').extract_first()
+        self.log('Next page: %s' % next_page)
+        if next_page is not None:
+            yield response.follow(next_page, callback=self.parse)    
+
+        pass
+				
+				]]>
 				</screen>
+				<para>任务运维结束后查看采集出来的文件</para>
 				<screen>
-				<![CDATA[]]>
+				<![CDATA[
+neo@MacBook-Pro ~/Documents/crawler % ls /tmp/*.html
+/tmp/apt-get.html            /tmp/disc.html               /tmp/infomation.html         /tmp/lspci.html              /tmp/svgatextmode.html
+/tmp/aptitude.html           /tmp/dmidecode.html          /tmp/install.html            /tmp/lsscsi.html             /tmp/swap.html
+/tmp/author.html             /tmp/do-release-upgrade.html /tmp/install.partition.html  /tmp/lsusb.html              /tmp/sys.html
+/tmp/avlinux.html            /tmp/dpkg.html               /tmp/introduction.html       /tmp/package.html            /tmp/sysctl.html
+/tmp/centos.html             /tmp/du.max-depth.html       /tmp/kernel.html             /tmp/pr01s02.html            /tmp/system.infomation.html
+/tmp/cfdisk.html             /tmp/ethtool.html            /tmp/kernel.modules.html     /tmp/pr01s03.html            /tmp/system.profile.html
+/tmp/console.html            /tmp/framebuffer.html        /tmp/kudzu.html              /tmp/pr01s05.html            /tmp/system.shutdown.html
+/tmp/console.timeout.html    /tmp/gpt.html                /tmp/linux.html              /tmp/preface.html            /tmp/tune2fs.html
+/tmp/dd.clone.html           /tmp/hdd.label.html          /tmp/locale.html             /tmp/proc.html               /tmp/udev.html
+/tmp/deb.html                /tmp/hdd.partition.html      /tmp/loop.html               /tmp/rpm.html                /tmp/upgrades.html
+/tmp/device.cpu.html         /tmp/hwinfo.html             /tmp/lsblk.html              /tmp/rpmbuild.html           /tmp/yum.html
+/tmp/device.hba.html         /tmp/index.html              /tmp/lshw.html               /tmp/smartctl.html				
+				]]>
 				</screen>
 			</section>
-
 		</section>
 	</section>
-</section>
 </chapter>
+<!-- </chapter> -->
