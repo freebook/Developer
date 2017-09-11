@@ -2,7 +2,7 @@
 <!-- <chapter id="index"><?dbhtml dir="crawler" ?>
 	<title>Crawler</title> -->
 <chapter id="index"><?dbhtml dir="scrapy" ?>
-	<title>scrapy</title>
+	<title>Scrapy - Python web scraping and crawling framework</title>
 	<para>https://scrapy.org</para>
 	<section id="setup">
 		<title>安装 scrapy 开发环境</title>
@@ -633,8 +633,9 @@ class BookSpider(scrapy.Spider):
 				</screen>
 				
 			</section>
-			<section>
+			<section id="response.body">
 				<title>采集内容保存到文件</title>
+				<para>下面的例子是将 response.body 返回采集内容保存到文件中</para>
 				<screen>
 				<![CDATA[
 # -*- coding: utf-8 -*-
@@ -682,7 +683,14 @@ neo@MacBook-Pro ~/Documents/crawler % ls /tmp/*.html
 /tmp/device.hba.html         /tmp/index.html              /tmp/lshw.html               /tmp/smartctl.html				
 				]]>
 				</screen>
+				<para>这里只是做演示，生产环境请不要在 parse(self, response) 中处理，后面会讲到 Pipeline。</para>
 			</section>
+		</section>
+		<section id="items">
+			<title>items</title>
+		</section>
+		<section id="pipeline">
+			<title>Pipeline</title>
 		</section>
 	</section>
 </chapter>
