@@ -686,6 +686,18 @@ neo@MacBook-Pro ~/Documents/crawler % ls /tmp/*.html
 				<para>这里只是做演示，生产环境请不要在 parse(self, response) 中处理，后面会讲到 Pipeline。</para>
 			</section>
 		</section>
+		<section id="settings">
+			<title>settings.py 爬虫配置文件</title>
+			<section>
+				<title>忽略 robots.txt 规则</title>
+				<screen>
+				<![CDATA[
+# Obey robots.txt rules
+ROBOTSTXT_OBEY = False
+				]]>
+				</screen>
+			</section>
+		</section>
 		<section id="items">
 			<title>Item</title>
 			<para>Item 在 scrapy 中的类似“实体”或者“POJO”的概念，是一个数据结构类。爬虫通过ItemLoader将数据放到Item中</para>
@@ -874,55 +886,46 @@ class ExampleSpider(scrapy.Spider):
 			]]>
 			</screen>
 		</section>
-		<section id="settings">
-			<title>settings.py 爬虫配置文件</title>
-			<section>
-				<title>忽略 robots.txt 规则</title>
-				<screen>
-				<![CDATA[
-# Obey robots.txt rules
-ROBOTSTXT_OBEY = False
-				]]>
-				</screen>
-			</section>
-		</section>
-		<section id="download">
-			<title>下载图片</title>
-			<para>创建项目</para>
-			<screen>
-			<![CDATA[
+		
+		
+	</section>
+	<section id="images">
+		<title>下载图片</title>
+		<para>创建项目</para>
+		<screen>
+		<![CDATA[
 neo@MacBook-Pro ~/Documents % scrapy startproject photo			
-			]]>
-			</screen>
-			<screen>
-			<![CDATA[
+		]]>
+		</screen>
+		<screen>
+		<![CDATA[
 neo@MacBook-Pro ~/Documents % cd photo
-			]]>
-			</screen>
-			<para>安装依赖库</para>
-			<screen>
-			<![CDATA[
+		]]>
+		</screen>
+		<para>安装依赖库</para>
+		<screen>
+		<![CDATA[
 neo@MacBook-Pro ~/Documents/photo % pip3 install image		
-			]]>
-			</screen>
-			<para>创建爬虫</para>
+		]]>
+		</screen>
+		<para>创建爬虫</para>
+		<screen>
+		<![CDATA[
+neo@MacBook-Pro ~/Documents/photo % scrapy genspider jiandan jandan.net			
+		]]>
+		</screen>
+		<section>
+			<title>配置 settings.py</title>
+			<para>忽略 robots.txt 规则</para>
 			<screen>
 			<![CDATA[
-neo@MacBook-Pro ~/Documents/photo % scrapy genspider jiandan jandan.net			
-			]]>
-			</screen>
-			<section>
-				<title>配置 settings.py</title>
-				<para>忽略 robots.txt 规则</para>
-				<screen>
-				<![CDATA[
 # Obey robots.txt rules
 ROBOTSTXT_OBEY = False
-				]]>
-				</screen>
-				<para>配置图片保存路径与缩图</para>
-				<screen>
-				<![CDATA[
+			]]>
+			</screen>
+			<para>配置图片保存路径与缩图</para>
+			<screen>
+			<![CDATA[
 #图片保存路径
 IMAGES_STORE='/tmp/photo'
 #DOWNLOAD_DELAY = 0.25
@@ -931,15 +934,15 @@ IMAGES_THUMBS = {
     'small': (50, 50),
     'big': (200, 200),
 }				
-				]]>
-				</screen>
-			</section>
-			<section>
-				<title>修改 pipelines.py 文件</title>
-				<para>加入 process_item（）与 item_completed（） 方法</para>
-				<para>注意：PhotoPipeline(ImagesPipeline) 需要继承 ImagesPipeline</para>
-				<screen>
-				<![CDATA[
+			]]>
+			</screen>
+		</section>
+		<section>
+			<title>修改 pipelines.py 文件</title>
+			<para>加入 process_item（）与 item_completed（） 方法</para>
+			<para>注意：PhotoPipeline(ImagesPipeline) 需要继承 ImagesPipeline</para>
+			<screen>
+			<![CDATA[
 # -*- coding: utf-8 -*-
 
 # Define your item pipelines here
@@ -964,14 +967,14 @@ class PhotoPipeline(ImagesPipeline):
             raise DropItem("Item contains no images")
         item['image_paths'] = image_paths
         return item
-				]]>
-				</screen>
-			</section>
-			<section>
-				<title>编辑 items.py</title>
-				<para>忽略 robots.txt 规则</para>
-				<screen>
-				<![CDATA[
+			]]>
+			</screen>
+		</section>
+		<section>
+			<title>编辑 items.py</title>
+			<para>忽略 robots.txt 规则</para>
+			<screen>
+			<![CDATA[
 # -*- coding: utf-8 -*-
 
 # Define here the models for your scraped items
@@ -990,13 +993,13 @@ class PhotoItem(scrapy.Item):
     images = scrapy.Field()
     image_paths = scrapy.Field()
     pass
-				]]>
-				</screen>
-			</section>
-			<section>
-				<title>Spider 爬虫文件</title>
-				<screen>
-				<![CDATA[
+			]]>
+			</screen>
+		</section>
+		<section>
+			<title>Spider 爬虫文件</title>
+			<screen>
+			<![CDATA[
 # -*- coding: utf-8 -*-
 import scrapy
 from scrapy.loader import ItemLoader
@@ -1022,10 +1025,9 @@ class JiandanSpider(scrapy.Spider):
         l = ItemLoader(item=PhotoItem(), response=response)
         l.add_xpath('image_urls','//img//@src' )
         return l.load_item()				
-				]]>
-				</screen>
-			</section>
+			]]>
+			</screen>
 		</section>
 	</section>
-</chapter>
-<!-- </chapter> -->
+</chapter>		
+		<!-- </chapter> -->
