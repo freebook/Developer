@@ -874,6 +874,158 @@ class ExampleSpider(scrapy.Spider):
 			]]>
 			</screen>
 		</section>
+		<section id="settings">
+			<title>settings.py 爬虫配置文件</title>
+			<section>
+				<title>忽略 robots.txt 规则</title>
+				<screen>
+				<![CDATA[
+# Obey robots.txt rules
+ROBOTSTXT_OBEY = False
+				]]>
+				</screen>
+			</section>
+		</section>
+		<section id="download">
+			<title>下载图片</title>
+			<para>创建项目</para>
+			<screen>
+			<![CDATA[
+neo@MacBook-Pro ~/Documents % scrapy startproject photo			
+			]]>
+			</screen>
+			<screen>
+			<![CDATA[
+neo@MacBook-Pro ~/Documents % cd photo
+			]]>
+			</screen>
+			<para>安装依赖库</para>
+			<screen>
+			<![CDATA[
+neo@MacBook-Pro ~/Documents/photo % pip3 install image		
+			]]>
+			</screen>
+			<para>创建爬虫</para>
+			<screen>
+			<![CDATA[
+neo@MacBook-Pro ~/Documents/photo % scrapy genspider jiandan jandan.net			
+			]]>
+			</screen>
+			<section>
+				<title>配置 settings.py</title>
+				<para>忽略 robots.txt 规则</para>
+				<screen>
+				<![CDATA[
+# Obey robots.txt rules
+ROBOTSTXT_OBEY = False
+				]]>
+				</screen>
+				<para>配置图片保存路径与缩图</para>
+				<screen>
+				<![CDATA[
+#图片保存路径
+IMAGES_STORE='/tmp/photo'
+#DOWNLOAD_DELAY = 0.25
+#缩略图的尺寸，设置这个值就会产生缩略图
+IMAGES_THUMBS = {
+    'small': (50, 50),
+    'big': (200, 200),
+}				
+				]]>
+				</screen>
+			</section>
+			<section>
+				<title>修改 pipelines.py 文件</title>
+				<para>加入 process_item（）与 item_completed（） 方法</para>
+				<para>注意：PhotoPipeline(ImagesPipeline) 需要继承 ImagesPipeline</para>
+				<screen>
+				<![CDATA[
+# -*- coding: utf-8 -*-
+
+# Define your item pipelines here
+#
+# Don't forget to add your pipeline to the ITEM_PIPELINES setting
+# See: http://doc.scrapy.org/en/latest/topics/item-pipeline.html
+
+import scrapy
+from scrapy.pipelines.images import ImagesPipeline
+from scrapy.exceptions import DropItem
+
+class PhotoPipeline(ImagesPipeline):
+    # def process_item(self, item, spider):
+        # return item
+    def get_media_requests(self, item, info):
+        for image_url in item['image_urls']:
+            yield scrapy.http.Request('http:'+image_url)
+
+    def item_completed(self, results, item, info):
+        image_paths = [x['path'] for ok, x in results if ok]
+        if not image_paths:
+            raise DropItem("Item contains no images")
+        item['image_paths'] = image_paths
+        return item
+				]]>
+				</screen>
+			</section>
+			<section>
+				<title>编辑 items.py</title>
+				<para>忽略 robots.txt 规则</para>
+				<screen>
+				<![CDATA[
+# -*- coding: utf-8 -*-
+
+# Define here the models for your scraped items
+#
+# See documentation in:
+# http://doc.scrapy.org/en/latest/topics/items.html
+
+import scrapy
+
+
+class PhotoItem(scrapy.Item):
+    # define the fields for your item here like:
+    # name = scrapy.Field()
+    #图片的链接
+    image_urls = scrapy.Field()
+    images = scrapy.Field()
+    image_paths = scrapy.Field()
+    pass
+				]]>
+				</screen>
+			</section>
+			<section>
+				<title>Spider 爬虫文件</title>
+				<screen>
+				<![CDATA[
+# -*- coding: utf-8 -*-
+import scrapy
+from scrapy.loader import ItemLoader
+from photo.items import PhotoItem
+
+class JiandanSpider(scrapy.Spider):
+    name = 'jiandan'
+    # allowed_domains = ['jandan.net']
+    allowed_domains = [] 
+    start_urls = ['http://jandan.net/ooxx']
+
+    def parse(self, response):
+       
+        l = ItemLoader(item=PhotoItem(), response=response)
+        l.add_xpath('image_urls','//img//@src' )
+        yield l.load_item()
+
+        next_page = response.xpath('//a[@class="previous-comment-page"]//@href').extract_first() #翻页
+        if next_page:
+            yield response.follow(next_page,self.parse)
+        pass
+    def parse_page(self, response):
+        l = ItemLoader(item=PhotoItem(), response=response)
+        l.add_xpath('image_urls','//img//@src' )
+        return l.load_item()				
+				]]>
+				</screen>
+			</section>
+		</section>
 	</section>
 </chapter>
 <!-- </chapter> -->
