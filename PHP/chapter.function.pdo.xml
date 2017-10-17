@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <section id="pdo">
 	<title>PHP Data Objects (PDO)</title>
+	<!-- http://wiki.hashphp.org/PDO_Tutorial_for_MySQL_Developers -->
 	<section id="driver_options">
 		<title>$driver_options</title>
 		<para>持久链接</para>
@@ -80,11 +81,32 @@ echo $sth->debugDumpParams();
 		</section>
 	</section>
 	<section>
-		<title></title>
-		<screen>
-		<![CDATA[
-		
-		]]>
-		</screen>
+		<title>FAQ</title>
+		<section>
+			<title>SQLSTATE[HY000] [2002] No such file or directory</title>
+			<para>首先查看mysql.sock所在位置</para>
+			<screen>
+			<![CDATA[
+mysql> show variables like 'socket';
++---------------+-----------------+
+| Variable_name | Value           |
++---------------+-----------------+
+| socket        | /tmp/mysql.sock |
++---------------+-----------------+
+1 row in set (0.00 sec)
+			]]>
+			</screen>
+			<para>查看 php.ini socket 配置</para>
+			<screen>
+			<![CDATA[
+neo@MacBook-Pro /usr/local/etc/nginx % php -i | grep pdo_mysql.default_socket
+pdo_mysql.default_socket => /var/mysql/mysql.sock => /var/mysql/mysql.sock			
+			]]>
+			</screen>
+			<para>临时解决方法</para>
+			<screen>
+ln -s /var/mysql/mysql.sock /tmp/mysql.sock
+			</screen>
+		</section>
 	</section>
 </section>
