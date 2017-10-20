@@ -224,6 +224,32 @@ $.ajax({
 			<para>原因是 ajax 跨域请求造成</para>
 			<para>将 dataType: 'JSON' 替换为 dataType: 'JSONP'</para>
 		</section>
+		<section>
+			<title>同步 AJAX</title>
+			<para>Jquery ajax 请求默认是异步方式，通过 async: false, 参数修改为同步模式。</para>
+			<screen>
+			<![CDATA[
+	function exchange(money){
+			var amount = 0;
+			jQuery.ajax({
+				type: "GET",
+				url: "ajax.php?money=" + money,
+				dataType: "json",
+				async: false,
+				data: "",
+				success: function (data) {
+					if (data.amount) {
+						amount = data.amount
+					}
+				},
+				error: function () {
+				}
+			});
+		return amount;
+		}		
+			]]>
+			</screen>
+		</section>
 	</section>
 	<section id="form">
 		<title>Form 表单处理</title>
@@ -241,6 +267,13 @@ $.ajax({
 	$('#bank').append($("<option></option>").attr("value","CMB").text("招商银行"));
 			]]>
 			</programlisting>
+		</section>
+		<section>
+			<title>input</title>
+			<para>设置 value</para>
+			<screen>
+$("#amount").val("100");
+			</screen>
 		</section>
 	</section>
 	<section id="event">

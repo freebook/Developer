@@ -697,6 +697,22 @@ extension=mcrypt.so
 EOF
 		]]>
 		</screen>
+		<section>
+			<title>Mac</title>
+			<para>php 版本 5.6.30</para>
+			<screen>
+neo@MacBook-Pro ~ % brew install libmcrypt
+			</screen>
+			<para>下载php</para>
+			<screen>
+wget http://cn2.php.net/distributions/php-5.6.30.tar.gz
+tar zxvf php-5.6.30.tar.gz 
+cd php-5.6.30/ext/mcrypt
+phpize
+./configure --with-php-config=/usr/bin/php-config
+make && make install
+			</screen>
+		</section>
 	</section>
 	<section id="mhash">
 		<title>mhash</title>

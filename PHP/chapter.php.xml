@@ -41,16 +41,52 @@
 	
 	<section id="php.install">
 		<title>install and configure</title>
-		<command>$ sudo apt-get install php5</command>
-		<screen>
+		<section>
+			<title>Ubuntu php5</title>
+			<command>$ sudo apt-get install php5</command>
+			<screen>
 $ sudo apt-get install php5 php5-cli
-		</screen>
-		<para>fastcgi</para>
-		<screen>
+			</screen>
+			<para>fastcgi</para>
+			<screen>
 sudo apt-get install php5
 sudo apt-get install php5-cli
 sudo apt-get install php5-fpm
-		</screen>
+			</screen>
+		</section>
+		<section>
+			<title>Mac</title>
+			<section>
+				<title>pecl</title>
+				<screen>
+可以参考官方的页面 http://pear.php.net/manual/en/installation.getting.php
+
+安装pear，其中包含pecl：
+
+$ wget http://pear.php.net/go-pear.phar
+$ sudo php -d detect_unicode=0 go-pear.phar
+
+# 我是临时使用所有安装到了 /tmp 目录下
+ 1. Installation base ($prefix)                   : /tmp
+ 2. Temporary directory for processing            : /tmp/pear/install
+ 3. Temporary directory for downloads             : /tmp/pear/install
+ 4. Binaries directory                            : /tmp/bin
+ 5. PHP code directory ($php_dir)                 : /tmp/share/pear
+ 6. Documentation directory                       : /tmp/docs
+ 7. Data directory                                : /tmp/data
+ 8. User-modifiable configuration files directory : /tmp/cfg
+ 9. Public Web Files directory                    : /tmp/www
+10. System manual pages directory                 : /tmp/man
+11. Tests directory                               : /tmp/tests
+12. Name of configuration file                    : /private/etc/pear.conf
+
+1-12, 'all' or Enter to continue: 
+
+使用pecl安装模块：
+$ sudo ~/pear/bin/pecl install mongo				
+				</screen>
+			</section>
+		</section>
 	</section>
 	<section id="php">
 		<title>php 命令</title>
@@ -100,6 +136,12 @@ export PHP_INI_SCAN_DIR=/srv/php/etc/cli.d
 export PHP_INI_SCAN_DIR=/srv/php/etc/conf.d:/srv/php/etc/fpm.d
 			</screen>
 			<para></para>
+		</section>
+		<section id="php.server">
+			<title>内置Web服务器</title>
+			<screen>
+php -S 192.168.2.15:8000 -t /var/www/
+			</screen>
 		</section>
 	</section>
 	<section id="php.ini">
@@ -179,12 +221,7 @@ php-config --extension-dir
 		<title>Eclipse PDT</title>
 		<para>http://projects.eclipse.org/projects/tools.pdt</para>
 	</section>
-	<section id="php.server">
-		<title>内置Web服务器</title>
-		<screen>
-php -S 192.168.2.15:8000 -t /var/www/
-		</screen>
-	</section>
+	
 </chapter>
 
 	&chapter.language.xml;
