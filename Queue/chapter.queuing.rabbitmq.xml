@@ -52,7 +52,9 @@ rabbitmqctl status
 		<section id="change_password">
 			<title>change_password</title>
 			<screen>
+			<![CDATA[
 rabbitmqctl change_password admin <new_password>
+			]]>
 			</screen>
 		</section>
 		<section id="list_users">
@@ -140,6 +142,7 @@ systemctl restart rabbitmq-server
 			</screen>
 			<para>queues</para>
 			<screen>
+			<![CDATA[
 # curl -s -u guest:guest http://localhost:15672/api/queues/%2f/example | sed 's/,/,\n/g'
 {"message_stats":{"ack":817,
 "ack_details":{"rate":0.8},
@@ -216,7 +219,8 @@ systemctl restart rabbitmq-server
 "durable":true,
 "auto_delete":false,
 "arguments":{},
-"node":"rabbit@iZ623qr3xctZ"}			
+"node":"rabbit@iZ623qr3xctZ"}		
+			]]>	
 			</screen>
 		</section>
 	</section>
