@@ -302,4 +302,13 @@ git checkout python3
 pip install splinter[zope.testbrowser]	
 	</screen>
 </section>	
+
+<section>
+	<title>pandas - Python Data Analysis Library</title>
+</section>
+<section>
+	<title>NumPy</title>
+	<para>NumPy is the fundamental package for scientific computing with Python.</para>
+</section>
+
 </chapter>
