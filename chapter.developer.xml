@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- $Id: chapter.developer.xml 658 2013-08-07 10:08:09Z netkiller $ -->
-<part id="developer">
-	<title>Developer &amp; Language</title>
-<chapter id="language">
-	<title>Programming language</title>
+<!-- <part id="developer">
+	<title>Developer &amp; Language</title> -->
+<chapter id="developer">
+	<title>Developer &amp; Programming language</title>
 	<section>
 		<title>System programming language</title>
 		<para>A System programming language is usually used to mean "a language for system programming": that is, a language designed for writing system software as distinct from application software.</para>
@@ -54,9 +54,12 @@
 		<title>Developer Survey Results 2017</title>
 		<para><ulink url="http://stackoverflow.com/research/developer-survey-2016" /></para>
 		<para><ulink url="https://stackoverflow.com/insights/survey/2017#technology-most-loved-dreaded-and-wanted-languages" /></para>
-	</section>
-</chapter>
+	</section>	
+	&chapter.license.xml;
+	&chapter.standard.xml;
+	&chapter.editor.xml;
+</developer>
+	
+	
 
-	&chapter.editor;
-
-</part>
+<!-- </part> -->

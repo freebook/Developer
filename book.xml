@@ -14,11 +14,14 @@
 	
 	<!ENTITY book.info.abstract.xml 		SYSTEM "book.info.abstract.xml">
 
-	<!ENTITY chapter.editor 				SYSTEM "chapter.editor.xml">
-	<!ENTITY chapter.editor.vim 			SYSTEM "chapter.editor.vim.xml">
-
-	<!ENTITY chapter.developer 				SYSTEM "chapter.developer.xml">
+	<!ENTITY chapter.developer.xml			SYSTEM "chapter.developer.xml">
 	<!ENTITY chapter.developer.memcached 	SYSTEM "chapter.developer.memcached.xml">
+	<!ENTITY chapter.license.xml 			SYSTEM "chapter.license.xml">
+	<!ENTITY chapter.standard.xml		 	SYSTEM "chapter.standard.xml">
+	<!ENTITY chapter.standard.html.xml		SYSTEM "chapter.standard.html.xml">
+	<!ENTITY chapter.standard.coding.xml		SYSTEM "chapter.standard.coding.xml">
+	<!ENTITY chapter.editor.xml 				SYSTEM "chapter.editor.xml">
+	<!ENTITY chapter.editor.vim	 			SYSTEM "chapter.editor.vim.xml">
 
 	<!ENTITY % c.doctype.entity.xml 		SYSTEM "C/doctype.entity.xml">
 	%c.doctype.entity.xml;
@@ -110,7 +113,7 @@
 	&book.dedication.xml;
 <!--  =========================================================================== -->
  	&book.preface.xml;
-	&chapter.developer;
+	&chapter.developer.xml;
 	&part.webpage.xml;
 	<!-- &part.php.xml; -->
 	<!-- &part.python.xml; -->
