@@ -30,8 +30,7 @@
 	<!ENTITY chapter.dsource.xml			SYSTEM "D/chapter.dsource.xml">
 	<!ENTITY chapter.faq.xml				SYSTEM "D/chapter.faq.xml">
 
-	<!ENTITY % queue.doctype.entity.xml		SYSTEM "Queue/doctype.entity.xml">
-	%queue.doctype.entity.xml;
+
 
 	<!ENTITY % html.doctype.entity.xml 		SYSTEM "HTML/doctype.entity.xml">
 	%html.doctype.entity.xml;
@@ -51,8 +50,6 @@
 	<!ENTITY % java.doctype.entity.xml 		SYSTEM "Java/doctype.entity.xml">
 	%java.doctype.entity.xml;
 -->
-	<!ENTITY % graphics.doctype.entity.xml 	SYSTEM "Graphics/doctype.entity.xml">
-	%graphics.doctype.entity.xml;
 	
 	<!ENTITY % chart.doctype.entity.xml 	SYSTEM "Chart/doctype.entity.xml">
 	%chart.doctype.entity.xml;
@@ -124,8 +121,6 @@
 	&part.c.xml;
 	&chapter.d.xml;
 <!-- =========================================================================== -->
-	&chapter.queuing.xml;
-	&part.graphics.xml;
 	&chapter.chart.xml;
 <!-- =========================================================================== -->
 	&chapter.uml.xml;
