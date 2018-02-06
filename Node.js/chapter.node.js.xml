@@ -34,6 +34,14 @@ v6.9.1
 		<screen>
 $ npm install mysql
 		</screen>
+		<section id="npm.mirror">
+			<title></title>
+			<screen>
+			<![CDATA[
+npm install --registry=https://registry.npm.taobao.org			
+			]]>
+			</screen>
+		</section>
 		<section>
 			<title>link</title>
 			<screen>
