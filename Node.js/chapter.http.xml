@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<chapter id="node.http">
+	<title>http</title>
+	<programlisting>
+	<![CDATA[
+neo@MacBook-Pro ~/netkiller/node % cat http.js 
+var http = require('http');
+
+//创建一个服务器对象
+server = http.createServer(function (req, res) {
+	//设置请求成功时响应头部的MIME为纯文本
+	res.writeHeader(200, {"Content-Type": "text/plain"});
+	//向客户端输出字符
+	res.end("Hello World\n");
+});
+
+//让服务器监听本地8000端口开始运行
+server.listen(8000,'127.0.0.1');
+console.log("server is runing at 127.0.0.1:8000");
+	]]>
+	</programlisting>
+	<para>启动 http 服务器</para>
+	<screen>
+	<![CDATA[
+neo@MacBook-Pro ~/netkiller/node % node http.js 
+server is runing at 127.0.0.1:8000
+	]]>
+	</screen>
+	<para>现在访问 http://127.0.0.1:8000 会出现 Hello World</para>
+</chapter>
