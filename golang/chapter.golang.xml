@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<chapter id="golang">
+	<title>golang</title>
+	<section id="helloword">
+		<title>helloword</title>
+		<programlisting>
+		<![CDATA[
+package main
+
+import "fmt"
+
+func main(){
+
+	fmt.Printf("Hello World!!!\n");
+
+}
+		]]>
+		</programlisting>
+		<screen>
+		<![CDATA[
+neo@MacBook-Pro ~/golang % go build test.go 
+neo@MacBook-Pro ~/golang % ./test 
+Hello World!!!
+		]]>
+		</screen>
+	</section>
+	<section id="">
+		<title>优化编译参数</title>
+		<programlisting>
+		<![CDATA[
+neo@MacBook-Pro ~/golang % go build test.go
+neo@MacBook-Pro ~/golang % ll test    
+-rwxr-xr-x  1 neo  staff   2.0M Mar 11 11:10 test
+
+neo@MacBook-Pro ~/golang % go build -ldflags "-s -w" test.go
+neo@MacBook-Pro ~/golang % ll test                          
+-rwxr-xr-x  1 neo  staff   1.4M Mar 11 11:10 test		
+		]]>
+		</programlisting>
+	</section>
+	<section id="variable">
+		<title>变量</title>
+		<programlisting>
+		<![CDATA[
+package main
+
+import "fmt"
+
+//声明变量number为int数据，此时默认复制为0
+var number int 	
+
+// 定义多个变量
+var(
+	name string
+	age int
+	sex bool
+)
+
+func main(){
+
+	//直接声明变量number赋值为2
+	number := 2
+	fmt.Println(number);
+
+	name = "Neo"
+	fmt.Println(name);
+	
+	url := "http://www.netkiller.cn"
+	fmt.Println(url);
+
+}		
+		]]>
+		</programlisting>
+		<section id="">
+			<title>const 常量定义</title>
+			<programlisting>
+			<![CDATA[
+//声明常量 const url
+const url = "http://www.netkiller.cn"
+
+const nickname string = "netkiller"
+
+const Monday, Tuesday, Wednesday, Thursday, Friday, Saturday = 1, 2, 3, 4, 5, 6
+
+const (
+	New, Pending, Done = 1, 2, 3
+	Canceled, Failed, Scuess = 4, 5, 6
+	)
+
+// 生成枚举值时候可以使用关键字：itoa, 值将依次递增
+const (
+	Sunday = iota 	// 0
+	Monday        	// 1
+	Tuesday       	// 2
+	Wednesday		// 3
+	​Thursday		 // 4
+	Friday			// 5
+	Saturday		// 6
+	)
+			]]>
+			</programlisting>
+		</section>
+	</section>
+	<section id="type">
+		<title>数值类型</title>
+		<programlisting>
+		<para>数值型</para>
+		<![CDATA[
+有符号：int8,int16,int32,int64		
+无符号：byte,uint8,uint16,uint32,uint64
+byte 是 uint8 的别名。	
+
+浮点类型的值有 float32 和 float64
+		]]>
+		</programlisting>
+		
+		<programlisting>
+		<![CDATA[
+字符串：string 例如："hello world" 或者 `hello world` Go语言的字符串的字节使用UTF-8编码标识Unicode文本。
+
+多行字符串连接
+str := "Starting part"
+	+ "..."
+	+ "..."
+    + "Ending part"
+    
+str := `Starting part
+	...
+	...
+    Ending part`
+    
+字符串处理的包
+---------------------------------------------
+string包
+包括字符串的分割，替换，合并等处理；
+strconv包
+提供许多可以在字符串和其他类型的数据之间的转换函数。
+utf-8包
+主要用来查询和操作UTF-8编码的字符串或者字符切片。
+unicode包
+提供一些用来检查Unicode码点是否符合主要标准的函数。
+		]]>
+		</programlisting>
+	</section>
+	<section id="class">
+		<title>class</title>
+		<programlisting>
+		<![CDATA[
+package main
+
+import "fmt"
+
+type Person struct {
+	name string
+	sex	bool
+	age int
+    address string
+}
+
+func (person *Person) setName(_name string) {
+    person.name = _name
+}
+
+func (person *Person) getName() string {
+    return person.name
+}
+
+
+func main(){
+	
+	person := &Person{"Test",true,30,"Shenzhen,China"}
+
+	fmt.Println(person.name);
+
+	person.name = "Neo"
+	fmt.Println(person.name);
+
+	person.setName("Netkiller")
+	fmt.Println(person.getName());
+
+}
+		]]>
+		</programlisting>
+	</section>
+	
+</chapter>
