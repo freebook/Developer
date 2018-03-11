@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section id="">
+	<title>strconv</title>
+	<section id="">
+		<title>Atoi 字符串转数字、Itoa 数字转字符串</title>
+
+		<programlisting>
+	<![CDATA[
+package main
+
+import (
+    "strconv"
+)
+
+func main() {
+    i, err := strconv.Atoi("12345")
+    if err != nil {
+        panic(err)
+    }
+    i += 3
+    println(i)
+
+    s := strconv.Itoa(12345)
+    s += "3"
+    println(s)
+}	
+	]]>
+		</programlisting>
+	</section>
+</section>
