@@ -4,3 +4,4 @@
 <!ENTITY chapter.struct.xml 			SYSTEM "chapter.struct.xml">
 <!ENTITY chapter.map.xml 			SYSTEM "chapter.map.xml">
 <!ENTITY chapter.strconv.xml 		SYSTEM "chapter.strconv.xml">
+<!ENTITY chapter.package.xml 		SYSTEM "chapter.package.xml">

@@ -104,7 +104,7 @@ const (
 	<section id="type">
 		<title>数值类型</title>
 		<programlisting>
-		<para>数值型</para>
+			<para>数值型</para>
 		<![CDATA[
 有符号：int8,int16,int32,int64		
 无符号：byte,uint8,uint16,uint32,uint64
@@ -113,7 +113,7 @@ byte 是 uint8 的别名。
 浮点类型的值有 float32 和 float64
 		]]>
 		</programlisting>
-		
+
 		<programlisting>
 		<![CDATA[
 字符串：string 例如："hello world" 或者 `hello world` Go语言的字符串的字节使用UTF-8编码标识Unicode文本。
@@ -141,8 +141,29 @@ unicode包
 提供一些用来检查Unicode码点是否符合主要标准的函数。
 		]]>
 		</programlisting>
-		
-		<programlisting>
+
+
+		<section id="array">
+			<title>数组</title>
+			<programlisting>
+			<![CDATA[
+[5] int {1,2,3,4,5} 
+长度为5的数组，其元素值依次为：1，2，3，4，5
+[5] int {1,2} 
+长度为5的数组，其长度是根据初始化时指定的元素个数决定的
+
+
+[5] int { 2:1,3:2,4:3} 
+长度为5的数组，key:value,其元素值依次为：0，0，1，2，3。在初始化时指定了2，3，4索引中对应的值：1，2，3
+
+[...] int {1,2,3,4,5} 
+长度为5的数组，其元素值依次为：1，2，0，0，0 。在初始化时没有指定初值的元素将会赋值为其元素类型int的默认值0,string的默认值是""
+[...] int {2:1,4:3} 
+长度为5的数组，起元素值依次为：0，0，1，0，3。由于指定了最大索引4对应的值3，根据初始化的元素个数确定其长度为5			
+			]]>
+			</programlisting>
+
+			<programlisting>
 		<![CDATA[
 package main
 
@@ -162,12 +183,14 @@ func main(){
 
 }
 		]]>
-		</programlisting>
+			</programlisting>
+
+		</section>
 	</section>
 	
 	&chapter.struct.xml;
 	&chapter.map.xml;
-	
+
 	<section id="class">
 		<title>class</title>
 		<programlisting>
@@ -210,5 +233,5 @@ func main(){
 	</section>
 	
 	&chapter.json.xml;
-	
+	&chapter.package.xml;
 </chapter>
