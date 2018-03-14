@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!ENTITY chapter.golang.xml		 	SYSTEM "chapter.golang.xml">
+<!ENTITY chapter.json.xml			SYSTEM "chapter.json.xml">
+<!ENTITY chapter.struct.xml 			SYSTEM "chapter.struct.xml">
+<!ENTITY chapter.map.xml 			SYSTEM "chapter.map.xml">
+<!ENTITY chapter.strconv.xml 		SYSTEM "chapter.strconv.xml">

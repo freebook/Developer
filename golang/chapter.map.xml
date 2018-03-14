@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section id="map">
+	<title>定义map类型</title>
+	<programlisting>
+	<![CDATA[
+1.make
+
+var a = make(map[string]int)
+
+a["one"] = 1
+a["two"] = 2
+
+
+b :=map[string]int{
+    "a" : 1,
+    "b" : 2,
+
+删除一个key
+
+delete(b,"a")
+
+注意 b[“a”] 不是一个变量，不能进行取地址操作
+
+循环和数组一样
+
+for k,v :=range b{
+    ...
+}	
+	]]>
+	</programlisting>
+
+
+
+
+
+
+
+	<programlisting>
+<![CDATA[
+package main
+ 
+import(
+    "fmt"
+)
+ 
+func main() {
+    m := map[string]string{"key1":"val1"}
+    fmt.Println(m)
+    m["key2"] = "val2"
+    fmt.Println(m)
+    p := m["key1"]
+    fmt.Println(p)
+    delete(m, "key1")
+    fmt.Println(m)
+ 
+}
+]]>
+	</programlisting>
+
+
+
+	<programlisting>
+<![CDATA[
+type Test struct {
+	Attr map[string]string	`json:"test"`
+}
+func (t *Test) put(key string, value string){
+
+	t.Attr[key] = value
+}
+
+func main(){
+	
+	t := Test{Attr: map[string]string{"key1":"val1","key2":"val2"}}
+	t.put("sss","ddd")
+
+	testJson, _ := json.Marshal(t)
+	fmt.Println(string(testJson))
+
+}
+]]>
+	</programlisting>
+
+</section>

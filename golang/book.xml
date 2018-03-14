@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE subject SYSTEM "/usr/share/xml/docbook/schema/dtd/5.0/docbook.dtd" [
+
+	<!ENTITY homepage "http://netkiller.sf.net/">
+	<!ENTITY mirror "http://netkiller.github.io/">
+
+	<!ENTITY Neo "http://netkiller.sf.net/">
+	<!ENTITY BG7NYT "&Neo;">
+	<!ENTITY Netkiller "<emphasis><trademark>Netkiller</trademark></emphasis>">
+
+	<!ENTITY % common.doctype.entity.xml 		SYSTEM "../../common/doctype.entity.xml">
+	%common.doctype.entity.xml;
+	
+	<!ENTITY book.info.abstract.xml 	SYSTEM "../book.info.abstract.xml">
+
+	<!ENTITY % doctype.entity.xml 			SYSTEM "doctype.entity.xml">
+	%doctype.entity.xml;
+
+]>
+<book xml:base="http://netkiller.github.io/php"
+	xmlns="http://docbook.org/ns/docbook" xml:lang="zh-cn">
+	<info>
+		<title>Netkiller Golang 手札</title>
+		<subtitle>Go Language...</subtitle>
+
+		&book.info.author.xml;
+
+		<copyright>
+			<year>2018</year>
+			<holder>Netkiller(Neo Chan). All rights reserved.</holder>
+		</copyright>
+
+		<publisher>
+			<publishername>Neo</publishername>
+			<address><street></street></address>
+		</publisher>
+		<isbn>ISBN#</isbn>
+		<edition>2013-07-18 从 Developer 分离</edition>
+		<pubdate>$Date: 2018-03-14 00:00:00 +0800 (Fri, 19 Jul 2018) $</pubdate>
+		<releaseinfo>$Id: book.xml 642 2018-03-14 00:00:00Z netkiller $</releaseinfo>
+
+		&book.info.legalnotice.xml;
+		&book.info.abstract.xml;
+
+		<keywordset>
+			<keyword>go</keyword>
+			<keyword>golang</keyword>
+			<keyword>pecl</keyword>
+			<keyword>phar</keyword>
+		</keywordset>
+	</info>
+
+	&book.dedication.xml;
+
+<!-- =========================================================================== -->
+	&book.preface.xml;
+	&chapter.golang.xml;
+<!-- =========================================================================== -->
+
+<!--
+	&book.appendix;
+	&book.history;
+-->
+</book>
