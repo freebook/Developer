@@ -24,7 +24,7 @@ Hello World!!!
 		]]>
 		</screen>
 	</section>
-	<section id="">
+	<section>
 		<title>优化编译参数</title>
 		<programlisting>
 		<![CDATA[
