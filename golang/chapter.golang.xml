@@ -113,8 +113,9 @@ byte 是 uint8 的别名。
 浮点类型的值有 float32 和 float64
 		]]>
 		</programlisting>
-
-		<programlisting>
+		<section id="string">
+			<title>字符串</title>
+			<programlisting>
 		<![CDATA[
 字符串：string 例如："hello world" 或者 `hello world` Go语言的字符串的字节使用UTF-8编码标识Unicode文本。
 
@@ -140,9 +141,34 @@ utf-8包
 unicode包
 提供一些用来检查Unicode码点是否符合主要标准的函数。
 		]]>
-		</programlisting>
+			</programlisting>
+		</section>
+		<section id="float">
+			<title>浮点</title>
+			<programlisting>
+			<![CDATA[
+package main
 
+import "fmt"
+import "strconv"
 
+func FloatToString(input_num float64) string {
+    // to convert a float number to a string
+    return strconv.FormatFloat(input_num, 'f', 2, 64)
+}
+
+func main() {
+	fmt.Println(FloatToString(21312421.213123))
+	fmt.Println(fmt.Sprintf("%.6f", 21312421.213123))
+
+	s := "3.1415926535"
+	v1, _ := strconv.ParseFloat(s, 32)
+	fmt.Println(v1)
+
+}
+			]]>
+			</programlisting>
+		</section>
 		<section id="array">
 			<title>数组</title>
 			<programlisting>
@@ -186,6 +212,59 @@ func main(){
 			</programlisting>
 
 		</section>
+
+		<section>
+			<title>转换</title>
+			<programlisting>
+			<![CDATA[
+(1)int转string
+s := strconv.Itoa(i)
+等价于s := strconv.FormatInt(int64(i), 10)
+
+(2)int64转string
+i := int64(123)
+s := strconv.FormatInt(i, 10)
+第二个参数为基数，可选2~36
+注：对于无符号整形，可以使用FormatUint(i uint64, base int)
+(3)string转int
+i, err := strconv.Atoi(s)
+(4)string转int64
+i, err := strconv.ParseInt(s, 10, 64)
+第二个参数为基数（2~36），第三个参数位大小表示期望转换的结果类型，其值可以为0, 8, 16, 32和64，分别对应 int, int8, int16, int32和int64
+(5)float相关
+float转string：
+v := 3.1415926535
+s1 := strconv.FormatFloat(v, 'E', -1, 32)//float32s2 := strconv.FormatFloat(v, 'E', -1, 64)//float64
+函数原型及参数含义具体可查看：https://golang.org/pkg/strconv/#FormatFloat
+string转float：
+s := "3.1415926535"
+v1, err := strconv.ParseFloat(v, 32)
+v2, err := strconv.ParseFloat(v, 64)
+ PS：go语言string、int、int64互相转换
+//string到int 
+int,err:=strconv.Atoi(string) 
+//string到int64 
+int64, err := strconv.ParseInt(string, 10, 64) 
+//int到string 
+string:=strconv.Itoa(int) 
+//int64到string 
+string:=strconv.FormatInt(int64,10)
+//string到float32(float64)
+float,err := strconv.ParseFloat(string,32/64)
+//float到string
+string := strconv.FormatFloat(float32, 'E', -1, 32)
+string := strconv.FormatFloat(float64, 'E', -1, 64)
+// 'b' (-ddddp±ddd，二进制指数)
+// 'e' (-d.dddde±dd，十进制指数)
+// 'E' (-d.ddddE±dd，十进制指数)
+// 'f' (-ddd.dddd，没有指数)
+// 'g' ('e':大指数，'f':其它情况)
+// 'G' ('E':大指数，'f':其它情况)
+			
+			]]>
+			</programlisting>
+		</section>
+
 	</section>
 	
 	&chapter.struct.xml;

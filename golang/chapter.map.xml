@@ -29,12 +29,6 @@ for k,v :=range b{
 	]]>
 	</programlisting>
 
-
-
-
-
-
-
 	<programlisting>
 <![CDATA[
 package main
@@ -81,4 +75,15 @@ func main(){
 ]]>
 	</programlisting>
 
+	<programlisting>
+	<![CDATA[
+value, ok := myMap[key]
+
+Or in an one line check:
+
+if val, ok := myMap[key]; ok {
+// do something
+}
+	]]>
+	</programlisting>
 </section>
