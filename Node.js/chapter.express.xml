@@ -1,4 +1,400 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <chapter id="express">
 	<title>express</title>
+	<section>
+		<title>安装</title>
+		<screen>
+		<![CDATA[
+neo@MacBook-Pro ~ % mkdir node
+neo@MacBook-Pro ~ % cd node
+neo@MacBook-Pro ~/node % npm install express --save		
+
+neo@MacBook-Pro ~/node % npm list express
+/Users/neo/node
+└── express@4.16.3
+		]]>
+		</screen>
+		<screen>
+		<![CDATA[
+npm install body-parser --save
+npm install cookie-parser --save
+npm install multer --save		
+		]]>
+		</screen>
+		<screen>
+		<![CDATA[
+echo 'node_modules' > .gitignore		
+		]]>
+		</screen>
+		<para>Hello world 测试程序</para>
+		<screen>
+		<![CDATA[
+neo@MacBook-Pro ~/node % cat demo.js 
+var express = require('express');
+var app = express();
+ 
+app.get('/', function (req, res) {
+   res.send('Hello World');
+})
+ 
+var server = app.listen(8080, function () {
+ 
+  var host = server.address().address
+  var port = server.address().port
+ 
+  console.log("应用实例，访问地址为 http://%s:%s", host, port)
+ 
+})		
+		]]>
+		</screen>
+		<para></para>
+		<screen>
+		<![CDATA[
+neo@MacBook-Pro ~/node % node demo.js 
+应用实例，访问地址为 http://:::8080
+		]]>
+		</screen>
+		<para>
+			浏览器访问
+			<ulink url="http://localhost:8080" />
+			将看到 Hello World 字符串
+		</para>
+	</section>
+	<section id="req-res">
+		<title>请求和响应</title>
+		<para>Express 应用使用回调函数的参数： request 和 response 对象来处理请求和响应的数据。</para>
+		<screen>
+		<![CDATA[
+app.get('/', function (req, res) {
+   // --
+})		
+		]]>
+		</screen>
+		<para>request 和 response 对象的具体介绍：</para>
+		<screen>
+		<![CDATA[
+Request 对象 - request 对象表示 HTTP 请求，包含了请求查询字符串，参数，内容，HTTP 头部等属性。常见属性有：
+
+req.app：当callback为外部文件时，用req.app访问express的实例
+req.baseUrl：获取路由当前安装的URL路径
+req.body / req.cookies：获得「请求主体」/ Cookies
+req.fresh / req.stale：判断请求是否还「新鲜」
+req.hostname / req.ip：获取主机名和IP地址
+req.originalUrl：获取原始请求URL
+req.params：获取路由的parameters
+req.path：获取请求路径
+req.protocol：获取协议类型
+req.query：获取URL的查询参数串
+req.route：获取当前匹配的路由
+req.subdomains：获取子域名
+req.accepts()：检查可接受的请求的文档类型
+req.acceptsCharsets / req.acceptsEncodings / req.acceptsLanguages：返回指定字符集的第一个可接受字符编码
+req.get()：获取指定的HTTP请求头
+req.is()：判断请求头Content-Type的MIME类型
+
+
+Response 对象 - response 对象表示 HTTP 响应，即在接收到请求时向客户端发送的 HTTP 响应数据。常见属性有：
+
+res.app：同req.app一样
+res.append()：追加指定HTTP头
+res.set()在res.append()后将重置之前设置的头
+res.cookie(name，value [，option])：设置Cookie
+opition: domain / expires / httpOnly / maxAge / path / secure / signed
+res.clearCookie()：清除Cookie
+res.download()：传送指定路径的文件
+res.get()：返回指定的HTTP头
+res.json()：传送JSON响应
+res.jsonp()：传送JSONP响应
+res.location()：只设置响应的Location HTTP头，不设置状态码或者close response
+res.redirect()：设置响应的Location HTTP头，并且设置状态码302
+res.render(view,[locals],callback)：渲染一个view，同时向callback传递渲染后的字符串，如果在渲染过程中有错误发生next(err)将会被自动调用。callback将会被传入一个可能发生的错误以及渲染后的页面，这样就不会自动输出了。
+res.send()：传送HTTP响应
+res.sendFile(path [，options] [，fn])：传送指定路径的文件 -会自动根据文件extension设定Content-Type
+res.set()：设置HTTP头，传入object可以一次设置多个头
+res.status()：设置HTTP状态码
+res.type()：设置Content-Type的MIME类型		
+		]]>
+		</screen>
+		<section id="express.cookie">
+			<title>cookie 处理</title>
+			<para>查看 Cookie</para>
+			<programlisting>
+			<![CDATA[
+// express_cookie.js 文件
+var express      = require('express')
+var cookieParser = require('cookie-parser')
+var util = require('util');
+ 
+var app = express()
+app.use(cookieParser())
+ 
+app.get('/', function(req, res) {
+    console.log("Cookies: " + util.inspect(req.cookies));
+})			
+			]]>
+			</programlisting>
+		</section>
+	</section>
+	<section id="express.route">
+		<title>路由</title>
+		<para>路由决定了由谁(指定函数)去响应客户端请求</para>
+		<para>路由包含了 GET 和 POST 路由</para>
+		<para>接下来我们扩展 Hello World，添加一些功能来处理更多类型的 HTTP 请求。</para>
+		<screen>
+		<![CDATA[
+//  主页输出 "Hello World"
+app.get('/', function (req, res) {
+   console.log("主页 GET 请求");
+   res.send('Hello GET');
+})
+ 
+ 
+//  POST 请求
+app.post('/', function (req, res) {
+   console.log("主页 POST 请求");
+   res.send('Hello POST');
+})
+
+// 通配符匹配，对页面 ab开头，cd结尾的URL做出 GET 请求响应
+app.get('/ab*cd', function(req, res) {   
+   console.log("/ab*cd GET 请求");
+   res.send('正则匹配');
+})
+		]]>
+		</screen>
+	</section>
+	<section id="express.static">
+		<title>静态文件</title>
+		<para>使用 express.static 来设置静态文件路径。</para>
+		<screen>
+		<![CDATA[
+app.use(express.static('public'));
+		]]>
+		</screen>
+		<para>范例</para>
+		<screen>
+		<![CDATA[
+var express = require('express');
+var app = express();
+
+app.use(express.static('public'));
+ 
+app.get('/', function (req, res) {
+   res.send('Hello World');
+})
+
+var server = app.listen(8080, function () {
+ 
+  var host = server.address().address
+  var port = server.address().port
+ 
+  console.log("应用实例，访问地址为 http://%s:%s", host, port)
+ 
+})
+		]]>
+		</screen>
+		<para>然后在项目目录创建 public/images 放入 logo.png 文件，通过地址 http://127.0.0.1:8080/images/logo.png 访问</para>
+	</section>
+	<section id="express.form">
+		<title>Form 表单处理</title>
+		<para>login.html 文件</para>
+		<programlisting>
+		<![CDATA[
+<html>
+<body>
+	<form action="/login" method="POST">
+	First Name: <input type="text" name="first_name">  <br>
+	Last Name: <input type="text" name="last_name">
+	<input type="submit" value="Submit">
+	</form>
+</body>
+</html>		
+		]]>
+		</programlisting>
+		<para>node 文件</para>
+		<programlisting>
+		<![CDATA[
+var express = require('express');
+var app = express();
+
+app.use(express.static('public'));
+
+app.get('/', function (req, res) {
+   res.send('Hello World');
+})
+
+app.get('/login.html', function (req, res) {
+   res.sendFile( __dirname + "/" + "login.html" );
+})
+ 
+app.post('/login', function (req, res) {
+ 
+   // 输出 JSON 格式
+   var response = {
+       "first_name":req.query.first_name,
+       "last_name":req.query.last_name
+   };
+   console.log(response);
+   res.end(JSON.stringify(response));
+})
+
+var server = app.listen(8080, function () {
+ 
+  var host = server.address().address
+  var port = server.address().port
+ 
+  console.log("应用实例，访问地址为 http://%s:%s", host, port)
+ 
+})
+		]]>
+		</programlisting>
+		<section id="express.upload">
+			<title>上传文件</title>
+			<para>index.html 文件</para>
+			<programlisting>
+			<![CDATA[
+<html>
+<head>
+<title>文件上传表单</title>
+</head>
+<body>
+	<h3>文件上传：</h3>
+	请选择一个文件上传: <br />
+	<form action="/file_upload" method="post" enctype="multipart/form-data">
+		<input type="file" name="image" size="50" />
+		<br />
+		<input type="submit" value="上传文件" />
+	</form>
+</body>
+</html>			
+			]]>
+			</programlisting>
+			<programlisting>
+			<![CDATA[
+var express = require('express');
+var app = express();
+var fs = require("fs");
+ 
+var bodyParser = require('body-parser');
+var multer  = require('multer');
+ 
+app.use(express.static('public'));
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(multer({ dest: '/tmp/'}).array('image'));
+ 
+app.get('/index.html', function (req, res) {
+   res.sendFile( __dirname + "/" + "index.html" );
+})
+ 
+app.post('/file_upload', function (req, res) {
+ 
+   console.log(req.files[0]);  // 上传的文件信息
+ 
+   var des_file = __dirname + "/" + req.files[0].originalname;
+   fs.readFile( req.files[0].path, function (err, data) {
+        fs.writeFile(des_file, data, function (err) {
+         if( err ){
+              console.log( err );
+         }else{
+               response = {
+                   message:'File uploaded successfully', 
+                   filename:req.files[0].originalname
+              };
+          }
+          console.log( response );
+          res.end( JSON.stringify( response ) );
+       });
+   });
+})
+ 
+var server = app.listen(8080, function () {
+ 
+  var host = server.address().address
+  var port = server.address().port
+ 
+  console.log("应用实例，访问地址为 http://%s:%s", host, port)
+ 
+})			
+			]]>
+			</programlisting>
+		</section>
+
+	</section>
+	<section id="express.template">
+		<title>模板</title>
+		<section id="">
+			<title>安装模板</title>
+			<para>安装模板</para>
+			<screen>
+			<![CDATA[
+npm install ejs 		
+			]]>
+			</screen>
+			<screen>
+			<![CDATA[
+var express = require('express');
+var app = express();
+
+app.use(express.static('public'));
+app.set("view engine","ejs");
+app.set('views', __dirname + '/views');  		
+			]]>
+			</screen>
+			
+		</section>
+		<section>
+			<title>配置模板</title>
+			<section>
+				<title>闭合标签</title>
+				<para>ejs 里，默认的闭合标记是 <![CDATA[ <% ... %> ]]>，我们也可以定义自己的标签。例如：</para>
+				<programlisting>
+				<![CDATA[
+
+app.set("view options",{  
+   "open":"{{",  
+   "close":"}}"  
+}); 				
+				]]>
+				</programlisting>
+				
+			</section>
+		</section>
+		<section>
+			<title>传递变量</title>
+			<para>创建模板</para>
+			<screen>
+			<![CDATA[
+neo@MacBook-Pro ~/web3.example % mkdir view
+neo@MacBook-Pro ~/web3.example % vim view/account.ejs			
+			]]>
+			</screen>
+			<para>传递变量</para>
+			<programlisting>
+			<![CDATA[
+app.get('/account.html', function (req, res) {
+	var accounts = [ '0xB94054c174995AE2A9E7fcf6c7924635FBa8ECF7',
+					  '0xf56b81a2bcb964D2806071e9Be4289A5559BB0fA',
+					  '0x997e5CA600E19447D0B82aFBf9c7F00De2B39B16',
+					  '0x538b392D57d867A57eE8Eed05737cB08B4691302' ];
+	res.render("account",{"accounts":accounts});
+})
+			]]>
+			</programlisting>
+			<para>res.render("模板文件",{"key":value});</para>
+		</section>
+		<section>
+			<title>forEach</title>
+			<programlisting>
+			<![CDATA[
+<h1>Users</h1>
+<ul id="accounts">
+    <% accounts.forEach(function(account, index){ %>
+    <li><%= index %>, <%= account %></li>
+    <% }) %>
+</ul>
+			
+			]]>
+			</programlisting>
+		</section>
+	</section>
 </chapter>

@@ -83,6 +83,14 @@ elements.forEach(function(element){
 });
 			]]>
 			</screen>
+			<screen>
+			<![CDATA[
+var a = ["a", "b", "c"];
+a.forEach(function(entry) {
+    console.log(entry);
+});			
+			]]>
+			</screen>
 		</section>
 	</section>
 </chapter>

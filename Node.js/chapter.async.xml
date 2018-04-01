@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section id="node.async">
+	<title>async</title>
+	<para></para>
+	<screen>
+	<![CDATA[
+% npm install async	
+	]]>
+	</screen>
+	<section>
+		<title>顺序执行</title>
+		<programlisting>
+		<![CDATA[
+async.series({
+	one: function(callback){
+		callback(null, 1);
+	},
+	two: function(callback){
+		callback(null, 2);
+	}
+},function(err, results) {
+	console.log(results);
+});		
+		]]>
+		</programlisting>
+	</section>
+</section>
