@@ -135,33 +135,68 @@ app.get('/', function(req, res) {
 			</programlisting>
 		</section>
 	</section>
-	<section id="express.route">
+	<section id="express.url">
 		<title>路由</title>
 		<para>路由决定了由谁(指定函数)去响应客户端请求</para>
 		<para>路由包含了 GET 和 POST 路由</para>
 		<para>接下来我们扩展 Hello World，添加一些功能来处理更多类型的 HTTP 请求。</para>
-		<screen>
-		<![CDATA[
+		<section id="url.get">
+			<title></title>
+			<programlisting>
+			<![CDATA[
 //  主页输出 "Hello World"
 app.get('/', function (req, res) {
    console.log("主页 GET 请求");
    res.send('Hello GET');
 })
- 
- 
+			]]>
+			</programlisting>
+		</section>
+		<section id="url.post">
+			<title></title>
+			<programlisting>
+			<![CDATA[
 //  POST 请求
 app.post('/', function (req, res) {
    console.log("主页 POST 请求");
    res.send('Hello POST');
 })
 
+			]]>
+			</programlisting>
+		</section>
+		<section id="">
+			<title></title>
+			<programlisting>
+			<![CDATA[
 // 通配符匹配，对页面 ab开头，cd结尾的URL做出 GET 请求响应
 app.get('/ab*cd', function(req, res) {   
    console.log("/ab*cd GET 请求");
    res.send('正则匹配');
 })
-		]]>
-		</screen>
+			]]>
+			</programlisting>
+		</section>
+		<section>
+			<title>express.Router()</title>
+			<programlisting>
+			<![CDATA[
+var express    = require('express');
+var app        = express();  
+var router = express.Router();
+
+
+router.get('/', function(req, res) {
+    res.json({ "status": true, message: 'welcome to ethereum api!' });   
+});
+
+app.use('/api', router);
+
+var port = process.env.PORT || 8080;  
+app.listen(port);
+			]]>
+			</programlisting>
+		</section>
 	</section>
 	<section id="express.static">
 		<title>静态文件</title>
@@ -340,13 +375,15 @@ app.set("view engine","ejs");
 app.set('views', __dirname + '/views');  		
 			]]>
 			</screen>
-			
+
 		</section>
 		<section>
 			<title>配置模板</title>
 			<section>
 				<title>闭合标签</title>
-				<para>ejs 里，默认的闭合标记是 <![CDATA[ <% ... %> ]]>，我们也可以定义自己的标签。例如：</para>
+				<para>ejs
+					里，默认的闭合标记是 <![CDATA[ <% ... %> ]]>，我们也可以定义自己的标签。例如：
+				</para>
 				<programlisting>
 				<![CDATA[
 
@@ -356,7 +393,7 @@ app.set("view options",{
 }); 				
 				]]>
 				</programlisting>
-				
+
 			</section>
 		</section>
 		<section>
