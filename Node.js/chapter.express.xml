@@ -60,6 +60,35 @@ neo@MacBook-Pro ~/node % node demo.js
 			将看到 Hello World 字符串
 		</para>
 	</section>
+	<section>
+		<title>配置</title>
+		<section>
+			<title>监听 0.0.0.0 地址</title>
+			<para>默认系统监听 127.0.0.1</para>
+			<programlisting>
+			<![CDATA[
+var port = process.env.PORT || 8000;  
+app.listen(port, '0.0.0.0');
+			]]>
+			</programlisting>
+		</section>
+		<section>
+			<title>跨区请求</title>
+			<programlisting>
+			<![CDATA[
+var allowCrossDomain = function(req, res, next) {
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+    res.header('Access-Control-Allow-Headers', 'Content-Type');
+
+    next();
+}
+
+app.use(allowCrossDomain);
+			]]>
+			</programlisting>
+		</section>
+	</section>
 	<section id="req-res">
 		<title>请求和响应</title>
 		<para>Express 应用使用回调函数的参数： request 和 response 对象来处理请求和响应的数据。</para>
