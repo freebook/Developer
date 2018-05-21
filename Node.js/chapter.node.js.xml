@@ -241,7 +241,44 @@ $ pm2 logs project --lines 100
 		</section>
 	</section>
 	<section>
+		<title>Type</title>
+		<section>
+			<title>String</title>
+			<screen>
+			<![CDATA[
+var a = "I want apple";
+var b = "an";
+var position = 6;
+var output = [a.slice(0, position), b, a.slice(position)].join('');
+console.log(output);
+
+var n = "123456780";
+var dot = ".";
+var decimals = 4 * -1;
+var output = [n.slice(0, decimals), dot, n.slice(decimals)].join('');
+console.log(Number(output));
+			]]>
+			</screen>
+		</section>
+	</section>
+	<section>
 		<title>Loop</title>
+		<section id="for">
+			<title>for json map</title>
+			<screen>
+			<![CDATA[
+const contracts = {
+    'EOS':'0x86fa049857e0209aa7d9e616f7eb3b3b78ecfdb0',
+    'FBC':'0x0c6df9bb12b32aeec1e117936457ed83ad8a1c70',
+    'USDT':''
+};
+
+for(let symbol in contracts) {  
+    console.log(symbol,contracts[symbol]);  
+} 			
+			]]>
+			</screen>
+		</section>
 		<section>
 			<title>forEach</title>
 			<screen>
@@ -261,6 +298,37 @@ var a = ["a", "b", "c"];
 a.forEach(function(entry) {
     console.log(entry);
 });			
+			]]>
+			</screen>
+		</section>
+	</section>
+	<section>
+		<title>数据结构</title>
+		<section>
+			<title>set</title>
+			<screen>
+			<![CDATA[
+var set = new Set();  
+set.add("a").add("b").add("d").add("c");  
+  
+for (let v of set) {  
+    console.log(v);  
+} 			
+			]]>
+			</screen>
+		</section>
+		<section>
+			<title>map</title>
+			<screen>
+			<![CDATA[
+
+var map = new Map();  
+map.set("a",1).set("b",2).set(999,3);  
+  
+console.log("--------------------");  
+for(let [k,v] of map) {  
+    console.log(k,v);  
+} 
 			]]>
 			</screen>
 		</section>
