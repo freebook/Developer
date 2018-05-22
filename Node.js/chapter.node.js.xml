@@ -260,6 +260,36 @@ console.log(Number(output));
 			]]>
 			</screen>
 		</section>
+		<section>
+			<title>Number</title>
+			<screen>
+			<![CDATA[
+var number = Number("1000000");
+console.log(number);
+			]]>
+			</screen>
+		</section>
+		<section>
+			<title>BigNumber</title>
+			<para>http://mikemcl.github.io/bignumber.js/</para>
+			<programlisting>
+			<![CDATA[
+const BigNumber = require('bignumber.js');
+
+// 93774367102000000000 - 378000000000000 = 93773989102000010000
+
+x = new BigNumber(93774367102000000000);
+y = new BigNumber(378000000000000);
+z = x.minus(y);	
+z.toString();
+
+n = 3.456
+n = new BigNumber(x)
+n.toFixed(5)
+n.toFixed(10)
+			]]>
+			</programlisting>
+		</section>
 	</section>
 	<section>
 		<title>Loop</title>
