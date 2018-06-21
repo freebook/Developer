@@ -102,4 +102,20 @@ pdo_mysql.default_socket => /tmp/mysql.sock => /tmp/mysql.sock
 systemctl restart php-fpm		
 		</screen>
 	</section>
+	<section>
+		<title>configure: error: wrong mysql library version or lib not found. Check config.log for more information.	</title>
+		<para>编译安装 PHP 7.2 提出</para>
+		<screen>
+		<![CDATA[
+checking for mysql_set_server_option in -lmysqlclient_r... no
+configure: error: wrong mysql library version or lib not found. Check config.log for more information.		
+		]]>
+		</screen>
+		<para>解决方案，编译 mysqli 需要安装 mysql 客户端</para>
+		<screen>
+		<![CDATA[
+yum install mysql-community-client -y
+		]]>
+		</screen>
+	</section>
 </chapter>
