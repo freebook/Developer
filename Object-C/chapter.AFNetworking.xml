@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<chapter id="AFNetWorking">
+	<title>AFNetWorking 3.0</title>
+	<section id="">
+		<title></title>
+		<section id="appendPartWithFileData">
+			<title>appendPartWithFileData 方式</title>
+			<programlisting>
+			<![CDATA[
+- (void)uploadImage{
+    NSURL *baseURL = [NSURL URLWithString:@"http://127.0.0.1:8080"];
+    AFHTTPSessionManager *manager = [[AFHTTPSessionManager alloc] initWithBaseURL:baseURL];
+    manager.responseSerializer = [AFJSONResponseSerializer serializer];
+    manager.requestSerializer = [AFHTTPRequestSerializer serializer];
+    [manager.requestSerializer setAuthorizationHeaderFieldWithCredential:self.credential];
+    
+    [manager POST:@"/ipfs/single" parameters:nil constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+                      
+            NSURL *fileUrl = [[NSBundle mainBundle] URLForResource:@"test" withExtension:@"png"];
+            NSData *imageData = [NSData dataWithContentsOfURL:fileUrl];
+            [formData appendPartWithFileData:imageData name:@"file" fileName:@"test.png" mimeType:@"image/png"];
+        
+       }
+       progress:nil
+          success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+              NSLog(@"Success: %@", responseObject);
+          }
+          failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+              NSLog(@"Failure: %@ %@", error,task);
+          }];
+    
+}		
+			]]>
+			</programlisting>
+		</section>
+		<section id="appendPartWithFileURL">
+			<title>appendPartWithFileURL</title>
+			<programlisting>
+			<![CDATA[
+- (void)uploadImage{
+    NSURL *baseURL = [NSURL URLWithString:@"http://127.0.0.1:8080"];
+    AFHTTPSessionManager *manager = [[AFHTTPSessionManager alloc] initWithBaseURL:baseURL];
+    manager.responseSerializer = [AFJSONResponseSerializer serializer];
+    manager.requestSerializer = [AFHTTPRequestSerializer serializer];
+    [manager.requestSerializer setAuthorizationHeaderFieldWithCredential:self.credential];
+    
+    [manager POST:@"/ipfs/single" parameters:nil constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+                      
+           NSURL *fileUrl = [[NSBundle mainBundle] URLForResource:@"test" withExtension:@"png"];
+           [formData appendPartWithFileURL:fileUrl name:@"file"fileName:@"test.png" mimeType:@"image/png" error:nil];
+        
+       }
+         progress:nil
+          success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+              NSLog(@"Success: %@", responseObject);
+          }
+          failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+              NSLog(@"Failure: %@ %@", error,task);
+          }];
+    
+}			
+			]]>
+			</programlisting>
+		</section>
+		<section id="">
+			<title>上传 MP4</title>
+			<tip>注意 NSBundle 不支持视频文件：<para>NSURL *fileUrl = [[NSBundle mainBundle] URLForResource:@"test" withExtension:@"png"];</para></tip>
+			<programlisting>
+			<![CDATA[
+- (void)uploadImage{
+    NSURL *baseURL = [NSURL URLWithString:@"http://127.0.0.1:8080"];
+    AFHTTPSessionManager *manager = [[AFHTTPSessionManager alloc] initWithBaseURL:baseURL];
+    manager.responseSerializer = [AFJSONResponseSerializer serializer];
+    manager.requestSerializer = [AFHTTPRequestSerializer serializer];
+    [manager.requestSerializer setAuthorizationHeaderFieldWithCredential:self.credential];
+    
+    [manager POST:@"/ipfs/single" parameters:nil constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+            NSURL *filePath = [NSURL fileURLWithPath:@"/Users/neo/Downloads/1536900372401089.mp4"];
+            [formData appendPartWithFileURL:filePath name:@"file" fileName:@"test.mp4" mimeType:@"video/mp4" error:nil];
+       }
+         progress:nil
+          success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+              NSLog(@"Success: %@", responseObject);
+          }
+          failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+              NSLog(@"Failure: %@ %@", error,task);
+          }];
+}
+			]]>
+			</programlisting>
+		</section>
+	</section>
+</chapter>

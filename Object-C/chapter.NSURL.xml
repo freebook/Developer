@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<chapter id="NSURL">
+	<title>NSURL</title>
+	<section id="">
+		<title>NSBundle</title>
+		<programlisting>
+		<![CDATA[
+NSURL *fileUrl = [[NSBundle mainBundle] URLForResource:@"test" withExtension:@"png"];
+		]]>
+		</programlisting>
+	</section>
+	<section id="">
+		<title>fileURLWithPath</title>
+		<programlisting>
+	<![CDATA[
+NSURL *filePath = [NSURL fileURLWithPath:@"/Users/neo/Downloads/1536900372401089.mp4"];	
+	]]>
+		</programlisting>
+	</section>
+
+</chapter>
