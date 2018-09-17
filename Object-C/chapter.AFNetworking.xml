@@ -1,20 +1,132 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <chapter id="AFNetWorking">
 	<title>AFNetWorking 3.0</title>
-	<section id="AFNetWorking.restful">
-		<title>Restful</title>
+	<section id="oauth2">
+		<title>Oauth2 + Jwt 认证</title>
+		<para>Config.h</para>
+		<programlisting>
+		<![CDATA[
+#define BASE_URL              @"http://api.netkiller.cn:8080"
+#define CLIENTID              @"api"
+#define SECRET                @"secret"
+#define OAUTH_TOKEN           @"/oauth/token"
+#define OAUTH_USERNAME        @"blockchain"
+#define OAUTH_PASSWORD        @"123456"		
+		]]>
+		</programlisting>
+		<para>AppDelegate.m</para>
+		<programlisting>
+		<![CDATA[
+#import "AppDelegate.h"
+#import "YTKNetworkConfig.h"
+#import "AFOAuth2Manager.h"
+#import <AFNetworking.h>
+#import "Config.h"		
+		
+@interface AppDelegate ()
+@property (nonatomic, strong) AFOAuthCredential *credential;
+@property (nonatomic, strong) AFOAuth2Manager *OAuth2Manager;
+@end
+
+@implementation AppDelegate
+
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+   
+    //授权
+    NSURL *url = [NSURL URLWithString:BASE_URL];
+    
+    AFOAuth2Manager *OAuth2Manager = [[AFOAuth2Manager alloc]initWithBaseURL:url clientID:CLIENTID secret:SECRET];
+    self.OAuth2Manager = OAuth2Manager;
+    [OAuth2Manager authenticateUsingOAuthWithURLString:OAUTH_TOKEN
+                                              username:OAUTH_USERNAME
+                                              password:OAUTH_PASSWORD
+                                                 scope:@""
+    success:^(AFOAuthCredential *credential) {
+      // NSLog(@"********请求OauthToek成功***********");
+            self.credential = credential;
+//          [self testPost];
+//          [self testGet];
+//            [self uploadImage];
+        [self testJson];
+    }
+    failure:^(NSError *error) {
+     //  NSLog(@"********请求OauthToekn失败begin***********\r\n%@\r\n*********请求OauthToekn失败end************",error);
+    }];
+    // Override point for customization after application launch.
+    return YES;
+}
+
+@end
+
+		]]>
+		</programlisting>
+	</section>
+	<section id="">
+		<title></title>
+		<programlisting>
+		<![CDATA[
+- (void)testJson{
+    NSURL *baseURL = [NSURL URLWithString:@"http://api.netkiller.cn:8080"];
+    AFHTTPSessionManager *manager = [[AFHTTPSessionManager alloc] initWithBaseURL:baseURL];
+    manager.responseSerializer = [AFJSONResponseSerializer serializer];
+    [manager.requestSerializer setAuthorizationHeaderFieldWithCredential:self.credential];
+    
+    [manager GET:@"/member/list"
+      parameters:nil
+        progress:nil
+         success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+             NSLog(@"Success: %@", responseObject);
+         }
+         failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+             NSLog(@"Failure: %@", error);
+         }];
+}		
+		]]>
+		</programlisting>
+	</section>
+	<section id="">
+		<title></title>
+		<programlisting>
+		<![CDATA[
+- (void)testPost{
+    NSURL *baseURL = [NSURL URLWithString:@"http://api.netkiller.cn:8080"];
+    AFHTTPSessionManager *manager = [[AFHTTPSessionManager alloc] initWithBaseURL:baseURL];
+    manager.responseSerializer = [AFJSONResponseSerializer serializer];
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    [manager.requestSerializer setAuthorizationHeaderFieldWithCredential:self.credential];
+
+    NSDictionary *dict = @{@"mobile":@"13113676543",
+                          @"password":@"123456",
+                          @"role":@"Organization"
+                          };
+   
+    [manager POST:@"/member/create" parameters:dict
+        progress:nil
+         success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+             NSLog(@"Success: %@", responseObject);
+         }
+         failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+             NSLog(@"Failure: %@ %@", error,task);
+         }];
+    
+}		
+		]]>
+		</programlisting>
+	</section>
+	<section id="AFNetWorking.upload">
+		<title>上传文件</title>
 		<section id="appendPartWithFileData">
 			<title>appendPartWithFileData 方式</title>
 			<programlisting>
 			<![CDATA[
 - (void)uploadImage{
-    NSURL *baseURL = [NSURL URLWithString:@"http://127.0.0.1:8080"];
+    NSURL *baseURL = [NSURL URLWithString:@"http://api.netkiller.cn:8080"];
     AFHTTPSessionManager *manager = [[AFHTTPSessionManager alloc] initWithBaseURL:baseURL];
     manager.responseSerializer = [AFJSONResponseSerializer serializer];
     manager.requestSerializer = [AFHTTPRequestSerializer serializer];
     [manager.requestSerializer setAuthorizationHeaderFieldWithCredential:self.credential];
     
-    [manager POST:@"/ipfs/single" parameters:nil constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+    [manager POST:@"/upload/single" parameters:nil constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
                       
             NSURL *fileUrl = [[NSBundle mainBundle] URLForResource:@"test" withExtension:@"png"];
             NSData *imageData = [NSData dataWithContentsOfURL:fileUrl];
@@ -38,13 +150,13 @@
 			<programlisting>
 			<![CDATA[
 - (void)uploadImage{
-    NSURL *baseURL = [NSURL URLWithString:@"http://127.0.0.1:8080"];
+    NSURL *baseURL = [NSURL URLWithString:@"http://api.netkiller.cn:8080"];
     AFHTTPSessionManager *manager = [[AFHTTPSessionManager alloc] initWithBaseURL:baseURL];
     manager.responseSerializer = [AFJSONResponseSerializer serializer];
     manager.requestSerializer = [AFHTTPRequestSerializer serializer];
     [manager.requestSerializer setAuthorizationHeaderFieldWithCredential:self.credential];
     
-    [manager POST:@"/ipfs/single" parameters:nil constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+    [manager POST:@"/upload/single" parameters:nil constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
                       
            NSURL *fileUrl = [[NSBundle mainBundle] URLForResource:@"test" withExtension:@"png"];
            [formData appendPartWithFileURL:fileUrl name:@"file"fileName:@"test.png" mimeType:@"image/png" error:nil];
@@ -68,13 +180,13 @@
 			<programlisting>
 			<![CDATA[
 - (void)uploadImage{
-    NSURL *baseURL = [NSURL URLWithString:@"http://127.0.0.1:8080"];
+    NSURL *baseURL = [NSURL URLWithString:@"http://api.netkiller.cn:8080"];
     AFHTTPSessionManager *manager = [[AFHTTPSessionManager alloc] initWithBaseURL:baseURL];
     manager.responseSerializer = [AFJSONResponseSerializer serializer];
     manager.requestSerializer = [AFHTTPRequestSerializer serializer];
     [manager.requestSerializer setAuthorizationHeaderFieldWithCredential:self.credential];
     
-    [manager POST:@"/ipfs/single" parameters:nil constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+    [manager POST:@"/upload/single" parameters:nil constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
             NSURL *filePath = [NSURL fileURLWithPath:@"/Users/neo/Downloads/1536900372401089.mp4"];
             [formData appendPartWithFileURL:filePath name:@"file" fileName:@"test.mp4" mimeType:@"video/mp4" error:nil];
        }
