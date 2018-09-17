@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <chapter id="NSData">
 	<title>NSData</title>
-	<section id="">
-		<title></title>
+	<section id="dataWithContentsOfURL">
+		<title>dataWithContentsOfURL</title>
 		<programlisting>
 		<![CDATA[
 	NSURL *fileUrl = [[NSBundle mainBundle] URLForResource:@"test" withExtension:@"png"];
@@ -10,8 +10,8 @@
 		]]>
 		</programlisting>
 	</section>
-	<section id="">
-		<title></title>
+	<section id="dataWithContentsOfFile">
+		<title>dataWithContentsOfFile</title>
 		<programlisting>
 		<![CDATA[
 	NSData *imageData = [NSData dataWithContentsOfFile:fileUrl];		

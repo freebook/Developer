@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <chapter id="AFNetWorking">
 	<title>AFNetWorking 3.0</title>
-	<section id="">
-		<title></title>
+	<section id="AFNetWorking.restful">
+		<title>Restful</title>
 		<section id="appendPartWithFileData">
 			<title>appendPartWithFileData 方式</title>
 			<programlisting>
