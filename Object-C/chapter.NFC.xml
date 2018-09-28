@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<chapter id="NFC">
+	<title>NFC</title>
+	<screen>
+	<![CDATA[
+https://developer.apple.com/documentation/corenfc
+https://developer.apple.com/documentation/corenfc/building_an_nfc_tag_reader_app	
+https://developer.apple.com/documentation/corenfc/adding_support_for_background_tag_reading	
+	]]>
+	</screen>
+	<section id="NFC.URLScheme">
+		<title>URL Scheme</title>
+		<para>Example</para>
+		<screen>
+		<![CDATA[
+Website URL (HTTP/HTTPS)
+https://www.example.com
+
+Email
+mailto:user@example.com
+
+SMS
+sms:+14085551212
+
+Telephone
+tel:+14085551212
+
+FaceTime
+facetime://user@example.com
+
+FaceTime Audio
+facetime-audio://user@example.com
+
+Maps
+http://maps.apple.com/?address=Apple%20Park,Cupertino,California
+
+HomeKit Accessory Setup
+X-HM://12345		
+		]]>
+		</screen>
+	</section>
+</chapter>
