@@ -59,15 +59,15 @@ True
 				<title>str.find()</title>
 				<para>找到字符，返回字符串位置。没有找到返回 -1</para>
 				<screen>
-"aaa bbb ccc".find('aaa')
+					"aaa bbb ccc".find('aaa')
 				</screen>
 			</section>
 			<section id="str.replace">
 				<title>str.find()</title>
 				<para>查找并替换字符串</para>
 				<screen>
-a = 'hello word'
-a.replace('word','python')
+					a = 'hello word'
+					a.replace('word','python')
 				</screen>
 			</section>
 		</section>
@@ -102,8 +102,8 @@ To alter from str to bytes, capitalize on str.encode().
 		<section>
 			<title>String format</title>
 			<para>
-strHello = "the length of (%s) is %d" %('Hello World',len('Hello World'))
-print strHello
+				strHello = "the length of (%s) is %d" %('Hello World',len('Hello World'))
+				print strHello
 			</para>
 		</section>
 	</section>
@@ -112,13 +112,13 @@ print strHello
 		<section>
 			<title>split / join </title>
 			<screen>
->>> str = 'a|b|c|d|e'
->>> str.split("|")
-['a', 'b', 'c', 'd', 'e']
+				>>> str = 'a|b|c|d|e'
+				>>> str.split("|")
+				['a', 'b', 'c', 'd', 'e']
 
->>> list = ['a', 'b', 'c', 'd', 'e']
->>> "|".join(list)
-'a|b|c|d|e'
+				>>> list = ['a', 'b', 'c', 'd', 'e']
+				>>> "|".join(list)
+				'a|b|c|d|e'
 			</screen>
 		</section>
 	</section>
@@ -127,8 +127,8 @@ print strHello
 		<section>
 			<title>datetime</title>
 			<screen>
-from datetime import datetime
-datetime.today().strftime('%Y-%m-%d.%H:%M:%S')
+				from datetime import datetime
+				datetime.today().strftime('%Y-%m-%d.%H:%M:%S')
 			</screen>
 		</section>
 	</section>
@@ -143,25 +143,25 @@ datetime.today().strftime('%Y-%m-%d.%H:%M:%S')
 		<section>
 			<title>BOM头</title>
 			<screen>
-BOM          : fffe
-BOM_BE       : feff
-BOM_LE       : fffe
-BOM_UTF8     : efbb bf
-BOM_UTF16    : fffe
-BOM_UTF16_BE : feff
-BOM_UTF16_LE : fffe
-BOM_UTF32    : fffe 0000
-BOM_UTF32_BE : 0000 feff
-BOM_UTF32_LE : fffe 0000
+				BOM : fffe
+				BOM_BE : feff
+				BOM_LE : fffe
+				BOM_UTF8 : efbb bf
+				BOM_UTF16 : fffe
+				BOM_UTF16_BE : feff
+				BOM_UTF16_LE : fffe
+				BOM_UTF32 : fffe 0000
+				BOM_UTF32_BE : 0000 feff
+				BOM_UTF32_LE : fffe 0000
 			</screen>
 		</section>
 		<section>
 			<title>replace</title>
 			<para>bytes类型的数据，替换方法，不要忘记b""</para>
 			<programlisting>
-a = b"abc"
-b = a.replace(b"a", b"f")
-print(b)
+				a = b"abc"
+				b = a.replace(b"a", b"f")
+				print(b)
 			</programlisting>
 		</section>
 		<section>
@@ -171,6 +171,44 @@ print(b)
 
 
 			]]>
+			</programlisting>
+		</section>
+	</section>
+	<section>
+		<title>数据结构</title>
+		<section>
+			<title>Set</title>
+
+			<programlisting>
+		<![CDATA[
+>>> set = {'a','b','c'}
+>>> set
+set(['a', 'c', 'b'])
+
+>>> set = {"one", "two", "three","one"}
+>>> set
+set(['three', 'two', 'one'])		
+		]]>
+			</programlisting>
+			<programlisting>
+		<![CDATA[
+>>> set.add('four')
+>>> set
+set(['four', 'three', 'two', 'one'])
+		]]>
+			</programlisting>
+			<programlisting>
+		<![CDATA[
+>>> ','.join(set);
+'four,three,two,one'
+
+>>> set('four,three,two,one'.split(','));
+{'one', 'four', 'three', 'two'}
+
+>>> fruit = [ 'banana', 'orange', 'pineapple' ]
+>>> set(fruit)
+{'banana', 'pineapple', 'orange'}		
+		]]>
 			</programlisting>
 		</section>
 	</section>
