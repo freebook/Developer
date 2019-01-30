@@ -124,6 +124,10 @@ self.selenium = selenium(
 	<title>WEBDRIVER</title>
 	<para><ulink url="http://code.google.com/p/webdriver/wiki/GettingStarted">http://code.google.com/p/webdriver/wiki/GettingStarted</ulink></para>
 </section>
+<section id="Codeception">
+	<title>Codeception</title>
+	<para><ulink url="http://codeception.com" /></para>
+</section>
 <section id="behat">
 	<title>Behat</title>
 	<ulink url="https://github.com/Behat">https://github.com/Behat</ulink>
