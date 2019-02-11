@@ -56,6 +56,13 @@ sudo apt-get install php5-fpm
 		</section>
 		<section>
 			<title>Mac</title>
+			<screen>
+			<![CDATA[
+brew install php@7.3
+brew services start php			
+			]]>
+			</screen>
+			
 			<section>
 				<title>pecl</title>
 				<screen>
