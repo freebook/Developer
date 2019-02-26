@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<chapter id="Puppeteer">
-	<title>Puppeteer</title>
-	<para>Puppeteer 是由谷歌官方团队所开发维护的一个 node 库，它提供了一组用来操纵 Chrome 或 Chromium(即无 UI 的 Chrome) 浏览器的 API。</para>
-	<para>Puppeteer 的直译意思为傀儡师，意在我们可以通过 Puppeteer 来像操纵傀儡一样操纵浏览器去获取我们特定想要的信息。</para>
-	
-	<!-- https://segmentfault.com/a/1190000014403160 -->
-	<!-- https://developers.google.com/web/tools/puppeteer/get-started -->
-</chapter>
