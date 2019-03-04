@@ -228,7 +228,7 @@ php-config --extension-dir
 		<title>Eclipse PDT</title>
 		<para>http://projects.eclipse.org/projects/tools.pdt</para>
 	</section>
-	
+	&section.php.phar.xml;
 </chapter>
 
 	&chapter.language.xml;

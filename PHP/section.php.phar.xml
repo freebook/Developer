@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section id="php.phar">
+	<title>Phar</title>
+	<section>
+		<title>创建 .phar </title>
+		<screen>
+		<![CDATA[
+neo@ubuntu:~/php$ sudo apt install php7.2-cli		
+		]]>
+		</screen>
+	</section>
+</section>

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 	<!ENTITY part.php.xml		 				SYSTEM "part.php.xml">
 	<!ENTITY chapter.php.xml		 			SYSTEM "chapter.php.xml">
+	<!ENTITY section.php.phar.xml	 			SYSTEM "section.php.phar.xml">
 	<!ENTITY chapter.function.xml				SYSTEM "chapter.function.xml">
 	<!ENTITY chapter.php.class.xml	 			SYSTEM "chapter.php.class.xml">
 	
