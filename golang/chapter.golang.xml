@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <chapter id="golang">
 	<title>golang</title>
+	<section id="go.install">
+		<title>安装</title>
+		<screen>
+		<![CDATA[
+sudo snap install go		
+		]]>
+		</screen>
+	</section>
 	<section id="helloword">
 		<title>helloword</title>
 		<programlisting>

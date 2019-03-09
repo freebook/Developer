@@ -1,22 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <chapter id="ruby">
 	<title>Ruby</title>
-	<screen>
-sudo apt-get install ruby1.9.1
-	</screen>
-	<section id="rubygems">
-		<title>rubygems</title>
+	<section>
+		<title>Ubuntu ruby 1.9.1</title>
 		<screen>
+		<![CDATA[
+sudo apt-get install ruby1.9.1
+		]]>
+		</screen>
+		<section id="rubygems">
+			<title>rubygems</title>
+			<screen>
+			<![CDATA[
 wget http://production.cf.rubygems.org/rubygems/rubygems-1.6.2.tgz
 tar zxvf rubygems-1.6.2.tgz
 cd rubygems-1.6.2/
 sudo  ruby setup.rb
 # gem1.8
-		</screen>
-		<para>ubuntu</para>
-		<screen>
+			]]>
+			</screen>
+			<para>ubuntu</para>
+			<screen>
+			<![CDATA[
 $ sudo apt-get install ruby1.9.1
 $ sudo apt-get install rubygems1.8
+			]]>
+			</screen>
+		</section>
+	</section>
+	<section>
+		<title>sanp 安装</title>
+		<screen>
+		<![CDATA[
+ln -s /var/lib/snapd/snap /snap
+snap install ruby --classic
+/snap/bin/ruby -v
+		]]>
 		</screen>
 	</section>
 </chapter>
@@ -26,6 +45,8 @@ $ sudo apt-get install rubygems1.8
 		<title>String</title>
 		<para></para>
 		<screen>
+		<![CDATA[
+		]]>
 		</screen>
 	</section>
 	<section>
@@ -65,6 +86,8 @@ puts Time.now.strftime("%x %I:%M %p")
 	<section id="array">
 		<title>Array</title>
 		<screen>
+		<![CDATA[
+		]]>
 		</screen>
 	</section>
 </chapter>
@@ -75,7 +98,9 @@ puts Time.now.strftime("%x %I:%M %p")
 	<section>
 		<title>no such file to load — mkmf</title>
 		<screen>
+		<![CDATA[
 sudo apt-get install ruby-dev
+		]]>
 		</screen>
 	</section>
 </chapter>
