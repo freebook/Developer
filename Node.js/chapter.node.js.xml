@@ -55,6 +55,7 @@ npm install --registry=https://registry.npm.taobao.org
 			</screen>
 		</section>
 	</section>
+	&section.yarn.xml;
 	<section id="pm2">
 		<title>pm2</title>
 		<subtitle>Production process manager for Node.js apps with a built-in load balancer http://pm2.io</subtitle>

@@ -37,6 +37,12 @@ snap install ruby --classic
 /snap/bin/ruby -v
 		]]>
 		</screen>
+		<screen>
+		<![CDATA[
+PATH=/snap/bin:$PATH
+/snap/bin/gem install rails		
+		]]>
+		</screen>
 	</section>
 </chapter>
 <chapter id="ruby.syntax">
