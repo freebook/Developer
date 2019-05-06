@@ -10,7 +10,7 @@ $ sudo apt-get install nodejs
 $ sudo apt-get install npm
 		</screen>		
 	</section>
-	<section id="">
+	<section id="node9">
 		<title>Ubuntu Node.js 9.x</title>
 		<screen>
 		<![CDATA[
@@ -26,6 +26,28 @@ sudo apt-get install -y build-essential
 [root@netkiller www]# yum install -y nodejs
 [root@netkiller www]# node --version
 v6.9.1
+		</screen>
+	</section>
+	<section>
+		<title>Mac</title>
+		<para>Node</para>
+		<screen>
+		<![CDATA[
+neo@MacBook-Pro ~ % brew install node
+neo@MacBook-Pro ~ % node -v
+v12.1.0
+		]]>
+		</screen>
+		<para>Node8</para>
+		<screen>
+		<![CDATA[
+neo@MacBook-Pro ~ % brew install node@8		
+		
+neo@MacBook-Pro ~ % export PATH="/usr/local/opt/node@8/bin:$PATH"
+
+neo@MacBook-Pro ~ % node -v
+v8.16.0		
+		]]>
 		</screen>
 	</section>
 	<section id="npm">
