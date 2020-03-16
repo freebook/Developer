@@ -11,6 +11,27 @@ http://www.gnu.org/prep/standards/
 	<section id="java">
 		<title>java 编程规范</title>
 		<section>
+			<title>一个输入多个出口</title>
+			<programlisting>
+			<![CDATA[
+			Object row = input.readLine();
+			if (row != null) {
+				if (this.process != null) {
+					row = this.process.run(row);
+				}
+				if (row != null) {
+					boolean outputStatus = this.output.write(row);
+					if (this.position != null && outputStatus) {
+
+						this.position.set(row);
+
+					}
+				}
+			}			
+			]]>
+			</programlisting>			
+		</section>
+		<section>
 			<title>Spring Data JPA</title>
 			<programlisting>
 			<![CDATA[
@@ -25,6 +46,7 @@ http://www.gnu.org/prep/standards/
 			]]>
 			</programlisting>
 		</section>
+		
 	</section>
 	<section id="php">
 		<title>php 文件</title>
