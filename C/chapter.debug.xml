@@ -1,10 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <chapter id="c.debug">
 	<title>调试工具</title>
+	<section>
+		<title>file 命令</title>
+		<para>file 命令将帮助你确定你所处理的文件类型。</para>
+		<screen>
+		<![CDATA[
+[root@localhost ~]# file /bin/ls
+/bin/ls: ELF 64-bit LSB shared object, x86-64, version 1 (SYSV), dynamically linked, interpreter /lib64/ld-linux-x86-64.so.2, for GNU/Linux 3.2.0, BuildID[sha1]=bed150f5bac8514e69b3b98eb6fd3e75d6b277c8, stripped, too many notes (256)
+
+neo@MacBook-Pro-Neo ~ % file /bin/ls
+/bin/ls: Mach-O 64-bit executable x86_64		
+		]]>
+		</screen>
+	</section>
+
 	<section id="ftop">
 		<title>ftop - Tool to show progress of open files and file systems</title>
 		<para>ftop 是一个显示进程打开文件的工具</para>
 		<screen>
+		<![CDATA[
 Tue Jan 20 16:25:50 2015                                                                                 ftop 1.0
 Processes:  47 total, 0 unreadable                                                Press h for help, o for options
 Open Files: 57 regular, 0 dir, 149 chr, 0 blk, 12 pipe, 59 sock, 15 misc
@@ -21,11 +36,44 @@ _  PID    #FD  USER      COMMAND
 |  +- 4    --W  --    14976/14976    /var/log/secure
 -- 1106   17   www       nginx: worker process                   
 |  +- err  --W  --   538920/538920   /var/log/nginx/error.log (fd 11 for PID 1106)
+		]]>
+		</screen>
+	</section>
+	<section id="ldd">
+		<title> ldd - print shared library dependencies </title>
+		<para>如何找到可执行程序所依赖的库？这就是 ldd 命令的作用了。对动态链接的二进制文件运行该命令会显示出所有依赖库和它们的路径。</para>
+		<screen>
+		<![CDATA[
+$ ldd /bin/ls
+        linux-gate.so.1 =>  (0xffffe000)
+        librt.so.1 => /lib/tls/i686/cmov/librt.so.1 (0xb7f13000)
+        libacl.so.1 => /lib/libacl.so.1 (0xb7f0d000)
+        libselinux.so.1 => /lib/libselinux.so.1 (0xb7ef9000)
+        libc.so.6 => /lib/tls/i686/cmov/libc.so.6 (0xb7dc4000)
+        libpthread.so.0 => /lib/tls/i686/cmov/libpthread.so.0 (0xb7db1000)
+        /lib/ld-linux.so.2 (0xb7f22000)
+        libattr.so.1 => /lib/libattr.so.1 (0xb7dad000)
+        libdl.so.2 => /lib/tls/i686/cmov/libdl.so.2 (0xb7da9000)
+        libsepol.so.1 => /lib/libsepol.so.1 (0xb7d6c000)
+		]]>
+		</screen>
+		<para>举例</para>
+		<screen>
+			# ./boinc
+			./boinc: error while loading shared libraries: libssl.so.1.0.0: cannot open shared object file: No such file or directory
+
+			# ldd ./boinc | grep libssl
+			./boinc: /lib64/libcurl.so.4: no version information available (required by ./boinc)
+			libssl.so.1.0.0 => not found
+			libssl3.so => /lib64/libssl3.so (0x00007f1f46998000)
+			libssl.so.10 => /lib64/libssl.so.10 (0x00007f1f44ba1000)
 		</screen>
 	</section>
 	<section id="strace">
 		<title>strace - trace system calls and signals</title>
+		<para>跟踪系统调用和信号。</para>
 		<screen>
+		<![CDATA[
 -tt  在每行输出的前面,显示毫秒级别的时间
 -T   显示每次系统调用所花费的时间
 -v   对于某些相关调用,把完整的环境变量,文件stat结构等打出来.
@@ -41,13 +89,17 @@ _  PID    #FD  USER      COMMAND
 -o  把strace的输出单独写到指定的文件
 -s  当系统调用的某个参数是字符串时,最多输出指定长度的内容，默认是32个字节.
 -p  指定要跟踪的进程pid,要同时跟踪多个pid,重复多次-p选项即可.		
+		]]>
 		</screen>
 		<screen>
+		<![CDATA[
 strace -tt -T -v -f -e trace=file -o ~/strace.log.2 -s 1024 -p  25849		
+		]]>
 		</screen>
 		<para>strace -v ps -e 2</para>
 		<para>strace -v ls</para>
 		<screen>
+		<![CDATA[
 neo@netkiller:~/workspace/Document$ strace -c ls
 Docbook  makedoc  Tex
 % time     seconds  usecs/call     calls    errors syscall
@@ -76,8 +128,10 @@ Docbook  makedoc  Tex
   -nan    0.000000           0         1           set_robust_list
 ------ ----------- ----------- --------- --------- ----------------
 100.00    0.000000                   190        23 total
-			</screen>
-			<screen>
+			]]>
+		</screen>
+		<screen>
+			<![CDATA[
 neo@netkiller:~/workspace/Document$ strace -f -e open ls >/dev/null
 open("/etc/ld.so.cache", O_RDONLY)      = 3
 open("/lib/librt.so.1", O_RDONLY)       = 3
@@ -117,17 +171,22 @@ open("/usr/lib/locale/en_US.utf8/LC_NUMERIC", O_RDONLY) = 3
 open("/usr/lib/locale/en_US.UTF-8/LC_CTYPE", O_RDONLY) = -1 ENOENT (No such file or directory)
 open("/usr/lib/locale/en_US.utf8/LC_CTYPE", O_RDONLY) = 3
 open(".", O_RDONLY|O_NONBLOCK|O_DIRECTORY|O_CLOEXEC) = 3
+		]]>
 		</screen>
 		<section>
 			<title>-o file -- send trace output to FILE instead of stderr</title>
 			<screen>
+			<![CDATA[
 $ strace -o strace.log php --version
 $ grep php.ini strace.log
+			]]>
 			</screen>
 		</section>
 	</section>
 	<section id="ltrace">
 		<title>ltrace - A library call tracer</title>
+		<para>它的作用：库调用跟踪器。一个库可以包含数百个函数。在这几百个函数中，哪些是我们的二进制程序正在使用的实际函数？</para>
+		<para>ltrace 命令可以显示运行时从库中调用的所有函数。在下面的例子中，你可以看到被调用的函数名称，以及传递给该函数的参数。你也可以在输出的最右边看到这些函数返回的内容。</para>
 		<para>ltrace ls</para>
 		<screen>
 		<![CDATA[
@@ -241,44 +300,13 @@ fclose(0x7f8931bab860)                                                          
 		]]>
 		</screen>
 	</section>
-	<section id="ldd">
-		<title> ldd - print shared library dependencies </title>
-		<screen>
-$ ldd /bin/ls
-        linux-gate.so.1 =>  (0xffffe000)
-        librt.so.1 => /lib/tls/i686/cmov/librt.so.1 (0xb7f13000)
-        libacl.so.1 => /lib/libacl.so.1 (0xb7f0d000)
-        libselinux.so.1 => /lib/libselinux.so.1 (0xb7ef9000)
-        libc.so.6 => /lib/tls/i686/cmov/libc.so.6 (0xb7dc4000)
-        libpthread.so.0 => /lib/tls/i686/cmov/libpthread.so.0 (0xb7db1000)
-        /lib/ld-linux.so.2 (0xb7f22000)
-        libattr.so.1 => /lib/libattr.so.1 (0xb7dad000)
-        libdl.so.2 => /lib/tls/i686/cmov/libdl.so.2 (0xb7da9000)
-        libsepol.so.1 => /lib/libsepol.so.1 (0xb7d6c000)
-$
-		</screen>
-		<para>举例</para>
-		<screen>
-# ./boinc
-./boinc: error while loading shared libraries: libssl.so.1.0.0: cannot open shared object file: No such file or directory
-
-# ldd ./boinc | grep libssl
-./boinc: /lib64/libcurl.so.4: no version information available (required by ./boinc)
-	libssl.so.1.0.0 => not found
-	libssl3.so => /lib64/libssl3.so (0x00007f1f46998000)
-	libssl.so.10 => /lib64/libssl.so.10 (0x00007f1f44ba1000)
-		</screen>
-	</section>
-	<section id="valgrind">
-		<title>Valgrind</title>
-		<para>http://valgrind.org/</para>
-		<screen>
-valgrind --tool=memcheck --leak-check=full ./test
-		</screen>
-	</section>
+	
+	
 	<section id="nm">
 		<title>nm - list symbols from object files</title>
+		<para>列出对象文件中的符号。</para>
 		<screen>
+		<![CDATA[
 $ nm libzeromq.so 
                  U asprintf@@GLIBC_2.2.5
 00000000002020d0 B __bss_start
@@ -337,13 +365,124 @@ $ nm libzeromq.so
 00000000000011b5 T zmq_write
 000000000000133b T zmq_write_deinit
 0000000000001162 T zmq_write_init
+		]]>
+		</screen>
+	</section>
+	<section id="strings">
+		<title>strings - print the strings of printable characters in files.</title>
+		<para>打印文件中的可打印字符的字符串。</para>
+		<para>二进制文件中有很多文本信息，比如打印信息、调试信息、帮助信息、错误等。只要这些信息都存在于二进制文件中，就可以用 strings 命令将其转储到屏幕上。</para>
+		<screen>
+		<![CDATA[
+[root@localhost ~]# strings /bin/ls | grep "list"
+%s: not listing already-listed directory
+  -A, --almost-all           do not list implied . and ..
+  -B, --ignore-backups       do not list implied entries ending with ~
+  -C                         list entries by columns
+  -d, --directory            list directories themselves, not their contents
+  -g                         like -l, but do not list owner
+  -G, --no-group             in a long listing, don't print group names
+                             follow symbolic links listed on the command line
+      --hide=PATTERN         do not list implied entries matching shell PATTERN
+  -I, --ignore=PATTERN       do not list implied entries matching shell PATTERN
+  -l                         use a long listing format
+  -m                         fill width with a comma separated list of entries
+  -n, --numeric-uid-gid      like -l, but list numeric user and group IDs
+  -o                         like -l, but do not list group information
+  -R, --recursive            list subdirectories recursively
+  -U                         do not sort; list entries in directory order
+  -x                         list entries by lines instead of by columns
+  -1                         list one file per line.  Avoid '\n' with -q or -b		
+		]]>
+		</screen>
+	</section>
+	<section>
+		<title>hexdump</title>
+		<para>以 ASCII、十进制、十六进制或八进制显示文件内容。</para>
+		<screen>
+		<![CDATA[
+[root@localhost ~]# hexdump -C /bin/ls | head 
+00000000  7f 45 4c 46 02 01 01 00  00 00 00 00 00 00 00 00  |.ELF............|
+00000010  03 00 3e 00 01 00 00 00  00 5e 00 00 00 00 00 00  |..>......^......|
+00000020  40 00 00 00 00 00 00 00  38 0b 04 00 00 00 00 00  |@.......8.......|
+00000030  00 00 00 00 40 00 38 00  0a 00 40 00 1f 00 1e 00  |....@.8...@.....|
+00000040  06 00 00 00 04 00 00 00  40 00 00 00 00 00 00 00  |........@.......|
+00000050  40 00 00 00 00 00 00 00  40 00 00 00 00 00 00 00  |@.......@.......|
+00000060  30 02 00 00 00 00 00 00  30 02 00 00 00 00 00 00  |0.......0.......|
+00000070  08 00 00 00 00 00 00 00  03 00 00 00 04 00 00 00  |................|
+00000080  70 02 00 00 00 00 00 00  70 02 00 00 00 00 00 00  |p.......p.......|
+00000090  70 02 00 00 00 00 00 00  1c 00 00 00 00 00 00 00  |p...............|
+		
+neo@MacBook-Pro-Neo ~ % hexdump -C /bin/ls | head 
+00000000  cf fa ed fe 07 00 00 01  03 00 00 00 02 00 00 00  |................|
+00000010  13 00 00 00 10 07 00 00  85 00 20 00 00 00 00 00  |.......... .....|
+00000020  19 00 00 00 48 00 00 00  5f 5f 50 41 47 45 5a 45  |....H...__PAGEZE|
+00000030  52 4f 00 00 00 00 00 00  00 00 00 00 00 00 00 00  |RO..............|
+00000040  00 00 00 00 01 00 00 00  00 00 00 00 00 00 00 00  |................|
+00000050  00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00  |................|
+00000060  00 00 00 00 00 00 00 00  19 00 00 00 28 02 00 00  |............(...|
+00000070  5f 5f 54 45 58 54 00 00  00 00 00 00 00 00 00 00  |__TEXT..........|
+00000080  00 00 00 00 01 00 00 00  00 50 00 00 00 00 00 00  |.........P......|
+00000090  00 00 00 00 00 00 00 00  00 50 00 00 00 00 00 00  |.........P......|
+		]]>
 		</screen>
 	</section>
 	<section id="objdump">
 		<title>objdump - display information from object files.</title>
+		<para>从对象文件中显示信息。</para>
+		<screen>
+		<![CDATA[
+[root@localhost ~]# objdump -d /bin/ls | head
+
+/bin/ls:     file format elf64-x86-64
+
+
+Disassembly of section .init:
+
+0000000000003538 <.init>:
+    3538:	f3 0f 1e fa          	endbr64 
+    353c:	48 83 ec 08          	sub    $0x8,%rsp
+    3540:	48 8b 05 69 da 21 00 	mov    0x21da69(%rip),%rax        # 220fb0 <__gmon_start__>		
+		]]>
+		</screen>
 	</section>
 	<section id="readelf">
 		<title>readelf - Displays information about ELF files.</title>
+		<para>显示有关 ELF (Executable and Linkable File Format 可执行和可链接文件格式) 文件的信息。</para>
+		<screen>
+		<![CDATA[
+[root@localhost ~]# readelf -h /bin/ls
+ELF Header:
+  Magic:   7f 45 4c 46 02 01 01 00 00 00 00 00 00 00 00 00 
+  Class:                             ELF64
+  Data:                              2's complement, little endian
+  Version:                           1 (current)
+  OS/ABI:                            UNIX - System V
+  ABI Version:                       0
+  Type:                              DYN (Shared object file)
+  Machine:                           Advanced Micro Devices X86-64
+  Version:                           0x1
+  Entry point address:               0x5e00
+  Start of program headers:          64 (bytes into file)
+  Start of section headers:          265016 (bytes into file)
+  Flags:                             0x0
+  Size of this header:               64 (bytes)
+  Size of program headers:           56 (bytes)
+  Number of program headers:         10
+  Size of section headers:           64 (bytes)
+  Number of section headers:         31
+  Section header string table index: 30		
+		]]>
+		</screen>
 		
+	</section>
+	<section id="valgrind">
+		<title>Valgrind</title>
+		<para>http://valgrind.org/</para>
+		<screen>
+		<![CDATA[
+valgrind --tool=memcheck --leak-check=full ./test
+		]]>
+		</screen>
 	</section>
 </chapter>
