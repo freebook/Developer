@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- $Id: chapter.io.xml 470 2012-10-22 03:33:43Z netkiller $ -->
+<part id="index"><?dbhtml dir="io"?>
+    <title>磁盘IO测试</title>
+    <para>测试工具：IOMeter、IOZone、Sanergy、StorNex</para>
+    <chapter id="fio">
+        <title>fio</title>
+        <screen>
+$ sudo apt-get install fio
+        </screen>
+        <screen>
+$ cat test.fio
+[random-rw]
+rw=randrw
+size=256m
+directory=/tmp/fio/data
+
+[write]
+rw=write
+size=2048m
+directory=/tmp/fio/data
+
+[read]
+rw=read
+size=2048m
+directory=/tmp/fio/data
+        </screen>
+        <screen>
+$ fio test.fio
+        </screen>
+        <para>threads</para>
+        <screen>
+$ cat four-threads-randio.fio
+; Four threads, two query, two writers.
+
+[global]
+rw=randread
+size=256m
+directory=/tmp/fio-testing/data
+ioengine=libaio
+iodepth=4
+invalidate=1
+direct=1
+
+[bgwriter]
+rw=randwrite
+iodepth=32
+
+[queryA]
+iodepth=1
+ioengine=mmap
+direct=0
+thinktime=3
+
+[queryB]
+iodepth=1
+ioengine=mmap
+direct=0
+thinktime=5
+
+[bgupdater]
+rw=randrw
+iodepth=16
+thinktime=40
+size=32m
+        </screen>
+    </chapter>
+    <chapter id="iozone">
+        <title>iozone</title>
+        <para>http://www.iozone.org/</para>
+        <screen>
+$ apt-cache search iozone
+iozone3 - Filesystem and Disk Benchmarking Tool
+
+$ sudo apt-get install iozone3
+        </screen>
+        <screen>
+$ iozone -a
+        </screen>
+    </chapter>
+    <chapter id="iometer">
+        <title>iometer</title>
+        <para>http://www.iometer.org/</para>
+    </chapter>
+    <chapter id="filesystem">
+    	<title>测试文件系统</title>
+    	<para>测试目录深度</para>
+    	<screen>
+for dir in {1..66000}; do mkdir $dir; done
+    	</screen>
+    	<para>测试创建文件数</para>
+    	<screen>
+for file in {1..100000}; do touch file.$file; done
+    	</screen>
+    </chapter>
+    <chapter id="iperf">
+		<title>iperf: Tool for measuring TCP and UDP bandwidth performance</title>
+		<screen>
+
+		</screen>
+	</chapter>
+</part>

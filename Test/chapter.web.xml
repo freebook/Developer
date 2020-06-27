@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+	<chapter id="browser">
+		<title>Browser Config</title>
+		<section id="chrome">
+			<title>Chrome</title>
+			<para>about:flags</para>
+		</section>
+	</chapter>
+	&chapter.webdriver.xml;
+	&chapter.watir.xml;
+	&chapter.selenium.xml;
+
+<chapter id="behat">
+	<title>Behat</title>
+	<ulink url="https://github.com/Behat">https://github.com/Behat</ulink>
+	<para>Installing Dependencies</para>
+	<screen>
+wget -nc http://getcomposer.org/composer.phar
+php composer.phar update
+	</screen>
+	<para>Running Tests</para>
+	<screen>
+bin/behat -f progress
+	</screen>
+	<section>
+		<title>Behat and Mink</title>
+		<para><ulink url="http://mink.behat.org/" /></para>
+		<para>安装Behat</para>
+		<screen>
+$ pear channel-discover pear.symfony.com
+
+$ pear channel-discover pear.behat.org
+
+$ pear install behat/behat
+		</screen>
+		<para>安装MINK</para>
+		<screen>
+$ pear install behat/mink	
+		</screen>
+		<para>执行behat --init命令</para>
+		<screen>
+$ mkdir test
+
+$ cd test
+
+$ behat --init
+		</screen>
+		<section id="mink.example">
+			<title>Getting Started</title>
+			<example>
+				<title>features/example.feature</title>
+				<para>创建features/example.feature文件</para>
+				<screen>
+				
+				</screen>
+				<screen>
+behat features/example.feature
+				</screen>
+			</example>
+		</section>
+	</section>
+</chapter>
+
+	<chapter id="watin">
+		<title>WatiN</title>
+		<para>http://watin.org/</para>
+		<screen>
+			<![CDATA[
+			]]>
+		</screen>
+	</chapter>
+	<chapter id="pamie">
+		<title>PAMIE</title>
+		<para>PAMIE是一套为Python写的用于Web自动化测试的工具，采用Win32COM的方式操作IE来实现。原理比较简单，但是可以真实再现用户的使用，QA用非常合适</para>
+	</chapter>
+	
+	&chapter.framework.xml;

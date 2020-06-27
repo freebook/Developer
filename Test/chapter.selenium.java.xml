@@ -1,0 +1,463 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section id="index"><?dbhtml dir="java"?>
+	<title>Java</title>
+	<section id="mac">
+		<title>Apple Mac 例子 Java 11 + Junit5 + Selenium + Safari</title>
+		<screen>
+		<![CDATA[
+		
+		]]>
+		</screen>
+		<para>Maven 文件</para>
+		<screen>
+			<![CDATA[
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>cn.netkiller</groupId>
+	<artifactId>selenium</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>jar</packaging>
+
+	<name>selenium</name>
+	<url>http://maven.apache.org</url>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<maven.compiler.source>11</maven.compiler.source>
+		<maven.compiler.target>${maven.compiler.source}</maven.compiler.target>
+		<junit.jupiter.version>5.4.0</junit.jupiter.version>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter-api</artifactId>
+			<version>${junit.jupiter.version}</version>
+			<!-- <scope>test</scope> -->
+		</dependency>
+		<dependency>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter-params</artifactId>
+			<version>${junit.jupiter.version}</version>
+			<!-- <scope>test</scope> -->
+		</dependency>
+		<dependency>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter-engine</artifactId>
+			<version>${junit.jupiter.version}</version>
+			<!-- <scope>test</scope> -->
+		</dependency>
+		<dependency>
+			<groupId>org.seleniumhq.selenium</groupId>
+			<artifactId>selenium-java</artifactId>
+			<version>3.141.59</version>
+		</dependency>
+		<dependency>
+			<groupId>org.seleniumhq.selenium</groupId>
+			<artifactId>selenium-safari-driver</artifactId>
+			<version>3.141.59</version>
+		</dependency>
+	</dependencies>
+	<build>
+		<sourceDirectory>src</sourceDirectory>
+
+		<plugins>
+			<plugin>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>3.0.0-M3</version>
+			</plugin>
+			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.8.0</version>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<version>3.1.1</version>
+				<configuration>
+					<archive>
+						<index>true</index>
+						<manifest>
+							<mainClass>demo.test</mainClass>
+						</manifest>
+					</archive>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+</project>
+			
+			]]>
+		</screen>
+		<programlisting>
+			<![CDATA[
+package cn.netkiller.selenium;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.Dimension;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.safari.SafariDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+/**
+ * Hello world!
+ *
+ */
+public class App {
+	public static void main(String[] args) {
+		System.out.println("Hello World!");
+		WebDriver driver = new SafariDriver();
+		driver.manage().window().setSize(new Dimension(1024, 768));
+		driver.get("https://www.google.com.hk");
+		driver.findElement(By.name("q")).sendKeys("webdriver");
+		driver.findElement(By.name("btnK")).click();
+		new WebDriverWait(driver, 3).until(ExpectedConditions.titleIs("webdriver - Google 搜尋"));
+		driver.close();
+	}
+}
+			]]>
+		</programlisting>
+
+	</section>
+	<section id="windowns">
+		<title>Windows Example</title>
+		<para>https://github.com/SeleniumHQ/selenium/wiki/ChromeDriver</para>
+		<para>下载 https://sites.google.com/a/chromium.org/chromedriver/downloads</para>
+		<para></para>
+		<screen>
+		<![CDATA[
+package cn.netkiller.webtest;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedCondition;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+/**
+ * Hello world!
+ *
+ */
+public class App {
+	public static void main(String[] args) {
+		System.out.println("Hello World!");
+
+		// Create a new instance of the Firefox driver
+		// Notice that the remainder of the code relies on the interface,
+		// not the implementation.
+		System.setProperty("webdriver.chrome.driver", "D:\\workspace\\chromedriver.exe");
+		// WebDriver driver = new FirefoxDriver();
+		WebDriver driver = new ChromeDriver();
+
+		// And now use this to visit Google
+		driver.get("http://www.google.com");
+		// Alternatively the same thing can be done like this
+		// driver.navigate().to("http://www.google.com");
+
+		// Find the text input element by its name
+		WebElement element = driver.findElement(By.name("q"));
+
+		// Enter something to search for
+		element.sendKeys("Cheese!");
+
+		// Now submit the form. WebDriver will find the form for us from the
+		// element
+		element.submit();
+
+		// Check the title of the page
+		System.out.println("Page title is: " + driver.getTitle());
+
+		// Google's search is rendered dynamically with JavaScript.
+		// Wait for the page to load, timeout after 10 seconds
+		(new WebDriverWait(driver, 10)).until(new ExpectedCondition<Boolean>() {
+			public Boolean apply(WebDriver d) {
+				return d.getTitle().toLowerCase().startsWith("cheese!");
+			}
+		});
+
+		// Should see: "cheese! - Google Search"
+		System.out.println("Page title is: " + driver.getTitle());
+
+		// Close the browser
+		driver.quit();
+
+	}
+}
+		]]>
+		</screen>
+	</section>
+	<section>
+		<title>获取信息</title>
+		<section>
+			<title>title</title>
+			<programlisting>
+			<![CDATA[
+driver.getTitle();
+			]]>
+			</programlisting>
+			<para></para>
+			<programlisting>
+
+			</programlisting>
+		</section>
+	</section>
+	<section id="By">
+		<title>查找元素</title>
+		<programlisting>
+		<![CDATA[	
+		]]>
+		</programlisting>
+		<section>
+			<title>By.id(String id);</title>
+			<programlisting>
+			</programlisting>
+
+		</section>
+		<section>
+			<title>By.className(String className);</title>
+			<programlisting>
+
+			</programlisting>
+		</section>
+		<section>
+			<title>By.cssSelector(String cssSelector);</title>
+			<programlisting>
+			<![CDATA[
+String textFound = driver.findElement(By.cssSelector("h1")).getText();
+			]]>
+			</programlisting>
+		</section>
+		<section>
+			<title>By.linkText(String linkText);</title>
+			<programlisting>
+			</programlisting>
+		</section>
+		<section>
+			<title>By.partialLinkText(String partialLinkText);</title>
+			<programlisting>
+			<![CDATA[
+			
+			]]>
+			</programlisting>
+		</section>
+		<section id="By.name">
+			<title>By.name(String name);</title>
+			<para></para>
+			<programlisting>
+
+			</programlisting>
+		</section>
+		<section>
+			<title>By.tagName(String tagName);</title>
+			<ulink url="" />
+			<programlisting>
+
+			</programlisting>
+		</section>
+		<section>
+			<title>By.xpath(String xpath);	</title>
+			<programlisting>
+
+			</programlisting>
+		</section>
+		<section id="getTagName()">
+			<title>getTagName()</title>
+			<programlisting>
+			<![CDATA[
+String tagName = driver.findElement(By.id("email")).getTagName();
+			]]>
+			</programlisting>
+		</section>
+		<section id="submit()">
+			<title>submit()</title>
+			<programlisting>
+    		<![CDATA[
+driver.findElement(By.id("searchInput")).submit(); 
+    		]]>
+			</programlisting>
+		</section>
+	</section>
+	<section>
+		<title>事件</title>
+		<section>
+			<title>填写信息</title>
+			<programlisting>
+			<![CDATA[
+searchFieldElement.sendKeys("selenium tutorial javapointers.com");			
+			]]>
+			</programlisting>
+		</section>
+		<section>
+			<title>单击操作</title>
+			<screen>
+			<![CDATA[
+WebElement searchButtonElement = webDriver.findElement(By.name("btnK"));
+searchButtonElement.click();
+			]]>
+			</screen>
+		</section>
+	</section>
+
+	<section>
+		<title>浏览器控制</title>
+		<section>
+			<title>窗口控制</title>
+			<para>最大化窗口</para>
+			<programlisting>
+			<![CDATA[
+driver.manage().window().maximize();
+			]]>
+			</programlisting>
+			<para>指定分辨率</para>
+			<programlisting>
+			<![CDATA[
+driver.manage().window().setSize(new Dimension(1024, 768));
+			]]>
+			</programlisting>
+		</section>
+		<section id="switchTo().window(window)">
+			<title>切换窗口</title>
+			<screen>
+			<![CDATA[
+	driver.switchTo().window(window);
+			]]>
+			</screen>
+		</section>
+		<section>
+			<title>超时</title>
+			<programlisting>
+			<![CDATA[
+driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);			
+driver.manage().timeouts().pageLoadTimeout(10, TimeUnit.SECONDS);
+			]]>
+			</programlisting>
+		</section>
+	</section>
+	<section id="对话框">
+		<title>对话框</title>
+		<para></para>
+		<section>
+			<title>Alert</title>
+			<screen>
+			<![CDATA[
+// for alert
+        WebElement clickOnAlert = driver.findElement(By
+                .xpath("//td/input[@name='alterbutton']"));
+        clickOnAlert.click();
+        delay(2);
+        // get alert
+        Alert alert = driver.switchTo().alert();
+        Assert.assertTrue(alert.getText().contains("alert"));
+        // click alert ok
+        alert.accept();
+			]]>
+			</screen>
+		</section>
+		<section>
+			<title>输入对话框</title>
+			<screen>
+			<![CDATA[
+// for prompt
+        WebElement clickOnPrompt = driver.findElement(By
+                .xpath("//td/input[@name='promptbutton']"));
+        clickOnPrompt.click();
+        delay(2);
+        Alert prompt = driver.switchTo().alert();
+
+        prompt.sendKeys("I love Selenium");
+        prompt.accept();
+        delay(5);
+        Alert afterAccept = driver.switchTo().alert();
+        Assert.assertTrue(afterAccept.getText().contains("I love Selenium"));
+        // click alert ok
+        afterAccept.accept();	
+			]]>
+			</screen>
+		</section>
+		<section>
+			<title>确认对话框</title>
+			<screen>
+				<![CDATA[
+		// for confirm
+        WebElement clickOnConfirm = driver.findElement(By
+                .xpath("//td/input[@name='confirmbutton']"));
+        clickOnConfirm.click();
+        delay(2);
+        Alert confirm = driver.switchTo().alert();
+        confirm.dismiss();
+        delay(2);
+        Alert afterDismiss = driver.switchTo().alert();
+        Assert.assertTrue(afterDismiss.getText().contains("You pressed Cancel"));
+        delay(2);
+        afterDismiss.accept();
+			]]>
+			</screen>
+		</section>
+	</section>
+	<section id="">
+		<title>等待</title>
+		
+		<section>
+			<title>等待显示</title>
+			<programlisting>
+			<![CDATA[
+		/*Get the text after ajax call*/
+		WebDriverWait wait = new WebDriverWait(driver, 5);
+		WebElement TextElement = driver.findElement(By.className("radiobutton"));
+		wait.until(ExpectedConditions.visibilityOf(TextElement));
+		String textAfter = TextElement.getText().trim();			
+		
+显式等待
+
+显式等待 使用ExpectedConditions类中自带方法， 可以进行显试等待的判断。
+
+显式等待可以自定义等待的条件，用于更加复杂的页面等待条件
+
+
+等待的条件
+
+WebDriver方法
+
+页面元素是否在页面上可用和可被单击
+
+elementToBeClickable(By locator)
+
+页面元素处于被选中状态
+
+elementToBeSelected(WebElement element)
+
+页面元素在页面中存在
+
+presenceOfElementLocated(By locator)
+
+在页面元素中是否包含特定的文本
+
+textToBePresentInElement(By locator)
+
+页面元素值
+
+textToBePresentInElementValue(By locator, java.lang.String text)
+
+标题 (title)
+
+titleContains(java.lang.String title)		
+			]]>
+			</programlisting>
+		</section>
+		<section>
+			<title>等待输入密码</title>
+			<programlisting>
+			<![CDATA[
+WebDriverWait wait=new WebDriverWait(webDriver,5);
+wait.until(ExpectedConditions.elementToBeClickable(By.id("name"))).sendKeys("用户名");
+
+			
+			]]>
+			</programlisting>
+		</section>
+	</section>
+	&section.selenium.java.form.xml;
+</section>

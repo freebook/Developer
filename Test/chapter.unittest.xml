@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<part id="index"><?dbhtml dir="unittest"?>
+	<title>Unit test</title>
+
+<chapter id="index"><?dbhtml dir="phpunit"?>
+	<title>PHPUnit</title>
+	<para><ulink url="http://www.phpunit.de" /></para>
+	<screen>
+sudo pear channel-discover pear.phpunit.de
+sudo pear channel-discover components.ez.no
+sudo pear channel-discover pear.symfony-project.com
+sudo pear install phpunit/PHP_CodeCoverage
+sudo pear install phpunit/PHPUnit
+	</screen>
+	<section id="assertions">
+		<title>Assertions</title>
+	</section>
+	<section id="phpunit.xml">
+		<title>phpunit xml</title>
+		<screen>
+		<![CDATA[
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit>
+
+<testsuites>
+  <testsuite name="My Test Suite">
+    <directory>./</directory>
+    <file>test.php</file>
+    <exclude>/path/to/exclude</exclude>
+  </testsuite>
+</testsuites>
+
+</phpunit>
+		]]>
+		</screen>
+		<para></para>
+		<screen>
+# ../vendor/bin/phpunit --coverage-html ./report -c phpunit.xml		
+		</screen>
+	</section>
+</chapter>
+
+</part>

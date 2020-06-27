@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section>
+	<title>HTML 表单处理</title>
+	<para></para>
+	<section>
+		<title>SELECT</title>
+		<screen>
+		<![CDATA[
+	WebElement selector = driver.findElement(By.id("Selector"));
+	Select select = new Select(selector);
+	select.selectByIndex(2);
+	select.selectByVisibleText("苹果");
+	select.selectByValue("apple");		
+		]]>
+		</screen>
+	</section>
+
+</section>        

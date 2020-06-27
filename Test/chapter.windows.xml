@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<chapter id="index"><?dbhtml dir="windows"?>
+	<title>Windows GUI</title>
+
+<section>
+	<title>pywinauto - Windows GUI automation using Python</title>
+	<subtitle>swapy - Simple Windows Automation on Python</subtitle>
+	<para>https://code.google.com/p/pywinauto/</para>
+	<section>
+		<title>swapy - Simple Windows Automation on Python</title>
+		<para>https://code.google.com/p/swapy/</para>
+		<screen></screen>
+	</section>
+
+</section>
+<section id="qaliber">
+	<title>QAliber</title>
+	<para>http://sourceforge.net/projects/qaliber/</para>
+</section>
+
+<section id="automation">
+	<title>Windows Automation API</title>
+	<screen>
+http://blogs.msdn.com/b/winuiautomation/archive/2009/06/03/windows-automation-api-sdk-tools.aspx	
+	</screen>
+	<section id="inspect">
+		<title>Inspect</title>
+	</section>
+	<section>
+		<title>UI Accessibility Checker</title>
+		<para>http://acccheck.codeplex.com/</para>
+	</section>
+	<section>
+		<title>system.windows.automation</title>
+	</section>
+</section>
+
+	<section id="sikuli">
+		<title>sikuli</title>
+		<para>http://www.sikuli.org/</para>
+	</section>
+
+</chapter>
+
+<chapter id="ldtp">
+	<title>Linux Desktop Testing Project(LDTP)</title>
+	<para>http://ldtp.freedesktop.org/wiki/</para>
+</chapter>

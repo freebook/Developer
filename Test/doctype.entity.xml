@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!ENTITY chapter.test.management.xml 	SYSTEM "chapter.test.management.xml">
+<!ENTITY chapter.testing.xml 			SYSTEM "chapter.testing.xml">
+<!ENTITY part.web.xml					SYSTEM "part.web.xml">
+<!ENTITY chapter.watir.xml				SYSTEM "chapter.watir.xml">
+<!ENTITY chapter.selenium.xml			SYSTEM "chapter.selenium.xml">
+<!ENTITY chapter.selenium.python.xml	SYSTEM "chapter.selenium.python.xml">
+<!ENTITY chapter.selenium.ruby.xml	SYSTEM "chapter.selenium.ruby.xml">
+<!ENTITY chapter.selenium.nodejs.xml	SYSTEM "chapter.selenium.nodejs.xml">
+<!ENTITY chapter.selenium.php.xml		SYSTEM "chapter.selenium.php.xml">
+<!ENTITY chapter.selenium.java.xml		SYSTEM "chapter.selenium.java.xml">
+<!ENTITY section.selenium.java.form.xml	SYSTEM "section.selenium.java.form.xml">
+
+<!ENTITY chapter.io.xml     			SYSTEM "chapter.io.xml">
+<!ENTITY chapter.testing.data.xml  		SYSTEM "chapter.testing.data.xml">
+<!ENTITY chapter.miscellaneous.xml 		SYSTEM "chapter.miscellaneous.xml">
+<!ENTITY chapter.web.xml		 		SYSTEM "chapter.web.xml">
+<!ENTITY chapter.webdriver.xml		 	SYSTEM "chapter.webdriver.xml">
+<!ENTITY chapter.performance.xml		SYSTEM "chapter.performance.xml">
+
+<!ENTITY chapter.unittest.xml			SYSTEM "chapter.unittest.xml">
+
+<!ENTITY part.gui.xml					SYSTEM "part.gui.xml">
+<!ENTITY chapter.ldtp.xml				SYSTEM "chapter.ldtp.xml">
+<!ENTITY chapter.windows.xml			SYSTEM "chapter.windows.xml">
+<!ENTITY chapter.android.xml			SYSTEM "chapter.android.xml">
+
+<!ENTITY chapter.network.xml			SYSTEM "chapter.network.xml">
+
+<!ENTITY chapter.framework.xml		 	SYSTEM "chapter.framework.xml">
+<!ENTITY chapter.appium.xml		 		SYSTEM "chapter.appium.xml">

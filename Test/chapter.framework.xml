@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<chapter id="RobotFramework">
+	<title>Robot Framework</title>
+	<para>http://robotframework.org/</para>
+</chapter>
+<chapter id="testcafe">
+	<title>TestCafe</title>
+	<para>https://devexpress.github.io/testcafe/</para>
+</chapter>

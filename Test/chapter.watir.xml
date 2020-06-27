@@ -1,0 +1,348 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- $Id: chapter.watir.xml 500 2012-12-04 09:01:55Z netkiller $ -->
+<chapter id="index"><?dbhtml dir="watir"?>
+	<title>WATIR -  WEB AUTOMATION TESTING IN RUBY</title>
+
+	<section id="watir.install">
+		<title>Install of WATIR</title>
+		<para>Install Ruby on Linux</para>
+		<screen>
+sudo apt-get install ruby  # for Ubuntu / Debian users
+sudo yum install ruby      # for Red Hat / Fedora users
+		</screen>
+		<para>Update RubyGems</para>
+		<screen>
+sudo apt-get install rubygems # for Ubuntu / Debian users
+
+sudo yum install rubygems # for Red Hat / Fedora users
+		</screen>
+		<para>Install Watir</para>
+		<screen>
+gem update --system --no-rdoc --no-ri
+gem install watir --no-rdoc --no-ri
+		</screen>
+		<section>
+			<title>IE</title>
+			<screen>
+http://www.microsoft.com/downloads/en/details.aspx?FamilyID=95e06cbe-4940-4218-b75d-b8856fced535
+			</screen>
+		</section>
+		<section>
+			<title>Firefox</title>
+			<para>如果仅仅安装Firefox测试环境：</para>
+			<screen>
+sudo gem install firewatir
+
+Successfully installed firewatir-1.8.0
+1 gem installed
+Installing ri documentation for firewatir-1.8.0...
+Installing RDoc documentation for firewatir-1.8.0...
+			</screen>
+			<para>JSSH for Firefox: </para>
+			<para>http://wiki.openqa.org/display/WTR/FireWatir+Installation</para>
+			<para>test jssh</para>
+			<screen>
+$ firefox -jssh
+$ telnet localhost 9997
+			</screen>
+		</section>
+		<section>
+			<title>Chrome Driver</title>
+			<ulink url="http://code.google.com/p/chromium/downloads/list" />
+			<screen>
+@browser = Watir::Browser.new(:chrome)
+@browser.goto "http://google.com"
+			</screen>
+		</section>
+	</section>
+	<section id="watir-webdriver">
+		<title>watir-webdriver</title>
+		<para><ulink url="http://watirwebdriver.com/">http://watirwebdriver.com/</ulink></para>
+		<para><ulink url="https://rubygems.org/gems/watir-webdriver">https://rubygems.org/gems/watir-webdriver</ulink></para>
+		<para>watir 官方2011年之后就没有再更新,建议你选择watir-webdriver封装</para>
+		<screen>
+$ sudo apt-get install ruby1.9.3
+
+gem install watir-webdriver
+		</screen>
+	</section>
+	<section id="watir.example">
+		<title>Getting Started</title>
+		<para>Quick Start</para>
+		<para>create a testing script</para>
+		<section>
+			<title>firewatir</title>
+			<example>
+				<title>watir firewatir example</title>
+				<screen>
+				<![CDATA[
+$ cat google.rb
+require 'rubygems'
+require 'watir'
+require 'firewatir'
+
+browser = Watir::Browser.new
+browser.goto 'http://google.com'
+browser.text_field(:name, 'q').set 'Ruby'
+browser.button(:name, 'btnG').click
+if browser.text.include? 'Ruby Programming Language'
+  puts 'Text was found'
+else
+  puts 'Text was not found'
+end
+				]]>
+				</screen>
+				<para>run test</para>
+				<screen>
+				<![CDATA[
+$ irb google.rb
+
+google.rb(main):001:0> require 'rubygems'
+=> true
+google.rb(main):002:0> require 'watir'
+=> true
+google.rb(main):003:0> require 'firewatir'
+=> true
+google.rb(main):004:0>
+google.rb(main):005:0* browser = Watir::Browser.new
+=> #<FireWatir::Firefox:0x7f797dd2b880 url="http://www.google.com.hk/search?hl=zh-CN&source=hp&biw=1440&bih=660&q=Ruby&btnG=Google+%E6%90%9C%E7%B4%A2&aq=f&aqi=g10&aql=&oq=" title="Ruby - Google \346\220\234\347\264\242">
+google.rb(main):006:0> browser.goto 'http://google.com'
+=> #<FireWatir::Firefox:0x7f797dd2b880 url="http://www.google.com.hk/" title="Google">
+google.rb(main):007:0> browser.text_field(:name, 'q').set 'Ruby'
+=> 0
+google.rb(main):008:0> browser.button(:name, 'btnG').click
+=> 0
+google.rb(main):009:0> if browser.text.include? 'Ruby Programming Language'
+google.rb(main):010:1>   puts 'Text was found'
+google.rb(main):011:1> else
+google.rb(main):012:1*   puts 'Text was not found'
+google.rb(main):013:1> end
+Text was found
+=> nil
+				]]>
+				</screen>
+			</example>
+		</section>
+		<section>
+			<title>watir-webdriver</title>
+			<example>
+				<title>watir-webdriver example</title>
+				<screen>
+require 'watir-webdriver'
+
+browser = Watir::Browser.new
+browser.goto 'http://www.google.com.hk'
+browser.text_field(:name => 'q').set 'netkiller'
+browser.button(:name => 'btnK').click
+
+if browser.text.include? 'Neo'
+  puts 'Text was found'
+else
+  puts 'Text was not found'
+end
+browser.close()
+				</screen>
+			</example>
+			<example>
+				<title>watir-webdriver remote</title>
+				<screen>
+require 'watir-webdriver'
+
+browser = Watir::Browser.new :remote, :url => "http://192.168.2.44:4444/wd/hub", :desired_capabilities => Selenium::WebDriver::Remote::Capabilities.chrome
+
+browser.goto 'http://www.google.com.hk'
+browser.text_field(:name => 'q').set 'netkiller'
+browser.button(:name => 'btnK').click
+
+if browser.text.include? 'Neo'
+  puts 'Text was found'
+else
+  puts 'Text was not found'
+end
+browser.close()
+				</screen>
+			</example>
+		</section>
+	</section>
+	<section id="watir.config">
+		<title>Config file</title>
+		<para>Create a file like this, called options.yml</para>
+		<screen>
+cat options.yml
+browser: ie
+		</screen>
+		<para>In your program, execute the following code before calling "Watir::Browser.new":</para>
+		<programlisting>
+Watir.options_file = '~/options.yml'
+		</programlisting>
+		<para>You will need to provide the full path to your file. Once you have done this, "Browser.new" will use the option settings from this file. If you also use an environment variable, it will override this setting.</para>
+		<para>Currently the following options are configurable for IE:</para>
+		<screen>
+speed: fast
+visible: true
+		</screen>
+		<para>Valid speed settings are "fast", "slow" and "zippy"</para>
+	</section>
+	<section id="watir.library">
+		<title>Watir library</title>
+		<para>Load the Watir library</para>
+		<programlisting>
+require 'rubygems'
+require 'watir'
+require 'firewatir'
+		</programlisting>
+	</section>
+	<section id="watir.browser">
+		<title>Browser</title>
+		<section>
+			<title>Environment variable</title>
+			<programlisting>
+> set watir_browser=ie
+> set watir_browser=firefox
+> set watir_browser=safari
+			</programlisting>
+		</section>
+		<section>
+			<title>Browser options </title>
+			<programlisting>
+Watir::Browser.default = 'ie'
+Watir::Browser.default = 'firefox'
+			</programlisting>
+			<para>Specifying additional options (IE only)</para>
+			<programlisting>
+Speed up execution
+(or use the "-b" command line switch)
+
+browser.speed = :fast
+Maximize browser window
+
+browser.maximize
+Pop browser window to front
+
+browser.bring_to_front
+			</programlisting>
+		</section>
+		<section>
+			<title>Open a browser (default: Internet Explorer)</title>
+			<screen>
+browser = Watir::Browser.new
+			</screen>
+		</section>
+		<section>
+			<title>Watir::Browser.attach</title>
+			<screen>
+$ firefox -jssh
+			</screen>
+			<programlisting>
+browser = Watir::Browser.attach(:title, 'Mozlla Firefox')
+			</programlisting>
+		</section>
+		<section>
+			<title>Open Browser at the specified URL</title>
+			<programlisting>
+browser = Watir::Browser.start("http://google.com")
+			</programlisting>
+		</section>
+		<section>
+			<title>Go to a specified URL</title>
+			<programlisting>
+browser.goto("http://amazon.com")
+			</programlisting>
+		</section>
+		<section>
+			<title>Close the browser</title>
+			<programlisting>
+browser.close
+			</programlisting>
+		</section>
+		<section>
+			<title>屏幕截图</title>
+			<screen>
+browser.driver.save_screenshot 'screenshot.png'
+			</screen>
+		</section>
+	</section>
+
+	<section id="watir.testunit">
+		<title>Test Unit</title>
+		<para>Create a Test Instance</para>
+		<programlisting>
+		<![CDATA[
+require 'test/unit'
+require 'rubygems'
+require 'watir'
+require 'firewatir'
+
+class GoogleHomePage < Test::Unit::TestCase
+  def test_there_should_be_text_About_Google
+    browser = Watir::Browser.start "http://www.google.com"
+    assert(browser.text.include?("About Google"))
+  end
+end
+		]]>
+		</programlisting>
+		<screen>
+$ ruby test_unit.rb
+
+Loaded suite test_unit
+Started
+.
+Finished in 1.687 seconds.
+
+1 tests, 1 assertions, 0 failures, 0 errors
+		</screen>
+
+		<para>Create a Test Case Method</para>
+		<programlisting>
+		<![CDATA[
+class SampleTest < Watir::TestCase
+  def test_login
+    # login test code, etc
+  end
+
+  def test_account
+    # account test code, etc
+  end
+end
+		]]>
+		</programlisting>
+		<para>How to run a specific test case?</para>
+		<screen>
+ruby my_test_file.rb --name test_account
+		</screen>
+		<note>
+			<title>提示</title>
+			<para>必须test_为前缀</para>
+			<para>默认非顺序执行</para>
+			<para>顺序执行方法 test_a_mytest, test_b_mytest; test_01_mytest, test_02_mytest</para>
+		</note>
+	</section>
+	<section id="watir.html">
+		<title>HTML Tags and Watir Methods</title>
+		<section>
+			<title>Collections of HTML Elements</title>
+			<screen>
+			<![CDATA[
+If you have a page that looks like this:
+
+<a href="http://google.com">google.com</a>
+<a href="http://facebook.com">facebook.com</a>
+You can get href attribute of all links with:
+
+browser.links.each do |link|
+  puts link.href
+end
+When you execute the code, output should be:
+
+http://google.com/
+http://facebook.com/
+			]]>
+			</screen>
+		</section>
+	</section>
+</chapter>
+<chapter id="cucumber">
+	<title>Cucumber</title>
+	<para><ulink url="http://cukes.info/" /></para>
+
+</chapter>

@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- $Id: chapter.selenium.xml 506 2012-12-14 07:41:54Z netkiller $ -->
+<chapter id="index"><?dbhtml dir="selenium"?>
+	<title>Selenium - Web Browser Automation</title>
+	<para>
+		<ulink url="http://selenium.seleniumhq.org/">http://selenium.seleniumhq.org/</ulink>
+	</para>
+	<section id="webdriver">
+		<title>WEBDRIVER</title>
+		<para>
+			<ulink url="http://code.google.com/p/webdriver/wiki/GettingStarted">http://code.google.com/p/webdriver/wiki/GettingStarted</ulink>
+		</para>
+	</section>
+	<section id="server">
+		<title>Selenium RC</title>
+		<ulink url="http://seleniumhq.org/download/" />
+		<screen>
+		<![CDATA[
+wget http://selenium.googlecode.com/files/selenium-server-standalone-2.19.0.jar
+java -jar selenium-server-standalone-2.19.0.jar
+		]]>
+		</screen>
+		<para>默认端口是4444，可以使用-port 改变端口</para>
+		<para>java -jar selenium-server.jar -Dfile.encoding="Unicode" 指定编码</para>
+		<screen>
+		<![CDATA[
+from selenium import selenium
+# This is the driver's import. You'll use this class for instantiating a
+# browser and making it do what you need.
+
+import unittest, time, re
+# This are the basic imports added by Selenium-IDE by default.
+# You can remove the modules if they are not used in your script.
+
+class NewTest(unittest.TestCase):
+# We create our unittest test case
+
+def setUp(self):
+self.verificationErrors = []
+# This is an empty array where we will store any verification errors
+# we find in our tests
+
+self.selenium = selenium("192.168.1.3", 5555, "*firefox",
+"http://www.google.com/")
+self.selenium.start()
+# We instantiate and start the browser
+
+def test_new(self):
+# This is the test code. Here you should put the actions you need
+# the browser to do during your test.
+
+sel = self.selenium
+# We assign the browser to the variable "sel" (just to save us from
+# typing "self.selenium" each time we want to call the browser).
+
+sel.open("/")
+sel.type("q", "selenium rc")
+sel.click("btnG")
+sel.wait_for_page_to_load("30000")
+self.failUnless(sel.is_text_present("Results * for selenium rc"))
+# These are the real test steps
+
+def tearDown(self):
+self.selenium.stop()
+# we close the browser (I'd recommend you to comment this line while
+# you are creating and debugging your tests)
+
+self.assertEqual([], self.verificationErrors)
+# And make the test fail if we found that any verification errors
+# were found
+
+if __name__ == "__main__":
+unittest.main()
+			]]>
+		</screen>
+		<para>firefox</para>
+		<screen>
+			self.selenium = selenium("localhost", 4444, "*firefox", "http://www.google.com/")
+		</screen>
+		<para>iexplore</para>
+		<screen>
+			self.selenium = selenium("localhost", 4444, "*iexplore", "http://www.google.com/")
+		</screen>
+		<para>chrome</para>
+		<screen>
+			self.selenium = selenium("localhost", 4444, "*chrome", "http://google.com/")
+		</screen>
+		<para>通过绝对路径指定浏览器</para>
+		<screen>
+			self.selenium = selenium(
+			"localhost",
+			4444,
+			"c:\\program files\\internet explorer\\iexplore.exe",
+			"http://google.com/"
+			)
+		</screen>
+	</section>
+
+	<section id="browsers">
+		<title>支持浏览器</title>
+		<screen>
+			*iexplore
+			*konqueror
+			*firefox
+			*mock
+			*pifirefox
+			*piiexplore
+			*chrome
+			*safari
+			*opera
+			*iehta
+			*custom
+		</screen>
+		<section>
+			<title>Microsoft WebDriver</title>
+			<para>https://developer.microsoft.com/en-us/microsoft-edge/tools/webdriver/</para>
+		</section>
+	</section>
+	
+	&chapter.selenium.python.xml;
+	&chapter.selenium.ruby.xml;
+	&chapter.selenium.nodejs.xml;
+	&chapter.selenium.php.xml;
+	&chapter.selenium.java.xml;
+
+	<section id="Codeception">
+		<title>Codeception</title>
+		<para>
+			<ulink url="http://codeception.com" />
+		</para>
+	</section>
+	<section id="behat">
+		<title>Behat</title>
+		<ulink url="https://github.com/Behat">https://github.com/Behat</ulink>
+		<para>Installing Dependencies</para>
+		<screen>
+		<![CDATA[
+wget -nc http://getcomposer.org/composer.phar
+php composer.phar update
+		]]>
+		</screen>
+		<para>Running Tests</para>
+		<screen>
+		<![CDATA[
+bin/behat -f progress
+		]]>
+		</screen>
+	</section>
+
+</chapter>
