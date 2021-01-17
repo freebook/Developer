@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+https://playwright.dev
+
+neo@MacBook-Pro-Neo ~ % pip install playwright
+Collecting playwright
+  Could not find a version that satisfies the requirement playwright (from versions: )
+No matching distribution found for playwright
+You are using pip version 10.0.1, however version 20.3.3 is available.
+You should consider upgrading via the 'pip install --upgrade pip' command.
+
+neo@MacBook-Pro-Neo ~ % pip install --upgrade pip
+Collecting pip
+  Downloading https://files.pythonhosted.org/packages/54/eb/4a3642e971f404d69d4f6fa3885559d67562801b99d7592487f1ecc4e017/pip-20.3.3-py2.py3-none-any.whl (1.5MB)
+    100% |████████████████████████████████| 1.5MB 4.4MB/s 
+Installing collected packages: pip
+  Found existing installation: pip 10.0.1
+    Uninstalling pip-10.0.1:
+      Successfully uninstalled pip-10.0.1
+Successfully installed pip-20.3.3

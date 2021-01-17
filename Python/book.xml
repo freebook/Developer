@@ -35,12 +35,12 @@
 	xmlns="http://docbook.org/ns/docbook" xml:lang="zh-cn">
 	<info>
 		<title>Netkiller Python 手札</title>
-		<subtitle>Python Language...</subtitle>
+		<subtitle>Python Language...（<?dbtimestamp format="Y"?>版）</subtitle>
 
 		&book.info.author.xml;
 
 		<copyright>
-			<year>2008-2017</year>
+			<year>2008-<?dbtimestamp format="Y"?></year>
 			<holder>Netkiller(Neo Chan). All rights reserved.</holder>
 		</copyright>
 
@@ -57,10 +57,10 @@
 		&book.info.abstract.xml;
 
 		<keywordset>
-			<keyword>php</keyword>
-			<keyword>pear</keyword>
-			<keyword>pecl</keyword>
-			<keyword>phar</keyword>
+			<keyword>php,pear,pecl,phar</keyword>
+			<keyword>python</keyword>
+			<keyword></keyword>
+			<keyword></keyword>
 		</keywordset>
 	</info>
 
