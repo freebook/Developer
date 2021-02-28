@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <chapter id="pandas">
-	<title></title>
+	<title>Pandas</title>
+	<subtitle>Powerful data structures for data analysis, time series, and statistics</subtitle>
 	<section>
 		<title>安装 pandas</title>
 		<screen>

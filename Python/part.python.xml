@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<part id="index"><?dbhtml dir="python" ?>
-	<title>Python</title>
+<part id="index"><?dbhtml dir="lang" ?>
+	<title>Python 入门</title>
+	&chapter.python.setup.xml;
 	&chapter.python.xml;
+	&chapter.python.pipe.xml;
+	&chapter.library.xml;
+	&chapter.exe.xml;
+	&chapter.framework.xml;
 </part>

@@ -1,26 +1,2 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<chapter id="exe">
-	<title>python to exe</title>
-	<section id="pyinstaller">
-		<title>pyinstaller</title>
-		<para>http://www.pyinstaller.org/</para>
-		<section>
-			<title>Linux</title>
-			<para>安装</para>
-			<screen>
-pip install pyinstaller
-			</screen>
-			<para>制作EXE文件</para>
-			<screen>
-$ pyinstaller test.py
-			</screen>
-			<para>dist目录下会生成可执行文件</para>	
-		</section>
-	</section>
-	<section id="py2exe">
-		<title>py2exe</title>
-		<para>http://www.py2exe.org/</para>
-		<para>此软件	2008-11-16 后不再更新</para>
-	</section>
-	
-</chapter>
+

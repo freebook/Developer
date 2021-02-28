@@ -1,24 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
-	<!ENTITY part.python.xml					SYSTEM "part.python.xml">
-	<!ENTITY chapter.python.xml				SYSTEM "chapter.python.xml">
-	<!ENTITY chapter.python.pipe.xml			SYSTEM "chapter.python.pipe.xml">
-	<!ENTITY chapter.python.type.xml			SYSTEM "chapter.python.type.xml">
+<!ENTITY part.python.xml					SYSTEM "part.python.xml">
+<!ENTITY chapter.python.xml					SYSTEM "chapter.python.xml">
+<!ENTITY chapter.python.setup.xml			SYSTEM "chapter.python.setup.xml">
+<!ENTITY chapter.python.pipe.xml			SYSTEM "chapter.python.pipe.xml">
+<!ENTITY chapter.python.type.xml			SYSTEM "chapter.python.type.xml">
 	
-	<!ENTITY chapter.framework.xml			SYSTEM "chapter.framework.xml">
-	<!ENTITY chapter.framework.pylons.xml 	SYSTEM "chapter.framework.pylons.xml">
-	<!ENTITY chapter.framework.django.xml 	SYSTEM "chapter.framework.django.xml">
-	<!ENTITY chapter.framework.pyramid.xml 	SYSTEM "chapter.framework.pyramid.xml">
-	<!ENTITY chapter.framework.gevent.xml 	SYSTEM "chapter.framework.gevent.xml">
-	
-	<!ENTITY chapter.library.xml				SYSTEM "chapter.library.xml">
-	<!ENTITY chapter.library.syslog.xml		SYSTEM "chapter.library.syslog.xml">
-	<!ENTITY chapter.library.threading.xml	SYSTEM "chapter.library.threading.xml">
-	<!ENTITY chapter.library.socket.xml		SYSTEM "chapter.library.socket.xml">
-	<!ENTITY chapter.pypy.xml				SYSTEM "chapter.pypy.xml">
-	<!ENTITY chapter.setup.xml				SYSTEM "chapter.setup.xml">
-	<!ENTITY chapter.library.tui.xml			SYSTEM "chapter.library.tui.xml">
-	<!ENTITY chapter.exe.xml					SYSTEM "chapter.exe.xml">
-	<!ENTITY chapter.3rdparty.xml			SYSTEM "chapter.3rdparty.xml">
-	<!ENTITY chapter.crawler.xml				SYSTEM "chapter.crawler.xml">
-	<!ENTITY chapter.pandas.xml					SYSTEM "chapter.pandas.xml">
-	<!ENTITY chapter.faq.xml					SYSTEM "chapter.faq.xml">
+<!ENTITY chapter.library.xml				SYSTEM "chapter.library.xml">
+<!ENTITY chapter.library.syslog.xml			SYSTEM "chapter.library.syslog.xml">
+<!ENTITY chapter.library.threading.xml		SYSTEM "chapter.library.threading.xml">
+<!ENTITY chapter.library.socket.xml			SYSTEM "chapter.library.socket.xml">
+<!ENTITY chapter.pypy.xml					SYSTEM "chapter.pypy.xml">
+
+<!ENTITY chapter.library.tui.xml			SYSTEM "chapter.library.tui.xml">
+<!ENTITY chapter.exe.xml					SYSTEM "chapter.exe.xml">
+<!ENTITY chapter.3rdparty.xml				SYSTEM "chapter.3rdparty.xml">
+
+<!ENTITY chapter.framework.xml				SYSTEM "chapter.framework.xml">
+<!ENTITY chapter.framework.pylons.xml 		SYSTEM "chapter.framework.pylons.xml">
+<!ENTITY chapter.framework.django.xml 		SYSTEM "chapter.framework.django.xml">
+<!ENTITY chapter.framework.pyramid.xml 		SYSTEM "chapter.framework.pyramid.xml">
+<!ENTITY chapter.framework.gevent.xml 		SYSTEM "chapter.framework.gevent.xml">
+
+<!ENTITY part.bigdata.xml					SYSTEM "part.bigdata.xml">
+<!ENTITY chapter.crawler.xml				SYSTEM "chapter.crawler.xml">
+<!ENTITY chapter.pandas.xml					SYSTEM "chapter.pandas.xml">
+<!ENTITY section.pdfplumber.xml				SYSTEM "section.pdfplumber.xml">
+<!ENTITY chapter.faq.xml					SYSTEM "chapter.faq.xml">

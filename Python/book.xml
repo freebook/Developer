@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE subject SYSTEM "/usr/share/xml/docbook/schema/dtd/5.0/docbook.dtd"
+<!DOCTYPE subject SYSTEM "/usr/local/Cellar/docbook/5.1_1/docbook/xml/5.0/dtd/docbook.dtd"
 	[
 	<!ENTITY homepage "http://netkiller.sf.net/">
 	<!ENTITY mirror "http://neo.zenw.org/">
@@ -8,7 +8,7 @@
 	<!ENTITY BG7NYT "&Neo;">
 	<!ENTITY Netkiller "<emphasis><trademark>Netkiller</trademark></emphasis>">
 
-	<!ENTITY % common.doctype.entity.xml 		SYSTEM "../../common/doctype.entity.xml">
+	<!ENTITY % common.doctype.entity.xml 		SYSTEM "../common/doctype.entity.xml">
 	%common.doctype.entity.xml;
 	
 	<!ENTITY book.info.abstract.xml 	SYSTEM "../book.info.abstract.xml">
@@ -56,6 +56,15 @@
 		&book.info.legalnotice.xml;
 		&book.info.abstract.xml;
 
+		<cover>
+			<para role="tagline">Netkiller Python 手札</para>
+			<mediaobject>
+				<imageobject>
+					<imagedata fileref="images/cover.png" />
+				</imageobject>
+			</mediaobject>
+		</cover>
+
 		<keywordset>
 			<keyword>php,pear,pecl,phar</keyword>
 			<keyword>python</keyword>
@@ -68,15 +77,9 @@
 
 <!-- =========================================================================== -->
 	&book.preface.xml;
-	&chapter.setup.xml;
-	&chapter.python.xml;
-	&chapter.python.pipe.xml;
-	&chapter.framework.xml;
-	&chapter.library.xml;
-	&chapter.crawler.xml;
-	&chapter.pandas.xml;
+	&part.python.xml;
+	&part.bigdata.xml;
 	&chapter.3rdparty.xml;
-	&chapter.exe.xml;
 <!-- =========================================================================== -->
 	&chapter.faq.xml;
 <!--

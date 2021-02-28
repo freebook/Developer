@@ -6,7 +6,7 @@
 		<section>
 			<title>编译安装</title>
 			<para>Python2.x</para>
-			<screen>
+			<screen><![CDATA[
 wget http://www.python.org/ftp/python/2.x.x/Python-2.x.x.tgz
 tar zxvf Python-2.x.x.tgz
 cd Python-2.x.x
@@ -16,14 +16,14 @@ make install
 
 ln -s /usr/local/python/bin/python2.5 /usr/bin/
 ln -s /usr/local/python/bin/* /usr/local/bin/
-			</screen>
+			]]></screen>
 		</section>
 		<section>
 			<title>Ubuntu 安装</title>
-			<screen>
+			<screen><![CDATA[
 sudo apt-get install python
 sudo apt-get install python-setuptools
-			</screen>
+			]]></screen>
 		</section>
 	</section>
 	<section id="python3">
@@ -39,21 +39,46 @@ make && make install
 		</section>
 		<section>
 			<title>Ubunut 13.04 环境安装python3</title>
-			<screen>
+			<screen><![CDATA[
 $ sudo apt-get install python3
-			</screen>
+			]]></screen>
 			<para>python 3.3</para>
-			<screen>
+			<screen><![CDATA[
 $ sudo apt-get install python3.3
-			</screen>
+			]]></screen>
 		</section>
 	</section>
 	&chapter.pypy.xml;
 	<section id="eric">
 		<title>Eric Python IDE</title>
-		<screen>
+		<screen><![CDATA[
 apt-get install eric
-		</screen>
+		]]></screen>
+	</section>
+	<section id="exe">
+		<title>python to exe</title>
+		<section id="pyinstaller">
+			<title>pyinstaller</title>
+			<para>http://www.pyinstaller.org/</para>
+			<section>
+				<title>Linux</title>
+				<para>安装</para>
+				<screen><![CDATA[
+pip install pyinstaller
+			]]></screen>
+				<para>制作EXE文件</para>
+				<screen><![CDATA[
+$ pyinstaller test.py
+			]]></screen>
+				<para>dist目录下会生成可执行文件</para>
+			</section>
+		</section>
+		<section id="py2exe">
+			<title>py2exe</title>
+			<para>http://www.py2exe.org/</para>
+			<para>此软件 2008-11-16 后不再更新</para>
+		</section>
+
 	</section>
 </chapter>
 <chapter id="setup">
@@ -63,7 +88,7 @@ apt-get install eric
 		<para>http://docs.python.org/3/install/index.html</para>
 		<para>http://docs.python.org/3/distutils/index.html</para>
 		<para>创建 setup.py 如下：</para>
-		<screen>
+		<screen><![CDATA[
 # cat setup.py
 from distutils.core import setup
 
@@ -76,11 +101,11 @@ setup (
     description = 'Module firewall',
     url='http://netkiller.github.io/',
 )
-		</screen>
+		]]></screen>
 		<!-- packages=['distutils', 'distutils.command'], -->
 		<para>注意：name和py_modules这两个参数一定要与firewall.py文件名相同，否则发布安装时会发出模块文件找不到的错误.</para>
-		<screen>打包操作</screen>
-		<screen>
+		<screen><![CDATA[打包操作]]></screen>
+		<screen><![CDATA[
 # python setup.py sdist
 running sdist
 warning: sdist: missing required meta-data: url
@@ -97,15 +122,15 @@ gzip -f9 dist/firewall-1.0.0.tar
 tar -cf dist/firewall-1.0.0.tar firewall-1.0.0
 gzip -f9 dist/firewall-1.0.0.tar
 removing 'firewall-1.0.0' (and everything under it)
-		</screen>
+		]]></screen>
 		<para>sdist 生成的文件</para>
-		<screen>
+		<screen><![CDATA[
 # ll dist/
 total 4
 -rw-r--r--. 1 root root 2123 Aug  9 12:41 firewall-1.0.0.tar.gz
-		</screen>
+		]]></screen>
 		<para>安装包</para>
-		<screen>
+		<screen><![CDATA[
 # python setup.py install
 running install
 running build
@@ -118,26 +143,26 @@ copying build/lib/firewall.py -> /usr/lib/python2.6/site-packages
 byte-compiling /usr/lib/python2.6/site-packages/firewall.py to firewall.pyc
 running install_egg_info
 Writing /usr/lib/python2.6/site-packages/firewall-1.0.0-py2.6.egg-info
-		</screen>
+		]]></screen>
 		<para>安装后</para>
-		<screen>
+		<screen><![CDATA[
 # ll /usr/lib/python2.6/site-packages/firewall*
 -rw-r--r--. 1 root root   201 Aug  9 12:42 /usr/lib/python2.6/site-packages/firewall-1.0.0-py2.6.egg-info
 -rw-r--r--. 1 root root  6145 Aug  9 11:28 /usr/lib/python2.6/site-packages/firewall.py
 -rw-r--r--. 1 root root 11858 Aug  9 12:42 /usr/lib/python2.6/site-packages/firewall.pyc
-		</screen>
+		]]></screen>
 	</section>
 	<section id="distribute">
 		<title>distribute</title>
 		<para>distribute_setup 是 setuptools 的替代品</para>
-		<screen>
+		<screen><![CDATA[
 $ wget http://python-distribute.org/distribute_setup.py
 $ sudo python distribute_setup.py
-		</screen>
+		]]></screen>
 		<para>或者</para>
-		<screen>
+		<screen><![CDATA[
 curl -sS http://python-distribute.org/distribute_setup.py | python
-		</screen>
+		]]></screen>
 	</section>
 	<section id="pip">
 		<title>pip - A tool for installing and managing Python packages</title>
@@ -147,36 +172,38 @@ curl -sS http://python-distribute.org/distribute_setup.py | python
 			<section>
 				<title>使用 easy_install 安装 pip</title>
 				<para>使用easy_install安装pip， 同时pip也是easy_install替代品</para>
-				<screen>
+				<screen><![CDATA[
 # easy_install pip
-				</screen>
+				]]></screen>
 			</section>
 			<section>
 				<title>Ubuntu 安装 pip</title>
-				<screen>
+				<screen><![CDATA[
 $ sudo apt install python3-pip
-				</screen>
+				]]></screen>
 			</section>
 			<section>
 				<title>Mac</title>
-				<screen>
+				<screen><![CDATA[
 neo@MacBook-Pro ~ % brew install python3
 neo@MacBook-Pro ~ % pip3 install scrapy
-				</screen>
+				]]></screen>
 				<para>安装 python3 会携带 pip3 命令</para>
 			</section>
 		</section>
 		<section>
 			<title>pip 命令</title>
 			<para>查询包</para>
-			<screen>
+			<screen><![CDATA[
 $ pip search "Markdown"
-			</screen>
+			]]></screen>
 			<para>安装包</para>
-			<screen>
+			<screen><![CDATA[
 $ pip install Markdown
-			</screen>
-			<para>安装特定版本的包， 通过使用 <![CDATA[ ==, >=, <=, >, < ]]>来指定一个版本号。</para>
+			]]></screen>
+			<para>安装特定版本的包，
+				通过使用 <![CDATA[ ==, >=, <=, >, < ]]>来指定一个版本号。
+			</para>
 			<screen>
 			<![CDATA[
 $ pip install 'Markdown<2.0'
@@ -184,19 +211,19 @@ $ pip install 'Markdown>2.0,<2.0.3'
 			]]>
 			</screen>
 			<para>列出安装包的描述信息</para>
-			<screen>
+			<screen><![CDATA[
 $ pip freeze
-			</screen>
+			]]></screen>
 			<para>升级包, 升级包到当前最新的版本，可以使用-U 或者 --upgrade</para>
-			<screen>
+			<screen><![CDATA[
 # pip install distribute --upgrade
 $ pip install -U Markdown
-			</screen>
+			]]></screen>
 			<para>卸载包</para>
-			<screen>
+			<screen><![CDATA[
 $ pip uninstall Markdown
-			</screen>
+			]]></screen>
 		</section>
 	</section>
-	
+
 </chapter>
