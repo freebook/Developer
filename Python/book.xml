@@ -74,6 +74,7 @@
 	&chapter.framework.xml;
 	&chapter.library.xml;
 	&chapter.crawler.xml;
+	&chapter.pandas.xml;
 	&chapter.3rdparty.xml;
 	&chapter.exe.xml;
 <!-- =========================================================================== -->

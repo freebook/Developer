@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<chapter id="pandas">
+	<title></title>
+	<section>
+		<title>安装 pandas</title>
+		<screen>
+		<![CDATA[
+pip install pandas		
+		]]>
+		</screen>
+
+	</section>
+	<section>
+		<title>Excel 处理</title>
+		<screen>
+		<![CDATA[
+neo@MacBook-Pro-Neo ~ % pip install xlrd		
+		]]>
+		</screen>
+		<programlisting>
+		<![CDATA[
+#!/usr/bin/python3
+# -*- coding: UTF-8 -*-
+import pandas as pd
+# 默认读取第一个工作表
+df = pd.read_excel("团购2021.xlsx")
+data = df.head()  # 默认读取前5行的数据
+print("当前默认工作表：\n{0}".format(data))  # 格式化输出	
+		]]>
+		</programlisting>
+
+		<section>
+			<title>工作表</title>
+			<para>获取Excel文件中的工作表</para>
+			<programlisting>
+			<![CDATA[
+xls = pd.ExcelFile("团购2021.xlsx")
+sheet_names = xls.sheet_names
+print(sheet_names)
+			]]>
+			</programlisting>
+			<screen>
+			<![CDATA[
+df = pd.read_excel("团购2021.xlsx", None)
+print(df.keys())
+for k,v in df.items():
+    print(k)
+			]]>
+			</screen>
+		</section>
+	</section>
+	<section>
+		<title>FAQ</title>
+		<section>
+			<title>xlrd.biffh.XLRDError: Excel xlsx file; not supported</title>
+			<screen>
+			<![CDATA[
+neo@MacBook-Pro-Neo ~ % pip show xlrd
+Name: xlrd
+Version: 2.0.1
+Summary: Library for developers to extract data from Microsoft Excel (tm) .xls spreadsheet files
+Home-page: http://www.python-excel.org/
+Author: Chris Withers
+Author-email: chris@withers.org
+License: BSD
+Location: /Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages
+Requires: 
+Required-by: 			
+			]]>
+			</screen>
+			<para>降级 xlrd 到 1.2.0 可以解决</para>
+			<screen>
+			<![CDATA[
+pip uninstall xlrd
+pip install xlrd==1.2.0			
+			]]>
+			</screen>
+		</section>
+	</section>
+
+</chapter>

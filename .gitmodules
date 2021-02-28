@@ -10,3 +10,15 @@
 [submodule "Java"]
 	path = Java
 	url = https://github.com/freebook/Java.git
+[submodule "Python/common"]
+	path = Python/common
+	url = https://github.com/freebook/common.git
+[submodule "Python/docbook-xsl"]
+	path = Python/docbook-xsl
+	url = https://github.com/freebook/docbook-xsl.git
+[submodule "common"]
+	path = common
+	url = https://github.com/freebook/common.git
+[submodule "docbook-xsl"]
+	path = docbook-xsl
+	url = https://github.com/freebook/docbook-xsl.git
