@@ -3,12 +3,13 @@
 	<title>PDF 文件处理</title>
 	<subtitle>Plumb a PDF for detailed information about each char, rectangle, and line.</subtitle>
 	<section>
-		<title>安装</title>
+		<title>安装 pdfplumber</title>
 		<screen>
 		<![CDATA[
 neo@MacBook-Pro-Neo ~/workspace/python % pip install pdfplumber		
 		]]>
 		</screen>
+		<para>查看 pdfplumber 是否安装成功</para>
 		<screen>
 		<![CDATA[
 neo@MacBook-Pro-Neo ~/workspace/python % pip show pdfplumber
@@ -82,6 +83,15 @@ with pdfplumber.open(file) as pdf:
     print('页高：',first_page.height)		
 		]]>
 		</programlisting>
+		<para>输出结果</para>
+		<screen>
+		<![CDATA[
+neo@MacBook-Pro-Neo ~/workspace/python % python3 pdf.py
+页码： 1
+页宽： 1324
+页高： 7638		
+		]]>
+		</screen>
 	</section>
 	<section>
 		<title>提取文本内容</title>
@@ -118,8 +128,34 @@ with pdfplumber.open(file) as pdf:
     print(table)	
 		]]>
 		</programlisting>
+		<para></para>
+		<programlisting>
+		<![CDATA[
+import os,pdfplumber
+import pandas as pd
+
+file = os.path.expanduser("~/tmp/每日开放式基金净值表.pdf")
+
+with pdfplumber.open(file) as pdf:
+
+    first_page = pdf.pages[0]
+    table = first_page.extract_table()
+    # print(table)
+    for t in table:
+        print(t)		
+		]]>
+		</programlisting>
 		<screen>
-		<![CDATA[]]>
+		<![CDATA[
+neo@MacBook-Pro-Neo ~/workspace/python % python3 pdf.py
+['关注', '⽐较', '序号', '基⾦代码', '基⾦简称', '2021-02-26', None, '2021-02-25', None, '⽇增长值', '⽇增长率', '申购状态', '赎回状态', '⼿续费']
+[None, None, None, None, None, '单位净值', '累计净值', '单位净值', '累计净值', None, None, None, None, None]
+['', '', '1', '501030', '汇添富中证环境治理指数A 估值图 基⾦吧', '0.5501', '0.5501', '0.5421', '0.5421', '0.0080', '1.48%', '开放', '开放', '0.12%']
+['', '', '2', '501031', '汇添富中证环境治理指数C 估值图 基⾦吧', '0.5471', '0.5471', '0.5392', '0.5392', '0.0079', '1.47%', '开放', '开放', '0.00%']
+['', '', '3', '164908', '交银中证环境治理(LOF) 估值图 基⾦吧', '0.4890', '0.4890', '0.4820', '0.4820', '0.0070', '1.45%', '开放', '开放', '0.12%']
+['', '', '4', '004005', '东⽅民丰回报赢安混合A 估值图 基⾦吧', '1.0564', '1.0709', '1.0438', '1.0583', '0.0126', '1.21%', '开放', '开放', '0.06%']
+['', '', '5', '004006', '东⽅民丰回报赢安混合C 估值图 基⾦吧', '1.0463', '1.0593', '1.0338', '1.0468', '0.0125', '1.21%', '开放', '开放', '0.00%']		
+		]]>
 		</screen>
 	</section>
 	<section>
