@@ -25,4 +25,8 @@
 <!ENTITY chapter.crawler.xml				SYSTEM "chapter.crawler.xml">
 <!ENTITY chapter.pandas.xml					SYSTEM "chapter.pandas.xml">
 <!ENTITY section.pdfplumber.xml				SYSTEM "section.pdfplumber.xml">
+
+<!ENTITY chapter.ocr.xml					SYSTEM "chapter.ocr.xml">
+<!ENTITY section.ocr.easyocr.xml			SYSTEM "section.ocr.easyocr.xml">
+
 <!ENTITY chapter.faq.xml					SYSTEM "chapter.faq.xml">

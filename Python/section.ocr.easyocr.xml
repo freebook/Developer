@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section id="EasyOCR">
+	<title>EasyOCR</title>
+	<para>
+		<ulink url="https://www.jaided.ai" />
+	</para>
+	<section>
+		<title>安装 EasyOCR</title>
+		<screen>
+		<![CDATA[
+pip install easyocr		
+		]]>
+		</screen>
+		<para>EasyOCR 源码</para>
+		<para>
+			<ulink url="https://github.com/JaidedAI/EasyOCR" />
+		</para>
+		<para>安装最新版</para>
+		<screen>
+		<![CDATA[
+pip install git+git://github.com/jaidedai/easyocr.git		
+		]]>
+		</screen>
+	</section>
+	<section>
+		<title>操作演示</title>
+		<programlisting>
+		<![CDATA[
+import easyocr
+
+reader = easyocr.Reader(['ch_sim','en']) 
+result = reader.readtext('test.jpg')
+
+print(result)
+
+for text in result:
+    word = text[1]
+    print(word)	
+		]]>
+		</programlisting>
+	</section>
+	<section>
+		<title>命令行运行</title>
+		<screen>
+		<![CDATA[
+$ easyocr -l ch_sim en -f chinese.jpg --detail=1 --gpu=True		
+		]]>
+		</screen>
+	</section>
+	<section>
+		<title>函数</title>
+		<section>
+			<title>Reader()</title>
+			<para>禁用 GPU</para>
+			<programlisting>
+			<![CDATA[
+reader = easyocr.Reader(['ch_sim','en'], gpu = False)			
+			]]>
+			</programlisting>
+		</section>
+		<section>
+			<title>readtext() 函数</title>
+			<para>进输出识别结果</para>
+			<programlisting>
+			<![CDATA[
+reader.readtext('chinese.jpg', detail = 0)
+			]]>
+			</programlisting>
+			<para>输出结果</para>
+			<screen>
+			<![CDATA[
+['愚园路', '西', '东', '315', '309', 'Yuyuan Rd.', 'W', 'E']
+			]]>
+			</screen>
+		</section>
+	</section>
+	<section>
+		<title><![CDATA[urllib.error.URLError: <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed (_ssl.c:833)>]]></title>
+		<para>解决方法，加入下面代码</para>
+		<programlisting>
+		<![CDATA[
+import ssl
+ssl._create_default_https_context = ssl._create_unverified_context		
+		]]>
+		</programlisting>
+		<para>或运行</para>
+		<screen>
+		<![CDATA[
+pip install --upgrade certifi		
+		]]>
+		</screen>
+	</section>
+</section>	
