@@ -12,6 +12,48 @@ pip install pandas
 
 	</section>
 	<section>
+		<title>HTML 表格处理</title>
+		<para>read_html() 可以萃取 HTML table 标签中的数据。</para>
+		<screen>
+		<![CDATA[
+pip install lxml		
+		]]>
+		</screen>
+		<para>获取页面中所有table的数据</para>
+		<programlisting>
+		<![CDATA[
+import pandas as pd
+
+url = "http://www.stats.gov.cn/tjsj/zxfb/202103/t20210330_1815829.html"
+data = pd.read_html(url)
+
+print(data)
+		]]>
+		</programlisting>
+		<para>多个 table 会返回一个数组，通过数组下标可以读取指定表格。</para>
+		<programlisting>
+		<![CDATA[
+import pandas as pd
+
+url = "http://www.stats.gov.cn/tjsj/zxfb/202103/t20210330_1815829.html"
+data = pd.read_html(url)[1]
+
+print(data)		
+		]]>
+		</programlisting>
+		<para>获取 html table 标签 id 属性为 oTable 的表格数据 </para>
+		<programlisting>
+		<![CDATA[
+import pandas as pd
+
+url = "http://fund.eastmoney.com/fund.html"
+data = pd.read_html(url,attrs = {'id': 'oTable'})
+
+print(data)		
+		]]>
+		</programlisting>
+	</section>
+	<section>
 		<title>Excel 处理</title>
 		<screen>
 		<![CDATA[
@@ -50,6 +92,23 @@ for k,v in df.items():
 			</screen>
 		</section>
 	</section>
+	<section>
+		<title>将数据保存到CSV文件</title>
+		<programlisting>
+		<![CDATA[
+import pandas as pd
+
+months=[202001,202002,202003,202004,202005,202006,202007,202008,202009,202010,202011,202012]
+
+for month in months:
+    print(month)
+    weather = pd.read_html(f'http://www.tianqihoubao.com/lishi/wanzhou/month/{month}.html', encoding='gb18030', header=0)[0]
+    print(weather)
+    weather.to_csv(f'/tmp/{month}天气预报数据.csv', mode='a+', index=False, header=False)		
+		]]>
+		</programlisting>
+	</section>
+	
 	<section>
 		<title>FAQ</title>
 		<section>
