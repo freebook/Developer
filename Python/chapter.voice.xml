@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<chapter id="index"><?dbhtml dir="voice" ?>
+	<title>语音处理</title>
+	<section>
+		<title>pyttsx3 - 语音朗读引擎</title>
+		<section>
+			<title>安装 pyttsx3</title>
+			<screen>
+			<![CDATA[
+pip install pyttsx3			
+			]]>
+			</screen>
+		</section>
+		<section>
+			<title>演示</title>
+			<programlisting>
+			<![CDATA[
+#coding=utf-8
+import pyttsx3
+pyttsx3.speak("Hello World!")			
+			]]>
+			</programlisting>
+		</section>
+		<section>
+			<title>方法详解</title>
+			<section>
+				<title>say() 方法</title>
+				<para>speak() 实际上是下面代码的封装</para>
+				<programlisting>
+				<![CDATA[
+#coding=utf-8
+import pyttsx3
+engine = pyttsx3.init()
+engine.say("Hello World!")
+engine.runAndWait()				
+				]]>
+				</programlisting>
+			</section>
+			<section>
+				<title>save_to_file()</title>
+				<programlisting>
+				<![CDATA[
+engine.save_to_file(text, 'test.mp3')				
+				]]>
+				</programlisting>
+			</section>
+			
+			
+		</section>
+		
+	</section>
+</chapter>

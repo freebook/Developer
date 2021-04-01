@@ -79,7 +79,6 @@
 	&book.preface.xml;
 	&part.python.xml;
 	&part.bigdata.xml;
-	&chapter.ocr.xml;
 	&chapter.3rdparty.xml;
 <!-- =========================================================================== -->
 	&chapter.faq.xml;

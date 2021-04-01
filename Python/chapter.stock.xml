@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<chapter id="index"><?dbhtml dir="stock" ?>
+	<title>股票</title>
+	<section>
+		<title>easyquotation - 快速获取新浪/腾讯的全市场行情</title>
+		<para><ulink url="https://github.com/shidenggui/easyquotation" /></para>
+		<section>
+			<title>安装</title>
+			<para>安装</para>
+			<screen>
+			<![CDATA[
+pip install easyquotation
+			]]>
+			</screen>
+			<para>升级</para>
+			<screen>
+			<![CDATA[
+pip install easyquotation --upgrade			
+			]]>
+			</screen>
+			<para>下载源码，然后安装</para>
+			<screen>
+			<![CDATA[
+git clone https://github.com/shidenggui/easyquotation.git
+cd easyquotation
+python setup.py install			
+			]]>
+			</screen>
+		</section>
+		<section>
+			<title>演示</title>
+			<programlisting>
+			<![CDATA[
+import easyquotation
+quotation = easyquotation.use('sina') # 新浪 ['sina'] 腾讯 ['tencent', 'qq'] 			
+			]]>
+			</programlisting>
+			<screen>
+			<![CDATA[]]>
+			</screen>
+		</section>
+	</section>
+	<section>
+		<title>akshare</title>
+		<programlisting>
+		<![CDATA[
+import akshare as ak
+import pandas as pd
+
+# 获取股票数据
+stock_zh_a_spot_df = ak.stock_zh_a_spot()
+
+# 打印结果
+print(stock_zh_a_spot_df)
+
+# 保存到excel 
+stock_zh_a_spot_df.to_excel("stock.xlsx")
+		]]>
+		</programlisting>
+	</section>
+</chapter>

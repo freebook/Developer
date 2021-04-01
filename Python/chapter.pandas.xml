@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<chapter id="pandas">
+<chapter id="index"><?dbhtml dir="pandas" ?>
 	<title>Pandas</title>
 	<subtitle>Powerful data structures for data analysis, time series, and statistics</subtitle>
 	<section>
@@ -9,7 +9,20 @@
 pip install pandas		
 		]]>
 		</screen>
-
+		<para>安装 modin 加速插件</para>
+		<screen>
+		<![CDATA[
+pip install modin[dask]		
+		]]>
+		</screen>
+		<para>modin 的用法是将：</para>
+		<screen>
+		<![CDATA[
+import pandas as pd
+改为
+import modin.pandas as pd		
+		]]>
+		</screen>
 	</section>
 	<section>
 		<title>HTML 表格处理</title>
