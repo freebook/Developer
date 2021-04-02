@@ -1,29 +1,29 @@
 <section id="django">
-		<title>Django</title>
-		<screen>
+	<title>Django</title>
+	<screen><![CDATA[
 wget http://www.djangoproject.com/download/0.96/tarball/
 tar zxvf Django-0.96.tar.gz
 cd Django-0.96
 python setup.py install
-		</screen>
-		<para>生成项目</para>
-		<screen>
+		]]></screen>
+	<para>生成项目</para>
+	<screen><![CDATA[
 django-admin.py startproject newtest
-		</screen>
-		<para>web server</para>
-		<screen>
+		]]></screen>
+	<para>web server</para>
+	<screen><![CDATA[
 cd newtest/
 ./manage.py runserver
-		</screen>
-		<para>helloworld.py</para>
-		<screen>
+		]]></screen>
+	<para>helloworld.py</para>
+	<screen><![CDATA[
 from django.http import HttpResponse
 
 def index(request):
     return HttpResponse("Hello, Django.")
-		</screen>
-		<para>urls.py</para>
-		<screen>
+		]]></screen>
+	<para>urls.py</para>
+	<screen><![CDATA[
 from django.conf.urls.defaults import *
 
 urlpatterns = patterns('',
@@ -34,9 +34,9 @@ urlpatterns = patterns('',
     # Uncomment this for admin:
 #     (r'^admin/', include('django.contrib.admin.urls')),
 )
-		</screen>
-		<para>启动Web Server</para>
-		<screen>
+	]]></screen>
+	<para>启动Web Server</para>
+	<screen><![CDATA[
 # ./manage.py runserver
 Validating models...
 0 errors found.
@@ -44,6 +44,6 @@ Validating models...
 Django version 0.96, using settings 'newtest.settings'
 Development server is running at http://127.0.0.1:8000/
 Quit the server with CTRL-BREAK.
-		</screen>
-		<para>curl http://127.0.0.1:8000/</para>
+		]]></screen>
+	<para>curl http://127.0.0.1:8000/</para>
 </section>

@@ -3,6 +3,16 @@
 	<title>语音处理</title>
 	<section>
 		<title>pyttsx3 - 语音朗读引擎</title>
+		<para>TTS(Text To Speech) 译为从文本到语音，TTS是人工智能AI的一个模组，是人机对话的一部分，即让机器能够说话。</para>
+		<para>TTS是语音合成技术应用的一种，首先采集语音波形，然后进行优化处理，最后存储在数据库中，合成语音是提取波形转换成自然语音输出。</para>
+		<orderedlist>
+			<title>TTS 有哪些应用场景</title>
+			<listitem>TTS 能帮助有视觉障碍的人阅读计算机上的信息</listitem>
+			<listitem>懒人听书，很多人没有时间读书，我们可以通过TTS将书中的内容朗读出来</listitem>
+			<listitem>与声音识别程序一起使用，实现人机交互，例如客服系统的对话脚本</listitem>
+			<listitem>不方便视觉交互场景，例如驾驶汽车，我们可以将短信朗读出来，来电电话号码朗读出来</listitem>
+			<listitem>公交车报站</listitem>
+		</orderedlist>
 		<section>
 			<title>安装 pyttsx3</title>
 			<screen>
@@ -44,9 +54,81 @@ engine.save_to_file(text, 'test.mp3')
 				]]>
 				</programlisting>
 			</section>
-			
-			
+			<section>
+				<title>调整人声类型</title>
+				<para>男性（voices[0].id）、女性（voices[1].id）</para>
+				<programlisting>
+				<![CDATA[
+voices = engine.getProperty('voices')  
+engine.setProperty('voice', voices[0].id)
+				]]>
+				</programlisting>
+			</section>
+			<section>
+				<title>调整语速</title>
+				<para>一般范围一般在0~500之间</para>
+				<programlisting>
+				<![CDATA[
+rate = engine.getProperty('rate')
+engine.setProperty('rate', 200)    
+				]]>
+				</programlisting>
+			</section>
+			<section>
+				<title>调整声量</title>
+				<para>范围在0~1之间</para>
+				<programlisting>
+				<![CDATA[
+volume = engine.getProperty('volume')                         
+engine.setProperty('volume',0.8) 
+				]]>
+				</programlisting>
+			</section>
+			<section>
+				<title>查看语音引擎</title>
+				<programlisting>
+				<![CDATA[
+voices = engine.getProperty('voices') 
+for item in voices:
+    print(item)				
+				]]>
+				</programlisting>
+			</section>
 		</section>
-		
+		<section>
+			<title>例子</title>
+			<programlisting>
+			<![CDATA[
+import pyttsx3
+engine = pyttsx3.init() # object creation
+
+""" RATE"""
+rate = engine.getProperty('rate')   # getting details of current speaking rate
+print (rate)                        #printing current voice rate
+engine.setProperty('rate', 125)     # setting up new voice rate
+
+
+"""VOLUME"""
+volume = engine.getProperty('volume')   #getting to know current volume level (min=0 and max=1)
+print (volume)                          #printing current volume level
+engine.setProperty('volume',1.0)    # setting up volume level  between 0 and 1
+
+"""VOICE"""
+voices = engine.getProperty('voices')       #getting details of current voice
+#engine.setProperty('voice', voices[0].id)  #changing index, changes voices. o for male
+engine.setProperty('voice', voices[1].id)   #changing index, changes voices. 1 for female
+
+engine.say("Hello World!")
+engine.say('My current speaking rate is ' + str(rate))
+engine.runAndWait()
+engine.stop()
+
+"""Saving Voice to a file"""
+# On linux make sure that 'espeak' and 'ffmpeg' are installed
+engine.save_to_file('Hello World', 'test.mp3')
+engine.runAndWait()			
+			]]>
+			</programlisting>
+		</section>
 	</section>
 </chapter>
