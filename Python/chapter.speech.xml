@@ -1,0 +1,350 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<chapter id="index"><?dbhtml dir="speech" ?>
+	<title>语音处理</title>
+	<section>
+		<title>TTS(Text To Speech) 文本转语音</title>
+		<subtitle>pyttsx3 - 语音朗读</subtitle>
+		<para>TTS(Text To Speech) 译为从文本到语音，TTS是人工智能AI的一个模组，是人机对话的一部分，即让机器能够说话。</para>
+		<para>TTS是语音合成技术应用的一种，首先采集语音波形，然后进行优化处理，最后存储在数据库中，合成语音是提取波形转换成自然语音输出。</para>
+		<orderedlist>
+			<title>TTS 有哪些应用场景</title>
+			<listitem>TTS 能帮助有视觉障碍的人阅读计算机上的信息</listitem>
+			<listitem>懒人听书，很多人没有时间读书，我们可以通过TTS将书中的内容朗读出来</listitem>
+			<listitem>与声音识别程序一起使用，实现人机交互，例如客服系统的对话脚本</listitem>
+			<listitem>不方便视觉交互场景，例如驾驶汽车，我们可以将短信朗读出来，来电电话号码朗读出来</listitem>
+			<listitem>公交车报站</listitem>
+		</orderedlist>
+		<section>
+			<title>安装 pyttsx3</title>
+			<screen>
+			<![CDATA[
+pip install pyttsx3			
+			]]>
+			</screen>
+		</section>
+		<section>
+			<title>演示</title>
+			<programlisting>
+			<![CDATA[
+#coding=utf-8
+import pyttsx3
+pyttsx3.speak("Hello World!")			
+			]]>
+			</programlisting>
+		</section>
+		<section>
+			<title>方法详解</title>
+			<section>
+				<title>say() 方法</title>
+				<para>speak() 实际上是下面代码的封装</para>
+				<programlisting>
+				<![CDATA[
+#coding=utf-8
+import pyttsx3
+engine = pyttsx3.init()
+engine.say("Hello World!")
+engine.runAndWait()				
+				]]>
+				</programlisting>
+			</section>
+			<section>
+				<title>save_to_file()</title>
+				<programlisting>
+				<![CDATA[
+engine.save_to_file(text, 'test.mp3')				
+				]]>
+				</programlisting>
+			</section>
+			<section>
+				<title>调整人声类型</title>
+				<para>男性（voices[0].id）、女性（voices[1].id）</para>
+				<programlisting>
+				<![CDATA[
+voices = engine.getProperty('voices')  
+engine.setProperty('voice', voices[0].id)
+				]]>
+				</programlisting>
+			</section>
+			<section>
+				<title>调整语速</title>
+				<para>一般范围一般在0~500之间</para>
+				<programlisting>
+				<![CDATA[
+rate = engine.getProperty('rate')
+engine.setProperty('rate', 200)    
+				]]>
+				</programlisting>
+			</section>
+			<section>
+				<title>调整声量</title>
+				<para>范围在0~1之间</para>
+				<programlisting>
+				<![CDATA[
+volume = engine.getProperty('volume')                         
+engine.setProperty('volume',0.8) 
+				]]>
+				</programlisting>
+			</section>
+			<section>
+				<title>查看语音引擎</title>
+				<programlisting>
+				<![CDATA[
+voices = engine.getProperty('voices') 
+for item in voices:
+    print(item)				
+				]]>
+				</programlisting>
+			</section>
+		</section>
+		<section>
+			<title>例子</title>
+			<programlisting>
+			<![CDATA[
+import pyttsx3
+engine = pyttsx3.init() # object creation
+
+""" RATE"""
+rate = engine.getProperty('rate')   # getting details of current speaking rate
+print (rate)                        #printing current voice rate
+engine.setProperty('rate', 125)     # setting up new voice rate
+
+
+"""VOLUME"""
+volume = engine.getProperty('volume')   #getting to know current volume level (min=0 and max=1)
+print (volume)                          #printing current volume level
+engine.setProperty('volume',1.0)    # setting up volume level  between 0 and 1
+
+"""VOICE"""
+voices = engine.getProperty('voices')       #getting details of current voice
+#engine.setProperty('voice', voices[0].id)  #changing index, changes voices. o for male
+engine.setProperty('voice', voices[1].id)   #changing index, changes voices. 1 for female
+
+engine.say("Hello World!")
+engine.say('My current speaking rate is ' + str(rate))
+engine.runAndWait()
+engine.stop()
+
+"""Saving Voice to a file"""
+# On linux make sure that 'espeak' and 'ffmpeg' are installed
+engine.save_to_file('Hello World', 'test.mp3')
+engine.runAndWait()			
+			]]>
+			</programlisting>
+		</section>
+	</section>
+	<section>
+		<title>STT(Speech To Text) 语音转文本</title>
+		<para><ulink url="https://github.com/Uberi/speech_recognition" /></para>
+		<section>
+			<title>安装</title>
+			<screen>
+			<![CDATA[
+pip install SpeechRecognition
+			]]>
+			</screen>
+			<para>麦克风相关</para>
+			<screen>
+			<![CDATA[
+brew install portaudio
+pip install pyaudio
+			]]>
+			</screen>
+			<para>运行下面命令授权访问麦克风</para>
+			<screen>
+			<![CDATA[
+neo@MacBook-Pro-Neo ~ % python3 -m speech_recognition			
+			]]>
+			</screen>
+		</section>
+		<section>
+			<title>查看麦克风列表</title>
+			<programlisting>
+			<![CDATA[
+import speech_recognition as sr
+
+for index, name in enumerate(sr.Microphone.list_microphone_names()):
+    print("Microphone with name \"{1}\" found for `Microphone(device_index={0})`".format(index, name))			
+			]]>
+			</programlisting>
+			<para>输出结果</para>
+			<screen>
+			<![CDATA[
+neo@MacBook-Pro-Neo ~/workspace/python/speech % python3 microphone.py
+Microphone with name "Built-in Microphone" found for `Microphone(device_index=0)`
+Microphone with name "Built-in Output" found for `Microphone(device_index=1)`			
+			]]>
+			</screen>
+			<para>指定麦克风设备</para>
+			<programlisting>
+			<![CDATA[
+import speech_recognition as sr
+print(sr.__version__) # just to print the version not required
+r = sr.Recognizer()
+mic = sr.Microphone(device_index=1) #my device index is 1, you have to put your device index			
+			]]>
+			</programlisting>
+			<para>噪声抑制</para>
+			<programlisting>
+			<![CDATA[
+import speech_recognition as sr
+print(sr.__version__) # just to print the version not required
+r = sr.Recognizer()
+my_mic = sr.Microphone(device_index=1) #my device index is 1, you have to put your device index
+with my_mic as source:
+    print("Say now!!!!")
+    r.adjust_for_ambient_noise(source) #reduce noise
+    audio = r.listen(source) #take voice input from the microphone
+print(r.recognize_google(audio)) #to print voice into text
+			]]>
+			</programlisting>
+		</section>
+		<section>
+			<title>PocketSphinx 文件转文本</title>
+			<para>PocketSphinx默认仅支持英文识别，中文需要下载<ulink url="https://sourceforge.net/projects/cmusphinx/files/Acoustic%20and%20Language%20Models/">语言模型文件</ulink>，Mandarin 为中文普通话。</para>
+			<screen>
+			<![CDATA[
+brew install swig
+brew install pocketsphinx
+pip install PocketSphinx			
+			]]>
+			</screen>
+			<para>从文件识别</para>
+			<programlisting>
+			<![CDATA[
+import speech_recognition as sr
+
+# obtain audio from the file
+recognizer = sr.Recognizer()
+audioFile = sr.AudioFile(r"english.wav")
+with audioFile as source:
+    audio = recognizer.record(source)
+# recognize speech using Sphinx
+try:
+    print("Sphinx thinks you said: " + recognizer.recognize_sphinx(audio))
+except sr.UnknownValueError:
+    print("Sphinx could not understand audio")
+except sr.RequestError as e:
+    print("Sphinx error; {0}".format(e))
+
+			
+			]]>
+			</programlisting>
+			<para>从麦克风识别</para>
+			<programlisting>
+			<![CDATA[
+#!/usr/bin/env python3
+
+import speech_recognition as sr
+
+print(sr.__version__)
+
+for index, name in enumerate(sr.Microphone.list_microphone_names()):
+    print("Microphone with name \"{1}\" found for `Microphone(device_index={0})`".format(index, name))
+
+# obtain audio from the microphone
+r = sr.Recognizer()
+with sr.Microphone() as source:
+    print("Say something!")
+    audio = r.listen(source)
+
+# recognize speech using Sphinx
+try:
+    print("Sphinx thinks you said: " + r.recognize_sphinx(audio))
+except sr.UnknownValueError:
+    print("Sphinx could not understand audio")
+except sr.RequestError as e:
+    print("Sphinx error; {0}".format(e))    			
+			]]>
+			</programlisting>
+
+		</section>
+		<section>
+			<title>Google Cloud Speech API</title>
+			<para>使用谷歌产品先要会使用科学上网，你懂得！</para>
+			<programlisting>
+			<![CDATA[
+import speech_recognition as sr
+ 
+r = sr.Recognizer()
+with sr.Microphone() as source:
+    print("Say something!")
+    audio = r.listen(source)
+try:
+    text = r.recognize_google(audio)
+    print("You said: " + text)
+except sr.UnknownValueError:
+    print("Google Speech Recognition could not understand audio")
+except sr.RequestError as e:
+    print("Could not request results from Google Speech Recognition service" + format(e))			
+			]]>
+			</programlisting>
+			<para>指定默认语言</para>
+			<programlisting>
+			<![CDATA[
+text = r.recognize_google(audio, language='zh-CN', show_all= True)	
+text = r.recognize_google(audio_data, language=”es-ES”)	
+			]]>
+			</programlisting>
+		</section>
+		<section>
+			<title>IBM Speech to Text</title>
+			<para>使用IBM的服务需要一个云账号 <ulink url="https://cloud.ibm.com">IBM Cloud</ulink>，如你你没有请先注册一个账号，然后创建 <ulink url="https://cloud.ibm.com/catalog/services/speech-to-text">Speech To Text</ulink> 服务。</para>
+			<para>测试 Speech to Text 是否正常工作</para>
+			<screen>
+			<![CDATA[
+neo@MacBook-Pro-Neo ~/workspace/python/speech % wget https://watson-developer-cloud.github.io/doc-tutorial-downloads/speech-to-text/audio-file.flac	
+
+neo@MacBook-Pro-Neo ~/workspace/python/speech % curl -X POST -u "apikey:eXuTdDOg_l7Ljp5bV8NpFsswVq58ebf2Kr-K5dpp5SZK" \
+--header "Content-Type: audio/flac" \
+--data-binary audio-file.flac \
+"https://api.au-syd.speech-to-text.watson.cloud.ibm.com/instances/8a7df79c-c8fe-4e31-8000-c44bbd025b22/v1/recognize"
+			]]>
+			</screen>
+			<para></para>
+			<programlisting>
+			<![CDATA[
+#!/usr/bin/env python3
+
+import speech_recognition as sr
+import ssl
+
+ssl._create_default_https_context = ssl._create_unverified_context
+
+# obtain path to "english.wav" in the same folder as this script
+from os import path
+# AUDIO_FILE = path.join(path.dirname(path.realpath(__file__)), "english.wav")
+# AUDIO_FILE = path.join(path.dirname(path.realpath(__file__)), "french.aiff")
+AUDIO_FILE = path.join(path.dirname(path.realpath(__file__)), "chinese.flac")
+print(AUDIO_FILE)
+
+# use the audio file as the audio source
+r = sr.Recognizer()
+with sr.AudioFile(AUDIO_FILE) as source:
+    audio = r.record(source)  # read the entire audio file
+
+
+try:
+    print("IBM Speech to Text thinks you said " + r.recognize_ibm(audio, username="netkiller@msn.com", password="******"))
+except sr.UnknownValueError:
+    print("IBM Speech to Text could not understand audio")
+except sr.RequestError as e:
+    print("Could not request results from IBM Speech to Text service; {0}".format(e))			
+			]]>
+			</programlisting>
+			
+		</section>
+	</section>
+	<section>
+		<title>Baidu AipSpeech</title>
+		<screen>
+		<![CDATA[
+pip install baidu-aip		
+		]]>
+		</screen>
+		<programlisting>
+		<![CDATA[
+		
+		]]>
+		</programlisting>
+	</section>
+</chapter>

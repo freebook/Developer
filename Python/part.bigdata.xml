@@ -7,7 +7,5 @@
 		<title>文件处理</title>
 		&section.pdfplumber.xml;
 	</chapter>
-	&chapter.ocr.xml;
-	&chapter.voice.xml;
 	&chapter.stock.xml;
 </part>
