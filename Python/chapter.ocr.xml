@@ -1,5 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <chapter id="index"><?dbhtml dir="ocr" ?>
 	<title>OCR</title>
+	<para>OCR(Optical Character Recognition)：光学字符识别，是指电子设备（例如扫描仪或数码相机）检查纸上打印的字符，通过检测暗、亮的模式确定其形状，然后用字符识别方法将形状翻译成计算机文字的过程。</para>
+	<itemizedlist>
+		<title>OCR 的应用场景:</title>
+		<listitem>扫描件的文字识别：纸质扫描件，PDF文件，纸书籍转电子书</listitem>
+		<listitem>卡证文字识别：名片，身份证，银行卡</listitem>
+		<listitem>车牌设别：多用在停车场和交警执法</listitem>
+		<listitem>票据识别：报销凭证，税务票据，医疗票据</listitem>
+		<listitem>教育领域：公式识别，自动判卷，自动答题	</listitem>
+	</itemizedlist>
+	<para>OCR 原理</para>
+	<screen>
+	<![CDATA[
+扫描/拍照 > 图像输入 > 二值化 > 去噪声 > 倾斜校正 > 版面分析 > 字符切割 > 字符识别 > 版面恢复 > 文字校对	
+	]]>
+	</screen>
+	<para>扫描或拍照：使用扫描仪将纸质资料扫描成图像文件，手机拍照也能达到同样效果，然后将图像文件交给OCR软件进行处理。</para>
+	<para>首先把彩色图像编程黑白图像（黑色文字，白色背景），识别系统不关心颜色。</para>
+	<para>通过算法去除图像中的影响因素，噪点，污染，这部叫去噪声，类似Ps中的色阶，降噪，模糊一类的操作，让图像中的文字更突出。</para>
+	<para>然后矫正倾斜的图像，分析文本段落，切割字符，识别字符。</para>
+	<para>将识别的字符，重新排版，生成 Text 文本文件。</para>
+	<para>较为高级OCR系统，带有AI语法分析，能够实现拼写检查，语法校对等等。</para>
+
 	&section.ocr.easyocr.xml;
+	&section.ocr.tesseract.xml;
 </chapter>

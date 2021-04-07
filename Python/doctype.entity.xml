@@ -28,6 +28,7 @@
 
 <!ENTITY chapter.ocr.xml					SYSTEM "chapter.ocr.xml">
 <!ENTITY section.ocr.easyocr.xml			SYSTEM "section.ocr.easyocr.xml">
+<!ENTITY section.ocr.tesseract.xml			SYSTEM "section.ocr.tesseract.xml">
 
 <!ENTITY chapter.speech.xml					SYSTEM "chapter.speech.xml">
 <!ENTITY chapter.stock.xml					SYSTEM "chapter.stock.xml">
