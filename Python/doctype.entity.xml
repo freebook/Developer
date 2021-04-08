@@ -34,4 +34,7 @@
 <!ENTITY chapter.stock.xml					SYSTEM "chapter.stock.xml">
 <!ENTITY chapter.video.xml					SYSTEM "chapter.video.xml">
 
+<!ENTITY chapter.office.xml					SYSTEM "chapter.office.xml">
+<!ENTITY section.office.word.xml			SYSTEM "section.office.word.xml">
+
 <!ENTITY chapter.faq.xml					SYSTEM "chapter.faq.xml">

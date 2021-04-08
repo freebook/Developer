@@ -85,6 +85,7 @@
 		&chapter.speech.xml;
 		&chapter.video.xml;
 	</part>
+	&chapter.office.xml;
 	&chapter.3rdparty.xml;
 <!-- =========================================================================== -->
 	&chapter.faq.xml;
