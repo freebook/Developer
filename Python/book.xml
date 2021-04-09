@@ -79,12 +79,7 @@
 	&book.preface.xml;
 	&part.python.xml;
 	&part.bigdata.xml;
-	<part>
-		<title>人工智能 AI</title>
-		&chapter.ocr.xml;
-		&chapter.speech.xml;
-		&chapter.video.xml;
-	</part>
+	&part.ai.xml;
 	&chapter.office.xml;
 	&chapter.3rdparty.xml;
 <!-- =========================================================================== -->

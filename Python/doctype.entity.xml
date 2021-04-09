@@ -30,9 +30,11 @@
 <!ENTITY section.ocr.easyocr.xml			SYSTEM "section.ocr.easyocr.xml">
 <!ENTITY section.ocr.tesseract.xml			SYSTEM "section.ocr.tesseract.xml">
 
+<!ENTITY part.ai.xml						SYSTEM "part.ai.xml">
 <!ENTITY chapter.speech.xml					SYSTEM "chapter.speech.xml">
 <!ENTITY chapter.stock.xml					SYSTEM "chapter.stock.xml">
 <!ENTITY chapter.video.xml					SYSTEM "chapter.video.xml">
+<!ENTITY section.ai.face.xml				SYSTEM "section.ai.face.xml">
 
 <!ENTITY chapter.office.xml					SYSTEM "chapter.office.xml">
 <!ENTITY section.office.word.xml			SYSTEM "section.office.word.xml">

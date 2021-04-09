@@ -2,6 +2,56 @@
 <chapter id="index"><?dbhtml dir="video" ?>
 	<title>视频</title>
 	<section>
+		<title>摄像头</title>
+		<screen>
+		<![CDATA[
+pip install opencv_python		
+		]]>
+		</screen>
+		<programlisting>
+		<![CDATA[
+import cv2
+
+# 设置摄像头 0是默认的摄像头 如果你有多个摄像头的话呢，可以设置1,2,3....
+cap = cv2.VideoCapture(1) # 苹果电脑 Facetime 摄像头是 1
+
+# 进入无限循环
+while True:  
+    ret, frame = cap.read() 	# 摄像头拍摄图像（单位是帧）
+    cv2.imshow('frame', frame)	# 将frame中的图像显示出来
+    c = cv2.waitKey(1)  		# 判断退出条件 当按下'Q'键的退出程序
+    if c == ord('q'):
+        break
+
+# 释放摄像头
+cap.release()  
+# 销毁窗口
+cv2.DestroyAllWindows()		
+		]]>
+		</programlisting>
+		<para>拍照</para>
+		<programlisting>
+		<![CDATA[
+import cv2
+cap = cv2.VideoCapture(0, cv2.CAP_DSHOW) # 打开摄像头
+
+while True:
+  # get a frame
+  ret, frame = cap.read()
+  frame = cv2.flip(frame, 1) # 摄像头是和人对立的，将图像左右调换回来正常显示
+  # show a frame
+  cv2.imshow("capture", frame) # 生成摄像头窗口
+
+  if cv2.waitKey(1) & 0xFF == ord('q'): # 如果按下q 就截图保存并退出
+    cv2.imwrite("test.png", frame) # 保存路径
+    break
+
+cap.release()
+cv2.destroyAllWindows()		
+		]]>
+		</programlisting>
+	</section>
+	<section>
 		<title>MoviePy</title>
 		<screen>
 		<![CDATA[

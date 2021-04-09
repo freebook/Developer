@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section>
+	<title></title>
+	<programlisting>
+	<![CDATA[
+import PIL.Image as img
+import os
+ 
+# 图片地址
+imgfile = 'Neo.jpg'  
+
+# 用PIL打开一个图片
+im = img.open(imgfile)  
+
+# 剪切图片的位置，格式为:xmin ymin xmax ymax
+box = (50, 50, 200, 50)
+
+# 对im进行裁剪
+new = im.crop(box)  
+
+# 进行向左旋转20度 向右为负数
+new = ng.rotate(20)  
+
+#保存选取
+new.save('copy.jpg')
+
+# 粘贴选取
+im.paste(ng, (150, 150)) 
+#保存
+im.save('new.jpg')
+	]]>
+	</programlisting>
+</section>

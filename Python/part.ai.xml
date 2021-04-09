@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<part>
+	<title>人工智能 AI</title>
+	&chapter.ocr.xml;
+	&chapter.speech.xml;
+	&chapter.video.xml;
+	&section.ai.face.xml;
+</part>
