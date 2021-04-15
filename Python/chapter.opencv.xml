@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<chapter id="">
+	<title>OpenCV</title>
+	<section>
+		<title>安装 OpenCV</title>
+		<screen>
+		<![CDATA[
+pip3 install opencv-python		
+		]]>
+		</screen>
+	</section>
+	<section>
+		<title>显示图片</title>
+		<programlisting>
+		<![CDATA[
+import cv2 as cv
+
+src = cv.imread("me.jpeg")
+cv.namedWindow("Picture", cv.WINDOW_AUTOSIZE)
+cv.imshow("Picture", src)
+cv.waitKey(0)
+# 关闭所有窗口
+cv.destroyAllWindows()		
+		]]>
+		</programlisting>
+	</section>
+	<section>
+		<title>摄像头捕捉图像</title>
+		<programlisting>
+		<![CDATA[
+import cv2 as cv
+
+capture = cv.VideoCapture(1)
+while (True):
+    # ret为返回值，frame为视频的每一帧
+    ret, frame = capture.read()
+    cv.imshow("video", frame)
+    c = cv.waitKey(50)
+    # 按了esc候可以退出
+    if c == 27:
+        break		
+		]]>
+		</programlisting>
+	</section>
+	<section>
+		<title>imread()</title>
+		<programlisting>
+		<![CDATA[
+import cv2 as cv
+
+image = cv.imread("me.jpeg")
+
+print(type(image))  # 类别
+print(image.shape)  # 高，宽，通道数目
+print(image.size)   # 像素数据，上面三个属性的乘积
+print(image.dtype)		
+		]]>
+		</programlisting>
+	</section>				
+</chapter>

@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<chapter>
+	<title>Python Package Index (PyPI)</title>
+	<section>
+		<title>什么是 PyPI</title>
+		<para>The Python Package Index (PyPI) is a repository of software for the Python programming language.</para>
+		<para>PyPI helps you find and install software developed and shared by the Python community.</para>
+		<para>Package authors use PyPI to distribute their software.</para>
+		<para>PyPI 是一个 Python 语言软件仓库，开发包的作者通过Python社区共享他们的作品。软件开发者可以在平台上搜索、安装和使用这些共享资源。</para>
+	</section>
+	<section>
+		<title>准备目录</title>
+		<para>发布 Python 包到 PyPI（Python Package Index） 的步骤</para>
+		<para>下面开始介绍如何将自己的 Python 包发布到Python Package Index。</para>
+		<para>准备一个 Python 项目，目录结构如下</para>
+		<screen>
+		<![CDATA[
+neo@MacBook-Pro-Neo ~/workspace % mkdir netkiller-project
+neo@MacBook-Pro-Neo ~/workspace % cd netkiller-project
+		]]>
+		</screen>		
+	</section>
+	<section>
+		<title>创建LICENSE文件</title>
+		<para>上传到 Python Package Index 的包必须包含该文件，外国法律是很严的，License 文件是告诉用户该软件包的授权条款。你可以在下面网站找到 License 复制粘贴到 LICENSE文件中。</para>
+		<para><ulink url="//choosealicense.com">Choose an open source license</ulink> 我使用的是MIT License</para>
+		<screen>
+		<![CDATA[
+neo@MacBook-Pro-Neo ~/workspace/netkiller-project % curl -s https://mit-license.org | sed 's/<[^>]*>//g ; /^$/d' > LICENSE		
+		]]>
+		</screen>		
+	</section>
+	<section>
+		<title>项目描述文件</title>
+		<screen>
+		<![CDATA[
+neo@MacBook-Pro-Neo ~/workspace/netkiller-project % vim README.md
+neo@MacBook-Pro-Neo ~/workspace/netkiller-project % cat README.md 
+= Netkiller-Project
+演示如何上传包到PyPI		
+		]]>
+		</screen>
+	</section>
+	<section>
+		<title>库代码</title>
+		<screen>
+		<![CDATA[
+neo@MacBook-Pro-Neo ~/workspace/netkiller-project % mkdir netkiller
+neo@MacBook-Pro-Neo ~/workspace/netkiller-project % vim netkiller/__init__.py
+neo@MacBook-Pro-Neo ~/workspace/netkiller-project % cat netkiller/__init__.py 
+name = "netkiller"
+__version__ = "0.0.1"
+		]]>
+		</screen>
+	</section>
+	<section>
+		<title>setuptools 构建脚本</title>
+		<para>setup.py 文件是 setuptools 打包工具的构建脚本，主要用来描述项目名称，版本，作者邮箱，项目描述信息，网址，运行环境，依赖哪些库，支持哪些操作系统，等等。</para>
+		<screen>
+		<![CDATA[
+neo@MacBook-Pro-Neo ~/workspace/netkiller-project % vim setup.py
+neo@MacBook-Pro-Neo ~/workspace/netkiller-project % cat setup.py 
+import setuptools
+
+with open("README.md", "r") as fh:
+  long_description = fh.read()
+
+setuptools.setup(
+  name="netkiller-project",
+  version="0.0.1",
+  author="Neo Chen",
+  author_email="netkiller@msn.com",
+  description="Netkiller Python Package",
+  long_description=long_description,
+  long_description_content_type="text/markdown",
+  url="https://github.com/netkiller/netkiller.netkiller.io",
+  packages=setuptools.find_packages(),
+  classifiers=[
+  "Programming Language :: Python :: 3",
+  "License :: OSI Approved :: MIT License",
+  "Operating System :: OS Independent",
+  ],
+)		
+		]]>
+		</screen>
+	</section>
+	<section>
+		<title>构建包</title>
+		<para>使用命令 python3 setup.py sdist bdist_wheel 打包</para>
+		<screen>
+		<![CDATA[
+neo@MacBook-Pro-Neo ~/workspace/netkiller-project % python3 setup.py sdist bdist_wheel
+running sdist
+running egg_info
+creating netkiller_project.egg-info
+writing netkiller_project.egg-info/PKG-INFO
+writing dependency_links to netkiller_project.egg-info/dependency_links.txt
+writing top-level names to netkiller_project.egg-info/top_level.txt
+writing manifest file 'netkiller_project.egg-info/SOURCES.txt'
+reading manifest file 'netkiller_project.egg-info/SOURCES.txt'
+writing manifest file 'netkiller_project.egg-info/SOURCES.txt'
+running check
+creating netkiller-project-0.0.1
+creating netkiller-project-0.0.1/netkiller_project.egg-info
+copying files to netkiller-project-0.0.1...
+copying README.md -> netkiller-project-0.0.1
+copying setup.py -> netkiller-project-0.0.1
+copying netkiller_project.egg-info/PKG-INFO -> netkiller-project-0.0.1/netkiller_project.egg-info
+copying netkiller_project.egg-info/SOURCES.txt -> netkiller-project-0.0.1/netkiller_project.egg-info
+copying netkiller_project.egg-info/dependency_links.txt -> netkiller-project-0.0.1/netkiller_project.egg-info
+copying netkiller_project.egg-info/top_level.txt -> netkiller-project-0.0.1/netkiller_project.egg-info
+Writing netkiller-project-0.0.1/setup.cfg
+creating dist
+Creating tar archive
+removing 'netkiller-project-0.0.1' (and everything under it)
+running bdist_wheel
+running build
+installing to build/bdist.macosx-11-x86_64/wheel
+running install
+running install_egg_info
+Copying netkiller_project.egg-info to build/bdist.macosx-11-x86_64/wheel/netkiller_project-0.0.1-py3.9.egg-info
+running install_scripts
+adding license file "LICENSE" (matched pattern "LICEN[CS]E*")
+creating build/bdist.macosx-11-x86_64/wheel/netkiller_project-0.0.1.dist-info/WHEEL
+creating 'dist/netkiller_project-0.0.1-py3-none-any.whl' and adding 'build/bdist.macosx-11-x86_64/wheel' to it
+adding 'netkiller_project-0.0.1.dist-info/LICENSE'
+adding 'netkiller_project-0.0.1.dist-info/METADATA'
+adding 'netkiller_project-0.0.1.dist-info/WHEEL'
+adding 'netkiller_project-0.0.1.dist-info/top_level.txt'
+adding 'netkiller_project-0.0.1.dist-info/RECORD'
+removing build/bdist.macosx-11-x86_64/wheel		
+		]]>
+		</screen>
+	</section>
+	<section>
+		<title>查看包</title>
+		<screen>
+		<![CDATA[
+neo@MacBook-Pro-Neo ~/workspace/netkiller-project % ls dist 
+netkiller-project-0.0.1.tar.gz           netkiller_project-0.0.1-py3-none-any.whl
+		
+		]]>
+		</screen>
+	</section>
+	<section>
+		<title>上传包</title>
+		<screen>
+		<![CDATA[
+neo@MacBook-Pro-Neo ~/workspace/netkiller-project % twine upload dist/*
+Uploading distributions to https://upload.pypi.org/legacy/
+Enter your username: netkiller
+Enter your password: 
+Uploading netkiller_project-0.0.1-py3-none-any.whl
+100%|██████████████████████████████████████████████████████████| 5.81k/5.81k [00:02<00:00, 2.28kB/s]
+Uploading netkiller-project-0.0.1.tar.gz
+100%|██████████████████████████████████████████████████████████| 4.24k/4.24k [00:01<00:00, 3.54kB/s]
+
+View at:
+https://pypi.org/project/netkiller-project/0.0.1/		
+		]]>
+		</screen>
+	</section>
+	<section>
+		<title>安装包</title>
+		<screen>
+		<![CDATA[
+neo@MacBook-Pro-Neo ~/workspace/netkiller-project % pip3 install netkiller-project
+Collecting netkiller-project
+  Downloading netkiller_project-0.0.1-py3-none-any.whl (2.8 kB)
+Installing collected packages: netkiller-project
+Successfully installed netkiller-project-0.0.1		
+		]]>
+		</screen>
+	</section>
+	<section>
+		<title>使用包</title>
+		<screen>
+		<![CDATA[
+neo@MacBook-Pro-Neo ~/tmp % cat test.py 
+import netkiller
+print(netkiller.name)		
+		]]>
+		</screen>
+	</section>
+</chapter>

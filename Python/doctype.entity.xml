@@ -10,6 +10,7 @@
 <!ENTITY chapter.library.threading.xml		SYSTEM "chapter.library.threading.xml">
 <!ENTITY chapter.library.socket.xml			SYSTEM "chapter.library.socket.xml">
 <!ENTITY chapter.pypy.xml					SYSTEM "chapter.pypy.xml">
+<!ENTITY chapter.python.pypi.xml			SYSTEM "chapter.python.pypi.xml">
 
 <!ENTITY chapter.library.tui.xml			SYSTEM "chapter.library.tui.xml">
 <!ENTITY chapter.exe.xml					SYSTEM "chapter.exe.xml">

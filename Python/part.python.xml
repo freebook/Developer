@@ -2,6 +2,7 @@
 <part id="index"><?dbhtml dir="lang" ?>
 	<title>Python 入门</title>
 	&chapter.python.setup.xml;
+	&chapter.python.pypi.xml;
 	&chapter.python.xml;
 	&chapter.python.pipe.xml;
 	&chapter.library.xml;
