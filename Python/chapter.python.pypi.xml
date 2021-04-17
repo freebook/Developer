@@ -182,4 +182,19 @@ print(netkiller.name)
 		]]>
 		</screen>
 	</section>
+		<section>
+		<title>卸载包</title>
+		<screen>
+		<![CDATA[
+neo@MacBook-Pro-Neo ~/workspace/netkiller-project % pip3 uninstall netkiller-project
+Found existing installation: netkiller-project 0.0.3
+Uninstalling netkiller-project-0.0.3:
+  Would remove:
+    /usr/local/lib/python3.9/site-packages/netkiller/*
+    /usr/local/lib/python3.9/site-packages/netkiller_project-0.0.3.dist-info/*
+Proceed (y/n)? y
+  Successfully uninstalled netkiller-project-0.0.3	
+		]]>
+		</screen>
+	</section>
 </chapter>
