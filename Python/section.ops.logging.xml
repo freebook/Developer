@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section id="日志中心">
+	<title>日志中心</title>
+	<section>
+		<title>什么是日志中心</title>
+		<para>日志中心是针对日志类数据一站式管理，日志中心分成两部分，分别是采集端和收集端。</para>
+		<para>采集器从各服务器采集数据，然后发送给接收端，接收端接到数据后，将日志保存到磁盘上。用户能在日志中心服务器上查询和分析日志，帮助运维、运营提升效率。</para>
+		<para>当年我开发此程序的时候还没有出现如今流行的ELK方案，接下来就让我为大家介绍如何使用 Python 开发一个日志采集和接受程序。</para>
+	</section>
+	<section>
+		<title>工作原理</title>
+		<para>日志采集端：有两种工作方式：一种是文件采集，另一种是标准输出采集。文件采集又分为，静态日志文件采集，将整个文件给接收端。动态文件采集，仅采集添加到日志文件尾部的更新内容，即每次只读取日志追加的内容。</para>
+		<para>日志接收端： 启动后进入后台，开启UDP端口，等候采集端发送内容。</para>
+	</section>
+
+	<section>
+		<title>安装</title>
+		<para>pip 安装</para>
+		<screen>
+		<![CDATA[
+[root@localhost ~]# pip3 install netkiller-logging
+		]]>
+		</screen>
+		<para>源码安装</para>
+		<screen>
+		<![CDATA[
+[root@localhost ~]# git clone https://github.com/netkiller/logging.git
+[root@localhost ~]# cd logging
+[root@localhost ~]# python3 setup.py sdist
+[root@localhost ~]# python3 setup.py install		
+		]]>
+		</screen>
+	</section>
+	<section>
+		<title>命令</title>
+		<section>
+			<title>日志采集端</title>
+			<para>日志采集端名师是 rlog</para>
+			<screen>
+		<![CDATA[
+[root@localhost ~]# whereis rlog 
+rlog: /usr/local/bin/rlog
+
+[root@localhost ~]# rlog 
+Usage: rlog [options] filename
+
+Options:
+-h, --help            show this help message and exit
+-H localhost, --host=localhost
+						push log to remote host
+-p 1214, --port=1214  port
+--sleep=0.05          with -s, sleep  for  approximately S  seconds between
+						iterations
+-d, --daemon          run as daemon
+-f, --full            Full text
+--stdin               cat file | prog ...
+-e /tmp/rlog.log, --errlog=/tmp/rlog.log
+						error log
+--postion             save postion of log file
+
+Homepage: http://netkiller.github.io	Author: Neo <netkiller@msn.com>				
+		]]>
+			</screen>
+		</section>
+		<section>
+			<title>日志接收端</title>
+			<para>日志接收端命令式 collection</para>
+			<screen>
+		<![CDATA[
+[root@localhost ~]# collection 
+Usage: collection [options] module
+
+Options:
+  -h, --help            show this help message and exit
+  -p 1214, --port=1214  port
+  -l /tmp/test.log, --logfile=/tmp/test.log
+						log file
+  --list                show module message
+  -d, --daemon          run as daemon
+
+  Homepage: http://netkiller.github.io	Author: Neo <netkiller@msn.com>		
+		]]>
+			</screen>
+		</section>
+	</section>
+	<section>
+		<title>操作演示</title>
+		<section>
+			<title>从标准输出采集日志</title>
+			<para>日志接收端命令：</para>
+			<screen>
+			<![CDATA[
+collection -p 1214			
+			]]>
+			</screen>
+			<para>启动日志接收程序，使用UDP 1214 端口接收日志。</para>
+			<para>日志采集端命令：</para>
+			<screen>
+			<![CDATA[
+echo Helloworld | rlog -H 127.0.0.1 —stdin			
+			]]>
+			</screen>
+			<para>运行日志采集程序，将标准输出内容发送到日志接收端。</para>
+		</section>
+		<section>
+			<title>发送日志文件</title>
+			<para>将日志文件发送给日志接收端</para>
+			<para>日志接收端命令：</para>
+			<screen>
+			<![CDATA[
+collection -p 1214
+			]]>
+			</screen>
+			<para>这里仅仅演示，所以我们在终端输出日志。</para>
+			<para>日志采集端命令：</para>
+			<screen>
+			<![CDATA[
+rlog -H 127.0.0.1 -f /var/log/your.log
+			]]>
+			</screen>
+			<para>参数 -f 是指发送整个文件，否则只会发送采集程序启动后，追加的日志。</para>
+		</section>
+		<section>
+			<title>接收日志并保存到文件</title>
+			<para>日志接收端命令：</para>
+			<screen>
+			<![CDATA[
+collection -p 1214 -l /tmp/test.log		
+			]]>
+			</screen>
+			<para>参数 -l 表示将接收到的日志写入文件，使用 -l 参数后，终端屏幕不再输出内容</para>
+			<para>日志采集端命令：</para>
+			<screen>
+			<![CDATA[
+rlog -H 127.0.0.1 -f /var/log/your.log
+			]]>
+			</screen>
+			<para>参数 -f 是指发送整个文件，否则只会发送采集程序启动后，追加的日志。</para>
+		</section>
+		<section>
+			<title>发送动态日志文件</title>
+			<para>所谓动态日志文件是指，正在运行的程序随时向日志追加内容，例如WEB服务器nginx</para>
+			<para>日志接收端命令：</para>
+			<screen>
+			<![CDATA[
+collection -d -p 1214 -l /tmp/test.log
+			]]>
+			</screen>
+			<para>参数 -d 表示后台运行，-l 将接收到的日志写入文件</para>
+			<para>日志采集端命令：</para>
+			<screen>
+			<![CDATA[
+rlog -d -H 127.0.0.1 /var/log/your.log
+			]]>
+			</screen>
+			<para>参数 -d 表示rlog启动后在后台运行，注意不要使用 -f 参数</para>
+		</section>
+	</section>
+</section>

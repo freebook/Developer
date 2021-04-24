@@ -197,4 +197,39 @@ Proceed (y/n)? y
 		]]>
 		</screen>
 	</section>
+	<section>
+		<title>Built distribution</title>
+		<screen>
+		<![CDATA[
+Format	Description	Notes
+gztar	gzipped tar file (.tar.gz)	Unix 默认
+bztar	bzipped tar file (.tar.bz2)	
+xztar	xzipped tar file (.tar.xz)	
+ztar	compressed tar file (.tar.Z)	
+tar	tar file (.tar)	
+zip	zip file (.zip)	Windows 默认
+rpm	RPM	
+pkgtool	Solaris pkgtool	
+sdux	HP-UX swinstall	
+wininst	self-extracting ZIP file for Windows	
+msi	Microsoft Installer.
+
+
+$ python setup.py bdist --formats=rpm
+
+setuptools 提供了如下简化命令：
+
+Command	Formats	Notes
+bdist_dumb	tar, gztar, bztar, xztar, ztar, zip	Windows 默认 zip, Unix 默认 gztar
+bdist_rpm	rpm, srpm	
+bdist_wininst	wininst	
+bdist_msi	msi	
+
+打 rpm 包可以使用：
+
+$ python setup.py bdist_rpm
+
+		]]>
+		</screen>
+	</section>
 </chapter>

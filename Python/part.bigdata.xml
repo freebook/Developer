@@ -4,4 +4,5 @@
 	&chapter.crawler.xml;
 	&chapter.pandas.xml;
 	&chapter.stock.xml;
+	&chapter.chart.xml;
 </part>

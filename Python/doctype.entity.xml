@@ -37,7 +37,14 @@
 <!ENTITY chapter.video.xml					SYSTEM "chapter.video.xml">
 <!ENTITY section.ai.face.xml				SYSTEM "section.ai.face.xml">
 
+<!ENTITY chapter.chart.xml					SYSTEM "chapter.chart.xml">
+<!ENTITY section.chart.matplotlib.xml		SYSTEM "section.chart.matplotlib.xml">
+
 <!ENTITY chapter.office.xml					SYSTEM "chapter.office.xml">
 <!ENTITY section.office.word.xml			SYSTEM "section.office.word.xml">
+
+<!ENTITY chapter.ops.xml					SYSTEM "chapter.ops.xml">
+<!ENTITY section.ops.logging.xml			SYSTEM "section.ops.logging.xml">
+<!ENTITY section.ops.firewall.xml			SYSTEM "section.ops.firewall.xml">
 
 <!ENTITY chapter.faq.xml					SYSTEM "chapter.faq.xml">

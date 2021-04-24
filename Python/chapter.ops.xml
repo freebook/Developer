@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<chapter id="index"><?dbhtml dir="ops" ?>
+	<title>自动化运维</title>
+	&section.ops.logging.xml;
+	&section.ops.firewall.xml;
+</chapter>

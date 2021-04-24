@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section id="matplotlib">
+	<title>matplotlib</title>
+	<section>
+		<title>直方图</title>
+		<programlisting>
+		<![CDATA[
+import matplotlib.pyplot as plt
+import pandas as pd
+
+df = pd.read_excel("data1.xlsx", "Sheet1")
+
+fig = plt.figure()
+ax = fig.add_subplot(1, 1, 1)
+ax.hist(df['年龄'], bins=7)
+plt.title('Age distribution')
+plt.xlabel('Age')
+plt.ylabel('Employee')
+plt.show()
+		
+		]]>
+		</programlisting>
+	</section>
+	<section>
+		<title>显示中文</title>
+		<programlisting>
+		<![CDATA[
+import matplotlib.pyplot as plt
+import pandas as pd
+from matplotlib.font_manager import FontProperties
+
+title = FontProperties(fname=r"/System/Library/Fonts/PingFang.ttc", size=14)
+font = FontProperties(fname=r"/System/Library/Fonts/PingFang.ttc", size=10)
+
+df = pd.read_excel("data.xlsx", "Sheet1")
+
+fig = plt.figure()
+ax = fig.add_subplot(1, 1, 1)
+ax.hist(df['年龄'], bins=7)
+plt.title('年龄分布图', fontproperties=title)
+plt.xlabel('年龄', fontproperties=font)
+plt.ylabel('员工数量', fontproperties=font)
+plt.show()		
+		]]>
+		</programlisting>
+	</section>
+	
+</section>

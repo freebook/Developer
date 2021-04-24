@@ -121,7 +121,7 @@ for month in months:
 		]]>
 		</programlisting>
 	</section>
-	
+
 	<section>
 		<title>FAQ</title>
 		<section>
@@ -149,6 +149,34 @@ pip install xlrd==1.2.0
 			]]>
 			</screen>
 		</section>
+		<section>
+			<title>Missing optional dependency 'xlrd'</title>
+			<para>提示错误</para>
+			<screen>
+		<![CDATA[
+ImportError: Missing optional dependency 'xlrd'. Install xlrd >= 1.0.0 for Excel support Use pip or conda to install xlrd.		
+		]]>
+			</screen>
+			<para>解决方案</para>
+			<screen>
+			<![CDATA[
+neo@MacBook-Pro-Neo ~/workspace/netkiller-project % pip3 install openpyxl
+Collecting openpyxl
+  Downloading openpyxl-3.0.7-py2.py3-none-any.whl (243 kB)
+     |████████████████████████████████| 243 kB 2.2 MB/s 
+Collecting et-xmlfile
+  Using cached et_xmlfile-1.0.1.tar.gz (8.4 kB)
+Building wheels for collected packages: et-xmlfile
+  Building wheel for et-xmlfile (setup.py) ... done
+  Created wheel for et-xmlfile: filename=et_xmlfile-1.0.1-py3-none-any.whl size=8913 sha256=a4c964230c25014b55de927ac9284d184e6c729edf6f414cba97f3d94d3023aa
+  Stored in directory: /Users/neo/Library/Caches/pip/wheels/bb/9b/ff/8fdf015c95a57224237bf88fbb9e45237cbe8177213bc13732
+Successfully built et-xmlfile
+Installing collected packages: et-xmlfile, openpyxl
+Successfully installed et-xmlfile-1.0.1 openpyxl-3.0.7			
+			]]>
+			</screen>
+		</section>
 	</section>
+
 
 </chapter>
