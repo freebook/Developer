@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<chapter>
+<section>
 	<title>Python Package Index (PyPI)</title>
 	<section>
 		<title>什么是 PyPI</title>
@@ -232,4 +232,4 @@ $ python setup.py bdist_rpm
 		]]>
 		</screen>
 	</section>
-</chapter>
+</section>

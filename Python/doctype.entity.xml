@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!ENTITY part.python.xml					SYSTEM "part.python.xml">
 <!ENTITY chapter.python.xml					SYSTEM "chapter.python.xml">
-<!ENTITY chapter.python.setup.xml			SYSTEM "chapter.python.setup.xml">
+<!ENTITY section.python.introduction.xml	SYSTEM "section.python.introduction.xml">
+<!ENTITY section.python.setup.xml			SYSTEM "section.python.setup.xml">
+<!ENTITY section.python.pypi.xml			SYSTEM "section.python.pypi.xml">
+
 <!ENTITY chapter.python.pipe.xml			SYSTEM "chapter.python.pipe.xml">
 <!ENTITY chapter.python.type.xml			SYSTEM "chapter.python.type.xml">
 	
@@ -9,9 +12,6 @@
 <!ENTITY chapter.library.syslog.xml			SYSTEM "chapter.library.syslog.xml">
 <!ENTITY chapter.library.threading.xml		SYSTEM "chapter.library.threading.xml">
 <!ENTITY chapter.library.socket.xml			SYSTEM "chapter.library.socket.xml">
-<!ENTITY chapter.pypy.xml					SYSTEM "chapter.pypy.xml">
-<!ENTITY chapter.python.pypi.xml			SYSTEM "chapter.python.pypi.xml">
-
 <!ENTITY chapter.library.tui.xml			SYSTEM "chapter.library.tui.xml">
 <!ENTITY chapter.exe.xml					SYSTEM "chapter.exe.xml">
 <!ENTITY chapter.3rdparty.xml				SYSTEM "chapter.3rdparty.xml">
@@ -46,5 +46,6 @@
 <!ENTITY chapter.ops.xml					SYSTEM "chapter.ops.xml">
 <!ENTITY section.ops.logging.xml			SYSTEM "section.ops.logging.xml">
 <!ENTITY section.ops.firewall.xml			SYSTEM "section.ops.firewall.xml">
+<!ENTITY chapter.pypy.xml					SYSTEM "chapter.pypy.xml">
 
 <!ENTITY chapter.faq.xml					SYSTEM "chapter.faq.xml">

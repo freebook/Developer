@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<chapter id="python.install">
+<section id="python.install">
 	<title>install</title>
 	<section id="python2">
 		<title>Python2.x</title>
@@ -48,7 +48,36 @@ $ sudo apt-get install python3.3
 			]]></screen>
 		</section>
 	</section>
-	&chapter.pypy.xml;
+<section id="pypy">
+	<title>pypy - fast alternative implementation of Python - PyPy interpreter</title>
+	<para>http://pypy.org/</para>
+	<section>
+		<title>Ubuntu 环境安装</title>
+		<screen>
+		<![CDATA[
+$ apt-cache search pypy | grep pypy
+pypy - fast alternative implementation of Python - PyPy interpreter
+pypy-dev - header files for PyPy (an alternative Python interpreter)
+pypy-doc - developer Documentation for PyPy (an alternative Python interpreter)
+pypy-lib - standard library for PyPy (an alternative Python interpreter)
+python-pypy.translator.sandbox - sandboxed PyPy interpreter
+		]]>
+		</screen>
+		<screen>
+		<![CDATA[
+$ sudo apt-get install pypy
+		]]>
+		</screen>
+	</section>
+	<section>
+		<title>CentOS 环境安装</title>
+		<screen>
+		<![CDATA[
+# yum install pypy
+		]]>
+		</screen>
+	</section>
+</section>
 	<section id="eric">
 		<title>Eric Python IDE</title>
 		<screen><![CDATA[
@@ -80,8 +109,8 @@ $ pyinstaller test.py
 		</section>
 
 	</section>
-</chapter>
-<chapter id="setup">
+</section>
+<section id="setup">
 	<title>Python 包管理</title>
 	<section id="setup.py">
 		<title>setup.py</title>
@@ -226,4 +255,4 @@ $ pip uninstall Markdown
 		</section>
 	</section>
 
-</chapter>
+</section>
