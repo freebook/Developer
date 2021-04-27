@@ -6,4 +6,5 @@
 	&chapter.library.xml;
 	&chapter.exe.xml;
 	&chapter.framework.xml;
+	&chapter.terminal.xml;
 </part>

@@ -1,6 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- <chapter id="index"><?dbhtml dir="crawler" ?>
-	<title>Crawler</title> -->
+<chapter id="index"><?dbhtml dir="crawler" ?>
+	<title>Crawler</title>
+	<section>
+		<title>Requests</title>
+		<screen>
+		<![CDATA[
+import requests
+
+r = requests.get('https://api.github.com/user', auth=('netkiller', '******'))
+print(r.status_code)
+print(r.headers['content-type'])
+print(r.encoding)
+print(r.text)
+print(r.json())
+		
+		]]>
+		</screen>
+	</section>
+</chapter>
 <chapter id="index"><?dbhtml dir="scrapy" ?>
 	<title>Scrapy - Python web scraping and crawling framework</title>
 	<para>https://scrapy.org</para>
@@ -8,22 +25,22 @@
 		<title>安装 scrapy 开发环境</title>
 		<section>
 			<title>Mac</title>
-			<screen>
+			<screen><![CDATA[
 neo@MacBook-Pro ~ % brew install python3
 neo@MacBook-Pro ~ % pip3 install scrapy
-			</screen>
+			]]></screen>
 		</section>
 		<section>
 			<title>Ubuntu</title>
 			<para>搜索 scrapy 包，scrapy 支持 Python2.7 和 Python3 我们只需要 python3 版本</para>
-			<screen>
+			<screen><![CDATA[
 neo@netkiller ~ % apt-cache search scrapy | grep python3
 python3-scrapy - Python web scraping and crawling framework (Python 3)
 python3-scrapy-djangoitem - Scrapy extension to write scraped items using Django models (Python3 version)
 python3-w3lib - Collection of web-related functions (Python 3)			
-			</screen>
+			]]></screen>
 			<para>Ubuntu 17.04 默认 scrapy 版本为 1.3.0-1 如果需要最新的 1.4.0 请使用 pip 命令安装</para>
-			<screen>
+			<screen><![CDATA[
 neo@netkiller ~ % apt search python3-scrapy
 Sorting... Done
 Full Text Search... Done
@@ -32,9 +49,9 @@ python3-scrapy/zesty,zesty 1.3.0-1~exp2 all
 
 python3-scrapy-djangoitem/zesty,zesty 1.1.1-1 all
   Scrapy extension to write scraped items using Django models (Python3 version)
-			</screen>
+			]]></screen>
 			<para>安装 scrapy</para>
-			<screen>
+			<screen><![CDATA[
 neo@netkiller ~ % sudo apt install python3-scrapy
 [sudo] password for neo: 
 Reading package lists... Done
@@ -60,15 +77,15 @@ The following NEW packages will be installed:
 Need to get 7,152 kB of archives.
 After this operation, 40.8 MB of additional disk space will be used.
 Do you want to continue? [Y/n]
-			</screen>
+			]]></screen>
 			<para>输入大写 “Y” 然后回车</para>
 		</section>
 		<section>
 			<title>使用 pip 安装 scrapy</title>
-			<screen>
+			<screen><![CDATA[
 neo@netkiller ~ % sudo apt install python3-pip
 neo@netkiller ~ % pip3 install scrapy
-			</screen>
+			]]></screen>
 		</section>
 		<section>
 			<title>测试 scrapy</title>
@@ -92,9 +109,9 @@ EOF
 			]]>
 			</screen>
 			<para>运行爬虫</para>
-			<screen>
+			<screen><![CDATA[
 $ scrapy runspider myspider.py
-			</screen>
+			]]></screen>
 		</section>
 	</section>
 	<section id="scrapy">
@@ -231,7 +248,7 @@ neo@MacBook-Pro /tmp % scrapy shell http://www.netkiller.cn
 		<section id="response">
 			<title>response</title>
 			<para>response 是爬虫返回的页面，可以通过 css(), xpath() 等方法取出你需要的内容。</para>
-			
+
 			<section id="response.url">
 				<title>当前URL地址</title>
 				<screen>
@@ -253,9 +270,9 @@ neo@MacBook-Pro /tmp % scrapy shell http://www.netkiller.cn
 			<section id="text">
 				<title>text 正文</title>
 				<para>返回 HTML 页面正文</para>
-				<screen>
+				<screen><![CDATA[
 response.text
-				</screen>
+				]]></screen>
 			</section>
 			<section id="response.css">
 				<title>css</title>
@@ -367,15 +384,15 @@ response.text
 >>> response.xpath('//ul[@class="topnews_nlist"]/li/h2/a/@href|//ul[@class="topnews_nlist"]/li/a/@href').extract()
 				]]>
 				</screen>
-				
+
 			</section>
 			<section id="headers">
 				<title>headers</title>
-				<screen>
+				<screen><![CDATA[
 response.headers.getlist('Set-Cookie')
-				</screen>
+				]]></screen>
 			</section>
-			
+
 		</section>
 	</section>
 	<section id="tutorial">
@@ -383,9 +400,9 @@ response.headers.getlist('Set-Cookie')
 		<section id="startproject">
 			<title>创建项目</title>
 			<para>创建爬虫项目</para>
-			<screen>
+			<screen><![CDATA[
 scrapy startproject project
-			</screen>
+			]]></screen>
 			<para>在抓取之前，你需要新建一个Scrapy工程</para>
 			<screen>
 			<![CDATA[
@@ -415,14 +432,14 @@ neo@MacBook-Pro ~/Documents/crawler % find .
 			]]>
 			</screen>
 			<para>Scrapy 工程目录主要有以下文件组成：</para>
-			<screen>
+			<screen><![CDATA[
 scrapy.cfg: 项目配置文件
 middlewares.py : 项目 middlewares 文件
 items.py: 项目items文件
 pipelines.py: 项目管道文件
 settings.py: 项目配置文件
 spiders: 放置spider的目录
-			</screen>
+			]]></screen>
 		</section>
 		<section id="spider">
 			<title>Spider</title>
@@ -634,7 +651,7 @@ class BookSpider(scrapy.Spider):
         pass
 				]]>
 				</screen>
-				
+
 			</section>
 			<section id="response.body">
 				<title>采集内容保存到文件</title>
@@ -889,8 +906,8 @@ class ExampleSpider(scrapy.Spider):
 			]]>
 			</screen>
 		</section>
-		
-		
+
+
 	</section>
 	<section id="images">
 		<title>下载图片</title>
@@ -1071,7 +1088,7 @@ class JiandanSpider(scrapy.Spider):
 				<screen>
 				<![CDATA[
 //*[contains(@class,'foo')]
-				]]>				
+				]]>
 				</screen>
 				<screen>
 				<![CDATA[
@@ -1089,4 +1106,3 @@ class JiandanSpider(scrapy.Spider):
 		</section>
 	</section>
 </chapter>		
-		<!-- </chapter> -->

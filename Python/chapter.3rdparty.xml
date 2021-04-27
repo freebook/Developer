@@ -5,4 +5,18 @@
 		<para>http://zerorpc.dotcloud.com/</para>
 		<para>Zeromq 是基于zeromq、gevent和 msgpack开发的分布式RPC框架.</para>
 	</section>
+	<section>
+		<title>表情符号 emoji</title>
+		<screen>
+		<![CDATA[
+import emoji
+result = emoji.emojize('Python is :thumbs_up:')
+print(result)
+# 'Python is  &#x27;
+<br/># You can also reverse this:
+result = emoji.demojize('Python is  ')
+print(result)<br/># 'Python is :thumbs_up:&#x27;		
+		]]>
+		</screen>
+	</section>
 </chapter>

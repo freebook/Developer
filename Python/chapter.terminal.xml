@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<chapter id="terminal">
+	<title>终端环境开发</title>
+	<section>
+		<title>Colorama</title>
+		<para>
+			<ulink url="https://pypi.org/project/colorama/" />
+		</para>
+		<screen>
+		<![CDATA[
+pip install colorama
+		]]>
+		</screen>
+		<section>
+			<title>初始化操作</title>
+			<para>init(autoreset = False)，当 autoreset = True 时自动恢复到默认颜色</para>
+			<programlisting>
+		<![CDATA[
+#!/usr/bin/env python 
+from colorama import init, Fore, Back, Style
+
+if __name__ == "__main__":
+ 
+    init(autoreset=True)    #  初始化，自动恢复到默认颜色
+    print(Fore.RED + 'some red text')
+    print(Back.GREEN + 'and with a green background')
+    print(Style.DIM + 'and in dim text')		
+		]]>
+			</programlisting>
+		</section>
+		<section>
+			<title>常用格式</title>
+			<para>Fore是针对字体颜色，Back是针对字体背景颜色，Style是针对字体格式</para>
+			<itemizedlist>
+				<title></title>
+				<listitem>Fore: BLACK, RED, GREEN, YELLOW, BLUE, MAGENTA, CYAN, WHITE, RESET.</listitem>
+				<listitem>Back: BLACK, RED, GREEN, YELLOW, BLUE, MAGENTA, CYAN, WHITE, RESET.</listitem>
+				<listitem>Style: DIM, NORMAL, BRIGHT, RESET_ALL</listitem>
+			</itemizedlist>
+		</section>
+	</section>
+	<section>
+		<title>进度条 progress</title>
+		<para>安装</para>
+		<screen>
+		<![CDATA[
+pip3 install progress		
+		]]>
+		</screen>
+		<para>演示</para>
+		<programlisting>
+		<![CDATA[
+from progress.bar import Bar
+
+bar = Bar('Processing', max=20)
+for i in range(20):
+    # Do some work
+    bar.next()
+bar.finish()
+		]]>
+		</programlisting>
+		<para></para>
+		<programlisting>
+		<![CDATA[
+neo@MacBook-Pro-Neo ~/workspace/python % python3.9 progress-demo.py
+Processing |################################| 20/20		
+		]]>
+		</programlisting>
+	</section>
+	<section>
+		<title>tqdm</title>
+	</section>
+</chapter>
