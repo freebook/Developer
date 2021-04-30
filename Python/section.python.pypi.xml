@@ -232,4 +232,17 @@ $ python setup.py bdist_rpm
 		]]>
 		</screen>
 	</section>
+	<section>
+		<title>免密登录</title>
+		<para>创建 ~/.pypirc 文件</para>
+		<screen>
+		<![CDATA[
+neo@MacBook-Pro-Neo ~/git/kindle % cat ~/.pypirc
+[pypi]
+username:netkiller
+password:******		
+		]]>
+		</screen>
+		<para>****** 改为你的密码</para>
+	</section>
 </section>
