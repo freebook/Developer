@@ -22,6 +22,8 @@
 <!ENTITY chapter.framework.pyramid.xml 		SYSTEM "chapter.framework.pyramid.xml">
 <!ENTITY chapter.framework.gevent.xml 		SYSTEM "chapter.framework.gevent.xml">
 
+<!ENTITY section.python.example.xml 		SYSTEM "section.python.example.xml">
+
 <!ENTITY part.bigdata.xml					SYSTEM "part.bigdata.xml">
 <!ENTITY chapter.crawler.xml				SYSTEM "chapter.crawler.xml">
 <!ENTITY chapter.pandas.xml					SYSTEM "chapter.pandas.xml">

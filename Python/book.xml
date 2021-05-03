@@ -83,6 +83,7 @@
 	&chapter.ops.xml;
 	&chapter.office.xml;
 	&chapter.3rdparty.xml;
+	&section.python.example.xml;
 <!-- =========================================================================== -->
 	&chapter.faq.xml;
 <!--
