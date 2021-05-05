@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<section>
+<section id="pypi">
 	<title>Python Package Index (PyPI)</title>
 	<section>
 		<title>什么是 PyPI</title>
@@ -18,17 +18,20 @@
 neo@MacBook-Pro-Neo ~/workspace % mkdir netkiller-project
 neo@MacBook-Pro-Neo ~/workspace % cd netkiller-project
 		]]>
-		</screen>		
+		</screen>
 	</section>
 	<section>
 		<title>创建LICENSE文件</title>
 		<para>上传到 Python Package Index 的包必须包含该文件，外国法律是很严的，License 文件是告诉用户该软件包的授权条款。你可以在下面网站找到 License 复制粘贴到 LICENSE文件中。</para>
-		<para><ulink url="//choosealicense.com">Choose an open source license</ulink> 我使用的是MIT License</para>
+		<para>
+			<ulink url="//choosealicense.com">Choose an open source license</ulink>
+			我使用的是MIT License
+		</para>
 		<screen>
 		<![CDATA[
 neo@MacBook-Pro-Neo ~/workspace/netkiller-project % curl -s https://mit-license.org | sed 's/<[^>]*>//g ; /^$/d' > LICENSE		
 		]]>
-		</screen>		
+		</screen>
 	</section>
 	<section>
 		<title>项目描述文件</title>
@@ -182,7 +185,7 @@ print(netkiller.name)
 		]]>
 		</screen>
 	</section>
-		<section>
+	<section>
 		<title>卸载包</title>
 		<screen>
 		<![CDATA[
@@ -244,5 +247,91 @@ password:******
 		]]>
 		</screen>
 		<para>****** 改为你的密码</para>
+	</section>
+	<section>
+		<title>其他 Python 包管理工具</title>
+		<section id="distutils">
+			<title>distutils</title>
+			<para>http://docs.python.org/3/install/index.html</para>
+			<para>http://docs.python.org/3/distutils/index.html</para>
+			<para>创建 setup.py 如下：</para>
+			<screen><![CDATA[
+# cat setup.py
+from distutils.core import setup
+
+setup (
+    name = 'firewall',
+    version = '1.0.0',
+    py_modules = ['firewall'],
+    author = 'neo.chen',
+    author_email = 'netkiller@msn.com',
+    description = 'Module firewall',
+    url='http://netkiller.github.io/',
+)
+		]]></screen>
+			<!-- packages=['distutils', 'distutils.command'], -->
+			<para>注意：name和py_modules这两个参数一定要与firewall.py文件名相同，否则发布安装时会发出模块文件找不到的错误.</para>
+			<screen><![CDATA[打包操作]]></screen>
+			<screen><![CDATA[
+# python setup.py sdist
+running sdist
+warning: sdist: missing required meta-data: url
+warning: sdist: manifest template 'MANIFEST.in' does not exist (using default file list)
+warning: sdist: standard file not found: should have one of README, README.txt
+writing manifest file 'MANIFEST'
+creating firewall-1.0.0
+making hard links in firewall-1.0.0...
+hard linking firewall.py -> firewall-1.0.0
+hard linking setup.py -> firewall-1.0.0
+creating dist
+tar -cf dist/firewall-1.0.0.tar firewall-1.0.0
+gzip -f9 dist/firewall-1.0.0.tar
+tar -cf dist/firewall-1.0.0.tar firewall-1.0.0
+gzip -f9 dist/firewall-1.0.0.tar
+removing 'firewall-1.0.0' (and everything under it)
+		]]></screen>
+			<para>sdist 生成的文件</para>
+			<screen><![CDATA[
+# ll dist/
+total 4
+-rw-r--r--. 1 root root 2123 Aug  9 12:41 firewall-1.0.0.tar.gz
+		]]></screen>
+			<para>安装包</para>
+			<screen><![CDATA[
+# python setup.py install
+running install
+running build
+running build_py
+creating build
+creating build/lib
+copying firewall.py -> build/lib
+running install_lib
+copying build/lib/firewall.py -> /usr/lib/python2.6/site-packages
+byte-compiling /usr/lib/python2.6/site-packages/firewall.py to firewall.pyc
+running install_egg_info
+Writing /usr/lib/python2.6/site-packages/firewall-1.0.0-py2.6.egg-info
+		]]></screen>
+			<para>安装后</para>
+			<screen><![CDATA[
+# ll /usr/lib/python2.6/site-packages/firewall*
+-rw-r--r--. 1 root root   201 Aug  9 12:42 /usr/lib/python2.6/site-packages/firewall-1.0.0-py2.6.egg-info
+-rw-r--r--. 1 root root  6145 Aug  9 11:28 /usr/lib/python2.6/site-packages/firewall.py
+-rw-r--r--. 1 root root 11858 Aug  9 12:42 /usr/lib/python2.6/site-packages/firewall.pyc
+		]]></screen>
+		</section>
+		<section id="distribute">
+			<title>distribute</title>
+			<para>distribute_setup 是 setuptools 的替代品</para>
+			<screen><![CDATA[
+$ wget http://python-distribute.org/distribute_setup.py
+$ sudo python distribute_setup.py
+		]]></screen>
+			<para>或者</para>
+			<screen><![CDATA[
+curl -sS http://python-distribute.org/distribute_setup.py | python
+		]]></screen>
+		</section>
+
+
 	</section>
 </section>

@@ -101,10 +101,23 @@ To alter from str to bytes, capitalize on str.encode().
 		</section>
 		<section>
 			<title>String format</title>
-			<para>
-				strHello = "the length of (%s) is %d" %('Hello World',len('Hello World'))
-				print strHello
-			</para>
+			<para></para>
+			<screen>
+			<![CDATA[
+strHello = "the length of (%s) is %d" %('Hello World',len('Hello World'))
+print strHello			
+			]]>
+			</screen>
+			<para>前导字符串加0</para>
+			<screen>
+			<![CDATA[
+for i in range(5):
+    print("%03d" % i)	
+
+for i in range(100):
+    print('{0:0>3d}'.format(i))    		
+			]]>
+			</screen>
 		</section>
 	</section>
 	<section>
