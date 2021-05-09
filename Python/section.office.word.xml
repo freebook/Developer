@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <section id="word">
-	<title>Word 文化处理</title>
+	<title>Word 文字处理</title>
+	<para>Python-docx 是一款针对于word文档处理的一个模块，它可以创建word文档，遍历word文档，以及修改word文档。</para>
+	<para>主要应用场景是文档生成，文档转换，文档分析等等。</para>
 	<section>
 		<title>安装 </title>
 		<screen>
@@ -8,6 +10,16 @@
 pip3 install python-docx
 		]]>
 		</screen>
+	</section>
+	<section>
+		<title>创建空白文档</title>
+		<programlisting>
+		<![CDATA[
+from docx import Document
+document = Document()
+document.save('new.docx')		
+		]]>
+		</programlisting>
 	</section>
 	<section>
 		<title>演示</title>
@@ -58,6 +70,35 @@ document.add_heading('标题十', 9)
 document.save('heading.docx')
 		]]>
 		</programlisting>
+		<para>设置对齐</para>
+		<programlisting>
+		<![CDATA[
+from docx import Document
+from docx.enum.text import WD_ALIGN_PARAGRAPH, WD_LINE_SPACING
+
+document = Document()
+head = document.add_heading('Netkiller Python 手札', level=0)
+head.alignment = WD_ALIGN_PARAGRAPH.CENTER  # 居中
+
+document.add_heading('Python 入门', 1)
+document.add_heading('安装 Python 运行环境', 2)
+document.add_heading('Python 语法', 1)
+document.add_heading('if 判断', 2)
+document.add_heading('for 循环', 2)
+
+document.save('Netkiller Python 手札.docx')
+		]]>
+		</programlisting>
+		<para>设置字体大小</para>
+		<programlisting>
+		<![CDATA[
+from docx.enum.text import WD_ALIGN_PARAGRAPH,WD_LINE_SPACING
+head = document.add_heading('level=1') #添加一级标题
+run = head.add_run('这是标题')
+run.font.size = Pt(24)
+head.alignment = WD_ALIGN_PARAGRAPH.CENTER #居中		
+		]]>
+		</programlisting>
 	</section>
 	<section>
 		<title>添加段落</title>
@@ -86,6 +127,38 @@ document.add_paragraph(
 
 # 保存文档
 document.save('paragraph.docx')		
+		]]>
+		</programlisting>
+		<para>插入段落</para>
+		<programlisting>
+		<![CDATA[
+paragraph = document.add_paragraph('明天去上班。')
+在此段落之前插入一个段落，如下：
+pre_paragraph = paragraph.insert_paragraph_before('今天休息。')		
+		]]>
+		</programlisting>
+		<para>段落对齐</para>
+		<programlisting>
+		<![CDATA[
+paragraph = document.add_paragraph("段落对齐方式")
+paragraph_format = paragraph.paragraph_format
+paragraph_format.alignment = WD_ALIGN_PARAGRAPH.CENTER		
+		]]>
+		</programlisting>
+		<para>段落缩进设置</para>
+		<programlisting>
+		<![CDATA[
+from docx.shared import Inches
+
+paragraph = document.add_paragraph("段落缩进")
+paragraph_format = paragraph.paragraph_format
+paragraph_format.left_indent = Inches(0.5)		
+		]]>
+		</programlisting>
+		<para>首行缩进：</para>
+		<programlisting>
+		<![CDATA[
+paragraph_format.first_line_indent = Inches(-0.25)		
 		]]>
 		</programlisting>
 	</section>
@@ -151,8 +224,21 @@ document.save('table.docx')
 		<title>添加图片</title>
 		<programlisting>
 		<![CDATA[
+document.add_picture('demo.png')
+		]]>
+		</programlisting>
+		<para>指定图片宽度，高度会自适应</para>
+		<programlisting>
+		<![CDATA[
 # 图片
 document.add_picture('pic.jpg', width=Inches(1))		
+		]]>
+		</programlisting>
+		<para>指定图片宽度和高度</para>
+		<programlisting>
+		<![CDATA[
+from docx.shared import Inches
+document.add_picture('demo.png', width=Inches(1.0), height=Inches(1.0))
 		]]>
 		</programlisting>
 	</section>
@@ -247,6 +333,6 @@ document.save('test.docx')
 			]]>
 			</programlisting>
 		</section>
-		
+
 	</section>
 </section>
