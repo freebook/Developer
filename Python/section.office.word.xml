@@ -335,4 +335,54 @@ document.save('test.docx')
 		</section>
 
 	</section>
+	<section>
+		<title>完整的演示例子</title>
+		<programlisting>
+		<![CDATA[
+from docx import Document
+from docx.enum.text import WD_ALIGN_PARAGRAPH, WD_LINE_SPACING
+
+document = Document()
+head = document.add_heading('Netkiller Python 手札', level=0)
+head.alignment = WD_ALIGN_PARAGRAPH.CENTER  # 居中
+document.add_picture('netkiller.png')
+document.add_heading('Python 入门', 1)
+document.add_paragraph('Python 是脚本语言的一种，可以运行在Linux,Mac,Window操作系统之上。')
+document.add_heading('安装 Python 运行环境', 2)
+document.add_paragraph('前往 python.org 网站，下载安装包，根据提示安装。')
+document.add_paragraph(
+    'Linux : https://www.python.org/downloads/release/python-395/', style='List Bullet')
+document.add_paragraph(
+    'Windows ：https://www.python.org/ftp/python/3.9.5/python-3.9.5-amd64.exe', style='List Bullet')
+document.add_paragraph(
+    'MacOS : https://www.python.org/ftp/python/3.9.5/python-3.9.5-macosx10.9.pkg', style='List Bullet')
+document.add_heading('Python 语法', 1)
+document.add_heading('if 判断', 2)
+document.add_heading('for 循环', 2)
+
+document.add_heading('文档修订历史记录', 1)
+# 表格
+table = document.add_table(rows=3, cols=3, style='Table Grid')
+
+# 表头
+thead = table.rows[0].cells
+thead[0].text = '版本'
+thead[1].text = '作者'
+thead[2].text = '描述'
+
+# 表体
+tbody = table.rows[1].cells
+tbody[0].text = 'v1.0'
+tbody[1].text = 'Neo'
+tbody[2].text = '创建文档'
+
+tbody = table.rows[2].cells
+tbody[0].text = 'V2.0'
+tbody[1].text = 'Jam'
+tbody[2].text = '添加图片'
+
+document.save('Netkiller Python 手札.docx')		
+		]]>
+		</programlisting>
+	</section>
 </section>
