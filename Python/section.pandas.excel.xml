@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section>
+	<title>Excel 处理</title>
+	<section>
+		<title>安装依赖库</title>
+		<screen>
+		<![CDATA[
+neo@MacBook-Pro-Neo ~ % pip install xlrd		
+		]]>
+		</screen>
+		<programlisting>
+		<![CDATA[
+#!/usr/bin/python3
+# -*- coding: UTF-8 -*-
+import pandas as pd
+# 默认读取第一个工作表
+df = pd.read_excel("团购2021.xlsx")
+data = df.head()  # 默认读取前5行的数据
+print("当前默认工作表：\n{0}".format(data))  # 格式化输出	
+		]]>
+		</programlisting>
+	</section>
+	<section>
+		<title>创建 Excel 文档</title>
+		<programlisting>
+			<![CDATA[
+from pandas import DataFrame
+
+data = {
+    'name': ['Neo', 'Tom', 'Jerry'],
+    'age': [11, 12, 13],
+    'gender': ['Y', 'Y', 'N']
+}
+df = DataFrame(data)
+df.to_excel('netkiller.xlsx')			
+			]]>
+		</programlisting>
+	</section>
+	<section>
+		<title>修改 Excel 文件</title>
+		<programlisting>
+		<![CDATA[
+import pandas as pd
+from pandas import DataFrame
+
+file_path = r'new.xlsx'
+df = pd.read_excel(file_path)
+
+df['gender'][df['gender'] == 'N'] = 'Female'
+df['gender'][df['gender'] == 'Y'] = 'Male'
+
+print(df)
+
+DataFrame(df).to_excel(
+    file_path, sheet_name='Sheet1', index=False, header=True)
+		
+		]]>
+		</programlisting>
+	</section>
+	<section>
+		<title>新增行/列</title>
+		<programlisting>
+		<![CDATA[
+import pandas as pd
+from pandas import DataFrame
+
+file_path = r'new.xlsx'
+df = pd.read_excel(file_path)
+
+# 新增一列
+df['ctime'] = None
+
+# 新增一行
+df.loc[4] = [3, 'Alice', 20, 'Female',  '2021-5-11']
+
+print(df)
+
+DataFrame(df).to_excel(
+    file_path, sheet_name='Sheet2', index=False, header=True)
+		
+		]]>
+		</programlisting>
+	</section>
+	<section>
+		<title>工作表</title>
+		<para>获取Excel文件中的工作表</para>
+		<programlisting>
+			<![CDATA[
+xls = pd.ExcelFile("团购2021.xlsx")
+sheet_names = xls.sheet_names
+print(sheet_names)
+			]]>
+		</programlisting>
+		<para>打开默认工作表</para>
+		<programlisting>
+			<![CDATA[
+df = pd.read_excel("团购2021.xlsx", None)
+print(df.keys())
+for k,v in df.items():
+    print(k)
+			]]>
+		</programlisting>
+		<para>打开指定工作表</para>
+		<programlisting>
+			<![CDATA[
+#!/usr/bin/python3
+# -*- coding: UTF-8 -*-
+import pandas as pd
+
+file_path = r'团购.xlsx'
+df = pd.read_excel(file_path, sheet_name="3月2日", header=1) 
+			]]>
+		</programlisting>
+		<para>打开 Excel 并返回指定列数据</para>
+		<programlisting>
+		<![CDATA[
+import pandas as pd
+sheet = pd.read_excel(io="new.xlsx", usecols=['name'])
+print(sheet)		
+		]]>
+		</programlisting>
+		<section>
+			<title>打印头部数据</title>
+			<para>仅查看数据示例时常用</para>
+			<programlisting>
+			<![CDATA[
+print(sheet.head())			
+			]]>
+			</programlisting>
+		</section>
+		<section>
+			<title>打印列标题</title>
+			<programlisting>
+			<![CDATA[
+print(sheet.columns)			
+			]]>
+			</programlisting>
+		</section>
+		<section>
+			<title>打印行</title>
+			<programlisting>
+			<![CDATA[
+print(sheet.index)			
+			]]>
+			</programlisting>
+		</section>
+		<section>
+			<title>描述数据</title>
+			<programlisting>
+			<![CDATA[
+print(sheet.describe())			
+			]]>
+			</programlisting>
+		</section>
+	</section>
+</section>
