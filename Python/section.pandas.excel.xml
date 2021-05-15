@@ -91,17 +91,19 @@ sheet_names = xls.sheet_names
 print(sheet_names)
 			]]>
 		</programlisting>
-		<para>打开默认工作表</para>
-		<programlisting>
+		<section>
+			<title>打开工作表</title>
+			<para>打开默认工作表</para>
+			<programlisting>
 			<![CDATA[
 df = pd.read_excel("团购2021.xlsx", None)
 print(df.keys())
 for k,v in df.items():
     print(k)
 			]]>
-		</programlisting>
-		<para>打开指定工作表</para>
-		<programlisting>
+			</programlisting>
+			<para>打开指定工作表</para>
+			<programlisting>
 			<![CDATA[
 #!/usr/bin/python3
 # -*- coding: UTF-8 -*-
@@ -110,15 +112,24 @@ import pandas as pd
 file_path = r'团购.xlsx'
 df = pd.read_excel(file_path, sheet_name="3月2日", header=1) 
 			]]>
-		</programlisting>
-		<para>打开 Excel 并返回指定列数据</para>
-		<programlisting>
+			</programlisting>
+			<para>打开 Excel 并返回指定列数据</para>
+			<programlisting>
 		<![CDATA[
 import pandas as pd
 sheet = pd.read_excel(io="new.xlsx", usecols=['name'])
 print(sheet)		
 		]]>
-		</programlisting>
+			</programlisting>
+			<para>打开多个工作表</para>
+			<programlisting>
+			<![CDATA[
+import pandas as pd
+sheet = pd.read_excel(io="测试数据.xlsx", sheet_name=[0, 1])
+print(sheet[0])
+			]]>
+			</programlisting>
+		</section>
 		<section>
 			<title>打印头部数据</title>
 			<para>仅查看数据示例时常用</para>
@@ -149,6 +160,33 @@ print(sheet.index)
 			<programlisting>
 			<![CDATA[
 print(sheet.describe())			
+			]]>
+			</programlisting>
+		</section>
+		<section>
+			<title></title>
+			<programlisting>
+			<![CDATA[
+import pandas as pd
+sheet = pd.read_excel("工资表.xlsx", usecols=['工资'])
+high_salary = sheet[sheet['工资'] > 10000]
+middle_salary = sheet[(sheet['工资'] >= 8000) & (sheet['工资'] <=10000)]
+low_salary = sheet[sheet['工资'] < 8000]
+			]]>
+			</programlisting>
+			<programlisting>
+			<![CDATA[
+high_salary = sheet[(sheet['工资'] >= 8000) & (sheet['工资'] <=10000)][['姓名','工资']]			
+			]]>
+			</programlisting>
+		</section>
+		<section>
+			<title>合并工作表</title>
+			<programlisting>
+			<![CDATA[
+import pandas as pd
+sheet = pd.read_excel("测试.xlsx", sheet_name=[1, 0])
+st = pd.concat(sheet,ignore_index = True)			
 			]]>
 			</programlisting>
 		</section>

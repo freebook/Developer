@@ -1,16 +1,94 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <section>
-	<title>PDF 文件处理</title>
-	<subtitle>Plumb a PDF for detailed information about each char, rectangle, and line.</subtitle>
+	<title>Python 处理 PDF 文件</title>
 	<section>
-		<title>安装 pdfplumber</title>
+		<title>Word 转 PDF</title>
+		<para>安装</para>
 		<screen>
+		<![CDATA[
+pip install docx2pdf		
+		]]>
+		</screen>
+		<para>macOS 还需要安装</para>
+		<screen>
+		<![CDATA[
+brew install aljohri/-/docx2pdf
+		]]>
+		</screen>
+		<para>命令行演示</para>
+		<para>查看帮助信息 docx2pdf --help	</para>
+		<screen>
+		<![CDATA[	
+neo@MacBook-Pro-Neo ~ % docx2pdf
+usage: docx2pdf [-h] [--keep-active] [--version] input [output]
+
+Example Usage:
+
+Convert single docx file in-place from myfile.docx to myfile.pdf:
+    docx2pdf myfile.docx
+
+Batch convert docx folder in-place. Output PDFs will go in the same folder:
+    docx2pdf myfolder/
+
+Convert single docx file with explicit output filepath:
+    docx2pdf input.docx output.docx
+
+Convert single docx file and output to a different explicit folder:
+    docx2pdf input.docx output_dir/
+
+Batch convert docx folder. Output PDFs will go to a different explicit folder:
+    docx2pdf input_dir/ output_dir/
+
+positional arguments:
+  input          input file or folder. batch converts entire folder or convert single file
+  output         output file or folder
+
+optional arguments:
+  -h, --help     show this help message and exit
+  --keep-active  prevent closing word after conversion
+  --version      display version and exit
+		]]>
+		</screen>
+		<para>代码演示</para>
+		<programlisting>
+		<![CDATA[
+from docx2pdf import convert
+
+convert("input.docx")
+convert("input.docx", "output.pdf")
+convert("my_docx_folder/")
+		]]>
+		</programlisting>
+		<para>如果只是转换一个文档，我们就没有必要用Python了。下面的程序是批量转换指定目录下的 Word 文档。</para>
+		<programlisting>
+		<![CDATA[
+import os
+import glob
+from pathlib import Path
+
+# 指定转换目录
+path = os.getcwd() + '/' 
+
+p = Path(path) 
+files=list(p.glob("**/*.docx")) 
+
+for file in files:
+    convert(file,f"{file}.pdf")		
+		]]>
+		</programlisting>
+	</section>
+	<section>
+		<title>提取 PDF 文件中的文字和表格</title>
+		<subtitle>Plumb a PDF for detailed information about each char, rectangle, and line.</subtitle>
+		<section>
+			<title>安装 pdfplumber</title>
+			<screen>
 		<![CDATA[
 neo@MacBook-Pro-Neo ~/workspace/python % pip install pdfplumber		
 		]]>
-		</screen>
-		<para>查看 pdfplumber 是否安装成功</para>
-		<screen>
+			</screen>
+			<para>查看 pdfplumber 是否安装成功</para>
+			<screen>
 		<![CDATA[
 neo@MacBook-Pro-Neo ~/workspace/python % pip show pdfplumber
 Name: pdfplumber
@@ -24,11 +102,11 @@ Location: /Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-p
 Requires: pdfminer.six, Pillow, Wand
 Required-by: 		
 		]]>
-		</screen>
-	</section>
-	<section>
-		<title>获取PDF文档信息</title>
-		<programlisting>
+			</screen>
+		</section>
+		<section>
+			<title>获取PDF文档信息</title>
+			<programlisting>
 		<![CDATA[
 import os,pdfplumber
 import pandas as pd
@@ -38,17 +116,17 @@ file = os.path.expanduser("~/tmp/每日开放式基金净值表.pdf")
 with pdfplumber.open(file) as pdf:
     print(pdf.metadata)		
 		]]>
-		</programlisting>
-		<para>输出结果</para>
-		<screen>
+			</programlisting>
+			<para>输出结果</para>
+			<screen>
 		<![CDATA[
 {'Producer': 'macOS 版本11.2.1（版号20D74） Quartz PDFContext', 'CreationDate': "D:20210227145013Z00'00'", 'ModDate': "D:20210227145013Z00'00'"}		
 		]]>
-		</screen>
-	</section>
-	<section>
-		<title>获取PDF总页数</title>
-		<programlisting>
+			</screen>
+		</section>
+		<section>
+			<title>获取PDF总页数</title>
+			<programlisting>
 		<![CDATA[
 import os,pdfplumber
 import pandas as pd
@@ -58,11 +136,11 @@ file = os.path.expanduser("~/tmp/每日开放式基金净值表.pdf")
 with pdfplumber.open(file) as pdf:
     print(len(pdf.pages))		
 		]]>
-		</programlisting>
-	</section>
-	<section>
-		<title>查看PDF页面信息</title>
-		<programlisting>
+			</programlisting>
+		</section>
+		<section>
+			<title>查看PDF页面信息</title>
+			<programlisting>
 		<![CDATA[
 import os,pdfplumber
 import pandas as pd
@@ -82,20 +160,20 @@ with pdfplumber.open(file) as pdf:
     # 查看当前页高
     print('页高：',first_page.height)		
 		]]>
-		</programlisting>
-		<para>输出结果</para>
-		<screen>
+			</programlisting>
+			<para>输出结果</para>
+			<screen>
 		<![CDATA[
 neo@MacBook-Pro-Neo ~/workspace/python % python3 pdf.py
 页码： 1
 页宽： 1324
 页高： 7638		
 		]]>
-		</screen>
-	</section>
-	<section>
-		<title>提取文本内容</title>
-		<programlisting>
+			</screen>
+		</section>
+		<section>
+			<title>提取文本内容</title>
+			<programlisting>
 		<![CDATA[
 import os,pdfplumber
 import pandas as pd
@@ -110,12 +188,12 @@ with pdfplumber.open(file) as pdf:
     text = first_page.extract_text()
     print(text)		
 		]]>
-		</programlisting>
-	</section>
-	
-	<section>
-		<title>提取pdf中的表格数据</title>
-		<programlisting>
+			</programlisting>
+		</section>
+
+		<section>
+			<title>提取pdf中的表格数据</title>
+			<programlisting>
 		<![CDATA[
 import os,pdfplumber
 import pandas as pd
@@ -127,9 +205,9 @@ with pdfplumber.open(file) as pdf:
     table = first_page.extract_table()
     print(table)	
 		]]>
-		</programlisting>
-		<para></para>
-		<programlisting>
+			</programlisting>
+			<para></para>
+			<programlisting>
 		<![CDATA[
 import os,pdfplumber
 import pandas as pd
@@ -144,8 +222,8 @@ with pdfplumber.open(file) as pdf:
     for t in table:
         print(t)		
 		]]>
-		</programlisting>
-		<screen>
+			</programlisting>
+			<screen>
 		<![CDATA[
 neo@MacBook-Pro-Neo ~/workspace/python % python3 pdf.py
 ['关注', '⽐较', '序号', '基⾦代码', '基⾦简称', '2021-02-26', None, '2021-02-25', None, '⽇增长值', '⽇增长率', '申购状态', '赎回状态', '⼿续费']
@@ -156,16 +234,16 @@ neo@MacBook-Pro-Neo ~/workspace/python % python3 pdf.py
 ['', '', '4', '004005', '东⽅民丰回报赢安混合A 估值图 基⾦吧', '1.0564', '1.0709', '1.0438', '1.0583', '0.0126', '1.21%', '开放', '开放', '0.06%']
 ['', '', '5', '004006', '东⽅民丰回报赢安混合C 估值图 基⾦吧', '1.0463', '1.0593', '1.0338', '1.0468', '0.0125', '1.21%', '开放', '开放', '0.00%']		
 		]]>
-		</screen>
-	</section>
-	<section>
-		<title>保存数据到 Excel</title>
-		<screen>
+			</screen>
+		</section>
+		<section>
+			<title>保存数据到 Excel</title>
+			<screen>
 		<![CDATA[
 neo@MacBook-Pro-Neo ~/workspace/python % pip install openpyxl		
 		]]>
-		</screen>
-		<programlisting>
+			</screen>
+			<programlisting>
 		<![CDATA[
 import os,pdfplumber
 
@@ -185,6 +263,10 @@ with pdfplumber.open(file) as pdf:
     # 保存excel
     save.to_excel('output.xlsx')		
 		]]>
-		</programlisting>		
+			</programlisting>
+		</section>
+	</section>
+	<section>
+		<title>PyPDF2</title>
 	</section>
 </section>

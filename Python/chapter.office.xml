@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <chapter id="index"><?dbhtml dir="office" ?>
 	<title>办公自动化</title>
-	&section.pdfplumber.xml;
+	&section.office.pdf.xml;
 	&section.office.word.xml;
 </chapter>

@@ -28,7 +28,6 @@
 <!ENTITY chapter.crawler.xml				SYSTEM "chapter.crawler.xml">
 <!ENTITY chapter.pandas.xml					SYSTEM "chapter.pandas.xml">
 <!ENTITY section.pandas.excel.xml			SYSTEM "section.pandas.excel.xml">
-<!ENTITY section.pdfplumber.xml				SYSTEM "section.pdfplumber.xml">
 
 <!ENTITY chapter.ocr.xml					SYSTEM "chapter.ocr.xml">
 <!ENTITY section.ocr.easyocr.xml			SYSTEM "section.ocr.easyocr.xml">
@@ -44,6 +43,7 @@
 <!ENTITY section.chart.matplotlib.xml		SYSTEM "section.chart.matplotlib.xml">
 
 <!ENTITY chapter.office.xml					SYSTEM "chapter.office.xml">
+<!ENTITY section.office.pdf.xml				SYSTEM "section.office.pdf.xml">
 <!ENTITY section.office.word.xml			SYSTEM "section.office.word.xml">
 
 <!ENTITY chapter.ops.xml					SYSTEM "chapter.ops.xml">
