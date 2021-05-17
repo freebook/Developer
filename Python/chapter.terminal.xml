@@ -517,8 +517,14 @@ opqrstu    0.023   5.000e+78    92   1.280e+22
 		<section>
 			<title>彩色表格</title>
 			<para>texttable 本身不支持 ANSI 彩色文本输出，我以修复了该 Bug，已经想修复代码pull request 给作者。</para>
-			<para>Pull Request: <ulink url="https://github.com/foutaise/texttable/pull/75" /></para>
-			<para>我的代码库地址：<ulink> url="https://github.com/netkiller/texttable" /></ulink></para>
+			<para>
+				Pull Request:
+				<ulink url="https://github.com/foutaise/texttable/pull/75" />
+			</para>
+			<para>
+				我的代码库地址：
+				<ulink url="https://github.com/netkiller/texttable" />
+			</para>
 			<programlisting>
 			<![CDATA[
 from texttable import Texttable
