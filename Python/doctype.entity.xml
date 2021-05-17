@@ -12,7 +12,7 @@
 <!ENTITY chapter.library.syslog.xml			SYSTEM "chapter.library.syslog.xml">
 <!ENTITY chapter.library.threading.xml		SYSTEM "chapter.library.threading.xml">
 <!ENTITY chapter.library.socket.xml			SYSTEM "chapter.library.socket.xml">
-<!ENTITY chapter.library.tui.xml			SYSTEM "chapter.library.tui.xml">
+<!ENTITY section.library.random.xml			SYSTEM "section.library.random.xml">
 <!ENTITY chapter.exe.xml					SYSTEM "chapter.exe.xml">
 <!ENTITY chapter.3rdparty.xml				SYSTEM "chapter.3rdparty.xml">
 

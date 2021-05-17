@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section id="random">
+	<title>随机数</title>
+	<section>
+		<title>指定随机数范围</title>
+		<para>random.randrange ([start,] stop [,step])</para>
+		<screen>
+		<![CDATA[
+import random
+random.randrange ([start,] stop [,step])
+参数
+start -- 指定范围内的开始值，包含在范围内。
+stop -- 指定范围内的结束值，不包含在范围内。
+step -- 指定递增基数。		
+		]]>
+		</screen>
+		<programlisting>
+		<![CDATA[
+#!/usr/bin/python3
+import random
+
+# 输出 1 <= number < 100 间的偶数
+print "randrange(1, 100) : ", random.randrange(1, 100)
+
+# 输出 100 <= number < 1000 间的偶数
+print "randrange(100, 1000, 5) : ", random.randrange(100, 1000, 5)
+
+# 输出 100 <= number < 1000 间的其他数
+print "randrange(100, 1000, 3) : ", random.randrange(100, 1000, 3)
+		]]>
+		</programlisting>
+	</section>
+	<section>
+		<title></title>
+		
+	</section>
+</section>

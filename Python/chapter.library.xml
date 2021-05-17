@@ -19,6 +19,7 @@ print(dt)
 	]]>
 	</screen>
 </section>	
+	&section.library.random.xml;
 	&chapter.library.threading.xml;
 	&chapter.library.syslog.xml;
 	&chapter.library.socket.xml;
@@ -270,8 +271,6 @@ curl http://localhost:8000/
 		<para>http://www.gevent.org/</para>
 	</section>
 </section>
-
-	&chapter.library.tui.xml;
 	
 <section id="python-spdylay">
 	<title>Python-spdylay - Spdylay Python Extension Module</title>
