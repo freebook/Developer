@@ -2,19 +2,22 @@
 <chapter id="terminal">
 	<title>终端环境开发</title>
 	<section>
-		<title>ansicolors</title>
-	</section>
-	<section>
-		<title>termcolor</title>
-		<programlisting>
+		<title>ANSI Color</title>
+
+		<section>
+			<title>ansicolors</title>
+		</section>
+		<section>
+			<title>termcolor</title>
+			<programlisting>
 		<![CDATA[
 from termcolor import colored
 
 # then use Termcolor for all colored text output
 print(colored('Hello, World!', 'green', 'on_red'))		
 		]]>
-		</programlisting>
-		<programlisting>
+			</programlisting>
+			<programlisting>
 		<![CDATA[
 import sys
 from termcolor import colored, cprint
@@ -32,22 +35,22 @@ for i in range(10):
 
 cprint("Attention!", 'red', attrs=['bold'], file=sys.stderr)		
 		]]>
-		</programlisting>
-	</section>
-	<section>
-		<title>Colorama</title>
-		<para>
-			<ulink url="https://pypi.org/project/colorama/" />
-		</para>
-		<screen>
+			</programlisting>
+		</section>
+		<section>
+			<title>Colorama</title>
+			<para>
+				<ulink url="https://pypi.org/project/colorama/" />
+			</para>
+			<screen>
 		<![CDATA[
 pip install colorama
 		]]>
-		</screen>
-		<section>
-			<title>初始化操作</title>
-			<para>init(autoreset = False)，当 autoreset = True 时自动恢复到默认颜色</para>
-			<programlisting>
+			</screen>
+			<section>
+				<title>初始化操作</title>
+				<para>init(autoreset = False)，当 autoreset = True 时自动恢复到默认颜色</para>
+				<programlisting>
 		<![CDATA[
 #!/usr/bin/env python 
 from colorama import init, Fore, Back, Style
@@ -59,23 +62,26 @@ if __name__ == "__main__":
     print(Back.GREEN + 'and with a green background')
     print(Style.DIM + 'and in dim text')		
 		]]>
-			</programlisting>
-		</section>
-		<section>
-			<title>常用格式</title>
-			<para>Fore是针对字体颜色，Back是针对字体背景颜色，Style是针对字体格式</para>
-			<itemizedlist>
-				<title></title>
-				<listitem>Fore: BLACK, RED, GREEN, YELLOW, BLUE, MAGENTA, CYAN, WHITE, RESET.</listitem>
-				<listitem>Back: BLACK, RED, GREEN, YELLOW, BLUE, MAGENTA, CYAN, WHITE, RESET.</listitem>
-				<listitem>Style: DIM, NORMAL, BRIGHT, RESET_ALL</listitem>
-			</itemizedlist>
+				</programlisting>
+			</section>
+			<section>
+				<title>常用格式</title>
+				<para>Fore是针对字体颜色，Back是针对字体背景颜色，Style是针对字体格式</para>
+				<itemizedlist>
+					<title></title>
+					<listitem>Fore: BLACK, RED, GREEN, YELLOW, BLUE, MAGENTA, CYAN, WHITE, RESET.</listitem>
+					<listitem>Back: BLACK, RED, GREEN, YELLOW, BLUE, MAGENTA, CYAN, WHITE, RESET.</listitem>
+					<listitem>Style: DIM, NORMAL, BRIGHT, RESET_ALL</listitem>
+				</itemizedlist>
+			</section>
 		</section>
 	</section>
 	<section>
-		<title>进度条 progress</title>
-		<para>CLI 和 TUI 开发中我们常常会用到进度条，用于展示下载或执行进度等等。</para>
-		<screen>
+		<title>进度条</title>
+		<section>
+			<title>progress</title>
+			<para>CLI 和 TUI 开发中我们常常会用到进度条，用于展示下载或执行进度等等。</para>
+			<screen>
 		<![CDATA[
 Bar |################################| 200/200 [2 / 0 / 0:00:00] (None)
 ChargingBar ████████████████████████████████ 200/200 [2 / 0 / 0:00:00] (None)
@@ -96,15 +102,15 @@ Stack █
 Pie ●
 Random |██████████████████████████████▊ | 96		
 		]]>
-		</screen>
-		<para>安装</para>
-		<screen>
+			</screen>
+			<para>安装</para>
+			<screen>
 		<![CDATA[
 pip install progress		
 		]]>
-		</screen>
-		<para>演示</para>
-		<programlisting>
+			</screen>
+			<para>演示</para>
+			<programlisting>
 		<![CDATA[
 from progress.bar import Bar
 
@@ -114,17 +120,17 @@ for i in range(20):
     bar.next()
 bar.finish()
 		]]>
-		</programlisting>
-		<para>执行结果</para>
-		<programlisting>
+			</programlisting>
+			<para>执行结果</para>
+			<programlisting>
 		<![CDATA[
 neo@MacBook-Pro-Neo ~/workspace/python % python3.9 progress-demo.py
 Processing |################################| 20/20		
 		]]>
-		</programlisting>
-		<section>
-			<title>条形进度条（Bars）</title>
-			<programlisting>
+			</programlisting>
+			<section>
+				<title>条形进度条（Bars）</title>
+				<programlisting>
 			<![CDATA[
 from progress.bar import Bar
 import time
@@ -139,15 +145,15 @@ for i in range(length):
     bar.next()
 bar.finish()			
 			]]>
-			</programlisting>
-			<para>运行结果</para>
-			<screen>
+				</programlisting>
+				<para>运行结果</para>
+				<screen>
 			<![CDATA[
 Processing |#########                       | 31/100			
 			]]>
-			</screen>
-			<para>将 # 换成 @ 符号，并且进度改为百分比。</para>
-			<programlisting>
+				</screen>
+				<para>将 # 换成 @ 符号，并且进度改为百分比。</para>
+				<programlisting>
 			<![CDATA[
 bar = Bar('Loading', fill='@', suffix='%(percent)d%%')
 
@@ -155,11 +161,11 @@ bar = Bar('Loading', fill='@', suffix='%(percent)d%%')
 
 Loading |@@@@@@@@@@@@@                   | 42%			
 			]]>
-			</programlisting>
-		</section>
-		<section>
-			<title>方块进度条（ChargingBar）</title>
-			<programlisting>
+				</programlisting>
+			</section>
+			<section>
+				<title>方块进度条（ChargingBar）</title>
+				<programlisting>
 			<![CDATA[
 from progress.bar import ChargingBar
 import time
@@ -171,17 +177,17 @@ with ChargingBar('Processing', max=length) as bar:
         time.sleep(random.randrange(1, 5)*0.05)
         bar.next()
 			]]>
-			</programlisting>
-			<para>运行结果</para>
-			<screen>
+				</programlisting>
+				<para>运行结果</para>
+				<screen>
 			<![CDATA[
 Processing ███████████████████████∙∙∙∙∙∙∙∙∙ 73%			
 			]]>
-			</screen>
-		</section>
-		<section>
-			<title>填充方块进度条（FillingSquaresBar）</title>
-			<programlisting>
+				</screen>
+			</section>
+			<section>
+				<title>填充方块进度条（FillingSquaresBar）</title>
+				<programlisting>
 			<![CDATA[
 from progress.bar import FillingSquaresBar
 import time
@@ -194,17 +200,17 @@ for i in range(length):
     bar.next()
 bar.finish()			
 			]]>
-			</programlisting>
-			<para>运行结果</para>
-			<screen>
+				</programlisting>
+				<para>运行结果</para>
+				<screen>
 			<![CDATA[
 Processing ▣▣▣▣▣▣▣▣▣▣▣▣▣▣▣▢▢▢▢▢▢▢▢▢▢▢▢▢▢▢▢▢ 47%			
 			]]>
-			</screen>
-		</section>
-		<section>
-			<title>填充圆圈进度条（FillingCirclesBar）</title>
-			<programlisting>
+				</screen>
+			</section>
+			<section>
+				<title>填充圆圈进度条（FillingCirclesBar）</title>
+				<programlisting>
 			<![CDATA[
 bar = FillingCirclesBar('Processing', max=length)
 for i in range(length):
@@ -213,17 +219,17 @@ for i in range(length):
     bar.next()
 bar.finish()			
 			]]>
-			</programlisting>
-			<para>运行结果</para>
-			<screen>
+				</programlisting>
+				<para>运行结果</para>
+				<screen>
 			<![CDATA[
 Processing ◉◉◉◉◉◉◉◉◉◉◉◉◉◯◯◯◯◯◯◯◯◯◯◯◯◯◯◯◯◯◯◯ 41%			
 			]]>
-			</screen>
-		</section>
-		<section>
-			<title>使用 Incremental 展示内存使用率</title>
-			<programlisting>
+				</screen>
+			</section>
+			<section>
+				<title>使用 Incremental 展示内存使用率</title>
+				<programlisting>
 			<![CDATA[
 from progress.bar import IncrementalBar
 import subprocess
@@ -240,17 +246,246 @@ bar = IncrementalBar('Memory', max=length, suffix='%(index)d%%')
 bar.goto(usage)
 bar.finish()
 			]]>
-			</programlisting>
-			<para></para>
-			<screen>
+				</programlisting>
+				<para></para>
+				<screen>
 			<![CDATA[
 Memory |████████████████▋               | 52%			
 			]]>
-			</screen>
+				</screen>
+			</section>
 		</section>
-	</section>
-	<section>
-		<title>tqdm</title>
+
+		<section>
+			<title>tqdm</title>
+			<para>安装</para>
+			<screen>
+			<![CDATA[
+neo@MacBook-Pro-Neo ~ % pip install tqdm			
+			]]>
+			</screen>
+			<section>
+				<title>tqdm 命令</title>
+				<screen>
+				<![CDATA[
+neo@MacBook-Pro-Neo ~ % tqdm -h
+Usage:
+  tqdm [--help | options]
+
+Options:
+  -h, --help     Print this help and exit.
+  -v, --version  Print version and exit.
+  --desc=<desc>  : str, optional
+            Prefix for the progressbar.
+  --total=<total>  : int or float, optional
+            The number of expected iterations. If unspecified,
+            len(iterable) is used if possible. If float("inf") or as a last
+            resort, only basic progress statistics are displayed
+            (no ETA, no progressbar).
+            If `gui` is True and this parameter needs subsequent updating,
+            specify an initial arbitrary large positive number,
+            e.g. 9e9.
+  --leave  : bool, optional
+            If [default: True], keeps all traces of the progressbar
+            upon termination of iteration.
+            If `None`, will leave only if `position` is `0`.
+  --ncols=<ncols>  : int, optional
+            The width of the entire output message. If specified,
+            dynamically resizes the progressbar to stay within this bound.
+            If unspecified, attempts to use environment width. The
+            fallback is a meter width of 10 and no limit for the counter and
+            statistics. If 0, will not print any meter (only stats).
+  --mininterval=<mininterval>  : float, optional
+            Minimum progress display update interval [default: 0.1] seconds.
+  --maxinterval=<maxinterval>  : float, optional
+            Maximum progress display update interval [default: 10] seconds.
+            Automatically adjusts `miniters` to correspond to `mininterval`
+            after long display update lag. Only works if `dynamic_miniters`
+            or monitor thread is enabled.
+  --miniters=<miniters>  : int or float, optional
+            Minimum progress display update interval, in iterations.
+            If 0 and `dynamic_miniters`, will automatically adjust to equal
+            `mininterval` (more CPU efficient, good for tight loops).
+            If > 0, will skip display of specified number of iterations.
+            Tweak this and `mininterval` to get very efficient loops.
+            If your progress is erratic with both fast and slow iterations
+            (network, skipping items, etc) you should set miniters=1.
+  --ascii=<ascii>  : bool or str, optional
+            If unspecified or False, use unicode (smooth blocks) to fill
+            the meter. The fallback is to use ASCII characters " 123456789#".
+  --disable  : bool, optional
+            Whether to disable the entire progressbar wrapper
+            [default: False]. If set to None, disable on non-TTY.
+  --unit=<unit>  : str, optional
+            String that will be used to define the unit of each iteration
+            [default: it].
+  --unit-scale=<unit_scale>  : bool or int or float, optional
+            If 1 or True, the number of iterations will be reduced/scaled
+            automatically and a metric prefix following the
+            International System of Units standard will be added
+            (kilo, mega, etc.) [default: False]. If any other non-zero
+            number, will scale `total` and `n`.
+  --dynamic-ncols  : bool, optional
+            If set, constantly alters `ncols` and `nrows` to the
+            environment (allowing for window resizes) [default: False].
+  --smoothing=<smoothing>  : float, optional
+            Exponential moving average smoothing factor for speed estimates
+            (ignored in GUI mode). Ranges from 0 (average speed) to 1
+            (current/instantaneous speed) [default: 0.3].
+  --bar-format=<bar_format>  : str, optional
+            Specify a custom bar string formatting. May impact performance.
+            [default: '{l_bar}{bar}{r_bar}'], where
+            l_bar='{desc}: {percentage:3.0f}%|' and
+            r_bar='| {n_fmt}/{total_fmt} [{elapsed}<{remaining}, '
+              '{rate_fmt}{postfix}]'
+            Possible vars: l_bar, bar, r_bar, n, n_fmt, total, total_fmt,
+              percentage, elapsed, elapsed_s, ncols, nrows, desc, unit,
+              rate, rate_fmt, rate_noinv, rate_noinv_fmt,
+              rate_inv, rate_inv_fmt, postfix, unit_divisor,
+              remaining, remaining_s, eta.
+            Note that a trailing ": " is automatically removed after {desc}
+            if the latter is empty.
+  --initial=<initial>  : int or float, optional
+            The initial counter value. Useful when restarting a progress
+            bar [default: 0]. If using float, consider specifying `{n:.3f}`
+            or similar in `bar_format`, or specifying `unit_scale`.
+  --position=<position>  : int, optional
+            Specify the line offset to print this bar (starting from 0)
+            Automatic if unspecified.
+            Useful to manage multiple bars at once (eg, from threads).
+  --postfix=<postfix>  : dict or *, optional
+            Specify additional stats to display at the end of the bar.
+            Calls `set_postfix(**postfix)` if possible (dict).
+  --unit-divisor=<unit_divisor>  : float, optional
+            [default: 1000], ignored unless `unit_scale` is True.
+  --write-bytes  : bool, optional
+            If (default: None) and `file` is unspecified,
+            bytes will be written in Python 2. If `True` will also write
+            bytes. In all other cases will default to unicode.
+  --lock-args=<lock_args>  : tuple, optional
+            Passed to `refresh` for intermediate output
+            (initialisation, iterating, and updating).
+  --nrows=<nrows>  : int, optional
+            The screen height. If specified, hides nested bars outside this
+            bound. If unspecified, attempts to use environment height.
+            The fallback is 20.
+  --colour=<colour>  : str, optional
+            Bar colour (e.g. 'green', '#00ff00').
+  --delay=<delay>  : float, optional
+            Don't display until [default: 0] seconds have elapsed.
+  --delim=<delim>  : chr, optional
+            Delimiting character [default: '\n']. Use '\0' for null.
+            N.B.: on Windows systems, Python converts '\n' to '\r\n'.
+  --buf-size=<buf_size>  : int, optional
+            String buffer size in bytes [default: 256]
+            used when `delim` is specified.
+  --bytes  : bool, optional
+            If true, will count bytes, ignore `delim`, and default
+            `unit_scale` to True, `unit_divisor` to 1024, and `unit` to 'B'.
+  --tee  : bool, optional
+            If true, passes `stdin` to both `stderr` and `stdout`.
+  --update  : bool, optional
+            If true, will treat input as newly elapsed iterations,
+            i.e. numbers to pass to `update()`. Note that this is slow
+            (~2e5 it/s) since every input must be decoded as a number.
+  --update-to  : bool, optional
+            If true, will treat input as total elapsed iterations,
+            i.e. numbers to assign to `self.n`. Note that this is slow
+            (~2e5 it/s) since every input must be decoded as a number.
+  --null  : bool, optional
+            If true, will discard input (no stdout).
+  --manpath=<manpath>  : str, optional
+            Directory in which to install tqdm man pages.
+  --comppath=<comppath>  : str, optional
+            Directory in which to place tqdm completion.
+  --log=<log>  : str, optional
+            CRITICAL|FATAL|ERROR|WARN(ING)|[default: 'INFO']|DEBUG|NOTSET.
+				
+				]]>
+				</screen>
+				
+			</section>
+			
+			
+			<section>
+				<title>演示</title>
+				<programlisting>
+				<![CDATA[
+from tqdm import tqdm
+import time
+
+for i in tqdm(range(100)):
+  time.sleep(0.1)
+  pass				
+				]]>
+				</programlisting>
+				<para>演示效果</para>			
+				<screen>
+				<![CDATA[
+neo@MacBook-Pro-Neo ~/workspace/python % python3.9 /Users/neo/workspace/python/terminal/tqdm/demo.py
+ 31%|██████████████▉                                 | 31/100 [00:03<00:07,  9.66it/s]				
+				]]>
+				</screen>
+			</section>
+			<section>
+				<title>设置进度条长度</title>
+				<programlisting>
+				<![CDATA[
+from tqdm import tqdm,trange
+import time
+
+for i in trange(100):
+  time.sleep(0.1)
+  pass				
+				]]>
+				</programlisting>
+				<programlisting>
+				<![CDATA[
+from tqdm import tqdm
+import time
+
+length = 50
+# total 参数设置进度条的总长度
+with tqdm(total=length) as bar:
+    for i in range(length):
+        time.sleep(0.05)
+        # 每次更新进度条的长度
+        bar.update(1)				
+				]]>
+				</programlisting>
+				<programlisting>
+				<![CDATA[
+from tqdm import tqdm
+import time
+length = 50
+#total参数设置进度条的总长度
+bar = tqdm(total=length)
+for i in range(length):
+  time.sleep(0.05)
+  #每次更新进度条的长度
+  bar.update(1)
+#关闭进度条
+bar.close()				
+				]]>
+				</programlisting>
+				
+			</section>
+			<section>
+				<title>设置任务数量</title>
+				<programlisting>
+				<![CDATA[
+from tqdm import tqdm
+import time
+
+bar = tqdm(["加载", "执行", "保存", "完成"])
+for step in bar:
+    time.sleep(1)
+    bar.set_description("当前进度 %s" % step)				
+				]]>
+				</programlisting>
+			</section>
+			
+		</section>
 	</section>
 	<section>
 		<title>texttable - module for creating simple ASCII tables</title>
