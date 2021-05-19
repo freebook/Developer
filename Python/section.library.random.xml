@@ -2,6 +2,27 @@
 <section id="random">
 	<title>随机数</title>
 	<section>
+		<title>随机选择列表</title>
+		<para>随机返回参数列表中任意一个元素</para>
+		<programlisting>
+		<![CDATA[
+>>> print(random.choice(['China','Japan','Korea']))
+Korea
+>>> print(random.choice(['China','Japan','Korea']))
+Japan		
+		]]>
+		</programlisting>
+		<para>随机返回参数列表中任意两个元素，参数二指定返回的数量</para>
+		<programlisting>
+		<![CDATA[
+print(random.sample(['China','Japan','Korea'],2))
+
+>>> print(random.sample(['China','Japan','Korea'],2))
+['Japan', 'Korea']
+		]]>
+		</programlisting>
+	</section>
+	<section>
 		<title>指定随机数范围</title>
 		<para>random.randrange ([start,] stop [,step])</para>
 		<screen>
@@ -31,7 +52,51 @@ print "randrange(100, 1000, 3) : ", random.randrange(100, 1000, 3)
 		</programlisting>
 	</section>
 	<section>
-		<title></title>
-		
+		<title>指定随机数范围(整数)</title>
+		<programlisting>
+		<![CDATA[
+>>> print(random.randint(1,5))
+1
+>>> print(random.randint(1,5))
+3
+>>> print(random.randint(1,5))
+5
+	]]>
+		</programlisting>
+	</section>
+	<section>
+		<title>指定随机数范围(小数)</title>
+		<programlisting>
+		<![CDATA[
+>>> import random
+>>> print(random.uniform(0,9)) 
+7.36185883349121
+>>> print(random.uniform(0.1,0.9)) 
+0.3972467892993786		
+		]]>
+		</programlisting>
+	</section>
+	<section>
+		<title>打乱列表顺序</title>
+		<programlisting>
+		<![CDATA[
+lists = list(range(10))
+print(lists)
+random.shuffle(lists)
+print(lists)		
+		]]>
+		</programlisting>
+		<para>演示</para>
+		<screen>
+		<![CDATA[
+>>> lists = list(range(10))
+>>> print(lists)
+[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+>>> random.shuffle(lists)
+>>> print(lists)        
+[8, 1, 7, 0, 5, 3, 2, 9, 6, 4]
+>>>		
+		]]>
+		</screen>
 	</section>
 </section>
