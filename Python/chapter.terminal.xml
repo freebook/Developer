@@ -76,7 +76,7 @@ if __name__ == "__main__":
 			</section>
 		</section>
 	</section>
-	<section>
+	<section id="进度条">
 		<title>进度条</title>
 		<section>
 			<title>progress</title>
@@ -403,10 +403,10 @@ Options:
 				
 				]]>
 				</screen>
-				
+
 			</section>
-			
-			
+
+
 			<section>
 				<title>演示</title>
 				<programlisting>
@@ -419,7 +419,7 @@ for i in tqdm(range(100)):
   pass				
 				]]>
 				</programlisting>
-				<para>演示效果</para>			
+				<para>演示效果</para>
 				<screen>
 				<![CDATA[
 neo@MacBook-Pro-Neo ~/workspace/python % python3.9 /Users/neo/workspace/python/terminal/tqdm/demo.py
@@ -468,7 +468,7 @@ for i in range(length):
 bar.close()				
 				]]>
 				</programlisting>
-				
+
 			</section>
 			<section>
 				<title>设置任务数量</title>
@@ -484,7 +484,73 @@ for step in bar:
 				]]>
 				</programlisting>
 			</section>
-			
+
+
+			<section>
+				<title>多进程进度监控</title>
+				<programlisting>
+			<![CDATA[
+from time import sleep
+from tqdm import trange, tqdm
+import multiprocessing
+import random
+
+threads = list(range(5))
+total = 100
+
+
+def run(n):
+    name = multiprocessing.current_process().name
+    description = "#{} - {}".format(n, name)
+    for i in trange(total, desc=description, position=n, ascii=True):
+        sleep(random.randrange(1, 9)*0.1)
+
+
+if __name__ == '__main__':
+
+    pool = multiprocessing.Pool(len(threads))
+    pool.map(run, threads)
+    pool.close()
+    pool.join()			
+			]]>
+				</programlisting>
+				<para>效果展示</para>
+				<screen>
+			<![CDATA[
+#0 - SpawnPoolWorker-1:   9%|#########                             | 9/100 [00:04<00:45,  1.98it/s]
+#1 - SpawnPoolWorker-4:  10%|#########9                            | 10/100 [00:04<00:44,  2.01it/s]
+#2 - SpawnPoolWorker-2:  13%|############8                         | 13/100 [00:04<00:34,  2.54it/s]
+#3 - SpawnPoolWorker-3:  10%|#########9                            | 10/100 [00:04<00:50,  1.78it/s]
+#4 - SpawnPoolWorker-5:  14%|#############8                        | 14/100 [00:04<00:28,  2.99it/s]		
+			]]>
+				</screen>
+			</section>
+		</section>
+		<section>
+			<title>alive-progress</title>
+			<screen>
+			<![CDATA[
+pip install alive-progress			
+			]]>
+			</screen>
+			<programlisting>
+			<![CDATA[
+from alive_progress import alive_bar
+import time
+items = range(10)                   # retrieve your set of items
+with alive_bar(len(items)) as bar:  # declare your expected total
+    for item in items:              # iterate as usual
+        # process each item
+        bar()                       # call after consuming one item
+        time.sleep(1)			
+			]]>
+			</programlisting>
+			<para>效果展示</para>
+			<screen>
+			<![CDATA[
+|████████████████                        | ▇▅▃ 4/10 [40%] in 3s (1.2/s, eta: 4s)		
+			]]>
+			</screen>
 		</section>
 	</section>
 	<section>
