@@ -49,6 +49,8 @@
 <!ENTITY chapter.ops.xml					SYSTEM "chapter.ops.xml">
 <!ENTITY section.ops.logging.xml			SYSTEM "section.ops.logging.xml">
 <!ENTITY section.ops.firewall.xml			SYSTEM "section.ops.firewall.xml">
+
 <!ENTITY chapter.terminal.xml				SYSTEM "chapter.terminal.xml">
+<!ENTITY section.terminal.prompt_toolkit.xml	SYSTEM "section.terminal.prompt_toolkit.xml">
 
 <!ENTITY chapter.faq.xml					SYSTEM "chapter.faq.xml">

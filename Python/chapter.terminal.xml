@@ -842,6 +842,7 @@ print(table.draw())
 			</programlisting>
 		</section>
 	</section>
+	&section.terminal.prompt_toolkit.xml;
 	<section id="tui">
 		<title>TUI</title>
 		<title>Widget toolkit</title>
