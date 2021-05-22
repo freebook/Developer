@@ -6,7 +6,7 @@
 		<para>https://openpyxl.readthedocs.io/en/stable/</para>
 	</section>
 	<section>
-		<title>xlrd/xlwt</title>
+		<title>xlrd/xlwt/xlutils</title>
 		<para><ulink url="https://github.com/python-excel" /></para>
 		<section>
 			<title>读 Excel</title>
@@ -430,6 +430,37 @@ workbook.save('test.xls')
 				</section>
 
 			</section>
+		</section>
+		<section>
+			<title>xlutils</title>
+			<para>安装 xlutils</para>
+			<screen>
+			<![CDATA[
+pip install xlutils
+			]]>
+			</screen>
+			<programlisting>
+			<![CDATA[
+import xlrd
+import xlutils.copy
+
+# 打开一个xls文件
+xls = xlrd.open_workbook('test.xls')
+workbook = xlutils.copy.copy(xls)
+
+# 添加新sheet表
+workbook.add_sheet('sheet2', cell_overwrite_ok=True)
+
+# 获取sheet对象，通过sheet_by_index()获取的sheet对象没有write()方法
+sheet = workbook.get_sheet(0)
+
+# 修改数据
+sheet.write(2, 0, '王二小')
+
+# 保存时同名会覆盖，达到修改excel文件的目的
+workbook.save('test.xls')			
+			]]>
+			</programlisting>
 		</section>
 	</section>
 </section>
