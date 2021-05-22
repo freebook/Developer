@@ -45,6 +45,7 @@
 <!ENTITY chapter.office.xml					SYSTEM "chapter.office.xml">
 <!ENTITY section.office.pdf.xml				SYSTEM "section.office.pdf.xml">
 <!ENTITY section.office.word.xml			SYSTEM "section.office.word.xml">
+<!ENTITY section.office.excel.xml			SYSTEM "section.office.excel.xml">
 
 <!ENTITY chapter.ops.xml					SYSTEM "chapter.ops.xml">
 <!ENTITY section.ops.logging.xml			SYSTEM "section.ops.logging.xml">

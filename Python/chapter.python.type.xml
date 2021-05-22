@@ -123,15 +123,35 @@ for i in range(100):
 	<section>
 		<title>Array</title>
 		<section>
+			<title>遍历数字</title>
+			<programlisting>
+			<![CDATA[
+colours = ["RED","GREEN","BLUE"]
+for colour in colours:
+    print colour	
+			]]>
+			</programlisting>
+			<para></para>
+			<programlisting>
+			<![CDATA[
+colours = ["RED","GREEN","BLUE"]
+for i in range(0, len(colours)):
+    print i, colour[i]			
+			]]>
+			</programlisting>
+		</section>
+		<section>
 			<title>split / join </title>
 			<screen>
-				>>> str = 'a|b|c|d|e'
-				>>> str.split("|")
-				['a', 'b', 'c', 'd', 'e']
+			<![CDATA[
+>>> str = 'a|b|c|d|e'
+>>> str.split("|")
+['a', 'b', 'c', 'd', 'e']
 
-				>>> list = ['a', 'b', 'c', 'd', 'e']
-				>>> "|".join(list)
-				'a|b|c|d|e'
+>>> list = ['a', 'b', 'c', 'd', 'e']
+>>> "|".join(list)
+'a|b|c|d|e'
+			]]>
 			</screen>
 		</section>
 	</section>
@@ -140,9 +160,25 @@ for i in range(100):
 		<section>
 			<title>datetime</title>
 			<screen>
-				from datetime import datetime
-				datetime.today().strftime('%Y-%m-%d.%H:%M:%S')
+			<![CDATA[
+from datetime import datetime
+datetime.today().strftime('%Y-%m-%d.%H:%M:%S')
+			]]>
 			</screen>
+		</section>
+		<section>
+			<title>字符串转日期</title>
+			<programlisting>
+			<![CDATA[
+from datetime import datetime
+
+dt_str = '27/10/20 05:23:20'
+dt_obj = datetime.strptime(dt_str, '%d/%m/%y %H:%M:%S')
+
+print("The type of the date is now",  type(dt_obj))
+print("The date is", dt_obj)			
+			]]>
+			</programlisting>
 		</section>
 	</section>
 	<section id="bytes">

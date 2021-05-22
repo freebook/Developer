@@ -694,12 +694,12 @@ Normal： 前往 python.org 网站，下载安装包，根据提示安装。
 			</screen>
 		</section>
 	</section>
-</section>
-<section>
-	<title>Word 模版合并</title>
-	<para>docx-mailmerge</para>
 	<section>
-		<title>安装 docx-mailmerge</title>
+		<title>Word 模版合并</title>
+		<para>docx-mailmerge</para>
+		<section>
+			<title>安装 docx-mailmerge</title>
 
+		</section>
 	</section>
 </section>

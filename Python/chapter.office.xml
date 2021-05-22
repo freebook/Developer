@@ -3,4 +3,5 @@
 	<title>办公自动化</title>
 	&section.office.pdf.xml;
 	&section.office.word.xml;
+	&section.office.excel.xml;
 </chapter>
