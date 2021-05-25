@@ -186,9 +186,22 @@ high_salary = sheet[(sheet['工资'] >= 8000) & (sheet['工资'] <=10000)][['姓
 			<![CDATA[
 import pandas as pd
 sheet = pd.read_excel("测试.xlsx", sheet_name=[1, 0])
-st = pd.concat(sheet,ignore_index = True)			
+st = pd.concat(sheet,ignore_index = True)
 			]]>
 			</programlisting>
 		</section>
+	</section>
+	<section>
+		<title>Excel 设置项</title>
+		<programlisting>
+		<![CDATA[
+import numpy as np
+import pandas as pd
+pd.set_option('max_columns', 10)
+pd.set_option('max_rows', 20)
+# 禁用科学计数法
+pd.set_option('display.float_format', lambda x: '%.2f' % x) 
+		]]>
+		</programlisting>
 	</section>
 </section>

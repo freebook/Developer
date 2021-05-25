@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <chapter id="index"><?dbhtml dir="pandas" ?>
-	<title>Pandas</title>
+	<title>Pandas - Python Data Analysis Library</title>
 	<subtitle>Powerful data structures for data analysis, time series, and statistics</subtitle>
 	<section>
 		<title>安装 pandas</title>
@@ -83,7 +83,9 @@ for month in months:
 		]]>
 		</programlisting>
 	</section>
-
+	<section>
+		<title>数据可视化</title>
+	</section>
 	<section>
 		<title>FAQ</title>
 		<section>

@@ -6,9 +6,11 @@
 	<title>日期与时间</title>
 	<para>当前日期</para>
 	<screen>
+	<![CDATA[
 import time	
 dt = time.strftime('%Y-%m-%d.%X',time.localtime(time.time()))
 print(dt)	
+	]]>
 	</screen>
 	<screen>
 	<![CDATA[
@@ -95,10 +97,12 @@ if __name__ == "__main__":
 	</programlisting>
 	<para></para>
 	<programlisting language="python">
+	<![CDATA[
 # Redirect standard file descriptors
 sys.stdin = open('/dev/null', 'r')
 sys.stdout = open('/dev/null', 'w')
 sys.stderr = open('/dev/null', 'w')
+	]]>
 	</programlisting>
 </section>
 
@@ -106,12 +110,15 @@ sys.stderr = open('/dev/null', 'w')
 		<title>python-memcached</title>
 		<link linkend="python">参考Python安装</link>
 		<screen>
+		<![CDATA[
 wget ftp://ftp.tummy.com/pub/python-memcached/python-memcached-1.34.tar.gz
 tar zxvf python-memcached-1.34.tar.gz
 cd python-memcached-1.34
+		]]>
 		</screen>
 		<para># python setup.py install</para>
 		<screen>
+		<![CDATA[
 running install
 running build
 running build_py
@@ -121,11 +128,12 @@ copying memcache.py -> build/lib
 running install_lib
 copying build/lib/memcache.py -> /usr/lib/python2.3/site-packages
 byte-compiling /usr/lib/python2.3/site-packages/memcache.py to memcache.pyc
-
+		]]>
 		</screen>
 		<example>
 			<title>memcached.py</title>
 			<screen>
+			<![CDATA[
 import memcache
 mc = memcache.Client(['127.0.0.1:11211'], debug=1)
 
@@ -139,6 +147,7 @@ mc.delete("another_key")
 mc.set("key", "1")   # note that the key used for incr/decr must be a string.
 mc.incr("key")
 mc.decr("key")
+			]]>
 			</screen>
 		</example>
 	</section>
@@ -150,13 +159,17 @@ mc.decr("key")
 		<title>Python Imaging Library</title>
 		<para>Debian/Ubuntu</para>
 		<screen>
+		<![CDATA[
 sudo apt-get install libjpeg62-dev
 sudo apt-get install python-imaging
+		]]>
 		</screen>
 		<para>采用源码安装</para>
 		<screen>
+		<![CDATA[
 tar zxvf Imaging-1.1.6.tar.gz
 cd Imaging-1.1.6/
+		]]>
 		</screen>
 		<command>sudo python setup.py install</command>
 		<note>
@@ -176,9 +189,12 @@ cd Imaging-1.1.6/
 <section id="python-subversion">
 	<title>python-subversion</title>
 	<screen>
+	<![CDATA[
 $ sudo apt-get install python-subversion
+	]]>
 	</screen>
 	<screen>
+	<![CDATA[
 $ dpkg -L python-subversion
 /.
 /usr
@@ -242,7 +258,7 @@ $ dpkg -L python-subversion
 /usr/lib/pyshared/python2.6/libsvn/_wc.so
 /usr/lib/pyshared/python2.6/libsvn/_ra.so
 /usr/lib/libsvn_swig_py2.6-1.so.1
-
+	]]>
 	</screen>
 </section>
 	<section id="simplehttpserver">
@@ -255,7 +271,9 @@ python -m SimpleHTTPServer &
 			]]>
 			</screen>
 			<screen>
+			<![CDATA[
 curl http://localhost:8000/
+			]]>
 			</screen>
 		</example>
 	</section>
@@ -281,29 +299,33 @@ curl http://localhost:8000/
 	<para><ulink url="http://wwwsearch.sourceforge.net/mechanize/" /></para>
 	<para>Ubuntu</para>
 	<screen>
+	<![CDATA[
 $ sudo apt-get install python-mechanize
+	]]>
 	</screen>
 	<para>Pip</para>
 	<screen>
+	<![CDATA[
 $ sudo pip install mechanize	
+	]]>
 	</screen>
 	<para>Python 3</para>
 	<screen>
+	<![CDATA[
 git clone https://github.com/adevore/mechanize.git	
 cd mechanize/
 git checkout python3
+	]]>
 	</screen>
 </section>
 <section id="zope.testbrowser">
 	<title>zope.testbrowser</title>
 	<para></para>
 	<screen>
+	<![CDATA[
 pip install splinter[zope.testbrowser]	
+	]]>
 	</screen>
-</section>	
-
-<section>
-	<title>pandas - Python Data Analysis Library</title>
 </section>
 <section>
 	<title>NumPy</title>

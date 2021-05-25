@@ -109,6 +109,17 @@ sheet.row(0).height = 20 * 20
 			<section>
 				<title>合并单元格</title>
 				<programlisting>
+				<![CDATA[
+import xlwt
+workbook = xlwt.Workbook()
+worksheet = workbook.add_sheet('My Sheet')
+# 参数详解： write_merge(列, 行, 合并列数, 合并行数, '文本'，样式)
+worksheet.write_merge(0, 0, 0, 3, '《Netkiller Python 手札》')
+worksheet.write_merge(1, 2, 0, 3, '作者：netkiller')
+workbook.save('netkiller.xls')				
+				]]>
+				</programlisting>
+				<programlisting>
 			<![CDATA[
 import xlwt
 # 创建workbook对象
