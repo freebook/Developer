@@ -7,7 +7,9 @@
 	</section>
 	<section>
 		<title>xlrd/xlwt/xlutils</title>
-		<para><ulink url="https://github.com/python-excel" /></para>
+		<para>
+			<ulink url="https://github.com/python-excel" />
+		</para>
 		<section>
 			<title>读 Excel</title>
 			<para>安装 xlrd</para>
@@ -474,4 +476,20 @@ workbook.save('test.xls')
 			</programlisting>
 		</section>
 	</section>
+</section>
+<section>
+	<title>将数据保存到CSV文件</title>
+	<programlisting>
+		<![CDATA[
+import pandas as pd
+
+months=[202001,202002,202003,202004,202005,202006,202007,202008,202009,202010,202011,202012]
+
+for month in months:
+    print(month)
+    weather = pd.read_html(f'http://www.tianqihoubao.com/lishi/wanzhou/month/{month}.html', encoding='gb18030', header=0)[0]
+    print(weather)
+    weather.to_csv(f'/tmp/{month}天气预报数据.csv', mode='a+', index=False, header=False)		
+		]]>
+	</programlisting>
 </section>

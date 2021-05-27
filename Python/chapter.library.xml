@@ -327,9 +327,4 @@ pip install splinter[zope.testbrowser]
 	]]>
 	</screen>
 </section>
-<section>
-	<title>NumPy</title>
-	<para>NumPy is the fundamental package for scientific computing with Python.</para>
-</section>
-
 </chapter>

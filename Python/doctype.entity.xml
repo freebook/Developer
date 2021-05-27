@@ -27,6 +27,7 @@
 <!ENTITY part.bigdata.xml					SYSTEM "part.bigdata.xml">
 <!ENTITY chapter.crawler.xml				SYSTEM "chapter.crawler.xml">
 <!ENTITY chapter.pandas.xml					SYSTEM "chapter.pandas.xml">
+<!ENTITY section.pandas.html.xml			SYSTEM "section.pandas.html.xml">
 <!ENTITY section.pandas.excel.xml			SYSTEM "section.pandas.excel.xml">
 
 <!ENTITY chapter.ocr.xml					SYSTEM "chapter.ocr.xml">
