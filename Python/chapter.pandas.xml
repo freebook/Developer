@@ -245,6 +245,22 @@ neo@MacBook-Pro-Neo ~/workspace/python/pandas % python3.9 /Users/neo/workspace/p
 			]]>
 			</screen>
 		</section>
+		<section>
+			<title>数据去重</title>
+			<programlisting>
+			<![CDATA[
+df.drop_duplicates(['姓名'],inplace=True)			
+			]]>
+			</programlisting>
+		</section>
+		<section>
+			<title></title>
+			<programlisting>
+			<![CDATA[
+df['创建时间'] = df['创建时间'].dt.strftime('%Y-%m-%d')			
+			]]>
+			</programlisting>
+		</section>
 		
 	</section>
 	<section>
