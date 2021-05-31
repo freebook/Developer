@@ -5,4 +5,5 @@
 	&chapter.speech.xml;
 	&chapter.video.xml;
 	&section.ai.face.xml;
+	&chapter.nlp.xml;
 </part>

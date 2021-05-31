@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<chapter id="index"><?dbhtml dir="nlp" ?>
+	<title>自然语言处理</title>
+	<para>自然语言处理（Natural Language Processing）</para>
+	<para>中文分词(Chinese Word Segmentation)，英文是由单词组成，并使用空格来分开每个单词，而中文以字为单位，由字组成词，字于词的含有可能完全不同，因此，中文分词NPL相比英文分词要复杂的多。</para>
+	<itemizedlist>
+		<title>中文分词技术主要使用场景有哪些：</title>
+		<listitem>搜索优化，关键词提取（百度指数）</listitem>
+		<listitem>语义分析，智能问答系统（客服系统）</listitem>
+		<listitem>非结构化文本媒体内容，如社交信息（微博热榜）</listitem>
+		<listitem>文本聚类，根据内容生成分类（行业分类）</listitem>
+	</itemizedlist>
+	&section.nlp.jieba.xml;
+</chapter>
