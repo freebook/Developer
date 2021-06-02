@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <section id="jieba">
 	<title>结巴中文分词</title>
-	<para><ulink url="https://github.com/fxsjy/jieba" /></para>
+	<para>
+		<ulink url="https://github.com/fxsjy/jieba" />
+	</para>
 	<para>安装</para>
 	<screen>
 		<![CDATA[
@@ -36,5 +38,101 @@ seg_list = jieba.cut_for_search("小明硕士毕业于中国科学院计算所�
 print(", ".join(seg_list))
 		]]>
 		</programlisting>
+	</section>
+	<section>
+		<title>词性标注</title>
+		<screen>
+		<![CDATA[
+标签	含义		标签	含义		标签	含义		标签	含义
+n	普通名词	f	方位名词	s	处所名词	t	时间
+nr	人名		ns	地名		nt	机构名	nw	作品名
+nz	其他专名	v	普通动词	vd	动副词	vn	名动词
+a	形容词	ad	副形词	an	名形词	d	副词
+m	数量词	q	量词		r	代词		p	介词
+c	连词		u	助词		xc	其他虚词	w	标点符号
+PER	人名		LOC	地名		ORG	机构名	TIME	时间
+		
+		]]>
+		</screen>
+		<para></para>
+		<programlisting>
+		<![CDATA[
+import jieba
+import jieba.posseg as pseg
+import paddle
+words = pseg.cut("我爱北京天安门")  # jieba默认模式
+for word, flag in words:
+    print('%s %s' % (word, flag))
+
+print("="*40)
+
+paddle.enable_static()
+jieba.enable_paddle()  # 启动paddle模式。
+words = pseg.cut("我爱北京天安门", use_paddle=True)  # paddle模式
+for word, flag in words:
+    print('%s %s' % (word, flag))
+		
+		]]>
+		</programlisting>
+		<para></para>
+		<screen>
+		<![CDATA[
+neo@MacBook-Pro-Neo ~/workspace/python % python3.9 /Users/neo/workspace/python/jieba/seg.py
+Building prefix dict from the default dictionary ...
+Loading model from cache /var/folders/2f/jfnljdpn1t1dj_f61z2s8bwm0000gn/T/jieba.cache
+Loading model cost 0.753 seconds.
+Prefix dict has been built successfully.
+我 r
+爱 v
+北京 ns
+天安门 ns
+========================================
+Paddle enabled successfully......
+我 r
+爱 v
+北京 LOC
+天安门 LOC		
+		]]>
+		</screen>
+	</section>
+	<section>
+		<title>analyse</title>
+
+		<section>
+			<title>提取标签</title>
+			<screen>
+		<![CDATA[
+方法参数：
+jieba.analyse.extract_tags(sentence, topK=5, withWeight=True, allowPOS=())
+参数说明：
+sentence 需要提取的字符串，必须是str类型，不能是list
+topK 提取前多少个关键字
+withWeight 是否返回每个关键词的权重
+allowPOS是允许的提取的词性，默认为allowPOS=‘ns’, ‘n’, ‘vn’, ‘v’，提取地名、名词、动名词、动词	
+		]]>
+			</screen>
+			<programlisting>
+			<![CDATA[
+file = open('article.txt', 'r', encoding='utf-8')
+contents = file.read()
+print(jieba.analyse.extract_tags(sentence=contents, topK=20, allowPOS=('ns', 'n')))			
+			]]>
+			</programlisting>
+		</section>
+		<section>
+			<title>基于 TextRank 算法的关键词抽取</title>
+			<programlisting>
+			<![CDATA[
+import jieba.analyse
+import jieba
+import os
+
+os.chdir('jieba')
+file = open('article.txt', 'r', encoding='utf-8')
+contents = file.read()
+print(jieba.analyse.textrank(sentence=contents, topK=20, allowPOS=('ns', 'n')))			
+			]]>
+			</programlisting>
+		</section>
 	</section>
 </section>
