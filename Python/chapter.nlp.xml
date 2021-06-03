@@ -14,4 +14,5 @@
 		<listitem>词性提取</listitem>
 	</itemizedlist>
 	&section.nlp.jieba.xml;
+	&section.nlp.wordcloud.xml;
 </chapter>

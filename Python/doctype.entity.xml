@@ -57,5 +57,6 @@
 
 <!ENTITY chapter.nlp.xml					SYSTEM "chapter.nlp.xml">
 <!ENTITY section.nlp.jieba.xml				SYSTEM "section.nlp.jieba.xml">
+<!ENTITY section.nlp.wordcloud.xml			SYSTEM "section.nlp.wordcloud.xml">
 
 <!ENTITY chapter.faq.xml					SYSTEM "chapter.faq.xml">
