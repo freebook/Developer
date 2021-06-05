@@ -40,6 +40,116 @@ print(", ".join(seg_list))
 		</programlisting>
 	</section>
 	<section>
+		<title>日志设置</title>
+		<programlisting>
+		<![CDATA[
+import jieba
+import logging
+logger = logging.getLogger()
+# 配置 logger 禁止输出无用的信息
+jieba.default_logger = logger
+
+text = "他来到了网易杭研大厦"
+
+words = jieba.cut(text)
+print(", ".join(words))
+print("-" * 50)
+# 将 “杭研大厦”，“他来到了” 词频优先
+jieba.suggest_freq('杭研大厦', True)
+jieba.suggest_freq('他来到了', True)
+words = jieba.cut(text)
+print(", ".join(words))
+		]]>
+		</programlisting>
+	</section>
+	<section>
+		<title>返回 generator</title>
+		<para>默认 cut 返回 generator</para>
+		<programlisting>
+		<![CDATA[
+# encoding=utf-8
+import jieba
+import paddle
+
+segs = jieba.cut("转载请与作者联系，同时请务必标明文章原始出处和作者信息及本声明。")
+print(type(segs))
+print(", ".join(segs))		
+		]]>
+		</programlisting>
+	</section>
+	<section>
+		<title>返回 list</title>
+		<programlisting>
+		<![CDATA[
+# encoding=utf-8
+import jieba
+import paddle
+
+segs = jieba.lcut("转载请与作者联系，同时请务必标明文章原始出处和作者信息及本声明。")
+print(type(segs))
+print(", ".join(segs))		
+		]]>
+		</programlisting>
+	</section>
+	<section>
+		<title>精准模式与全模式比较</title>
+		<programlisting>
+		<![CDATA[
+# encoding=utf-8
+import jieba
+import paddle
+text = "转载请与作者联系，同时请务必标明文章原始出处和作者信息及本声明。"
+segs = jieba.cut(text)  # 精准模式
+print(", ".join(segs))
+print("=" * 50)
+segs = jieba.cut(text, cut_all=True)  # 全模式
+print(", ".join(segs))
+		]]>
+		</programlisting>
+		<para>输出结果</para>
+		<screen>
+		<![CDATA[
+neo@MacBook-Pro-Neo ~/workspace/python/jieba % python3.9 /Users/neo/workspace/python/jieba/lcut.py
+Building prefix dict from the default dictionary ...
+Loading model from cache /var/folders/2f/jfnljdpn1t1dj_f61z2s8bwm0000gn/T/jieba.cache
+Loading model cost 0.787 seconds.
+Prefix dict has been built successfully.
+转载, 请, 与, 作者, 联系, ，, 同时, 请, 务必, 标明, 文章, 原始, 出处, 和, 作者, 信息, 及本, 声明, 。
+==================================================
+转载, 请, 与, 作者, 联系, ，, 同时, 请, 务必, 标明, 明文, 文章, 原始, 出处, 和, 作者, 信息, 及, 本, 声明, 。		
+		]]>
+		</screen>
+	</section>
+	<section>
+		<title>精准模式与搜索引擎模式比较</title>
+		<programlisting>
+		<![CDATA[
+# encoding=utf-8
+import jieba
+import paddle
+text = "小明硕士毕业于中国科学院计算所，后在日本京都大学深造"
+segs = jieba.cut(text)  # 精准模式
+print(", ".join(segs))
+print("=" * 50)
+searchs = jieba.cut_for_search(text)  # 搜索引擎模式
+print(", ".join(searchs))
+		]]>
+		</programlisting>
+		<para>输出结果</para>
+		<screen>
+		<![CDATA[
+neo@MacBook-Pro-Neo ~/workspace/python/jieba % python3.9 /Users/neo/workspace/python/jieba/search.py
+Building prefix dict from the default dictionary ...
+Loading model from cache /var/folders/2f/jfnljdpn1t1dj_f61z2s8bwm0000gn/T/jieba.cache
+Loading model cost 0.807 seconds.
+Prefix dict has been built successfully.
+小明, 硕士, 毕业, 于, 中国科学院, 计算所, ，, 后, 在, 日本京都大学, 深造
+==================================================
+小明, 硕士, 毕业, 于, 中国, 科学, 学院, 科学院, 中国科学院, 计算, 计算所, ，, 后, 在, 日本, 京都, 大学, 日本京都大学, 深造	
+		]]>
+		</screen>
+	</section>
+	<section>
 		<title>词性标注</title>
 		<screen>
 		<![CDATA[
@@ -96,8 +206,69 @@ Paddle enabled successfully......
 		</screen>
 	</section>
 	<section>
-		<title>analyse</title>
+		<title>词典管理</title>
+		<section>
+			<title>添加/删除词语</title>
 
+			<programlisting>
+		<![CDATA[
+import jieba
+
+text = "他来到了网易杭研大厦"
+
+words = jieba.cut(text, HMM=False)
+print(", ".join(words))
+print("-" * 50)
+jieba.add_word('杭研大厦')  # 将 “杭研大厦” 添加到词典
+jieba.add_word('来到了')  # 将 “来到了” 添加到词典
+words = jieba.cut(text, HMM=False)
+print(", ".join(words))
+print("-" * 50)
+jieba.del_word('深圳')  # 将 “深圳” 从词典中删除
+words = jieba.cut("我爱深圳", HMM=False)
+print(", ".join(words))
+		]]>
+			</programlisting>
+		</section>
+		<section>
+			<title>用户词典</title>
+			<para>自定义词典</para>
+			<programlisting>
+			<![CDATA[
+import jieba
+
+jieba.load_userdict('dict.txt') # 载入用户词典
+seg_list = jieba.cut("他来到了网易杭研大厦", HMM=False)  
+print(", ".join(seg_list))
+
+			]]>
+			</programlisting>
+		</section>
+		<section>
+			<title>自定义词库</title>
+			<para>分词系统默认使用自带的词库，load_userdict 是在默认词库的基础上做加法操作。</para>
+			<para>set_dictionary 是设置默认基础词库。</para>
+			<programlisting>
+			<![CDATA[
+# encoding=utf-8
+import jieba
+jieba.set_dictionary('dict.txt')
+seg_list = jieba.cut("转载请与作者联系，同时请务必标明文章原始出处和作者信息及本声明。")
+print(seg_list)
+print(", ".join(seg_list))			
+			]]>
+			</programlisting>
+			<para>dict.txt</para>
+			<programlisting>
+			<![CDATA[
+请务必 12 n
+作者信息 10 n			
+			]]>
+			</programlisting>
+		</section>
+	</section>
+	<section>
+		<title>抽取文本标签</title>
 		<section>
 			<title>提取标签</title>
 			<screen>
@@ -134,5 +305,31 @@ print(jieba.analyse.textrank(sentence=contents, topK=20, allowPOS=('ns', 'n')))
 			]]>
 			</programlisting>
 		</section>
+	</section>
+	<section>
+		<title>返回词语在原文的起止位置</title>
+		<programlisting>
+		<![CDATA[
+import jieba
+import logging
+logger = logging.getLogger()
+jieba.default_logger = logger
+text = u'大和服装饰品有限公司'
+result = jieba.tokenize(text)
+for tk in result:
+    print("word %s\t\t start: %d \t\t end:%d" % (tk[0], tk[1], tk[2]))
+print("-" * 50)
+result = jieba.tokenize(text, mode='search')  # 搜索模式
+for tk in result:
+    print("word %s\t\t start: %d \t\t end:%d" % (tk[0], tk[1], tk[2]))
+		
+		]]>
+		</programlisting>
+		<para></para>
+		<screen>
+		<![CDATA[
+		
+		]]>
+		</screen>
 	</section>
 </section>
