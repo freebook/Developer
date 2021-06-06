@@ -37,6 +37,19 @@
 		<para>应用场景：</para>
 		<para>商品评论内容分析，舆情监控</para>
 	</section>
+	<section>
+		<title>常用的 Python 分词库</title>
+		<itemizedlist>
+			<title>Python 分词库：</title>
+			<listitem>jieba（结巴分词）</listitem>
+			<listitem>THULAC（清华大学自然语言处理与社会人文计算实验室）</listitem>
+			<listitem>pkuseg（北京大学语言计算与机器学习研究组）</listitem>
+			<listitem>SnowNLP</listitem>
+			<listitem>pynlpir</listitem>
+			<listitem>CoreNLP</listitem>
+			<listitem>pyltp</listitem>
+		</itemizedlist>
+	</section>
 	&section.nlp.jieba.xml;
 	&section.nlp.wordcloud.xml;
 </chapter>
