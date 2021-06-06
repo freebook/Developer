@@ -13,6 +13,30 @@
 		<listitem>情感分析</listitem>
 		<listitem>词性提取</listitem>
 	</itemizedlist>
+	<section>
+		<title>全文索引（full-text index）</title>
+		<para>全文索引 (也称全文检索)是目前搜索引擎使用的一种关键技术。</para>
+		<para>全文索引是利用分词技术，首先将一段文本中的关键词提取出来，同时获得该词在文本中出现的位置。然后对提取的关键词做索引。</para>
+		<para>当用户查询关键词，并且命中的时候，返回查询结果。同时记录关键词的查询频率，再进行词频优化，以便下次命中率更高。</para>
+	</section>
+	<section>
+		<title>人机对话</title>
+		<para>
+			在前面的视频中我们介绍了“TTS(Text To Speech) 文本转语音”和“STT(Speech To Text) 语音转文本”，在人工智能领域仅仅实现TTS和STT还无法做到人机对话，因为机器无法理解我们说的话，所以无法执行我们下达的指令。
+		</para>
+		<para>机器是怎样听懂我们所说的话？答案是提取一句话中的重点部分。</para>
+		<para>例如：小爱同学请播放音乐。重点是：“播放音乐”四个字，其他都可以忽略。</para>
+		<para>进一步分析，其中“播放”是动词，“音乐”是名词。</para>
+	</section>
+	<section>
+		<title>情感分析</title>
+		<para>情感分析是自然语言处理的一个分支，通过分词技术，提取文本中带有情感色彩（褒义贬义/正向负向）的主观性文本进行分析，以确定该文本的观点、喜好、情感倾向。</para>
+		<para>例如：</para>
+		<para>“这本书读起来让人爱不释手” 归为正向，“这本书很难看”归为负向。</para>
+		<para>“这款产品很不错”归为正向，“这款产能缺陷很多”归为负向。</para>
+		<para>应用场景：</para>
+		<para>商品评论内容分析，舆情监控</para>
+	</section>
 	&section.nlp.jieba.xml;
 	&section.nlp.wordcloud.xml;
 </chapter>
