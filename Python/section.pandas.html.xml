@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <section>
 	<title>HTML 表格处理</title>
+	<para>工作中，我们常常需要提取HTML网页中的表格数据，多少会用到爬虫技术。</para>
+	<para>例如使用 requests 下载网页，然后使用HTML萃取工具，将HTML页面内部table表格中的数据提出去来。这种方法比较复杂，今天介绍的是 Pandas 读取网页中的表格，难度几乎是傻瓜级别的。</para>
+	<para>在不使用爬虫的情况下，这种方式是最佳选择。</para>
 	<section>
 		<title>安装依赖包</title>
 		<screen>

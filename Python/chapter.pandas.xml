@@ -24,8 +24,11 @@ import modin.pandas as pd
 		]]>
 		</screen>
 	</section>
-	&section.pandas.html.xml;
-	&section.pandas.excel.xml;
+	<section>
+		<title>数据输入与输出</title>
+		&section.pandas.html.xml;
+		&section.pandas.excel.xml;
+	</section>
 	<section>
 		<title>DataFrame</title>
 		<section>
@@ -261,7 +264,7 @@ df['创建时间'] = df['创建时间'].dt.strftime('%Y-%m-%d')
 			]]>
 			</programlisting>
 		</section>
-		
+
 	</section>
 	<section>
 		<title>数据可视化</title>
