@@ -1,14 +1,140 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <section>
 	<title>HTML 表格处理</title>
-	<para>read_html() 可以萃取 HTML table 标签中的数据。</para>
-	<screen>
+	<section>
+		<title>安装依赖包</title>
+		<screen>
 		<![CDATA[
 pip install lxml		
 		]]>
-	</screen>
-	<para>获取页面中所有table的数据</para>
-	<programlisting>
+		</screen>
+	</section>
+	<section>
+		<title>read_html 参数详解</title>
+		<para>read_html() 可以萃取 HTML table 标签中的数据。</para>
+		<para>pandas.read_html(io, match='.+', flavor=None, header=None, index_col=None, skiprows=None, attrs=None, parse_dates=False, tupleize_cols=None, thousands=', ', encoding=None, decimal='.', converters=None, na_values=None, keep_default_na=True, displayed_only=True)</para>
+		<para>详细参数</para>
+		<screen>
+		<![CDATA[
+io： 		str, path object 或 file-like objectURL，file-like对象或包含HTML的原始字符串。请注意，lxml仅接受http，ftp和文件url协议。如果您的网址以'https'您可以尝试删除's'。
+match： 		str 或 compiled regular expression, 可选参数将返回包含与该正则表达式或字符串匹配的文本的表集。除非HTML非常简单，否则您可能需要在此处传递非空字符串。默认为“。+”(匹配任何非空字符串)。默认值将返回页面上包含的所有表。此值转换为正则表达式，以便Beautiful Soup和lxml之间具有一致的行为。
+flavor： 	str 或 None要使用的解析引擎。 ‘bs4’和‘html5lib’彼此同义，它们都是为了向后兼容。默认值None尝试使用lxml解析，如果失败，它会重新出现bs4+html5lib。
+header： 	int 或 list-like 或 None, 可选参数该行(或MultiIndex)用于创建列标题。
+index_col： int 或 list-like 或 None, 可选参数用于创建索引的列(或列列表)。
+skiprows： 	int 或 list-like 或 slice 或 None, 可选参数解析列整数后要跳过的行数。从0开始。如果给出整数序列或切片，将跳过该序列索引的行。请注意，单个元素序列的意思是“跳过第n行”，而整数的意思是“跳过n行”。
+attrs： 		dict 或 None, 可选参数这是属性的词典，您可以传递该属性以用于标识HTML中的表。在传递给lxml或Beautiful Soup之前，不会检查它们的有效性。但是，这些属性必须是有效的HTML表属性才能正常工作。例如， attrs = {'id': 'table'} 是有效的属性字典，因为‘id’ HTML标记属性是任何HTML标记的有效HTML属性，这个文件。 attrs = {'asdf': 'table'} 不是有效的属性字典，因为‘asdf’即使是有效的XML属性，也不是有效的HTML属性。可以找到有效的HTML 4.01表属性这里。可以找到HTML 5规范的工作草案这里。它包含有关现代Web表属性的最新信息。
+parse_dates： bool, 可选参数参考read_csv()更多细节。
+thousands： 	str, 可选参数用来解析成千上万个分隔符。默认为','。
+encoding： 	str 或 None, 可选参数用于解码网页的编码。默认为NoneNone保留先前的编码行为，这取决于基础解析器库(例如，解析器库将尝试使用文档提供的编码)。
+decimal： 	str, 默认为 ‘.’可以识别为小数点的字符(例如，对于欧洲数据，请使用“，”)。
+converters： dict, 默认为 None用于在某些列中转换值的函数的字典。键可以是整数或列标签，值是采用一个输入参数，单元格(而非列)内容并返回转换后内容的函数。
+na_values： 	iterable, 默认为 None自定义NA值。
+keep_default_na： bool, 默认为 True如果指定了na_values并且keep_default_na为False，则默认的NaN值将被覆盖，否则将附加它们。
+displayed_only： bool, 默认为 True是否应解析具有“display:none”的元素。
+		]]>
+		</screen>
+	</section>
+	<section>
+		<title>从文本变量中提取数据</title>
+		<programlisting>
+		<![CDATA[
+import pandas as pd
+
+html = """
+<table border="1">
+  <tr>
+    <th>Month</th>
+    <th>Savings</th>
+  </tr>
+  <tr>
+    <td>January</td>
+    <td>$100</td>
+  </tr>
+</table>
+"""
+data = pd.read_html(html)[0]
+
+print(data)
+		]]>
+		</programlisting>
+		<para>提取多个表格</para>
+		<programlisting>
+		<![CDATA[
+import pandas as pd
+
+html = """
+<table border="1">
+  <tr><th>月份</th><th>节约</th></tr>
+  <tr><td>一月</td><td>100</td></tr>
+</table>
+
+<table border="1">
+  <tr><th>月份</th><th>节约</th></tr>
+  <tr><td>二月</td><td>200</td></tr>
+</table>
+"""
+dfs = pd.read_html(html)
+print("发现HTML表格数量：%s" % len(dfs))
+for data in dfs:
+    print(data)
+		
+		]]>
+		</programlisting>
+	</section>
+	<section>
+		<title>从文件获取表格数据</title>
+		<para>准备 table.html 文件</para>
+		<screen>
+		<![CDATA[
+<table border="1">
+    <thead>
+        <tr>
+            <th>Month</th>
+            <th>Savings</th>
+        </tr>
+    </thead>
+
+    <tfoot>
+        <tr>
+            <td>Sum</td>
+            <td>$180</td>
+        </tr>
+    </tfoot>
+
+    <tbody>
+        <tr>
+            <td>January</td>
+            <td>$100</td>
+        </tr>
+        <tr>
+            <td>February</td>
+            <td>$80</td>
+        </tr>
+    </tbody>
+</table>		
+		]]>
+		</screen>
+		<programlisting>
+		<![CDATA[
+import pandas as pd
+
+# 错误方法
+html = open('table.html', 'r').read()
+data = pd.read_html(html)[0]
+print(data)
+
+# 正确方法
+data = pd.read_html('table.html')[0]
+print(data)
+		
+		]]>
+		</programlisting>
+	</section>
+
+	<section>
+		<title>从网址获取表格数据</title>
+		<para>获取页面中所有table的数据</para>
+		<programlisting>
 		<![CDATA[
 import pandas as pd
 
@@ -17,9 +143,12 @@ data = pd.read_html(url)
 
 print(data)
 		]]>
-	</programlisting>
-	<para>多个 table 会返回一个数组，通过数组下标可以读取指定表格。</para>
-	<programlisting>
+		</programlisting>
+	</section>
+	<section>
+		<title>处理多个表格</title>
+		<para>多个 table 会返回一个数组，通过数组下标可以读取指定表格。</para>
+		<programlisting>
 		<![CDATA[
 import pandas as pd
 
@@ -28,9 +157,32 @@ data = pd.read_html(url)[1]
 
 print(data)		
 		]]>
-	</programlisting>
-	<para>获取 html table 标签 id 属性为 oTable 的表格数据 </para>
-	<programlisting>
+		</programlisting>
+	</section>
+	<section>
+		<title>获取指定属性的表格</title>
+		<para>通过 id 属性，精确提取指定表格中的数据。</para>
+		<programlisting>
+		<![CDATA[
+import pandas as pd
+
+html = """
+<table id="first">
+  <tr><th>姓名</th><th>性别</th></tr>
+  <tr><td>张三</td><td>男</td></tr>
+</table>
+<table id="second">
+  <tr><th>姓名</th><th>性别</th></tr>
+  <tr><td>李四</td><td>男</td></tr>
+</table>
+"""
+data = pd.read_html(html, attrs={'id': 'second'})
+print(data[0])
+		
+		]]>
+		</programlisting>
+		<para>获取 html table 标签 id 属性为 oTable 的表格数据 </para>
+		<programlisting>
 		<![CDATA[
 import pandas as pd
 
@@ -39,5 +191,57 @@ data = pd.read_html(url,attrs = {'id': 'oTable'})
 
 print(data)		
 		]]>
-	</programlisting>
+		</programlisting>
+	</section>
+	<section>
+		<title>结合 Xpath 使用</title>
+		<para>HTML 属性，只有 id 是唯一的，其他属性都允许重复使用，例如 class，所以使用 class 会选中多张 HTML 表格。</para>
+		<programlisting>
+		<![CDATA[
+data = pd.read_html(text, attrs={'class': 'netkiller'})
+print(len(data))		
+		]]>
+		</programlisting>
+		<para>我的做法是使用 xpath 精准匹配，为什么部用数组下标了，因为页面的变化很可能造成数字顺序错乱。</para>
+		<programlisting>
+		<![CDATA[
+import pandas as pd
+from lxml import etree
+
+text = """
+<table class="netkiller">
+  <tr><th>姓名</th><th>性别</th></tr>
+  <tr><td>张三</td><td>男</td></tr>
+</table>
+<table class="netkiller">
+  <tr><th>姓名</th><th>性别</th></tr>
+  <tr><td>李四</td><td>男</td></tr>
+</table>
+"""
+
+html = etree.HTML(text)
+result = html.xpath('//table[@class="netkiller"][last()]')
+text = etree.tostring(result[0], encoding='utf-8').decode('utf-8')
+
+data = pd.read_html(text)
+print(data[0])
+		]]>
+		</programlisting>
+	</section>
+	<section>
+		<title>指定编码</title>
+		<para>目前仍有部分中文网站使用 GB2312和GBK编码，遇到输出乱码的情况，使用encoding指定编码即可。</para>
+		<para>建议：中文建议使用 GB18030，GB18038 包含了中日韩三国字符集，也就是说GB18030 是涵盖 GB2312和GBK的。</para>
+		<programlisting>
+		<![CDATA[
+import pandas as pd
+
+url = "http://www.tianqihoubao.com/weather/top/shenzhen.html"
+data = pd.read_html(url, encoding="GB18030")
+print(data[0])
+		
+		]]>
+		</programlisting>
+
+	</section>
 </section>
