@@ -1,25 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <section>
 	<title>Excel 处理</title>
+	<para>本节主要介绍和excel的交互。</para>
 	<section>
 		<title>安装依赖库</title>
 		<screen>
 		<![CDATA[
-neo@MacBook-Pro-Neo ~ % pip install xlrd		
+neo@MacBook-Pro-Neo ~ % pip install openpyxl		
 		]]>
 		</screen>
-		<programlisting>
-		<![CDATA[
-#!/usr/bin/python3
-# -*- coding: UTF-8 -*-
-import pandas as pd
-# 默认读取第一个工作表
-df = pd.read_excel("团购2021.xlsx")
-data = df.head()  # 默认读取前5行的数据
-print("当前默认工作表：\n{0}".format(data))  # 格式化输出	
-		]]>
-		</programlisting>
+
 	</section>
+
 	<section>
 		<title>创建 Excel 文档</title>
 		<programlisting>
@@ -35,73 +27,158 @@ df = DataFrame(data)
 df.to_excel('netkiller.xlsx')			
 			]]>
 		</programlisting>
-	</section>
-	<section>
-		<title>修改 Excel 文件</title>
-		<programlisting>
-		<![CDATA[
-import pandas as pd
-from pandas import DataFrame
-
-file_path = r'new.xlsx'
-df = pd.read_excel(file_path)
-
-df['gender'][df['gender'] == 'N'] = 'Female'
-df['gender'][df['gender'] == 'Y'] = 'Male'
-
-print(df)
-
-DataFrame(df).to_excel(
-    file_path, sheet_name='Sheet1', index=False, header=True)
-		
-		]]>
-		</programlisting>
-	</section>
-	<section>
-		<title>新增行/列</title>
-		<programlisting>
-		<![CDATA[
-import pandas as pd
-from pandas import DataFrame
-
-file_path = r'new.xlsx'
-df = pd.read_excel(file_path)
-
-# 新增一列
-df['ctime'] = None
-
-# 新增一行
-df.loc[4] = [3, 'Alice', 20, 'Female',  '2021-5-11']
-
-print(df)
-
-DataFrame(df).to_excel(
-    file_path, sheet_name='Sheet2', index=False, header=True)
-		
-		]]>
-		</programlisting>
-	</section>
-	<section>
-		<title>工作表</title>
-		<para>获取Excel文件中的工作表</para>
+		<para>写入指定工作表</para>
 		<programlisting>
 			<![CDATA[
+from pandas import DataFrame
+
+data = {
+    '姓名': ['Neo', 'Tom', 'Jerry'],
+    '年龄': [11, 12, 13],
+    '性别': ['Y', 'Y', 'N']
+}
+df = DataFrame(data)
+df.to_excel('neo.xlsx', sheet_name='我的工作表')			
+			]]>
+		</programlisting>
+		<para>设置 sheet_name 参数将数据写入指定的工作表</para>
+
+		<para>startrow=2 从第几行开始写入, index=False 关闭序号列, header=False 不写入表头</para>
+		<programlisting>
+			<![CDATA[
+from pandas import DataFrame
+
+data = {
+    '姓名': ['Neo', 'Tom', 'Jerry'],
+    '年龄': [11, 12, 13],
+    '性别': ['Y', 'Y', 'N']
+}
+df = DataFrame(data)
+df.to_excel('neo.xlsx', sheet_name='我的工作表',
+            startrow=2, index=False, header=False)
+			
+			]]>
+		</programlisting>
+		<para>写入多个工作表</para>
+		<programlisting>
+			<![CDATA[
+import pandas as pd
+
+data = pd.DataFrame(
+    {
+        '姓名': ['Neo', 'Tom', 'Jerry'],
+        '年龄': [11, 12, 13],
+        '性别': ['Y', 'Y', 'N']
+    }
+)
+excel = pd.ExcelWriter("sheet.xlsx")
+data.to_excel(excel, sheet_name="Sheet1", index=False)
+data.to_excel(excel, sheet_name="Sheet2", index=False)
+data.to_excel(excel, sheet_name="Sheet3", index=False)
+excel.save()
+excel.close()			
+			]]>
+		</programlisting>
+		<para>向Excel中追加工作表</para>
+		<programlisting>
+		<![CDATA[
+# 追加工作表，首先创建 Excel 文件
+with pd.ExcelWriter("sheet1.xlsx") as writer:
+    data.to_excel(writer, sheet_name="Sheet1", index=False)
+    data.to_excel(writer, sheet_name="Sheet2", index=False)
+    data.to_excel(writer, sheet_name="Sheet3", index=False)
+    	]]>
+    	<![CDATA[
+append = pd.DataFrame(
+    {
+        '姓名': ['Neo', 'Tom', 'Jerry'],
+        '年龄': [11, 12, 13],
+        '性别': ['Y', 'Y', 'N']
+    }
+)
+# 默认ExcelWriter是覆盖模式，需要使用 mode='a' 参数，才能Excel文件中增加工作表
+with pd.ExcelWriter("sheet1.xlsx", mode='a', engine='openpyxl') as writer:
+    append.to_excel(writer, sheet_name="Sheet4", index=False)
+    append.to_excel(writer, sheet_name="Sheet5", index=False)
+		]]>
+		<![CDATA[
+
+		]]>
+		</programlisting>
+	</section>
+	<section>
+		<title>读取 Excel 文件</title>
+		<para>read_excel() 参数详解：</para>
+		<screen>
+			<![CDATA[
+加载函数为read_excel(),其具体参数如下。
+
+read_excel(io, sheetname=0, header=0, skiprows=None, skip_footer=0, index_col=None,names=None, parse_cols=None, parse_dates=False,date_parser=None,na_values=None,thousands=None, convert_float=True, has_index_names=None, converters=None,dtype=None, true_values=None, false_values=None, engine=None, squeeze=False, **kwds)
+
+常用参数解析：
+io : string, path object ; excel 路径。
+sheetname : string, int, mixed list of strings/ints, or None, default 0 返回多表使用sheetname=[0,1],若sheetname=None是返回全表 
+header : int, list of ints, default 0 指定列表头，默认0，即取第一行，数据没有表头设定
+skiprows : list-like,Rows to skip at the beginning，跳过指定行数的数据
+skip_footer : int,default 0, 省略从尾部数的行数据，默认是 0
+index_col : int, list of ints, default None 指定列为索引列
+names : array-like, default None, 指定列的名字。		
+			]]>
+		</screen>
+		<programlisting>
+		<![CDATA[
+#!/usr/bin/python3
+# -*- coding: UTF-8 -*-
+import pandas as pd
+# 默认读取第一个工作表
+df = pd.read_excel("团购2021.xlsx")
+data = df.head()  # 默认读取前5行的数据
+print("当前默认工作表：\n{0}".format(data))  # 格式化输出
+		]]>
+		</programlisting>
+		<section>
+			<title>读取指定列</title>
+			<programlisting>
+			<![CDATA[
+import pandas as pd
+
+df = pd.read_excel("../netkiller.xlsx")
+print(df.head())
+print("=" * 50)
+# 读取B～E列的数据
+df = pd.read_excel("../netkiller.xlsx", index_col=False, usecols="B:E")
+print(df)
+			]]>
+			</programlisting>
+		</section>
+	</section>
+
+	<section>
+		<title>工作表</title>
+		<section>
+			<title>显示所有工作表</title>
+			<para>获取Excel文件中的工作表</para>
+			<programlisting>
+			<![CDATA[
+import pandas as pd
 xls = pd.ExcelFile("团购2021.xlsx")
 sheet_names = xls.sheet_names
 print(sheet_names)
 			]]>
-		</programlisting>
-		<section>
-			<title>打开工作表</title>
+			</programlisting>
 			<para>打开默认工作表</para>
 			<programlisting>
 			<![CDATA[
+import pandas as pd			
 df = pd.read_excel("团购2021.xlsx", None)
 print(df.keys())
 for k,v in df.items():
     print(k)
 			]]>
 			</programlisting>
+		</section>
+		<section>
+			<title>打开工作表</title>
 			<para>打开指定工作表</para>
 			<programlisting>
 			<![CDATA[
@@ -129,13 +206,141 @@ sheet = pd.read_excel(io="测试数据.xlsx", sheet_name=[0, 1])
 print(sheet[0])
 			]]>
 			</programlisting>
+			<example>
+				<title>Pandas 打开工作表的四种方法</title>
+				<programlisting>
+				<![CDATA[
+import pandas as pd
+
+# 打开一张工作表
+df = pd.read_excel("sheet1.xlsx", sheet_name="Sheet1")
+print(df)
+
+# 指定并打开多张工作表
+df = pd.read_excel("sheet1.xlsx", sheet_name=["Sheet1", "Sheet2", "Sheet3"])
+for sheet, data in df.items():
+    print("=" * 20, sheet, "=" * 20)
+    print(data)
+
+# 使用数字索引打开多张工作表
+df = pd.read_excel("sheet1.xlsx", sheet_name=[0, 1, 2])
+for sheet, data in df.items():
+    print("=" * 20, sheet, "=" * 20)
+    print(data)
+
+# 使用 ExcelFile 对象打开多个工作表
+sheet = {}
+with pd.ExcelFile("sheet1.xlsx") as xls:
+    sheet["Sheet1"] = pd.read_excel(
+        xls, "Sheet1", index_col=None, na_values=["NA"])
+    sheet["Sheet2"] = pd.read_excel(xls, "Sheet2", index_col=1)
+
+for sheet, data in sheet.items():
+    print("=" * 20, sheet, "=" * 20)
+    print(data)
+				]]>
+				</programlisting>
+			</example>
 		</section>
 		<section>
-			<title>打印头部数据</title>
+			<title>合并工作表</title>
+			<programlisting>
+			<![CDATA[
+import pandas as pd
+sheet = pd.read_excel("测试.xlsx", sheet_name=[1, 0])
+st = pd.concat(sheet,ignore_index = True)
+			]]>
+			</programlisting>
+			<para></para>
+			<programlisting>
+			<![CDATA[
+import pandas as pd
+sheet = pd.read_excel("sheet1.xlsx", sheet_name=[1, 0])
+df = pd.concat(sheet, ignore_index=True)
+print(df)
+df.to_excel('merge.xlsx', index=False)
+			]]>
+			</programlisting>
+		</section>
+		<section>
+			<title>打开工作表，指定返回列数据</title>
+			<programlisting>
+			<![CDATA[
+import pandas as pd
+
+df = pd.read_excel("../netkiller.xlsx", index_col=False, usecols="B,C:E")
+print("=" * 20, "读取B,C:E列的数据", "=" * 20)
+print(df.head())
+
+# 读取B～E列的数据
+df = pd.read_excel("../netkiller.xlsx", index_col=False, usecols="B:E")
+print("=" * 20, "读取B～E列的数据", "=" * 20)
+print(df)		
+
+df = pd.read_excel("netkiller.xlsx", index_col=False, usecols=[1, 2, 3])
+print("=" * 20, "读取[1, 2, 3]列的数据", "=" * 20)
+print(df)	
+			]]>
+			</programlisting>
+		</section>
+		<section>
+			<title>跳过不需要的数据</title>
+			<programlisting>
+			<![CDATA[
+import pandas as pd
+from pandas import DataFrame
+xlsx = 'skip.xlsx'
+data = {
+    '姓名': ['张三', '李四', '王五', '牛七', '马八', '赵九'],
+    '年龄': [11, 12, 13, 14, 15, 17],
+    '性别': ['Y', 'Y', 'N', 'Y', 'N', 'Y']
+}
+df = DataFrame(data)
+df.to_excel(xlsx, index=True, index_label='序号')
+
+df = pd.read_excel(xlsx, skiprows=[1, 3, 4])
+print("跳过数据 [1, 3, 4]：\n{0}".format(df))
+
+df = pd.read_excel(xlsx, skiprows=3)
+print("跳过前3条数据：\n{0}".format(df))
+
+df = pd.read_excel(xlsx, skipfooter=2)
+print("从尾部剪掉1条数据：\n{0}".format(df))
+
+			]]>
+			</programlisting>
+			<para></para>
+			<screen>
+			<![CDATA[
+跳过数据 [1, 3, 4]：
+   序号  姓名  年龄 性别
+0   1  李四  12  Y
+1   4  马八  15  N
+2   5  赵九  17  Y
+跳过 top10 数据：
+   2  王五  13  N
+0  3  牛七  14  Y
+1  4  马八  15  N
+2  5  赵九  17  Y
+从尾部剪掉1条数据：
+   序号  姓名  年龄 性别
+0   0  张三  11  Y
+1   1  李四  12  Y
+2   2  王五  13  N
+3   3  牛七  14  Y			
+			]]>
+			</screen>
+		</section>
+	</section>
+	<section>
+		<title>数据操作</title>
+		<section>
+			<title>打印头部/尾部数据</title>
 			<para>仅查看数据示例时常用</para>
 			<programlisting>
 			<![CDATA[
-print(sheet.head())			
+print(df.head())
+print(df.tail())
 			]]>
 			</programlisting>
 		</section>
@@ -164,7 +369,52 @@ print(sheet.describe())
 			</programlisting>
 		</section>
 		<section>
-			<title></title>
+			<title>修改 Excel 数据</title>
+			<programlisting>
+		<![CDATA[
+import pandas as pd
+from pandas import DataFrame
+
+file_path = r'new.xlsx'
+df = pd.read_excel(file_path)
+
+df['gender'][df['gender'] == 'N'] = 'Female'
+df['gender'][df['gender'] == 'Y'] = 'Male'
+
+print(df)
+
+DataFrame(df).to_excel(
+    file_path, sheet_name='Sheet1', index=False, header=True)
+		
+		]]>
+			</programlisting>
+		</section>
+		<section>
+			<title>新增行/列</title>
+			<programlisting>
+		<![CDATA[
+import pandas as pd
+from pandas import DataFrame
+
+file_path = r'new.xlsx'
+df = pd.read_excel(file_path)
+
+# 新增一列
+df['ctime'] = None
+
+# 新增一行
+df.loc[4] = [3, 'Alice', 20, 'Female',  '2021-5-11']
+
+print(df)
+
+DataFrame(df).to_excel(
+    file_path, sheet_name='Sheet2', index=False, header=True)
+		
+		]]>
+			</programlisting>
+		</section>
+		<section>
+			<title>数据筛选</title>
 			<programlisting>
 			<![CDATA[
 import pandas as pd
@@ -181,16 +431,12 @@ high_salary = sheet[(sheet['工资'] >= 8000) & (sheet['工资'] <=10000)][['姓
 			</programlisting>
 		</section>
 		<section>
-			<title>合并工作表</title>
-			<programlisting>
-			<![CDATA[
-import pandas as pd
-sheet = pd.read_excel("测试.xlsx", sheet_name=[1, 0])
-st = pd.concat(sheet,ignore_index = True)
-			]]>
-			</programlisting>
+			<title>数据排序</title>
+
 		</section>
 	</section>
+
+
 	<section>
 		<title>Excel 设置项</title>
 		<programlisting>
@@ -204,6 +450,11 @@ pd.set_option('display.float_format', lambda x: '%.2f' % x)
 		]]>
 		</programlisting>
 	</section>
+
+</section>
+<section>
+	<title>Pandas 读写 CSV 文件</title>
+
 	<section>
 		<title>将数据保存到CSV文件</title>
 		<programlisting>
@@ -220,4 +471,4 @@ for month in months:
 		]]>
 		</programlisting>
 	</section>
-</section>
+</section>	

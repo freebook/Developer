@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section>
+	<title>Pandas SQL</title>
+	<section>
+		<title>sqlite3</title>
+		<programlisting>
+		<![CDATA[
+import pandas as pd
+from pandas import DataFrame
+import sqlite3
+con = sqlite3.connect(":memory:")
+
+data = DataFrame({
+    '姓名': ['张三', '李四', '王五'],
+    '年龄': [11, 12, 13],
+    '性别': ['Y', 'Y', 'N']
+})
+
+data.to_sql("data", con)
+table = pd.read_sql_query("SELECT * FROM data", con)
+print(table)			
+		]]>
+		</programlisting>
+	</section>
+	<section>
+		<title>SQLAlchemy</title>
+		
+	</section>
+</section>

@@ -26,8 +26,10 @@ import modin.pandas as pd
 	</section>
 	<section>
 		<title>数据输入与输出</title>
+		<para>我们都知道 Pandas 是做数据分析的，Pandas 在做数据分析之前需要加载数据，加载数据的方法有很多种，数据来源渠道也很多。例如数据可以从 HTML页面中的表格，Excel，JSON，CSV以及关系型数据库等等。</para>
 		&section.pandas.html.xml;
 		&section.pandas.excel.xml;
+		&section.pandas.sql.xml;
 	</section>
 	<section>
 		<title>DataFrame</title>
