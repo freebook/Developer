@@ -2,8 +2,11 @@
 <section>
 	<title>Pandas SQL</title>
 	<section>
-		<title>sqlite3</title>
-		<programlisting>
+		<title>建立数据库链接</title>
+
+		<section>
+			<title>sqlite3</title>
+			<programlisting>
 		<![CDATA[
 import pandas as pd
 from pandas import DataFrame
@@ -20,10 +23,65 @@ data.to_sql("data", con)
 table = pd.read_sql_query("SELECT * FROM data", con)
 print(table)			
 		]]>
-		</programlisting>
+			</programlisting>
+		</section>
+		<section>
+			<title>SQLAlchemy</title>
+			<para>安装依赖库</para>
+			<screen>
+		<![CDATA[
+neo@MacBook-Pro-Neo ~ % pip install sqlalchemy		
+		]]>
+			</screen>
+			<para>创建链接引擎参考实例</para>
+			<programlisting>
+		<![CDATA[
+from sqlalchemy import create_engine
+
+engine = create_engine("postgresql://scott:tiger@localhost:5432/mydatabase")
+
+engine = create_engine("mysql+mysqldb://scott:tiger@localhost/foo")
+
+engine = create_engine("oracle://scott:tiger@127.0.0.1:1521/sidname")
+
+engine = create_engine("mssql+pyodbc://mydsn")
+
+# sqlite://<nohostname>/<path>
+# where <path> is relative:
+engine = create_engine("sqlite:///foo.db")
+
+# or absolute, starting with a slash:
+engine = create_engine("sqlite:////absolute/path/to/foo.db")		
+		]]>
+			</programlisting>
+		</section>
 	</section>
 	<section>
-		<title>SQLAlchemy</title>
-		
+		<title>DataFrame数据写入到数据库</title>
+		<section>
+			<title>分批写入数据</title>
+			<para>DataFrame 结果集很大，写入时间过程很长，容易产生错误，这时可以使用 chunksize 切割数据，分批写入。</para>
+			<programlisting>
+		<![CDATA[
+from sqlalchemy import create_engine
+import pandas as pd
+from pandas import DataFrame
+
+engine = create_engine("sqlite:///:memory:")
+
+data = DataFrame({
+    '姓名': ['张三', '李四', '王五'],
+    '年龄': [11, 12, 13],
+    '性别': ['Y', 'Y', 'N']
+})
+
+data.to_sql("data", engine, chunksize=1000)
+
+table = pd.read_sql_query("SELECT * FROM data", engine)
+print(table)		
+		]]>
+			</programlisting>
+		</section>
+
 	</section>
 </section>
