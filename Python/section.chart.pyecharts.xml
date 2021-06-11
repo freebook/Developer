@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section>
+	<title>pyecharts</title>
+	<para>
+		<ulink url="https://pyecharts.org/" />
+	</para>
+	<para>安装</para>
+	<screen>
+	<![CDATA[
+$ pip install pyecharts	
+	]]>
+	</screen>
+	
+</section>

@@ -43,6 +43,7 @@
 
 <!ENTITY chapter.chart.xml					SYSTEM "chapter.chart.xml">
 <!ENTITY section.chart.matplotlib.xml		SYSTEM "section.chart.matplotlib.xml">
+<!ENTITY section.chart.pyecharts.xml		SYSTEM "section.chart.pyecharts.xml">
 
 <!ENTITY chapter.office.xml					SYSTEM "chapter.office.xml">
 <!ENTITY section.office.pdf.xml				SYSTEM "section.office.pdf.xml">
