@@ -6,7 +6,7 @@
 	<para>矩阵运算，排序，筛选，过滤，分组，以及各种函数（例如求和）等等，这些操作很类似 Excel 对表格的操作。</para>
 	<para>DataFrame 是 Pandas 中最重要的对象，把它搞定，也就是熟练掌握 Pandas 数据分析了。</para>
 	<section>
-		<title>DataFrame 基础知识 index/columns</title>
+		<title>行与列操作 index/columns</title>
 		<para>可以把 DataFrame 理解为一个二维矩阵（多数情况下以二维存在），左侧行名保存在index, 头部列名保存在columns。</para>
 		<para>下面举例，我们构建一个 3×3 的DataFrame矩阵，程序如下：</para>
 		<programlisting>
@@ -303,6 +303,59 @@ row3     6     7     8
 			]]>
 			</screen>
 		</section>
+		<section>
+			<title>Axis（轴）</title>
+			<para>axis=0 按列计算的均值</para>
+			<para>axis=1 按行计算的均值</para>
+			<programlisting>
+			<![CDATA[
+import numpy as np
+import pandas as pd
+
+df = pd.DataFrame(np.arange(9).reshape(3, 3), index=[
+                  'row1', 'row2', 'row3'], columns=['col1', 'col2', 'col3'])
+
+print("=" * 20, "原始数据", "=" * 20)
+print(df)
+print("=" * 20, "axis=0", "=" * 20)
+print(df.mean(axis=0))
+print("=" * 20, "axis=1", "=" * 20)
+print(df.mean(axis=1))
+print("=" * 20, "删除行 row1, axis=1", "=" * 20)
+print(df.drop('row1', axis=0))
+print("=" * 20, "删除列 col1, axis=1", "=" * 20)
+print(df.drop(['col1'], axis=1))
+			]]>
+			</programlisting>
+			<screen>
+			<![CDATA[
+==================== 原始数据 ====================
+      col1  col2  col3
+row1     0     1     2
+row2     3     4     5
+row3     6     7     8
+==================== axis=0 ====================
+col1    3.0
+col2    4.0
+col3    5.0
+dtype: float64
+==================== axis=1 ====================
+row1    1.0
+row2    4.0
+row3    7.0
+dtype: float64
+==================== 删除行 row1, axis=1 ====================
+      col1  col2  col3
+row2     3     4     5
+row3     6     7     8
+==================== 删除列 col1, axis=1 ====================
+      col2  col3
+row1     1     2
+row2     4     5
+row3     7     8
+			]]>
+			</screen>
+		</section>
 	</section>
 	<section>
 		<title>序列</title>
@@ -357,13 +410,61 @@ print(data[data['合计'] > 0])
 		</screen>
 	</section>
 	<section>
-		<title>删除</title>
+		<title>删除操作</title>
 		<programlisting>
 			<![CDATA[
 del df['new_col']			
 			]]>
 		</programlisting>
 	</section>
+	<section>
+		<title>替换操作</title>
+		<programlisting>
+		<![CDATA[
+import numpy as np
+import pandas as pd
+
+data = {
+    '姓名': ['张三', '李四', '王五'],
+    '年龄': [11, 12, 13],
+    '性别': ['Y', 'Y', 'N']
+}
+df = pd.DataFrame(data)
+
+print("=" * 20, "原始数据", "=" * 20)
+print(df)
+
+print("=" * 20, "列替换", "=" * 20)
+df.loc[df['性别'] == 'Y', '性别'] = '男'
+df.loc[df['性别'] == 'N', '性别'] = '女'
+print(df)
+print("=" * 20, "行替换", "=" * 20)
+df.loc[0, df.loc[0, :] == 11] = 20
+print(df)
+		
+		]]>
+		</programlisting>
+		<screen>
+		<![CDATA[
+==================== 原始数据 ====================
+   姓名  年龄 性别
+0  张三  11  Y
+1  李四  12  Y
+2  王五  13  N
+==================== 列替换 ====================
+   姓名  年龄 性别
+0  张三  11  男
+1  李四  12  男
+2  王五  13  女
+==================== 行替换 ====================
+   姓名  年龄 性别
+0  张三  20  男
+1  李四  12  男
+2  王五  13  女
+		]]>
+		</screen>
+	</section>
+
 	<section>
 		<title>排序</title>
 		<programlisting>
