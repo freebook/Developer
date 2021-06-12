@@ -2,7 +2,5 @@
 <chapter id="index"><?dbhtml dir="chart" ?>
 	<title>数据可视化</title>
 	&section.chart.matplotlib.xml;
-	<section>
-		<title>pyecharts</title>
-	</section>
+	&section.chart.pyecharts.xml;
 </chapter>
