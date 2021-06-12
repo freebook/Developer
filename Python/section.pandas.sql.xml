@@ -7,7 +7,7 @@
 		<section>
 			<title>sqlite3</title>
 			<programlisting>
-		<![CDATA[
+			<![CDATA[
 import pandas as pd
 from pandas import DataFrame
 import sqlite3
@@ -22,7 +22,7 @@ data = DataFrame({
 data.to_sql("data", con)
 table = pd.read_sql_query("SELECT * FROM data", con)
 print(table)			
-		]]>
+			]]>
 			</programlisting>
 		</section>
 		<section>

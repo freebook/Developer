@@ -1,0 +1,550 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section id="dataframe">
+	<title>DataFrame</title>
+	<para>Pandas 数据分析过程，首先从各种媒体中加载数据，然后将数据放入 DataFrame 处理，最后输出，输出包括输出到各种媒体和可视化图表。</para>
+	<para>DataFrame 都能做哪些数据处理呢？</para>
+	<para>矩阵运算，排序，筛选，过滤，分组，以及各种函数（例如求和）等等，这些操作很类似 Excel 对表格的操作。</para>
+	<para>DataFrame 是 Pandas 中最重要的对象，把它搞定，也就是熟练掌握 Pandas 数据分析了。</para>
+	<section>
+		<title>DataFrame 基础知识 index/columns</title>
+		<para>可以把 DataFrame 理解为一个二维矩阵（多数情况下以二维存在），左侧行名保存在index, 头部列名保存在columns。</para>
+		<para>下面举例，我们构建一个 3×3 的DataFrame矩阵，程序如下：</para>
+		<programlisting>
+		<![CDATA[
+import numpy as np
+import pandas as pd
+
+df = pd.DataFrame(np.arange(9).reshape(3, 3))
+print(df)		
+		]]>
+		</programlisting>
+		<para>输出结果</para>
+		<screen>
+		<![CDATA[
+   0  1  2
+0  0  1  2
+1  3  4  5
+2  6  7  8		
+		]]>
+		</screen>
+		<para>第一行 0 1 2 是 columes</para>
+		<para>第一列 0 1 2 是 index</para>
+		<para>这里的 index 和 columes 是自动产生的。</para>
+		<section>
+			<title>方法一，指定 index / columes 名称</title>
+			<programlisting>
+			<![CDATA[
+import numpy as np
+import pandas as pd
+
+df = pd.DataFrame(np.arange(9).reshape(3, 3), index=[
+                  'row1', 'row2', 'row3'], columns=['col1', 'col2', 'col3'])
+print(df)
+			]]>
+			</programlisting>
+			<para>输出结果</para>
+			<screen>
+			<![CDATA[
+      col1  col2  col3
+row1     0     1     2
+row2     3     4     5
+row3     6     7     8		
+			]]>
+			</screen>
+			<para>row1 ~ row3 是 index 用于访问行，col1 ~ col3 是 columns 用于访问列</para>
+		</section>
+		<section>
+			<title>方法二，指定 index / columes 名称</title>
+			<programlisting>
+			<![CDATA[
+from pandas import DataFrame, Index
+import numpy as np
+import pandas as pd
+
+df = pd.DataFrame(np.arange(9).reshape(3, 3))
+# print(df)
+
+df.index = Index(['第一行', '第二行', '第三行'], dtype='object')
+df.columns = Index(['第一列', '第二列', '第三列'], dtype='object')
+
+print(df)		
+			]]>
+			</programlisting>
+			<para>运行结果</para>
+			<screen>
+			<![CDATA[
+     第一列  第二列  第三列
+第一行    0    1    2
+第二行    3    4    5
+第三行    6    7    8		
+			]]>
+			</screen>
+		</section>
+	</section>
+	<section>
+		<title></title>
+		<programlisting>
+		<![CDATA[
+		
+		]]>
+		</programlisting>
+		<screen>
+		<![CDATA[
+		
+		]]>
+		</screen>
+	</section>
+	<section>
+		<title>数据访问</title>
+		<programlisting>
+		<![CDATA[
+from pandas import DataFrame, Index
+import numpy as np
+import pandas as pd
+
+df = pd.DataFrame(np.arange(9).reshape(3, 3))
+# print(df)
+
+df.index = Index(['第一行', '第二行', '第三行'], dtype='object')
+df.columns = Index(['第一列', '第二列', '第三列'], dtype='object')
+
+print("="*20, "原始数据", "=" * 20)
+print(df)
+print("="*20, "访问行", "=" * 20)
+print(df[0:2])
+print("="*20, "访问列", "=" * 20)
+print(df.第一列)
+print(df['第二列'])
+		]]>
+		</programlisting>
+		<para>输出结果</para>
+		<screen>
+		<![CDATA[
+==================== 原始数据 ====================
+     第一列  第二列  第三列
+第一行    0    1    2
+第二行    3    4    5
+第三行    6    7    8
+==================== 访问行 ====================
+     第一列  第二列  第三列
+第一行    0    1    2
+第二行    3    4    5
+==================== 访问列 ====================
+第一行    0
+第二行    3
+第三行    6
+Name: 第一列, dtype: int64
+第一行    1
+第二行    4
+第三行    7
+Name: 第二列, dtype: int64		
+		]]>
+		</screen>
+		<section>
+			<title>iloc 访问行</title>
+			<programlisting>
+			<![CDATA[
+from pandas import DataFrame, Index
+import numpy as np
+import pandas as pd
+
+df = pd.DataFrame(np.arange(9).reshape(3, 3), index=[
+                  'row1', 'row2', 'row3'], columns=['col1', 'col2', 'col3'])
+
+print("="*20, "原始数据", "=" * 20)
+print(df)
+print("="*20, "访问一行", "=" * 20)
+print(df.iloc[0])
+print(df.iloc[0, :])
+print("="*20, "访问指定行", "=" * 20)
+print(df.iloc[[0, 2]])
+print(df.iloc[[0, 2], :])
+print("="*20, "访问连续多行", "=" * 20)
+print(df.iloc[0:3])
+print(df.iloc[0:3, :])
+print("="*20, "访问一列", "=" * 20)
+print(df.iloc[:, 0])
+print("="*20, "访问指定列", "=" * 20)
+print(df.iloc[:, [0, 2]])
+print("="*20, "访问连续列", "=" * 20)
+print(df.iloc[:, 0:3])
+			]]>
+			</programlisting>
+			<para>运行结果</para>
+			<screen>
+			<![CDATA[
+==================== 原始数据 ====================
+      col1  col2  col3
+row1     0     1     2
+row2     3     4     5
+row3     6     7     8
+==================== 访问一行 ====================
+col1    0
+col2    1
+col3    2
+Name: row1, dtype: int64
+col1    0
+col2    1
+col3    2
+Name: row1, dtype: int64
+==================== 访问指定行 ====================
+      col1  col2  col3
+row1     0     1     2
+row3     6     7     8
+      col1  col2  col3
+row1     0     1     2
+row3     6     7     8
+==================== 访问连续多行 ====================
+      col1  col2  col3
+row1     0     1     2
+row2     3     4     5
+row3     6     7     8
+      col1  col2  col3
+row1     0     1     2
+row2     3     4     5
+row3     6     7     8
+==================== 访问一列 ====================
+row1    0
+row2    3
+row3    6
+Name: col1, dtype: int64
+==================== 访问指定列 ====================
+      col1  col3
+row1     0     2
+row2     3     5
+row3     6     8
+==================== 访问连续列 ====================
+      col1  col2  col3
+row1     0     1     2
+row2     3     4     5
+row3     6     7     8
+			]]>
+			</screen>
+		</section>
+		<section>
+			<title>loc 访问列</title>
+			<programlisting>
+			<![CDATA[
+from pandas import DataFrame, Index
+import numpy as np
+import pandas as pd
+
+df = pd.DataFrame(np.arange(9).reshape(3, 3), index=[
+                  'row1', 'row2', 'row3'], columns=['col1', 'col2', 'col3'])
+
+print("="*20, "原始数据", "=" * 20)
+print(df)
+print("="*20, "访问一行", "=" * 20)
+print(df.loc['row1'])
+print(df.loc['row1', :])
+print("="*20, "访问指定行", "=" * 20)
+print(df.loc[['row1', 'row2']])
+print(df.loc[['row1', 'row2'], :])
+print("="*20, "访问连续多行数据", "=" * 20)
+print(df.loc['row1':'row3'])
+print(df.loc['row1':'row3', :])
+
+print("="*20, "访问一列", "=" * 20)
+print(df.loc[:, 'col1'])
+print("="*20, "访问指定列", "=" * 20)
+print(df.loc[:, ['col1', 'col2']])
+print("="*20, "访问连续多列数据", "=" * 20)
+print(df.loc[:, 'col1':'col3'])
+			]]>
+			</programlisting>
+			<para>运行结果</para>
+			<screen>
+			<![CDATA[
+==================== 原始数据 ====================
+      col1  col2  col3
+row1     0     1     2
+row2     3     4     5
+row3     6     7     8
+==================== 访问一行 ====================
+col1    0
+col2    1
+col3    2
+Name: row1, dtype: int64
+col1    0
+col2    1
+col3    2
+Name: row1, dtype: int64
+==================== 访问指定行 ====================
+      col1  col2  col3
+row1     0     1     2
+row2     3     4     5
+      col1  col2  col3
+row1     0     1     2
+row2     3     4     5
+==================== 访问连续多行数据 ====================
+      col1  col2  col3
+row1     0     1     2
+row2     3     4     5
+row3     6     7     8
+      col1  col2  col3
+row1     0     1     2
+row2     3     4     5
+row3     6     7     8
+==================== 访问一列 ====================
+row1    0
+row2    3
+row3    6
+Name: col1, dtype: int64
+==================== 访问指定列 ====================
+      col1  col2
+row1     0     1
+row2     3     4
+row3     6     7
+==================== 访问连续多列数据 ====================
+      col1  col2  col3
+row1     0     1     2
+row2     3     4     5
+row3     6     7     8
+			]]>
+			</screen>
+		</section>
+	</section>
+	<section>
+		<title>序列</title>
+		<programlisting>
+		<![CDATA[
+		
+		]]>
+		</programlisting>
+	</section>
+	<section>
+		<title>筛选</title>
+		<programlisting>
+			<![CDATA[
+#!/usr/bin/python3
+# -*- coding: UTF-8 -*-
+import pandas as pd
+
+file_path = r'团购.xlsx'
+df = pd.read_excel(file_path, sheet_name="3月2日",
+                   header=1, usecols=['房号', '客户名', '合计'])
+data = df[2:-3]
+print(data)
+print(data[data['合计'] > 0])			
+			]]>
+		</programlisting>
+		<screen>
+			<![CDATA[
+       房号 客户名   合计
+2    7-6A  李松   25
+3    7-8A  王雪   68
+4    7-9A  梁梅  100
+5   7-10A  宋森   21
+6   9-27B  蓝天   20
+7   9-28B  赵岚    0
+8   9-30B  皮思   50
+9   1-20B  龚风  256
+10  1-24A  阮纵    0
+			]]>
+		</screen>
+		<para>筛选后</para>
+		<screen>
+			<![CDATA[
+      房号 客户名   合计
+2   7-6A  李松   25
+3   7-8A  王雪   68
+4   7-9A  梁梅  100
+5  7-10A  宋森   21
+6  9-27B  蓝天   20
+8  9-30B  皮思   50
+9  1-20B  龚风  256			
+			]]>
+		</screen>
+	</section>
+	<section>
+		<title>删除</title>
+		<programlisting>
+			<![CDATA[
+del df['new_col']			
+			]]>
+		</programlisting>
+	</section>
+	<section>
+		<title>排序</title>
+		<programlisting>
+			<![CDATA[
+#!/usr/bin/python3
+# -*- coding: UTF-8 -*-
+import numpy as np
+import pandas as pd
+
+df = pd.DataFrame({'数值': np.random.randint(1, 10, size=8)})
+print(("-" * 10) + "随机数" + ("-" * 10))
+print(df)
+print(("-" * 10) + "排序后" + ("-" * 10))
+print(df.sort_values('数值'))
+print(("-" * 10) + "降序排序" + ("-" * 10))
+print(df.sort_values('数值', ascending=False))			
+			]]>
+		</programlisting>
+		<para>运行结果</para>
+		<screen>
+			<![CDATA[
+----------随机数----------
+   数值
+0   5
+1   9
+2   1
+3   6
+4   2
+5   5
+6   3
+7   4
+----------排序后----------
+   数值
+2   1
+4   2
+6   3
+7   4
+0   5
+5   5
+3   6
+1   9
+----------降序排序----------
+   数值
+1   9
+3   6
+0   5
+5   5
+7   4
+6   3
+4   2
+2   1			
+			]]>
+		</screen>
+		<para>多列排序</para>
+		<programlisting>
+			<![CDATA[
+#!/usr/bin/python3
+# -*- coding: UTF-8 -*-
+import numpy as np
+import pandas as pd
+
+df = pd.DataFrame({'A': np.random.randint(1, 10, size=8), 'B': np.random.randint(
+    1, 10, size=8), 'C': np.random.randint(1, 10, size=8)})
+print(("-" * 10) + "随机数" + ("-" * 10))
+print(df)
+print(("-" * 10) + "B列排序" + ("-" * 10))
+print(df.sort_values('B'))
+print(("-" * 10) + "A降序,B升序" + ("-" * 10))
+print(df.sort_values(['A', 'B'], ascending=[False, True]))
+print(("-" * 10) + "横向排序(行排序)" + ("-" * 10))
+print(df.sort_values(by=0, axis=1, ascending=False))
+			
+			]]>
+		</programlisting>
+		<para>运行结果</para>
+		<screen>
+			<![CDATA[
+----------随机数----------
+   A  B  C
+0  3  2  7
+1  4  8  1
+2  3  8  6
+3  2  4  2
+4  7  9  2
+5  7  9  4
+6  4  1  8
+7  9  4  4
+----------B列排序----------
+   A  B  C
+6  4  1  8
+0  3  2  7
+3  2  4  2
+7  9  4  4
+1  4  8  1
+2  3  8  6
+4  7  9  2
+5  7  9  4
+----------A降序,B升序----------
+   A  B  C
+7  9  4  4
+4  7  9  2
+5  7  9  4
+6  4  1  8
+1  4  8  1
+0  3  2  7
+2  3  8  6
+3  2  4  2
+----------横向排序(行排序)----------
+   C  A  B
+0  7  3  2
+1  1  4  8
+2  6  3  8
+3  2  2  4
+4  2  7  9
+5  4  7  9
+6  8  4  1
+7  4  9  4			
+			]]>
+		</screen>
+		<para>标签排序</para>
+		<programlisting>
+			<![CDATA[
+#!/usr/bin/python3
+# -*- coding: UTF-8 -*-
+import numpy as np
+import pandas as pd
+
+df = pd.DataFrame({'B': np.random.randint(1, 10, size=5), 'A': np.random.randint(
+    1, 10, size=5), 'C': np.random.randint(1, 10, size=5)}, index=np.random.randint(1, 5, size=5))
+print(("-" * 10) + "随机数" + ("-" * 10))
+print(df)
+print(("-" * 10) + "行标签排序后" + ("-" * 10))
+print(df.sort_index())
+print(("-" * 10) + "列标签排序后" + ("-" * 10))
+print(df.sort_index(axis=1))			
+			]]>
+		</programlisting>
+		<para>运行结果</para>
+		<screen>
+			<![CDATA[
+neo@MacBook-Pro-Neo ~/workspace/python/pandas % python3.9 /Users/neo/workspace/python/pandas/dataframe/index.py
+----------随机数----------
+   B  A  C
+4  9  2  1
+4  1  1  5
+4  1  4  5
+3  8  4  7
+2  3  1  6
+----------行标签排序后----------
+   B  A  C
+2  3  1  6
+3  8  4  7
+4  9  2  1
+4  1  1  5
+4  1  4  5
+----------列标签排序后----------
+   A  B  C
+4  2  9  1
+4  1  1  5
+4  4  1  5
+3  4  8  7
+2  1  3  6			
+			]]>
+		</screen>
+	</section>
+	<section>
+		<title>数据去重</title>
+		<programlisting>
+			<![CDATA[
+df.drop_duplicates(['姓名'],inplace=True)			
+			]]>
+		</programlisting>
+	</section>
+	<section>
+		<title></title>
+		<programlisting>
+			<![CDATA[
+df['创建时间'] = df['创建时间'].dt.strftime('%Y-%m-%d')			
+			]]>
+		</programlisting>
+	</section>
+
+
+</section>

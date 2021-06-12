@@ -30,6 +30,7 @@
 <!ENTITY section.pandas.html.xml			SYSTEM "section.pandas.html.xml">
 <!ENTITY section.pandas.excel.xml			SYSTEM "section.pandas.excel.xml">
 <!ENTITY section.pandas.sql.xml				SYSTEM "section.pandas.sql.xml">
+<!ENTITY section.pandas.dataframe.xml		SYSTEM "section.pandas.dataframe.xml">
 
 <!ENTITY chapter.ocr.xml					SYSTEM "chapter.ocr.xml">
 <!ENTITY section.ocr.easyocr.xml			SYSTEM "section.ocr.easyocr.xml">
