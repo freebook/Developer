@@ -82,6 +82,7 @@
 	&part.ai.xml;
 	&chapter.ops.xml;
 	&chapter.office.xml;
+	&chapter.opencv.xml;
 	&chapter.3rdparty.xml;
 	&section.python.example.xml;
 <!-- =========================================================================== -->

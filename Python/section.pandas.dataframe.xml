@@ -1,10 +1,144 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<section id="dataframe">
+<section id="pandas.DataFrame">
 	<title>DataFrame</title>
-	<para>Pandas 数据分析过程，首先从各种媒体中加载数据，然后将数据放入 DataFrame 处理，最后输出，输出包括输出到各种媒体和可视化图表。</para>
-	<para>DataFrame 都能做哪些数据处理呢？</para>
-	<para>矩阵运算，排序，筛选，过滤，分组，以及各种函数（例如求和）等等，这些操作很类似 Excel 对表格的操作。</para>
-	<para>DataFrame 是 Pandas 中最重要的对象，把它搞定，也就是熟练掌握 Pandas 数据分析了。</para>
+	<section>
+		<title>什么是 DataFrame</title>
+		<para>通俗的讲数据帧(DataFrame)是二维数据矩阵，即数据由行和列组成的表格，类似数据库中的表和 Excel 电子表格。</para>
+		<para>Pandas 数据分析过程，首先从各种媒体中加载数据，然后将数据放入 DataFrame 处理，最后输出，输出包括输出到各种媒体和可视化图表。</para>
+		<para>DataFrame 都能做哪些数据处理呢？</para>
+		<para>矩阵运算，排序，筛选，过滤，分组，以及各种函数（例如求和）等等，这些操作很类似 Excel 对表格的操作。</para>
+		<para>DataFrame 是 Pandas 中最重要的对象，把它搞定，也就是熟练掌握 Pandas 数据分析了。</para>
+	</section>
+	<section>
+		<title>如何创建 DataFrame</title>
+		<para>pandas.DataFrame 参数</para>
+		<programlisting>
+		<![CDATA[
+pandas.DataFrame( data, index, columns, dtype, copy)
+参数如下：
+
+参数		描述
+------------------------
+data	数据采取各种形式，如:ndarray，series，map，lists，dict，constant和另一个DataFrame。
+index	对于行标签，要用于结果帧的索引是可选缺省值np.arrange(n)，如果没有传递索引值。
+columns	对于列标签，可选的默认语法是 - np.arange(n)。 这只有在没有索引传递的情况下才是这样。
+dtype	每列的数据类型。
+copy	用于复制数据，默认值为False，
+		]]>
+		</programlisting>
+		<para>创建 DataFrame</para>
+		<itemizedlist>
+			<title>创建 DataFrame 有以下几种方式：</title>
+			<listitem>列表</listitem>
+			<listitem>字典</listitem>
+			<listitem>序列</listitem>
+			<listitem>Numpy </listitem>
+			<listitem>ndarrays</listitem>
+			<listitem>复制另一个数据帧(DataFrame)	</listitem>
+		</itemizedlist>
+		<para>创建一个空的基本数据帧</para>
+		<programlisting>
+		<![CDATA[
+import pandas as pd
+df = pd.DataFrame()
+print(df)
+		]]>
+		</programlisting>
+		<para>下面集中演示</para>
+		<programlisting>
+		<![CDATA[
+import pandas as pd
+
+
+def line(msg):
+    print('-' * 20, msg, '-'*20)
+
+
+df = pd.DataFrame()
+line('空数据')
+print(df)
+
+data = [1, 2, 3, 4, 5]
+df = pd.DataFrame(data)
+line('从列表创建数据帧')
+print(df)
+
+data = [['张三', 26], ['李四', 25], ['王五', 23]]
+df = pd.DataFrame(data, columns=['Name', 'Age'])
+print(df)
+
+data = [['苹果', 26], ['鸭梨', 25], ['橘子', 23.45]]
+df = pd.DataFrame(data, columns=['Name', 'Age'], dtype=float)
+line('指定数据类型为浮点')
+print(df)
+
+data = {'Name': ['张三', '李四', '王五', '牛七', '马八'],
+        'Age': [23, 24, 21, 25, 27]}
+line('从字典创建数据帧')
+df = pd.DataFrame(data)
+print(df)
+
+
+data = [{'苹果': 1, '鸭梨': 2}, {'苹果': 5, '鸭梨': 10, '葡萄': 20}, {'橘子': 30}]
+df = pd.DataFrame(data)
+line('列表+字典的数据结构')
+print(df)
+		]]>
+		</programlisting>
+		<para>输出结果</para>
+		<screen>
+		<![CDATA[
+-------------------- 空数据 --------------------
+Empty DataFrame
+Columns: []
+Index: []
+-------------------- 从列表创建数据帧 --------------------
+   0
+0  1
+1  2
+2  3
+3  4
+4  5
+  Name  Age
+0   张三   26
+1   李四   25
+2   王五   23
+-------------------- 指定数据类型为浮点 --------------------
+  Name    Age
+0   苹果  26.00
+1   鸭梨  25.00
+2   橘子  23.45
+-------------------- 从字典创建数据帧 --------------------
+  Name  Age
+0   张三   23
+1   李四   24
+2   王五   21
+3   牛七   25
+4   马八   27
+-------------------- 列表+字典的数据结构 --------------------
+    苹果    鸭梨    葡萄    橘子
+0  1.0   2.0   NaN   NaN
+1  5.0  10.0  20.0   NaN
+2  NaN   NaN   NaN  30.0		
+		]]>
+		</screen>
+		<para>使用 Series 创建 DataFrame</para>
+		<programlisting>
+		<![CDATA[
+import pandas as pd
+
+data = pd.Series([1, 2, 3])
+df = pd.DataFrame(data)
+print(df)
+
+data = {'序号': pd.Series([1, 2, 3]),
+        '姓名': ['张三', '李四', '王五']}
+
+df = pd.DataFrame(data)
+print(df)		
+		]]>
+		</programlisting>
+	</section>
 	<section>
 		<title>行与列操作 index/columns</title>
 		<para>可以把 DataFrame 理解为一个二维矩阵（多数情况下以二维存在），左侧行名保存在index, 头部列名保存在columns。</para>
@@ -80,19 +214,6 @@ print(df)
 			]]>
 			</screen>
 		</section>
-	</section>
-	<section>
-		<title></title>
-		<programlisting>
-		<![CDATA[
-		
-		]]>
-		</programlisting>
-		<screen>
-		<![CDATA[
-		
-		]]>
-		</screen>
 	</section>
 	<section>
 		<title>数据访问</title>
@@ -357,65 +478,117 @@ row3     7     8
 			</screen>
 		</section>
 	</section>
+
 	<section>
-		<title>序列</title>
+		<title>添加操作</title>
 		<programlisting>
 		<![CDATA[
-		
-		]]>
-		</programlisting>
-	</section>
-	<section>
-		<title>筛选</title>
-		<programlisting>
-			<![CDATA[
-#!/usr/bin/python3
-# -*- coding: UTF-8 -*-
 import pandas as pd
 
-file_path = r'团购.xlsx'
-df = pd.read_excel(file_path, sheet_name="3月2日",
-                   header=1, usecols=['房号', '客户名', '合计'])
-data = df[2:-3]
-print(data)
-print(data[data['合计'] > 0])			
-			]]>
+data = {'序号': pd.Series([1, 2, 3]),
+        '姓名': ['张三', '李四', '王五']}
+
+df = pd.DataFrame(data)
+df['年龄'] = [23, 25, 26]
+print(df)		
+		]]>
 		</programlisting>
+		<para>输出结果</para>
 		<screen>
-			<![CDATA[
-       房号 客户名   合计
-2    7-6A  李松   25
-3    7-8A  王雪   68
-4    7-9A  梁梅  100
-5   7-10A  宋森   21
-6   9-27B  蓝天   20
-7   9-28B  赵岚    0
-8   9-30B  皮思   50
-9   1-20B  龚风  256
-10  1-24A  阮纵    0
-			]]>
-		</screen>
-		<para>筛选后</para>
-		<screen>
-			<![CDATA[
-      房号 客户名   合计
-2   7-6A  李松   25
-3   7-8A  王雪   68
-4   7-9A  梁梅  100
-5  7-10A  宋森   21
-6  9-27B  蓝天   20
-8  9-30B  皮思   50
-9  1-20B  龚风  256			
-			]]>
+		<![CDATA[
+   序号  姓名  年龄
+0   1  张三  23
+1   2  李四  25
+2   3  王五  26		
+		]]>
 		</screen>
 	</section>
+
 	<section>
 		<title>删除操作</title>
+		<para>删除列数据</para>
 		<programlisting>
 			<![CDATA[
-del df['new_col']			
+import pandas as pd
+
+data = {'序号': pd.Series([1, 2, 3]),
+        '姓名': ['张三', '李四', '王五'],
+        '年龄': [23, 25, 26]
+        }
+
+df = pd.DataFrame(data)
+print('-' * 20, "原始数据", '-' * 20)
+print(df)
+del df['年龄']
+print('-' * 20, "del 删除数据", '-' * 20)
+print(df)
+print('-' * 20, "pop 删除数据", '-' * 20)
+df.pop('序号')
+print(df)
 			]]>
 		</programlisting>
+		<para>输出结果</para>
+		<screen>
+		<![CDATA[
+-------------------- 原始数据 --------------------
+   序号  姓名  年龄
+0   1  张三  23
+1   2  李四  25
+2   3  王五  26
+-------------------- del 删除数据 --------------------
+   序号  姓名
+0   1  张三
+1   2  李四
+2   3  王五
+-------------------- pop 删除数据 --------------------
+   姓名
+0  张三
+1  李四
+2  王五		
+		]]>
+		</screen>
+		<para>使用 pandas.drop() 方法删除行与列</para>
+		<programlisting>
+		<![CDATA[
+import pandas as pd
+
+data = {'序号': pd.Series([1, 2, 3]),
+        '姓名': ['张三', '李四', '王五'],
+        '年龄': [23, 25, 26]
+        }
+
+df = pd.DataFrame(data)
+print('-' * 20, "原始数据", '-' * 20)
+print(df)
+print('-' * 20, "drop(0) 删除第一行", '-' * 20)
+print(df.drop(0))
+print('-' * 20, "df.drop(index=1, axis=0) 删除一行", '-' * 20)
+print(df.drop(index=1, axis=0))
+print('-' * 20, "df.drop(index=[1, 2]) 删除行", '-' * 20)
+print(df.drop(index=[1, 2]))
+
+print('-' * 20, "df.drop('序号', axis=1) 删除序号列", '-' * 20)
+print(df.drop('序号', axis=1))
+		]]>
+		</programlisting>
+		<para>多行与多列的删除方法</para>
+		<literallayout>
+		<![CDATA[
+print(df.drop(index=['Bob', 'Dave', 'Frank'], columns=['Name', 'Age']))
+print(df.drop(index=df.index[[1, 3, 5]], columns=df.columns[[1, 2]]))
+
+df_org = df.copy()
+df_org.drop(index=['Bob', 'Dave', 'Frank'], columns=['Name', 'Age'], inplace=True)		
+		
+print(df.drop(columns='Name'))
+print(df.drop(columns=['Name', 'Age']))
+print(df.drop(['Name', 'Age'], axis=1))		
+
+print(df.columns[[1, 2]])
+print(df.drop(df.columns[[1, 2]], axis=1))
+print(df.drop(columns=df.columns[[1, 2]]))
+		]]>
+		</literallayout>
 	</section>
 	<section>
 		<title>替换操作</title>
@@ -464,7 +637,80 @@ print(df)
 		]]>
 		</screen>
 	</section>
+	<section>
+		<title>数据追加</title>
+		<programlisting>
+		<![CDATA[
+import pandas as pd
 
+df = pd.DataFrame([[1, 2], [3, 4]], columns=['col1', 'col2'])
+df1 = pd.DataFrame([[5, 6], [7, 8]], columns=['col1', 'col2'])
+df2 = pd.DataFrame([[9, 10], [11, 12]], columns=['col1', 'col2'])
+
+df = df.append(df1)
+df = df.append(df2)
+print(df)
+		
+		]]>
+		</programlisting>
+		<para>输出结果</para>
+		<screen>
+		<![CDATA[
+   col1  col2
+0     1     2
+1     3     4
+0     5     6
+1     7     8
+0     9    10
+1    11    12		
+		]]>
+		</screen>
+	</section>
+	
+	<section>
+		<title>筛选</title>
+		<programlisting>
+			<![CDATA[
+#!/usr/bin/python3
+# -*- coding: UTF-8 -*-
+import pandas as pd
+
+file_path = r'团购.xlsx'
+df = pd.read_excel(file_path, sheet_name="3月2日",
+                   header=1, usecols=['房号', '客户名', '合计'])
+data = df[2:-3]
+print(data)
+print(data[data['合计'] > 0])			
+			]]>
+		</programlisting>
+		<screen>
+			<![CDATA[
+       房号 客户名   合计
+2    7-6A  李松   25
+3    7-8A  王雪   68
+4    7-9A  梁梅  100
+5   7-10A  宋森   21
+6   9-27B  蓝天   20
+7   9-28B  赵岚    0
+8   9-30B  皮思   50
+9   1-20B  龚风  256
+10  1-24A  阮纵    0
+			]]>
+		</screen>
+		<para>筛选后</para>
+		<screen>
+			<![CDATA[
+      房号 客户名   合计
+2   7-6A  李松   25
+3   7-8A  王雪   68
+4   7-9A  梁梅  100
+5  7-10A  宋森   21
+6  9-27B  蓝天   20
+8  9-30B  皮思   50
+9  1-20B  龚风  256			
+			]]>
+		</screen>
+	</section>
 	<section>
 		<title>排序</title>
 		<programlisting>
@@ -646,6 +892,12 @@ df['创建时间'] = df['创建时间'].dt.strftime('%Y-%m-%d')
 			]]>
 		</programlisting>
 	</section>
-
-
+</section>
+<section id="pandas.Series">
+	<title>序列</title>
+	<programlisting>
+		<![CDATA[
+		
+		]]>
+	</programlisting>
 </section>

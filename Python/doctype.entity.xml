@@ -62,4 +62,7 @@
 <!ENTITY section.nlp.jieba.xml				SYSTEM "section.nlp.jieba.xml">
 <!ENTITY section.nlp.wordcloud.xml			SYSTEM "section.nlp.wordcloud.xml">
 
+<!ENTITY chapter.graphics.xml				SYSTEM "chapter.graphics.xml">
+<!ENTITY chapter.opencv.xml					SYSTEM "chapter.opencv.xml">
+
 <!ENTITY chapter.faq.xml					SYSTEM "chapter.faq.xml">
