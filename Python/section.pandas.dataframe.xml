@@ -214,6 +214,46 @@ print(df)
 			]]>
 			</screen>
 		</section>
+		<section>
+			<title>获取 columns 名称</title>
+			<programlisting>
+		<![CDATA[
+import numpy as np
+import pandas as pd
+
+df = pd.DataFrame([['Snow', 'M', 22], ['Tyrion', 'M', 32], ['Sansa', 'F', 18], [
+                  'Arya', 'F', 14]], columns=['Name', 'Gender', 'Age'])
+
+print(df)
+
+col_name = df.columns.tolist()
+print(col_name)		
+		]]>
+			</programlisting>
+		</section>
+		<section>
+			<title>插入列</title>
+			<programlisting>
+			<![CDATA[
+import numpy as np
+import pandas as pd
+
+df = pd.DataFrame([['Snow', 'M', 22], ['Tyrion', 'M', 32], ['Sansa', 'F', 18], [
+                  'Arya', 'F', 14]], columns=['Name', 'Gender', 'Age'])
+
+print(df)
+
+col_name = df.columns.tolist()
+print(col_name)
+col_name.insert(3, 'City')
+# 对原行/列索引重新构建索引值
+df = df.reindex(columns=col_name)
+# 给City列赋值
+df['City'] = ['China', 'Japan', 'Koren', 'Hongkong']
+print(df)			
+			]]>
+			</programlisting>
+		</section>
 	</section>
 	<section>
 		<title>数据访问</title>
@@ -262,10 +302,9 @@ Name: 第二列, dtype: int64
 		]]>
 		</screen>
 		<section>
-			<title>iloc 访问行</title>
+			<title>iloc 访问数据</title>
 			<programlisting>
 			<![CDATA[
-from pandas import DataFrame, Index
 import numpy as np
 import pandas as pd
 
@@ -289,12 +328,18 @@ print("="*20, "访问指定列", "=" * 20)
 print(df.iloc[:, [0, 2]])
 print("="*20, "访问连续列", "=" * 20)
 print(df.iloc[:, 0:3])
+
+df = pd.DataFrame(np.arange(25).reshape(5, 5), index=[
+                  'row1', 'row2', 'row3', 'row4', 'row5'], columns=['col1', 'col2', 'col3', 'col4', 'col5'])
+print("="*20, "访问中间区域", "=" * 20)
+print(df.iloc[1:4:, 1:4])
+
 			]]>
 			</programlisting>
 			<para>运行结果</para>
 			<screen>
 			<![CDATA[
-==================== 原始数据 ====================
+===================== 原始数据 ====================
       col1  col2  col3
 row1     0     1     2
 row2     3     4     5
@@ -339,19 +384,24 @@ row3     6     8
 row1     0     1     2
 row2     3     4     5
 row3     6     7     8
+==================== 访问中间区域 ====================
+      col2  col3  col4
+row2     6     7     8
+row3    11    12    13
+row4    16    17    18
 			]]>
 			</screen>
 		</section>
 		<section>
-			<title>loc 访问列</title>
+			<title>loc 访问数据</title>
 			<programlisting>
 			<![CDATA[
 from pandas import DataFrame, Index
 import numpy as np
 import pandas as pd
 
-df = pd.DataFrame(np.arange(9).reshape(3, 3), index=[
-                  'row1', 'row2', 'row3'], columns=['col1', 'col2', 'col3'])
+df = pd.DataFrame(np.arange(25).reshape(5, 5), index=[
+                  'row1', 'row2', 'row3', 'row4', 'row5'], columns=['col1', 'col2', 'col3', 'col4', 'col5'])
 
 print("="*20, "原始数据", "=" * 20)
 print(df)
@@ -371,63 +421,84 @@ print("="*20, "访问指定列", "=" * 20)
 print(df.loc[:, ['col1', 'col2']])
 print("="*20, "访问连续多列数据", "=" * 20)
 print(df.loc[:, 'col1':'col3'])
+print("="*20, "访问数据区域", "=" * 20)
+print(df.loc['row2':'row4':, 'col2':'col4'])
+
 			]]>
 			</programlisting>
 			<para>运行结果</para>
 			<screen>
 			<![CDATA[
 ==================== 原始数据 ====================
-      col1  col2  col3
-row1     0     1     2
-row2     3     4     5
-row3     6     7     8
+      col1  col2  col3  col4  col5
+row1     0     1     2     3     4
+row2     5     6     7     8     9
+row3    10    11    12    13    14
+row4    15    16    17    18    19
+row5    20    21    22    23    24
 ==================== 访问一行 ====================
 col1    0
 col2    1
 col3    2
+col4    3
+col5    4
 Name: row1, dtype: int64
 col1    0
 col2    1
 col3    2
+col4    3
+col5    4
 Name: row1, dtype: int64
 ==================== 访问指定行 ====================
-      col1  col2  col3
-row1     0     1     2
-row2     3     4     5
-      col1  col2  col3
-row1     0     1     2
-row2     3     4     5
+      col1  col2  col3  col4  col5
+row1     0     1     2     3     4
+row2     5     6     7     8     9
+      col1  col2  col3  col4  col5
+row1     0     1     2     3     4
+row2     5     6     7     8     9
 ==================== 访问连续多行数据 ====================
-      col1  col2  col3
-row1     0     1     2
-row2     3     4     5
-row3     6     7     8
-      col1  col2  col3
-row1     0     1     2
-row2     3     4     5
-row3     6     7     8
+      col1  col2  col3  col4  col5
+row1     0     1     2     3     4
+row2     5     6     7     8     9
+row3    10    11    12    13    14
+      col1  col2  col3  col4  col5
+row1     0     1     2     3     4
+row2     5     6     7     8     9
+row3    10    11    12    13    14
 ==================== 访问一列 ====================
-row1    0
-row2    3
-row3    6
+row1     0
+row2     5
+row3    10
+row4    15
+row5    20
 Name: col1, dtype: int64
 ==================== 访问指定列 ====================
       col1  col2
 row1     0     1
-row2     3     4
-row3     6     7
+row2     5     6
+row3    10    11
+row4    15    16
+row5    20    21
 ==================== 访问连续多列数据 ====================
       col1  col2  col3
 row1     0     1     2
-row2     3     4     5
-row3     6     7     8
+row2     5     6     7
+row3    10    11    12
+row4    15    16    17
+row5    20    21    22
+==================== 访问数据区域 ====================
+      col2  col3  col4
+row2     6     7     8
+row3    11    12    13
+row4    16    17    18
 			]]>
 			</screen>
 		</section>
 		<section>
 			<title>Axis（轴）</title>
-			<para>axis=0 按列计算的均值</para>
-			<para>axis=1 按行计算的均值</para>
+			<para>二维数据拥有两个轴：</para>
+			<para>axis = 0：沿着行的方向垂直往下。</para>
+			<para>axis = 1：沿着列的方向水平延伸。</para>
 			<programlisting>
 			<![CDATA[
 import numpy as np
@@ -442,10 +513,11 @@ print("=" * 20, "axis=0", "=" * 20)
 print(df.mean(axis=0))
 print("=" * 20, "axis=1", "=" * 20)
 print(df.mean(axis=1))
-print("=" * 20, "删除行 row1, axis=1", "=" * 20)
+print("=" * 20, "删除行 row1, axis=0", "=" * 20)
 print(df.drop('row1', axis=0))
 print("=" * 20, "删除列 col1, axis=1", "=" * 20)
 print(df.drop(['col1'], axis=1))
+
 			]]>
 			</programlisting>
 			<screen>
@@ -465,7 +537,7 @@ row1    1.0
 row2    4.0
 row3    7.0
 dtype: float64
-==================== 删除行 row1, axis=1 ====================
+==================== 删除行 row1, axis=0 ====================
       col1  col2  col3
 row2     3     4     5
 row3     6     7     8
@@ -476,12 +548,17 @@ row2     4     5
 row3     7     8
 			]]>
 			</screen>
+			<para>axis=0 按列计算的均值</para>
+			<para>axis=1 按行计算的均值</para>
 		</section>
 	</section>
 
 	<section>
 		<title>添加操作</title>
-		<programlisting>
+		<section>
+			<title>添加列</title>
+
+			<programlisting>
 		<![CDATA[
 import pandas as pd
 
@@ -492,16 +569,46 @@ df = pd.DataFrame(data)
 df['年龄'] = [23, 25, 26]
 print(df)		
 		]]>
-		</programlisting>
-		<para>输出结果</para>
-		<screen>
+			</programlisting>
+			<para>输出结果</para>
+			<screen>
 		<![CDATA[
    序号  姓名  年龄
 0   1  张三  23
 1   2  李四  25
 2   3  王五  26		
 		]]>
-		</screen>
+			</screen>
+		</section>
+		<section>
+			<title>追加数据</title>
+			<para>向 DataFrame 尾部追加数据</para>
+			<programlisting>
+		<![CDATA[
+import pandas as pd
+
+df = pd.DataFrame([[1, 2], [3, 4]], columns=['col1', 'col2'])
+df1 = pd.DataFrame([[5, 6], [7, 8]], columns=['col1', 'col2'])
+df2 = pd.DataFrame([[9, 10], [11, 12]], columns=['col1', 'col2'])
+
+df = df.append(df1)
+df = df.append(df2)
+print(df)
+		]]>
+			</programlisting>
+			<para>输出结果</para>
+			<screen>
+		<![CDATA[
+   col1  col2
+0     1     2
+1     3     4
+0     5     6
+1     7     8
+0     9    10
+1    11    12		
+		]]>
+			</screen>
+		</section>
 	</section>
 
 	<section>
@@ -591,7 +698,122 @@ print(df.drop(columns=df.columns[[1, 2]]))
 		</literallayout>
 	</section>
 	<section>
+		<title>插入数据</title>
+		<section>
+			<title>插入一列数据</title>
+			<para>在 Dataframe 的指定列后面插入数据</para>
+			<literallayout>
+		<![CDATA[
+Dataframe.insert(loc, column, value, allow_duplicates=False):
+
+参数介绍：
+	loc:  int型，表示第几列；若在第一列插入数据，则 loc=0
+	column: 给插入的列取名，如 column='新的一列'
+	value：数据，array，series
+	allow_duplicates: 是否允许列名重复，选择Ture表示允许新的列名与已存在的列名重复。
+		]]>
+			</literallayout>
+
+			<programlisting>
+			<![CDATA[
+import numpy as np
+import pandas as pd
+
+data = pd.DataFrame(np.arange(16).reshape(4, 4), columns=list('ABCD'))
+print(data)
+print('-' * 20, '在最左侧插入一列', '-' * 20)
+data.insert(loc=0, column='新增一列', value='1')
+print(data)
+print('-' * 20, '在第六列后面增加一列', '-' * 20)
+data.insert(loc=2, column='新增列', value=2)
+print(data)
+print('-' * 20, '插入重复列名称', '-' * 20)
+data.insert(loc=6, column='D', value=3, allow_duplicates=True)
+print(data)
+
+			]]>
+			</programlisting>
+			<para></para>
+			<screen>
+			<![CDATA[
+import numpy as np
+import pandas as pd
+
+data = pd.DataFrame(np.arange(16).reshape(4, 4), columns=list('ABCD'))
+print(data)
+print('-' * 20, '在最左侧插入一列', '-' * 20)
+data.insert(loc=0, column='新增一列', value='1')
+print(data)
+print('-' * 20, '在第六列后面增加一列', '-' * 20)
+data.insert(loc=2, column='新增列', value=2)
+print(data)
+print('-' * 20, '插入重复列名称', '-' * 20)
+data.insert(loc=6, column='D', value=3, allow_duplicates=True)
+print(data)
+
+			]]>
+			</screen>
+		</section>
+	</section>
+	<section>
 		<title>替换操作</title>
+		<para></para>
+		<programlisting>
+		<![CDATA[
+import numpy as np
+import pandas as pd
+
+df = pd.DataFrame(np.arange(9).reshape(3, 3), index=[
+                  'row1', 'row2', 'row3'], columns=['col1', 'col2', 'col3'])
+print(df)
+
+print('-' * 20, '修改列标签', '-' * 20)
+df.columns = ['A', 'B', 'C']
+print(df)
+
+print('-' * 20, '修改列标签 rename()', '-' * 20)
+df.rename(columns={'A': '第一列', 'B': '第二列', 'C': '第三列'}, inplace=True)
+print(df)
+
+print('-' * 20, '修改列标签', '-' * 20)
+df.index = ['a', 'b', 'c']
+print(df)
+
+print('-' * 20, '修改行标签 rename()', '-' * 20)
+df.rename(index={'a': '第一行', 'b': '第二行', 'c': '第三行'}, inplace=True)
+print(df)
+		
+		]]>
+		</programlisting>
+		<para>输出结果</para>
+		<screen>
+		<![CDATA[
+      col1  col2  col3
+row1     0     1     2
+row2     3     4     5
+row3     6     7     8
+-------------------- 修改列标签 --------------------
+      A  B  C
+row1  0  1  2
+row2  3  4  5
+row3  6  7  8
+-------------------- 修改列标签 rename() --------------------
+      第一列  第二列  第三列
+row1    0    1    2
+row2    3    4    5
+row3    6    7    8
+-------------------- 修改列标签 --------------------
+   第一列  第二列  第三列
+a    0    1    2
+b    3    4    5
+c    6    7    8
+-------------------- 修改行标签 rename() --------------------
+     第一列  第二列  第三列
+第一行    0    1    2
+第二行    3    4    5
+第三行    6    7    8		
+		]]>
+		</screen>
 		<programlisting>
 		<![CDATA[
 import numpy as np
@@ -637,36 +859,8 @@ print(df)
 		]]>
 		</screen>
 	</section>
-	<section>
-		<title>数据追加</title>
-		<programlisting>
-		<![CDATA[
-import pandas as pd
 
-df = pd.DataFrame([[1, 2], [3, 4]], columns=['col1', 'col2'])
-df1 = pd.DataFrame([[5, 6], [7, 8]], columns=['col1', 'col2'])
-df2 = pd.DataFrame([[9, 10], [11, 12]], columns=['col1', 'col2'])
 
-df = df.append(df1)
-df = df.append(df2)
-print(df)
-		
-		]]>
-		</programlisting>
-		<para>输出结果</para>
-		<screen>
-		<![CDATA[
-   col1  col2
-0     1     2
-1     3     4
-0     5     6
-1     7     8
-0     9    10
-1    11    12		
-		]]>
-		</screen>
-	</section>
-	
 	<section>
 		<title>筛选</title>
 		<programlisting>
@@ -877,21 +1071,136 @@ neo@MacBook-Pro-Neo ~/workspace/python/pandas % python3.9 /Users/neo/workspace/p
 		</screen>
 	</section>
 	<section>
-		<title>数据去重</title>
+		<title>分类聚合</title>
 		<programlisting>
-			<![CDATA[
-df.drop_duplicates(['姓名'],inplace=True)			
-			]]>
+		<![CDATA[
+import pandas as pd
+
+data = {'序号': list(range(6)),
+        '姓名': ['张三', '李四', '王五', '赵六', '牛七', '马八'],
+        '年龄': [23, 25, 26, 25, 25, 27],
+        '生日': ['2001-12-01', '2001-12-05', '2001-10-01', '2001-1-5', '2002-2-15', '2001-08-01']
+        }
+
+df = pd.DataFrame(data)
+print('-' * 20, "原始数据", '-' * 20)
+print(df)
+print('-' * 20, "按年龄分组", '-' * 20)
+ages = df.groupby(['年龄'])
+for k, v in ages:
+    print("{0} 岁年龄组：".format(k))
+    print(v)
+    print()
+print('-' * 20, "按年龄分组并计算数量", '-' * 20)
+ages = df.groupby(['年龄'])['年龄'].count()
+print(ages)		
+		]]>
 		</programlisting>
+		<para>输出结果</para>
+		<screen>
+		<![CDATA[
+-------------------- 原始数据 --------------------
+   序号  姓名  年龄          生日
+0   0  张三  23  2001-12-01
+1   1  李四  25  2001-12-05
+2   2  王五  26  2001-10-01
+3   3  赵六  25    2001-1-5
+4   4  牛七  25   2002-2-15
+5   5  马八  27  2001-08-01
+-------------------- 按年龄分组 --------------------
+23 岁年龄组：
+   序号  姓名  年龄          生日
+0   0  张三  23  2001-12-01
+
+25 岁年龄组：
+   序号  姓名  年龄          生日
+1   1  李四  25  2001-12-05
+3   3  赵六  25    2001-1-5
+4   4  牛七  25   2002-2-15
+
+26 岁年龄组：
+   序号  姓名  年龄          生日
+2   2  王五  26  2001-10-01
+
+27 岁年龄组：
+   序号  姓名  年龄          生日
+5   5  马八  27  2001-08-01
+
+-------------------- 按年龄分组并计算数量 --------------------
+年龄
+23    1
+25    3
+26    1
+27    1
+Name: 年龄, dtype: int64		
+		]]>
+		</screen>
 	</section>
 	<section>
-		<title></title>
+		<title>数据去重</title>
+		<para>df.drop_duplicates(['姓名'],inplace=True)	</para>
 		<programlisting>
 			<![CDATA[
-df['创建时间'] = df['创建时间'].dt.strftime('%Y-%m-%d')			
+import pandas as pd
+
+data = {'序号': list(range(6)),
+        '姓名': ['张三', '李四', '张三', '赵六', '张三', '马八'],
+        '年龄': [23, 25, 26, 25, 25, 27],
+        '生日': ['2001-12-01', '2001-12-05', '2001-10-01', '2001-1-5', '2002-2-15', '2001-08-01']
+        }
+
+df = pd.DataFrame(data)
+print('-' * 20, "原始数据", '-' * 20)
+print(df)
+print('-' * 20, "取出重复的姓名", '-' * 20)
+df.drop_duplicates(['姓名'], inplace=True)
+print(df)
+		
+			]]>
+		</programlisting>
+		<screen>
+		<![CDATA[
+-------------------- 原始数据 --------------------
+   序号  姓名  年龄          生日
+0   0  张三  23  2001-12-01
+1   1  李四  25  2001-12-05
+2   2  张三  26  2001-10-01
+3   3  赵六  25    2001-1-5
+4   4  张三  25   2002-2-15
+5   5  马八  27  2001-08-01
+-------------------- 取出重复的姓名 --------------------
+   序号  姓名  年龄          生日
+0   0  张三  23  2001-12-01
+1   1  李四  25  2001-12-05
+3   3  赵六  25    2001-1-5
+5   5  马八  27  2001-08-01		
+		]]>
+		</screen>
+	</section>
+	<section>
+		<title>数据格式化</title>
+		<para>日期格式化</para>
+		<para>df['创建时间'] = df['创建时间'].dt.strftime('%Y-%m-%d')</para>
+		<programlisting>
+			<![CDATA[	
+import pandas as pd
+
+data = {'序号': pd.Series([1, 2, 3]),
+        '姓名': ['张三', '李四', '王五'],
+        '年龄': [23, 25, 26],
+        '生日': ['2001-12-01', '2001-12-05', '2001-10-01']
+        }
+
+df = pd.DataFrame(data)
+df.生日 = pd.to_datetime(df.生日)
+print(df)
+df['生日'] = df['生日'].dt.strftime('%Y-%m-%d %H:%M:%S')
+print(df)
+		
 			]]>
 		</programlisting>
 	</section>
+
 </section>
 <section id="pandas.Series">
 	<title>序列</title>
