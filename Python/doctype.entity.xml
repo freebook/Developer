@@ -9,10 +9,11 @@
 <!ENTITY chapter.python.type.xml			SYSTEM "chapter.python.type.xml">
 	
 <!ENTITY chapter.library.xml				SYSTEM "chapter.library.xml">
-<!ENTITY chapter.library.syslog.xml			SYSTEM "chapter.library.syslog.xml">
-<!ENTITY chapter.library.threading.xml		SYSTEM "chapter.library.threading.xml">
-<!ENTITY chapter.library.socket.xml			SYSTEM "chapter.library.socket.xml">
+<!ENTITY section.library.syslog.xml			SYSTEM "section.library.syslog.xml">
+<!ENTITY section.library.threading.xml		SYSTEM "section.library.threading.xml">
+<!ENTITY section.library.socket.xml			SYSTEM "section.library.socket.xml">
 <!ENTITY section.library.random.xml			SYSTEM "section.library.random.xml">
+<!ENTITY section.library.process.xml		SYSTEM "section.library.process.xml">
 <!ENTITY chapter.exe.xml					SYSTEM "chapter.exe.xml">
 <!ENTITY chapter.3rdparty.xml				SYSTEM "chapter.3rdparty.xml">
 
@@ -54,6 +55,7 @@
 <!ENTITY chapter.ops.xml					SYSTEM "chapter.ops.xml">
 <!ENTITY section.ops.logging.xml			SYSTEM "section.ops.logging.xml">
 <!ENTITY section.ops.firewall.xml			SYSTEM "section.ops.firewall.xml">
+<!ENTITY section.ops.watchdog.xml			SYSTEM "section.ops.watchdog.xml">
 
 <!ENTITY chapter.terminal.xml				SYSTEM "chapter.terminal.xml">
 <!ENTITY section.terminal.prompt_toolkit.xml	SYSTEM "section.terminal.prompt_toolkit.xml">

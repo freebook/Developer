@@ -3,4 +3,5 @@
 	<title>自动化运维</title>
 	&section.ops.logging.xml;
 	&section.ops.firewall.xml;
+	&section.ops.watchdog.xml;
 </chapter>

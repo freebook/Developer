@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section id="subprocess"> 
+	<title>subprocess</title>
+	<section>
+		<title>check_output</title>
+		<programlisting>
+			<![CDATA[
+sp = subprocess.check_output(cmd)
+text = sp.decode('UTF8')
+print(text)
+		]]>
+		</programlisting>
+	</section>
+</section>

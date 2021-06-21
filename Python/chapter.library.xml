@@ -22,10 +22,10 @@ print(dt)
 	</screen>
 </section>	
 	&section.library.random.xml;
-	&chapter.library.threading.xml;
-	&chapter.library.syslog.xml;
-	&chapter.library.socket.xml;
-
+	&section.library.threading.xml;
+	&section.library.syslog.xml;
+	&section.library.socket.xml;
+	&section.library.process.xml;
 <section id="daemon">
 	<title>Daemon</title>
 	<para>http://www.myelin.co.nz/post/2003/3/13/#200303135</para>
@@ -185,7 +185,7 @@ cd Imaging-1.1.6/
 	<section id="getopt">
 		<title>getopt – Command line option parsing</title>
 	</section>
-	&chapter.library.syslog.xml;
+	&section.library.syslog.xml;
 <section id="python-subversion">
 	<title>python-subversion</title>
 	<screen>
