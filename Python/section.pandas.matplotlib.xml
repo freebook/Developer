@@ -29,7 +29,7 @@ plt.show()
 		<graphic format="png" fileref="../images/pandas/matplotlib/line_1.png" width="100%" srccredit="neo" />
 	</section>
 	<section>
-		<title></title>
+		<title>条形图</title>
 		<programlisting>
 		<![CDATA[
 import pandas as pd
@@ -69,7 +69,7 @@ plt.show()
 		<graphic format="png" fileref="../images/pandas/matplotlib/barh.png" width="100%" srccredit="neo" />
 	</section>
 	<section>
-		<title></title>
+		<title>直方图</title>
 		<programlisting>
 		<![CDATA[
 import pandas as pd
@@ -103,7 +103,7 @@ plt.show()
 		<graphic format="png" fileref="../images/pandas/matplotlib/hist_2.png" width="100%" srccredit="neo" />
 	</section>
 	<section>
-		<title></title>
+		<title>区域图</title>
 		<programlisting>
 		<![CDATA[
 import pandas as pd
@@ -118,7 +118,7 @@ plt.show()
 		<graphic format="png" fileref="../images/pandas/matplotlib/area_1.png" width="100%" srccredit="neo" />
 	</section>
 	<section>
-		<title></title>
+		<title>饼形图</title>
 		<programlisting>
 		<![CDATA[
 import pandas as pd
@@ -134,7 +134,7 @@ plt.show()
 		<graphic format="png" fileref="../images/pandas/matplotlib/pie_1.png" width="100%" srccredit="neo" />
 	</section>
 	<section>
-		<title></title>
+		<title>XY散点图</title>
 		<programlisting>
 		<![CDATA[
 import pandas as pd
@@ -146,10 +146,10 @@ plt.show()
 		
 		]]>
 		</programlisting>
-		<graphic format="png" fileref="../images/pandas/matplotlib/scatter_1.png" width="100%" srccredit="neo" />		
+		<graphic format="png" fileref="../images/pandas/matplotlib/scatter_1.png" width="100%" srccredit="neo" />
 	</section>
 	<section>
-		<title></title>
+		<title>箱形图</title>
 		<programlisting>
 		<![CDATA[
 import pandas as pd
@@ -160,6 +160,6 @@ df.plot.box()
 plt.show()		
 		]]>
 		</programlisting>
-<graphic format="png" fileref="../images/pandas/matplotlib/box_1.png" width="100%" srccredit="neo" />				
+		<graphic format="png" fileref="../images/pandas/matplotlib/box_1.png" width="100%" srccredit="neo" />
 	</section>
 </section>
