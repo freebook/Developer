@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <section id="pandas.DataFrame">
-	<title>DataFrame</title>
+	<title>数据帧(DataFrame)</title>
 	<section>
 		<title>什么是 DataFrame</title>
 		<para>通俗的讲数据帧(DataFrame)是二维数据矩阵，即数据由行和列组成的表格，类似数据库中的表和 Excel 电子表格。</para>
@@ -1314,12 +1314,4 @@ print(df.info())
 
 	</section>
 
-</section>
-<section id="pandas.Series">
-	<title>序列</title>
-	<programlisting>
-		<![CDATA[
-		
-		]]>
-	</programlisting>
 </section>

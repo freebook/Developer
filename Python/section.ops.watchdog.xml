@@ -39,6 +39,111 @@ if __name__ == "__main__":
 		]]>
 		</programlisting>
 		<section>
+			<title>Observer</title>
+			<programlisting>
+			<![CDATA[
+# 设置超时时间		
+watchdog.observers.Observer(timeout=30)			
+
+# 监控指定路径path，该路径触发任何事件都会调用event_handler来处理，如果path是目录，recursive=True 开启会递归模式，监控该目录下的所有变化。
+observer.schedule(event_handler, path, recursive=False)
+
+# 添加一个事件处理器到watch中
+observer.add_handler_for_watch(event_handler, watch)
+
+# 从watch中移除一个事件处理器
+observer.remove_handler_for_watch(event_handler, watch)
+
+# 移除一个watch及这个watch上的所有事件处理器
+observer.unschedule(watch)
+
+# 移除所有watch及关联的事件处理器
+observer.unschedule_all()
+# 等同于observer.unschedule_all()
+observer.on_thread_stop()
+
+# 启动 observer 线程
+observer.start()
+
+# 停止observer线程
+observer.stop()
+			]]>
+			</programlisting>
+			<itemizedlist>
+				<title>Watchdog 几种 Observer 类型:</title>
+				<listitem>InotifyObserver，Linux系统默认使用的观察目录的调度事件，效率比较高。 </listitem>
+				<listitem>PollingObserver，与平台无关，轮询目录以检测文件的更改，效率比较低。</listitem>
+				<listitem>WindowsApiObserver，Windows系统默认使用的观察目录的调度事件，效率比较高。 </listitem>
+				<listitem>FSEventsObserver，macOS 系统默认使用的调度事件</listitem>
+				<listitem>KqueueObserver，FreeBSD 系统默认使用</listitem>
+			</itemizedlist>
+			<para>默认 Observer 会判断操作系统类型，选择最佳的方式。下面👇是 Observer 的源码</para>
+			<programlisting>
+			<![CDATA[
+# Linux系统
+if platform.is_linux():
+    try:
+        from .inotify import InotifyObserver as Observer
+    except UnsupportedLibc:
+        from .polling import PollingObserver as Observer
+# darwin系统
+elif platform.is_darwin():
+    # FIXME: catching too broad. Error prone
+    try:
+        from .fsevents import FSEventsObserver as Observer
+    except:
+        try:
+            from .kqueue import KqueueObserver as Observer
+            warnings.warn("Failed to import fsevents. Fall back to kqueue")
+        except:
+            from .polling import PollingObserver as Observer
+            warnings.warn("Failed to import fsevents and kqueue. Fall back to polling.")
+# bsd系统
+elif platform.is_bsd():
+    from .kqueue import KqueueObserver as Observer
+# windows系统
+elif platform.is_windows():
+    # TODO: find a reliable way of checking Windows version and import
+    # polling explicitly for Windows XP
+    try:
+        from .read_directory_changes import WindowsApiObserver as Observer
+    except:
+        from .polling import PollingObserver as Observer
+        warnings.warn("Failed to import read_directory_changes. Fall back to polling.")
+
+else:
+    from .polling import PollingObserver as Observer		
+			]]>
+			</programlisting>
+			<para>手工选择 Observer，注意下面代码 observer = PollingObserver()</para>
+			<programlisting>
+			<![CDATA[
+import sys
+import time
+import logging
+# from watchdog.observers import Observer
+from watchdog.observers.polling import PollingObserver
+from watchdog.events import LoggingEventHandler
+
+if __name__ == "__main__":
+    logging.basicConfig(level=logging.INFO,
+                        format='%(asctime)s - %(message)s',
+                        datefmt='%Y-%m-%d %H:%M:%S')
+    path = sys.argv[1] if len(sys.argv) > 1 else '.'
+    event_handler = LoggingEventHandler()
+    observer = PollingObserver()
+    observer.schedule(event_handler, path, recursive=True)
+    observer.start()
+    try:
+        while True:
+            time.sleep(1)
+    except KeyboardInterrupt:
+        observer.stop()
+    observer.join()
+			]]>
+			</programlisting>
+		</section>
+		<section>
 			<title>创建/删除/修改/移动</title>
 			<para>定义创建/删除/修改/移动四种事件</para>
 			<programlisting>
@@ -181,38 +286,7 @@ if __name__ == "__main__":
 			]]>
 			</programlisting>
 		</section>
-		<section>
-			<title>超时时间设置</title>
-			<programlisting>
-			<![CDATA[
-# 设置超时时间		
-watchdog.observers.Observer(timeout=30)			
-
-# 监控指定路径path，该路径触发任何事件都会调用event_handler来处理，如果path是目录，recursive=True 开启会递归模式，监控该目录下的所有变化。
-observer.schedule(event_handler, path, recursive=False)
-
-# 添加一个事件处理器到watch中
-observer.add_handler_for_watch(event_handler, watch)
-
-# 从watch中移除一个事件处理器
-observer.remove_handler_for_watch(event_handler, watch)
-
-# 移除一个watch及这个watch上的所有事件处理器
-observer.unschedule(watch)
-
-# 移除所有watch及关联的事件处理器
-observer.unschedule_all()
-# 等同于observer.unschedule_all()
-observer.on_thread_stop()
-
-# 启动 observer 线程
-observer.start()
-
-# 停止observer线程
-observer.stop()
-			]]>
-			</programlisting>
-		</section>
+		
 		<section>
 			<title>自动备份程序</title>
 			<para>事情的 起因 - 经过 - 结果</para>

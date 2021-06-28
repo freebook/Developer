@@ -32,9 +32,8 @@ import modin.pandas as pd
 		&section.pandas.sql.xml;
 	</section>
 	&section.pandas.dataframe.xml;
-	<section>
-		<title>数据可视化</title>
-	</section>
+	&section.pandas.series.xml;
+	&section.pandas.matplotlib.xml;
 	<section>
 		<title>FAQ</title>
 		<section>

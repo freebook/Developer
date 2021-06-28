@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE subject SYSTEM "/usr/local/Cellar/docbook/5.1_1/docbook/xml/5.0/dtd/docbook.dtd"
 	[
-	<!ENTITY homepage "http://netkiller.sf.net/">
-	<!ENTITY mirror "http://neo.zenw.org/">
+	<!ENTITY homepage "http://www.netkiller.cn/">
+	<!ENTITY mirror "http://netkiller.sf.net">
 
 	<!ENTITY Neo "http://netkiller.sf.net/">
 	<!ENTITY BG7NYT "&Neo;">
