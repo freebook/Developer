@@ -1013,5 +1013,123 @@ plt.show()
 		</programlisting>
 		<graphic format="png" fileref="../images/pandas/matplotlib/sin_1.png" width="100%" srccredit="neo" />
 	</section>
+	<section>
+		<title>plot 设置</title>
+		<para>df.plot 参数</para>
+		<literallayout>
+		<![CDATA[
+df.plot(x, y, kind, figsize, title, grid, legend, style)
 
+x 		x 横坐标变量
+y 		Y 纵坐标变量
+kind 	可视化图的种类，如line,hist, bar, barh, pie, kde, scatter
+figsize 画布尺寸
+title 	标题
+grid 	是否显示格子线条
+legend 	是否显示图例
+style 	图的风格		
+		]]>
+		</literallayout>
+		<section>
+			<title></title>
+			<programlisting>
+			<![CDATA[
+import matplotlib as mpl
+import matplotlib.pyplot as plt
+import numpy as np
+import pandas as pd
+
+mpl.rcParams['font.sans-serif'] = ['PingFang HK']
+mpl.rcParams['font.serif'] = ['PingFang HK']
+plt.rcParams['axes.unicode_minus'] = False
+
+data = {'序号': list(range(6)),
+        '姓名': ['张三', '李四', '王五', '赵六', '牛七', '马八'],
+        '语文': [78, 75, 80, 67, 92, 96],
+        '数学': [88, 85, 60, 56, 90, 100],
+        '英语': [75, 50, 69, 98, 82, 79],
+        '历史': [72, 87, 65, 99, 72, 89]
+        }
+
+df = pd.DataFrame(data)
+print(df)
+df.plot.line(x='姓名', y=['语文', '数学', '英语', '历史'],  # 4个变量可视化
+             legend=True,  # 显示图例
+             subplots=True,  # 多子图并存
+             layout=(2, 2),  # 图形排列2行2列
+             figsize=(20, 10),  # 图形尺寸
+             title='成绩单'  # 标题
+             )
+
+plt.show()
+			]]>
+			</programlisting>
+			<graphic format="png" fileref="../images/pandas/matplotlib/subplots_1.png" width="100%" srccredit="neo" />
+		</section>
+		<section>
+			<title>隐藏图例</title>
+			<para>legend=False</para>
+			<programlisting>
+		<![CDATA[
+
+import matplotlib as mpl
+import matplotlib.pyplot as plt
+import numpy as np
+import pandas as pd
+
+mpl.rcParams['font.sans-serif'] = ['PingFang HK']
+mpl.rcParams['font.serif'] = ['PingFang HK']
+plt.rcParams['axes.unicode_minus'] = False
+
+data = {'序号': list(range(6)),
+        '姓名': ['张三', '李四', '王五', '赵六', '牛七', '马八'],
+        '年龄': [23, 25, 26, 25, 25, 27],
+        '生日': ['2001-12-01', '2001-12-05', '2001-10-01', '2001-1-5', '2001-2-15', '2001-08-01'],
+        '数学': [88, 85, 60, 56, 90, 100],
+        '语文': [78, 75, 80, 67, 92, 96]
+        }
+
+df = pd.DataFrame(data)
+df.生日 = pd.to_datetime(df.生日)
+df.plot.line(x='姓名', y='生日', legend=False)
+plt.grid()
+plt.show()
+		
+		]]>
+			</programlisting>
+		</section>
+	</section>
+	<section>
+		<title>保存为图片</title>
+		<programlisting>
+		<![CDATA[
+plt.savefig('1.svg')
+
+plt.savefig('2.png',dpi=400,bbox_inches='tight')
+		]]>
+		</programlisting>
+	</section>
+	<section>
+		<title>matplotlib 绘图风格</title>
+		<programlisting>
+		<![CDATA[
+import matplotlib.pyplot as plt
+print(plt.style.available)	
+		]]>
+		</programlisting>
+		<para>输出风格</para>
+		<screen>
+		<![CDATA[
+['Solarize_Light2', '_classic_test_patch', 'bmh', 'classic', 'dark_background', 'fast', 'fivethirtyeight', 'ggplot', 'grayscale', 'seaborn', 'seaborn-bright', 'seaborn-colorblind', 'seaborn-dark', 'seaborn-dark-palette', 'seaborn-darkgrid', 'seaborn-deep', 'seaborn-muted', 'seaborn-notebook', 'seaborn-paper', 'seaborn-pastel', 'seaborn-poster', 'seaborn-talk', 'seaborn-ticks', 'seaborn-white', 'seaborn-whitegrid', 'tableau-colorblind10']		
+		]]>
+		</screen>
+		<para>应用一个风格</para>
+		<programlisting>
+		<![CDATA[
+plt.style.use('ggplot')		
+		]]>
+		</programlisting>
+		<para>风格参考</para>
+		<graphic format="png" fileref="../images/pandas/matplotlib/style.png" width="100%" srccredit="neo" />
+	</section>
 </section>
