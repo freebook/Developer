@@ -17,6 +17,7 @@
 
 		<section>
 			<title>折线图</title>
+			<para>折线图的用途主要用于展示数据随着时间变化的趋势。</para>
 			<programlisting>
 		<![CDATA[
 import pandas as pd
@@ -34,6 +35,7 @@ plt.show()
 		</section>
 		<section>
 			<title>条形图</title>
+			<para>条形图主要用于表示离散型数据资料，即计数数据</para>
 			<programlisting>
 		<![CDATA[
 import pandas as pd
@@ -74,6 +76,7 @@ plt.show()
 		</section>
 		<section>
 			<title>直方图</title>
+			<para>直方图(Histogram)，又称质量分布图，是一种统计报告图，由一系列高度不等的纵向条纹或线段表示数据分布的情况。 一般用横轴表示数据类型，纵轴表示分布情况。</para>
 			<programlisting>
 		<![CDATA[
 import pandas as pd
@@ -108,6 +111,7 @@ plt.show()
 		</section>
 		<section>
 			<title>区域图</title>
+			<para>面积图又称区域图，面积图强调数量随时间而变化的程度，也可用于引起人们对总值趋势的注意</para>
 			<programlisting>
 		<![CDATA[
 import pandas as pd
@@ -123,6 +127,7 @@ plt.show()
 		</section>
 		<section>
 			<title>饼形图</title>
+			<para>饼形图主要用于展示数据总额的百分比。缺点是，当多个数据值都小于饼图的 5% 时，区分各个扇区将十分困难。</para>
 			<programlisting>
 		<![CDATA[
 import pandas as pd
@@ -139,6 +144,8 @@ plt.show()
 		</section>
 		<section>
 			<title>XY散点图</title>
+			<para>散点图是指在回归分析中，数据点在直角坐标系平面上的分布图，散点图表示因变量随自变量而变化的大致趋势，据此可以选择合适的函数对数据点进行拟合。</para>
+			<para>用两组数据构成多个坐标点，考察坐标点的分布，判断两变量之间是否存在某种关联或总结坐标点的分布模式。散点图将序列显示为一组点。值由点在图表中的位置表示。类别由图表中的不同标记表示。散点图通常用于比较跨类别的聚合数据。</para>
 			<programlisting>
 		<![CDATA[
 import pandas as pd
@@ -154,6 +161,8 @@ plt.show()
 		</section>
 		<section>
 			<title>箱形图</title>
+			<para>箱形图（英文：Box plot），又称为盒须图、盒式图、盒状图或箱线图，是一种用作显示一组数据分散情况资料的统计图。因型状如箱子而得名。在各种领域也经常被使用，常见于品质管理。不过作法相对较繁琐。</para>
+			<para>箱形图于1977年由美国著名统计学家约翰·图基（John Tukey）发明。它能显示出一组数据的最大值、最小值、中位数、及上下四分位数。</para>
 			<programlisting>
 		<![CDATA[
 import pandas as pd

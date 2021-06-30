@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section>
+	<title>Pandas 实用函数</title>
+	<section>
+		<title>日期范围</title>
+		<programlisting>
+		<![CDATA[
+import pandas as pd
+date = pd.date_range('2021-1-1', '2021-11-30', freq='15d')
+print(date)		
+		]]>
+		</programlisting>
+		<programlisting>
+		<![CDATA[
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+
+df = pd.DataFrame(np.random.randn(15, 4), index=pd.date_range(
+    '2021/01/01', periods=15), columns=list('ABCD'))
+
+df.plot()
+plt.show()		
+		]]>
+		</programlisting>
+	</section>
+	<section>
+		<title></title>
+	</section>
+</section>

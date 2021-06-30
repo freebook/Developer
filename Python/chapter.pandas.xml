@@ -34,6 +34,7 @@ import modin.pandas as pd
 	&section.pandas.dataframe.xml;
 	&section.pandas.series.xml;
 	&section.pandas.matplotlib.xml;
+	&section.pandas.method.xml;
 	<section>
 		<title>FAQ</title>
 		<section>

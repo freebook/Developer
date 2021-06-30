@@ -33,5 +33,15 @@ pd.DataFrame(np.random.rand(10,2))
 		]]>
 		</programlisting>
 	</section>
-	
+	<section>
+		<title>生成数列</title>
+		<para>从0 到 100，间隔为10的数值序列</para>
+		<programlisting>
+		<![CDATA[
+n = np.linspace(start = 0, stop = 100, num = 11)
+		
+x = np.linspace(-3, 3, 50)		
+		]]>
+		</programlisting>
+	</section>
 </section>
