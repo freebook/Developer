@@ -5,6 +5,7 @@
 	&section.python.introduction.xml;
 	&section.python.setup.xml;
 	&section.python.pypi.xml;
+	&section.python.container.xml;
 </chapter>
 <chapter id="stdio">
 	<title>Input/Output</title>
