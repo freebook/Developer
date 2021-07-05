@@ -4,4 +4,5 @@
 	&section.ops.logging.xml;
 	&section.ops.firewall.xml;
 	&section.ops.watchdog.xml;
+	&section.python.container.xml;
 </chapter>

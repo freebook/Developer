@@ -64,7 +64,7 @@ if __name__ == "__main__":
 	<section>
 		<title>在 Docker 容器中运行 Python 项目</title>
 		<para>要在Docker上运行应用程序，首先必须使用 Dockerfile 脚本构建一个容器，而且必须包含使用的所有依赖项，包括 python 和 依赖库。</para>
-		<para>新建一个 requirements.txt 文件，包含所有依赖的 python 包，我们的例子中只有一个 Flask。</para>
+		<para>新建一个 requirements.txt 文件，包含所有依赖的 python 包，我们的例子中只有用到了一个 Flask。</para>
 		<screen>
 		<![CDATA[
 flask==2.0.1		
@@ -100,6 +100,161 @@ docker build -t flask:0.0.1 .
 		<screen>
 		<![CDATA[
 docker run --name flask -p 5000:5000 flask:0.0.1		
+		]]>
+		</screen>
+		<para>容器启动运行后，测试无误，上传docker镜像到仓库</para>
+		<screen>
+		<![CDATA[
+➜  flask git:(master) docker login --username netkiller
+Password: 
+Login Succeeded
+
+
+		]]>
+		</screen>
+		<screen>
+		<![CDATA[
+➜  flask git:(master) docker tag flask:0.0.1  netkiller/flask:latest		
+		]]>
+		</screen>
+		<screen>
+		<![CDATA[
+➜  flask git:(master) docker push netkiller/flask:latest
+The push refers to repository [docker.io/netkiller/flask]
+3591098640e3: Pushed 
+86c12f640351: Pushed 
+f4559c1df7ec: Pushed 
+cd6b2a9ae627: Pushed 
+84c97f2e3099: Pushed 
+b0cb6a43f300: Pushed 
+4b4c002ee6ca: Pushed 
+cdc9dae211b4: Pushed 
+7095af798ace: Pushed 
+fe6a4fdbedc0: Pushed 
+e4d0e810d54a: Pushed 
+4e006334a6fd: Pushed 
+latest: digest: sha256:c3be7315046aa8abe6851475658ea1b23ab1b44d411b0a5be650f38d2b197bc3 size: 2842		
+		]]>
+		</screen>
+		<screen>
+		<![CDATA[
+		
+		]]>
+		</screen>
+	</section>
+	<section>
+		<title>在 kubernetes 中部署项目</title>
+		<para>安装 kubernetes 测试环境</para>
+		<screen>
+		<![CDATA[
+$ brew install minikube
+$ brew install kubectl
+		]]>
+		</screen>
+		<para>启动 minikube</para>
+		<screen>
+		<![CDATA[
+		
+minikube start --memory 2048mb --cpus 2 --cache-images=true --driver=hyperkit \
+--image-mirror-country=cn --registry-mirror="https://registry.docker-cn.com,https://docker.mirrors.ustc.edu.cn" --insecure-registry="127.0.0.1:5000,192.168.3.0/24,192.168.64.0/24,172.17.0.0/16,10.10.0.0/24"
+
+		]]>
+		</screen>
+		<para>创建密钥</para>
+		<screen>
+		<![CDATA[
+kubectl create secret docker-registry docker-hub \
+--docker-server=https://index.docker.io/v2/ \
+--docker-username=netkiller \
+--docker-password=passw0rd \
+--docker-email=netkiller@msn.com
+		]]>
+		</screen>
+		<para>查看密钥，确保 docker-hub 被创建</para>
+		<screen>
+		<![CDATA[
+		
+➜  Python git:(master) ✗ kubectl get secret
+NAME                  TYPE                                  DATA   AGE
+default-token-lcmzw   kubernetes.io/service-account-token   3      2m24s
+docker-hub            kubernetes.io/dockerconfigjson        1      35s
+
+		]]>
+		</screen>
+		<para>flask.yaml 文件</para>
+		<screen>
+		<![CDATA[
+apiVersion: v1
+kind: Service
+metadata:
+  name: flask
+  namespace: default
+  labels:
+    app: flask
+spec:
+  type: NodePort
+  ports:
+    - port: 5000
+      nodePort: 31000
+  selector:
+    app: flask
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: flask
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: flask
+  template:
+    metadata:
+      labels:
+        app: flask
+    spec:
+      containers:
+        - name: flask
+          image: netkiller/flask:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 5000
+      imagePullSecrets:
+        - name: docker-hub
+		
+		]]>
+		</screen>
+		<para>部署</para>
+		<screen>
+		<![CDATA[
+➜  kubernetes git:(master) ✗ kubectl create -f flask.yaml
+service/flask created
+deployment.apps/flask created
+➜  kubernetes git:(master) ✗ minikube service list       
+|-------------|------------|--------------|---------------------------|
+|  NAMESPACE  |    NAME    | TARGET PORT  |            URL            |
+|-------------|------------|--------------|---------------------------|
+| default     | flask      |         5000 | http://192.168.64.9:31000 |
+| default     | kubernetes | No node port |
+| kube-system | kube-dns   | No node port |
+|-------------|------------|--------------|---------------------------|
+		]]>
+		</screen>
+		<para>测试</para>
+		<screen>
+		<![CDATA[
+➜  kubernetes git:(master) ✗ curl http://192.168.64.9:31000
+
+  <h1>《Netkiller Python 手札》</h1>
+  <p>这是一个运行在 Docker 容器中的演示程序.</p>
+		]]>
+		</screen>
+		<para>销毁</para>
+		<screen>
+		<![CDATA[
+➜  kubernetes git:(master) ✗ kubectl delete -f flask.yaml 
+service "flask" deleted
+deployment.apps "flask" deleted                          		
 		]]>
 		</screen>
 	</section>
