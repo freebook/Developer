@@ -22,10 +22,26 @@ sudo apt-get install -y build-essential
 	</section>
 	<section id="centos">
 		<title>CentOS</title>
+		<para>CentOS 8 Stream</para>
+		<screen>
+		<![CDATA[
+dnf install -y nodejs
+		]]>
+		</screen>
+		<para>CentOS 7</para>
 		<screen>
 [root@netkiller www]# yum install -y nodejs
 [root@netkiller www]# node --version
 v6.9.1
+		</screen>
+		<para>安装 cnpm</para>
+		<screen>
+		<![CDATA[
+[root@gitlab ~]# npm config set registry https://registry.npm.taobao.org
+[root@gitlab ~]# npm config get registry
+https://registry.npm.taobao.org/
+[root@gitlab ~]# npm install -g cnpm		
+		]]>
 		</screen>
 	</section>
 	<section>
@@ -49,33 +65,6 @@ neo@MacBook-Pro ~ % node -v
 v8.16.0		
 		]]>
 		</screen>
-	</section>
-	<section id="npm">
-		<title>npm -- node package manager</title>
-		<para>npm registry</para>
-		<screen>
-$ npm install mysql
-		</screen>
-		<section id="npm.mirror">
-			<title>mirror</title>
-			<screen>
-			<![CDATA[
-npm config set registry https://registry.npm.taobao.org			
-			]]>
-			</screen>
-			<screen>
-			<![CDATA[
-npm install --registry=https://registry.npm.taobao.org		
-			]]>
-			</screen>
-		</section>
-		<section>
-			<title>link</title>
-			<screen>
-# npm link gulp
-/root/node_modules/gulp -> /srv/node-v7.10.0-linux-x64/lib/node_modules/gulp
-			</screen>
-		</section>
 	</section>
 	&section.yarn.xml;
 	<section id="pm2">

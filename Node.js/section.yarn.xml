@@ -1,4 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<section id="npm">
+	<title>npm -- node package manager</title>
+	<para>npm registry</para>
+	<screen>
+	<![CDATA[
+$ npm install mysql
+	]]>
+	</screen>
+	<section id="npm.mirror">
+		<title>mirror</title>
+		<screen>
+			<![CDATA[
+npm config set registry https://registry.npm.taobao.org			
+			]]>
+		</screen>
+		<screen>
+			<![CDATA[
+npm install --registry=https://registry.npm.taobao.org		
+			]]>
+		</screen>
+	</section>
+	<section>
+		<title>link</title>
+		<screen>
+		<![CDATA[
+# npm link gulp
+/root/node_modules/gulp -> /srv/node-v7.10.0-linux-x64/lib/node_modules/gulp		
+		]]>
+		</screen>
+	</section>
+</section>
 <section id="Yarn">
 	<title>Yarn</title>
 	<section>
