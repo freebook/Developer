@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section>
+	<title>FAQ</title>
+
+	<section>
+		<title>request to https://api.netkiller.cn/v1/getinfo failed, reason: self signed certificate</title>
+		<para>问题原因是node不是别自签名证书</para>
+		<screen>
+		<![CDATA[
+[www@localhost ~]$ export NODE_TLS_REJECT_UNAUTHORIZED='0'
+[www@localhost ~]$ pm2 restart project --update-env
+		]]>
+		</screen>
+		<para>设置环境变量 NODE_TLS_REJECT_UNAUTHORIZED=0 就可以解决</para>
+		<screen>
+		<![CDATA[
+process.env.NODE_TLS_REJECT_UNAUTHORIZED='0'
+process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = '0';		
+		]]>
+		</screen>
+		
+	</section>
+
+</section>

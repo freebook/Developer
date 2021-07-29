@@ -35,6 +35,14 @@ npm install --registry=https://registry.npm.taobao.org
 	<section>
 		<title>安装</title>
 		<section>
+			<title>npm 安装 yarn</title>
+			<screen>
+			<![CDATA[
+npm install -g yarn			
+			]]>
+			</screen>
+		</section>
+		<section>
 			<title>Ubuntu</title>
 			<screen>
 			<![CDATA[
@@ -54,6 +62,15 @@ curl --silent --location https://rpm.nodesource.com/setup_8.x | sudo bash -
 
 sudo yum install yarn
 		
+			]]>
+			</screen>
+		</section>
+		<section>
+			<title>CentOS 8 Stream</title>
+			<screen>
+			<![CDATA[
+curl -sL https://dl.yarnpkg.com/rpm/yarn.repo -o /etc/yum.repos.d/yarn.repo
+dnf install -y yarn
 			]]>
 			</screen>
 		</section>

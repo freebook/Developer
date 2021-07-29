@@ -194,7 +194,7 @@ app.post('/', function (req, res) {
 			]]>
 			</programlisting>
 		</section>
-		<section id="">
+		<section>
 			<title></title>
 			<programlisting>
 			<![CDATA[
