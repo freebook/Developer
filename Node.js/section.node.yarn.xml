@@ -33,29 +33,27 @@ npm install --registry=https://registry.npm.taobao.org
 <section id="Yarn">
 	<title>Yarn</title>
 	<section>
-		<title>安装</title>
-		<section>
-			<title>npm 安装 yarn</title>
-			<screen>
+		<title>npm 安装 yarn</title>
+		<screen>
 			<![CDATA[
 npm install -g yarn			
 			]]>
-			</screen>
-		</section>
-		<section>
-			<title>Ubuntu</title>
-			<screen>
+		</screen>
+	</section>
+	<section>
+		<title>Ubuntu</title>
+		<screen>
 			<![CDATA[
 curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
 echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
 
 sudo apt update && sudo apt install yarn
 			]]>
-			</screen>
-		</section>
-		<section>
-			<title>CentOS</title>
-			<screen>
+		</screen>
+	</section>
+	<section>
+		<title>CentOS</title>
+		<screen>
 			<![CDATA[
 curl --silent --location https://dl.yarnpkg.com/rpm/yarn.repo | sudo tee /etc/yum.repos.d/yarn.repo
 curl --silent --location https://rpm.nodesource.com/setup_8.x | sudo bash -
@@ -63,16 +61,18 @@ curl --silent --location https://rpm.nodesource.com/setup_8.x | sudo bash -
 sudo yum install yarn
 		
 			]]>
-			</screen>
-		</section>
-		<section>
-			<title>CentOS 8 Stream</title>
-			<screen>
+		</screen>
+	</section>
+	<section>
+		<title>CentOS 8 Stream</title>
+		<screen>
 			<![CDATA[
 curl -sL https://dl.yarnpkg.com/rpm/yarn.repo -o /etc/yum.repos.d/yarn.repo
 dnf install -y yarn
 			]]>
-			</screen>
-		</section>
+		</screen>
+	</section>
+	<section>
+		<title>安装</title>
 	</section>
 </section>
