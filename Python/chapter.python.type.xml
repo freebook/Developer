@@ -120,7 +120,7 @@ for i in range(100):
 			</screen>
 		</section>
 	</section>
-	<section>
+	<section id="array">
 		<title>Array</title>
 		<section>
 			<title>遍历数字</title>
@@ -259,6 +259,17 @@ set(['four', 'three', 'two', 'one'])
 {'banana', 'pineapple', 'orange'}		
 		]]>
 			</programlisting>
+		</section>
+		<section>
+			<title>Dict</title>
+			<para>随机字典的 key 和 value</para>
+			<screen>
+			<![CDATA[
+names = {1: '张三', 2: '李四', 3: '王五', 4: '赵六', 5: '牛七', 6: '马八'}
+print(random.choice(list(names.keys())))
+print(random.choice(list(names.values())))			
+			]]>
+			</screen>
 		</section>
 	</section>
 </chapter>

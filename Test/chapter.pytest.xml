@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<chapter id="index"><?dbhtml dir="pytest"?>
+	<title>Pytest</title>
+	<section>
+		<title>安装</title>
+		<screen>
+		<![CDATA[
+pip install pytest
+pip install selenium
+		]]>
+		</screen>
+		<para>将需要安装的库放入 requirements.txt 文件</para>
+		<screen>
+		<![CDATA[
+pytest			核心库
+pytest-html 	生成html报告
+pytest-xdist 	多线程分发执行
+pytest-ordering 指定执行顺序
+pytest-rerunfailures 失败用例重跑		
+		]]>
+		</screen>
+		<screen>
+		<![CDATA[
+pip install -r requirements.txt		
+		]]>
+		</screen>
+		<para>安装后验证是否正常工作</para>
+		<screen>
+		<![CDATA[
+neo@MacBook-Pro-Neo ~ % pytest --version
+pytest 6.2.4		
+		]]>
+		</screen>
+	</section>
+</chapter>

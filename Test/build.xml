@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<project name="developer" default="usage" basedir=".">
+<project name="test" default="usage" basedir=".">
 
 	<property environment="env" />
 	<property file="build.properties" />
 	<property name="tmp" value="${env.HOME}/tmp" />
-	<property name="stylesheet" value="docbook-xsl/docbook.mac.xsl" />
+	<property name="stylesheet" value="../docbook-xsl/docbook.mac.xsl" />
 	<property name="workspace" value="${env.HOME}/workspace" />
 	<property name="docbook" value="${workspace}/${ant.project.name}" />
-	<property name="resources" value="${docbook}/images" />
+	<property name="resources" value="images" />
 	<property name="public_html" value="${env.HOME}/git/netkiller.github.io/${ant.project.name}" />
 	<!--	<property name="public_html" value="${env.HOME}/tmp/${ant.project.name}" /> -->
 	<property name="htmlhelp" value="${env.HOME}/tmp/${ant.project.name}" />
 	<property name="epub" value="${tmp}/${ant.project.name}.tmp" />
 	<property name="download" value="${env.HOME}/git/netkiller.github.io/download" />
-	<property name="epub.bookname" value="Netkiller-Developer" />
+	<property name="epub.bookname" value="Netkiller-Test" />
 	<property name="project.version" value="0.0.1" />
 	<property name="ant.log" value="/tmp/ant.log" />
 
@@ -159,12 +159,12 @@
 		<echo>Resource: ${public_html}/images/</echo>
 		<!--		<rsync option="-auzv" src="${backup.dir}/${receive.timepoint}/${project.package}" dest="${remote.host}:${remote.destination}/" /> -->
 		<copy todir="${public_html}/images/" overwrite="true" failonerror="false">
-			<fileset dir="${resources}" includes="**/*.png" />
+			<!-- fileset dir="${resources}" includes="**/*.png" -->
 			<fileset dir="${resources}" includes="**/*.*" />
-			<fileset dir="common/images" includes="**/*.*" />
+			<fileset dir="../common/images" includes="**/*.*" />
 		</copy>
 
-		<copy todir="${public_html}" file="common/docbook.css" />
+		<copy todir="${public_html}" file="../common/docbook.css" />
 	</target>
 	<target name="html" depends="clean,images">
 		<echo>Output: ${public_html}</echo>
@@ -173,12 +173,12 @@
 		<mkdir dir="${project.build}" />
 		-->
 	</target>
-	<target name="htmlhelp" depends="">
+	<target name="htmlhelp" depends="images">
 		<tstamp>
 			<format property="timepoint" pattern="yyyy-MM-dd.HH:mm:ss" locale="cn,CN" />
 		</tstamp>
 		<echo>the backup directory is ${timepoint}.</echo>
-		<xsltproc output="${htmlhelp}.${timepoint}" stylesheet="docbook-xsl/htmlhelp/template.xsl" file="book.xml">
+		<xsltproc output="${htmlhelp}.${timepoint}" stylesheet="../docbook-xsl/htmlhelp/template.xsl" file="book.xml">
 			<!--
 			<args>
 				<arg value="stringparam htmlhelp.chm ${ant.project.name}.chm" />
@@ -194,8 +194,8 @@
 			<format property="timepoint" pattern="yyyy-MM-dd.HH:mm:ss" locale="cn,CN" />
 		</tstamp>
 		<echo>Epub directory: ${epub}</echo>
-		<xsltproc output="${epub}" stylesheet="docbook-xsl/epub3.mac.xsl" file="book.xml" />
-		<copy todir="${epub}/OEBPS/" file="common/docbook.css" />
+		<xsltproc output="${epub}" stylesheet="../docbook-xsl/epub3.mac.xsl" file="book.xml" />
+		<copy todir="${epub}/OEBPS/" file="../common/docbook.css" />
 		<copy todir="${epub}/OEBPS/images" overwrite="true">
 			<fileset dir="images">
 				<include name="**/*" />
@@ -212,12 +212,13 @@
 		</tstamp>
 		<echo>the backup directory is ${TIMEPOINT}.</echo>
 		<!-- <mkdir dir="${backup.dir}/${TIMEPOINT}" /> -->
-		<xsltproc output="${tmp}/${ant.project.name}" stylesheet="docbook-xsl/docbook.preview.xsl" file="book.xml" />
-		<copy todir="{tmp}/${ant.project.name}/images" overwrite="true">
+		<copy todir="${tmp}/${ant.project.name}/" file="../common/docbook.css" />
+		<copy todir="${tmp}/${ant.project.name}/images" overwrite="true">
 			<fileset dir="images">
 				<include name="**/*" />
 			</fileset>
 		</copy>
+		<xsltproc output="${tmp}/${ant.project.name}" stylesheet="../docbook-xsl/docbook.preview.xsl" file="book.xml" />
 	</target>
 	<target name="usage" depends="">
 		<echo>Java deploy tools by netkiller</echo>

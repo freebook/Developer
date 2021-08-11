@@ -75,6 +75,30 @@ print "randrange(100, 1000, 3) : ", random.randrange(100, 1000, 3)
 0.3972467892993786		
 		]]>
 		</programlisting>
+		<para>保留两位小数</para>
+		<programlisting>
+		<![CDATA[
+import random
+
+randnum = random.uniform(0, 100)
+
+print(randnum)
+print(f'方法1：{randnum:.2f}')
+print('方法2：{:.2f}'.format(randnum))
+print('方法3：%.2f' % randnum)
+print('方法4：' + str(round(randnum, 2)))		
+		]]>
+		</programlisting>
+		<para>输出结果</para>
+		<screen>
+		<![CDATA[
+0.15161848483329354
+方法1：0.15
+方法2：0.15
+方法3：0.15
+方法4：0.15		
+		]]>
+		</screen>
 	</section>
 	<section>
 		<title>打乱列表顺序</title>

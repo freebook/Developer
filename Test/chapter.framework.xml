@@ -2,6 +2,14 @@
 <chapter id="RobotFramework">
 	<title>Robot Framework</title>
 	<para>http://robotframework.org/</para>
+	<section>
+		<title>安装</title>
+		<screen>
+		<![CDATA[
+pip install robotframework
+		]]>
+		</screen>
+	</section>
 </chapter>
 <chapter id="testcafe">
 	<title>TestCafe</title>
