@@ -88,6 +88,12 @@ driver = webdriver.PhantomJS()  # PhantomJS
 driver.set_window_size(480, 800)			
 			]]>
 			</programlisting>
+			<para>窗口最大化</para>
+			<programlisting>
+			<![CDATA[
+driver.maximize_window()			
+			]]>
+			</programlisting>
 		</section>
 		<section>
 			<title>浏览器后退，前进</title>
@@ -157,6 +163,15 @@ url = driver.current_url # 打印当前页面URL
 			]]>
 			</programlisting>
 		</section>
+		<section>
+			<title>获取 HTML 源码</title>
+			<programlisting>
+			<![CDATA[
+html = browser.page_source			
+			]]>
+			</programlisting>
+		</section>
+
 		<section>
 			<title>关闭浏览器</title>
 			<programlisting>
@@ -242,6 +257,92 @@ driver.find_element_by_css_selector("div.group-left > ul > li:nth-child({}) > sp
 		]]>
 			</screen>
 		</section>
+		<section>
+			<title>XPath</title>
+			<section>
+				<title></title>
+				<programlisting>
+				<![CDATA[
+ul = chrome.find_element_by_xpath('//*[@id="menu"]/ul')
+list = ul.find_elements_by_xpath('li')
+print(len(list))    # 计算有li数量
+list[-1].text  		# 取最后一个li的文本内容
+list[1].click()		# 点击第一个li
+				]]>
+				</programlisting>
+			</section>
+
+			<section>
+				<title>表格操作</title>
+				<para>指定行列取数据</para>
+				<programlisting>
+			<![CDATA[
+#第二行第二列，tbody是对于表格的标签				
+XPath表达式： //*[id = "table"]/tbody/tr[2]/td[2]   		
+			]]>
+				</programlisting>
+				<para>遍历表格，取出第四列</para>
+				<programlisting>
+				<![CDATA[
+		tbody = self.browser.find_element_by_xpath('//table[@id="Order"]/tbody')
+        rows = tbody.find_elements_by_tag_name('tr')
+        print(len(rows))
+        vinNoList = []
+        for row in rows:
+            vin = row.find_elements_by_tag_name('td')[3].text
+            vinNoList.append(vin)
+        
+        vinNoList = vinNoList[1:]
+        print(vinNoList)				
+				]]>
+				</programlisting>
+			</section>
+		</section>
+		<section>
+			<title>元素属性</title>
+			<programlisting>
+			<![CDATA[
+方法				说明
+is_selected()	元素是否被选中
+is_enabled()	元素是否可用
+is_displayed()	元素是否可见		
+size： 			返回元素的尺寸。
+text： 			获取元素的文本。
+get_attribute(name)： 获得属性值。
+.clear() 		清空内容
+driver.find_element_by_id('name').tag_name
+
+driver.find_element_by_id('name').rect
+## {'height': 36, 'width': 100, 'x': 737.8108520507812, 'y': 223.1344451904297}
+
+driver.find_element_by_id('age').location 
+## {'x': 738, 'y': 223}
+
+元素父级元素对象
+
+parent 属性用于获取元素的父级元素对象：
+driver.find_element_by_id('logo').parent
+
+driver.find_element_by_id('su').get_property('value') 
+			]]>
+			</programlisting>
+			<section>
+				<title></title>
+				<programlisting>
+				<![CDATA[
+elem = driver.find_element_by_xpath("//*")
+source_code = elem.get_attribute("outerHTML")
+
+elem = wd.find_element_by_css_selector('#my-id')
+html = wd.execute_script("return arguments[0].innerHTML;", elem)
+
+html = elem.get_attribute('innerHTML')				
+				]]>
+				</programlisting>
+			</section>
+
+		</section>
+
 	</section>
 	<section id="selenium.python.keys">
 		<title>键盘事件</title>
@@ -264,7 +365,37 @@ send_keys(Keys.F12) 键盘 F12
 		]]>
 		</screen>
 	</section>
+	<section>
+		<title>鼠标事件</title>
+		<para>在 WebDriver 中鼠标操作的方法封装在 ActionChains 类提供。</para>
+		<programlisting>
+		<![CDATA[
+ActionChains 类提供了鼠标操作的常用方法：
 
+perform()： 			执行所有 ActionChains 中存储的行为；
+context_click()： 	右击；
+double_click()： 	双击；
+drag_and_drop()： 	拖动；
+move_to_element()： 鼠标悬停。
+		]]>
+		</programlisting>
+		<para>鼠标悬停例子：</para>
+		<programlisting>
+		<![CDATA[
+from selenium import webdriver
+from selenium.webdriver.common.action_chains import ActionChains
+
+driver = webdriver.Chrome()
+driver.get("https://www.baidu.cn")
+
+# 定位到要悬停的元素
+above = driver.find_element_by_link_text("设置")
+# 对定位到的元素执行鼠标悬停操作
+ActionChains(driver).move_to_element(above).perform()			
+		]]>
+		</programlisting>
+
+	</section>
 	<section id="selenium.python.screenshot">
 		<title>Screenshot</title>
 		<screen>
