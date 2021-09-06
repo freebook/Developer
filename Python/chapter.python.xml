@@ -5,7 +5,8 @@
 	&section.python.introduction.xml;
 	&section.python.setup.xml;
 	&section.python.pypi.xml;
-
+	&section.python.module.xml;
+	&section.python.type.xml;
 </chapter>
 <chapter id="stdio">
 	<title>Input/Output</title>
@@ -55,51 +56,4 @@ with open('beak', 'rb+') as f:
     f.truncate()		
 		</programlisting>
 	</section>
-</chapter>
-	&chapter.python.type.xml;
-<chapter id="data">
-	<title>数据结构</title>
-	<section id="data.list">
-		<title>List</title>
-		<para>随机抽取list成员</para>
-		<screen><![CDATA[
-import random
-
-# random choice from a list
-for i in range(5):
-    print random.choice([1, 2, 3, 5, 9])
-		]]></screen>
-	</section>
-	<section id="data.set">
-		<title>Set</title>
-	</section>
-</chapter>
-
-<chapter id="class">
-    <title>Class</title>
-    <screen><![CDATA[
-class MyClass:
-    """A simple example class"""
-    i = 12345
-    def f(self):
-        return 'hello world'
-
-x = MyClass()
-    ]]></screen>
-    <section id="class.init">
-        <title>__init__</title>
-        <screen><![CDATA[
-def __init__(self):
-    self.data = []
-        ]]></screen>
-        <screen><![CDATA[
->>> class Complex:
-...     def __init__(self, realpart, imagpart):
-...         self.r = realpart
-...         self.i = imagpart
-...
->>> x = Complex(3.0, -4.5)
->>> x.r, x.i
-        ]]></screen>
-    </section>
 </chapter>

@@ -6,7 +6,6 @@
 <!ENTITY section.python.pypi.xml			SYSTEM "section.python.pypi.xml">
 
 <!ENTITY chapter.python.pipe.xml			SYSTEM "chapter.python.pipe.xml">
-<!ENTITY chapter.python.type.xml			SYSTEM "chapter.python.type.xml">
 	
 <!ENTITY chapter.library.xml				SYSTEM "chapter.library.xml">
 <!ENTITY section.library.syslog.xml			SYSTEM "section.library.syslog.xml">
@@ -25,6 +24,8 @@
 
 <!ENTITY section.python.example.xml 		SYSTEM "section.python.example.xml">
 <!ENTITY section.python.container.xml 		SYSTEM "section.python.container.xml">
+<!ENTITY section.python.module.xml	 		SYSTEM "section.python.module.xml">
+<!ENTITY section.python.type.xml			SYSTEM "section.python.type.xml">
 
 <!ENTITY part.bigdata.xml					SYSTEM "part.bigdata.xml">
 <!ENTITY chapter.crawler.xml				SYSTEM "chapter.crawler.xml">

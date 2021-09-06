@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section id="python.module">
+	<title>Python 模块</title>
+	<section>
+		<title>同级目录</title>
+		<para>同级目录下有两个文件，分别是 a.py 和 test.py。我们将在 test.py 中导入 a.py</para>
+		<screen>
+		<![CDATA[
+a.py
+test.py
+		]]>
+		</screen>
+		<para>a.py 文件</para>
+		<screen>
+		<![CDATA[
+neo@MacBook-Pro-Neo ~/workspace/devops % cat a.py 
+def say():
+    print("hello")%                  		
+		]]>
+		</screen>
+		<para>test.py 文件</para>
+		<screen>
+		<![CDATA[
+neo@MacBook-Pro-Neo ~/workspace/devops % cat test.py 
+import a
+a.say()		
+		]]>
+		</screen>
+		<para>运行结果</para>
+		<screen>
+		<![CDATA[
+neo@MacBook-Pro-Neo ~/workspace/devops % python3 test.py 
+hello		
+		]]>
+		</screen>
+	</section>
+	<section>
+		<title>一级目录</title>
+		<para></para>
+		<screen>
+		<![CDATA[
+dir/a.py
+dir/__init__.py
+test.py
+		]]>
+		</screen>
+		<para></para>
+		<screen>
+		<![CDATA[
+neo@MacBook-Pro-Neo ~/workspace/devops % cat dir/a.py 
+def say():
+    print("hello")		
+    
+neo@MacBook-Pro-Neo ~/workspace/devops % cat test.py 
+from dir import a
+a.say()
+		]]>
+		</screen>
+		<para></para>
+		<screen>
+		<![CDATA[
+neo@MacBook-Pro-Neo ~/workspace/devops % python3 test.py 
+hello		
+		]]>
+		</screen>
+	</section>
+	<section>
+		<title>二级子目录</title>
+		<screen>
+		<![CDATA[
+test.py
+dir
+  |--subdir
+    |-- b.py
+		
+		]]>
+		</screen>
+		<screen>
+		<![CDATA[
+neo@MacBook-Pro-Neo ~/workspace/devops % cat dir/subdir/b.py 
+def sayhello():
+    print("helloworld!!!")
+    
+neo@MacBook-Pro-Neo ~/workspace/devops % cat test.py
+from dir.subdir import b 
+b.sayhello()% 	
+		]]>
+		</screen>
+		<para></para>
+		<screen>
+		<![CDATA[
+neo@MacBook-Pro-Neo ~/workspace/devops % python3 test.py 
+helloworld!!!		
+		]]>
+		</screen>
+	</section>
+	<section>
+		<title>子目录调用上级目录</title>
+		<screen>
+		<![CDATA[
+neo@MacBook-Pro-Neo ~/workspace/devops % find dir 
+dir
+dir/a.py
+dir/subdir
+dir/subdir/c.py
+dir/subdir/b.py
+		]]>
+		</screen>
+		<screen>
+		<![CDATA[
+neo@MacBook-Pro-Neo ~/workspace/devops % cat dir/subdir/c.py 
+import b
+b.sayhello()
+
+import sys,os
+path = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+# print(path)
+sys.path.insert(0, path)
+import a
+a.say()
+
+sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
+from dir import a
+a.say()		
+		]]>
+		</screen>
+		<para></para>
+		<screen>
+		<![CDATA[
+neo@MacBook-Pro-Neo ~/workspace/devops % python3 dir/subdir/c.py 
+helloworld!!!
+hello
+hello		
+		]]>
+		</screen>
+	</section>
+	<section>
+		<title>导入类</title>
+		<screen>
+		<![CDATA[
+neo@MacBook-Pro-Neo ~/workspace/devops % cat netkiller/dir/class1.py 
+class TestClass():
+	def __init__(self, name="None"): 
+		self.name = name
+	def say(self):
+		print(self.name)		
+		]]>
+		</screen>
+		<para></para>
+		<screen>
+		<![CDATA[
+from netkiller.dir.class1 import *
+tc = TestClass('neo')
+tc.say()
+		]]>
+		</screen>
+	</section>
+</section>

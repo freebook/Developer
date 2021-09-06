@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<chapter id="type">
+<section id="type">
 	<title>数据类型</title>
 	<section id="type">
 		<title>type 数据类型检测</title>
@@ -58,17 +58,17 @@ True
 			<section id="str.find">
 				<title>str.find()</title>
 				<para>找到字符，返回字符串位置。没有找到返回 -1</para>
-				<screen>
-					"aaa bbb ccc".find('aaa')
-				</screen>
+				<screen><![CDATA[
+"aaa bbb ccc".find('aaa')
+				]]></screen>
 			</section>
 			<section id="str.replace">
 				<title>str.find()</title>
 				<para>查找并替换字符串</para>
-				<screen>
-					a = 'hello word'
-					a.replace('word','python')
-				</screen>
+				<screen><![CDATA[
+a = 'hello word'
+a.replace('word','python')
+				]]></screen>
 			</section>
 		</section>
 		<section>
@@ -191,26 +191,28 @@ print("The date is", dt_obj)
 		</screen>
 		<section>
 			<title>BOM头</title>
-			<screen>
-				BOM : fffe
-				BOM_BE : feff
-				BOM_LE : fffe
-				BOM_UTF8 : efbb bf
-				BOM_UTF16 : fffe
-				BOM_UTF16_BE : feff
-				BOM_UTF16_LE : fffe
-				BOM_UTF32 : fffe 0000
-				BOM_UTF32_BE : 0000 feff
-				BOM_UTF32_LE : fffe 0000
-			</screen>
+			<screen><![CDATA[
+BOM : fffe
+BOM_BE : feff
+BOM_LE : fffe
+BOM_UTF8 : efbb bf
+BOM_UTF16 : fffe
+BOM_UTF16_BE : feff
+BOM_UTF16_LE : fffe
+BOM_UTF32 : fffe 0000
+BOM_UTF32_BE : 0000 feff
+BOM_UTF32_LE : fffe 0000
+			]]></screen>
 		</section>
 		<section>
 			<title>replace</title>
 			<para>bytes类型的数据，替换方法，不要忘记b""</para>
 			<programlisting>
-				a = b"abc"
-				b = a.replace(b"a", b"f")
-				print(b)
+			<![CDATA[
+a = b"abc"
+b = a.replace(b"a", b"f")
+print(b)
+			]]>
 			</programlisting>
 		</section>
 		<section>
@@ -263,7 +265,7 @@ set(['four', 'three', 'two', 'one'])
 		<section>
 			<title>Dict</title>
 			<para>随机字典的 key 和 value</para>
-			<screen>
+			<screen><![CDATA[
 			<![CDATA[
 names = {1: '张三', 2: '李四', 3: '王五', 4: '赵六', 5: '牛七', 6: '马八'}
 print(random.choice(list(names.keys())))
@@ -272,5 +274,87 @@ print(random.choice(list(names.values())))
 			</screen>
 		</section>
 	</section>
-</chapter>
+</section>
+<section>
+	<title>数据结构</title>
+	<section id="data.list">
+		<title>List</title>
+		<para>随机抽取list成员</para>
+		<screen><![CDATA[
+import random
 
+# random choice from a list
+for i in range(5):
+    print random.choice([1, 2, 3, 5, 9])
+		]]></screen>
+	</section>
+	<section id="data.set">
+		<title>Set</title>
+	</section>
+</section>
+
+<section id="class">
+	<title>Class</title>
+	<screen><![CDATA[
+class MyClass:
+    """A simple example class"""
+    i = 12345
+    def f(self):
+        return 'hello world'
+
+x = MyClass()
+    ]]></screen>
+	<section id="class.init">
+		<title>__init__ 构造方法</title>
+		<screen><![CDATA[
+def __init__(self):
+    self.data = []
+        ]]></screen>
+		<screen><![CDATA[
+>>> class Complex:
+...     def __init__(self, realpart, imagpart):
+...         self.r = realpart
+...         self.i = imagpart
+...
+>>> x = Complex(3.0, -4.5)
+>>> x.r, x.i
+        ]]></screen>
+	</section>
+	<section>
+		<title>inner class(内嵌类)</title>
+		<programlisting>
+		<![CDATA[
+
+#!/usr/bin/env python3
+ 
+import os, sys
+ 
+class parent:
+	def __init__(self):
+		self.name = 'parent'
+ 
+	def getName(self):
+		print(self.name)
+
+	class child:
+		def __init__(self):
+			self.name = 'child'
+ 
+		def getName(self):
+			print(self.name)
+		def getParentName(self):
+			print(parent.name)
+ 
+if __name__ == '__main__':
+	child =  parent.child()
+	child.getName()
+
+	p = parent()
+	p.getName()
+	c =  p.child()
+	c.getName()
+	c.getParentName()		
+		]]>
+		</programlisting>
+	</section>
+</section>

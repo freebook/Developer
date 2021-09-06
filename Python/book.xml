@@ -73,7 +73,7 @@
 		</keywordset>
 	</info>
 
-	&book.dedication.xml;
+	<!-- &book.dedication.xml; -->
 
 <!-- =========================================================================== -->
 	&book.preface.xml;
