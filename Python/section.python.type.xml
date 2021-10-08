@@ -184,11 +184,15 @@ print("The date is", dt_obj)
 	<section id="bytes">
 		<title>bytes 类型</title>
 
-		<screen>
-		<![CDATA[
 
+		<section>
+			<title>bytes to string </title>
+			<screen>
+		<![CDATA[
+.decode()
 		]]>
-		</screen>
+			</screen>
+		</section>
 		<section>
 			<title>BOM头</title>
 			<screen><![CDATA[

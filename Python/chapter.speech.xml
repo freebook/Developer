@@ -21,6 +21,20 @@
 pip install pyttsx3			
 			]]>
 			</screen>
+			<section>
+				<title>Linux</title>
+				<screen>
+				<![CDATA[
+[root@gitlab ~]# dnf install espeak-ng				
+				]]>
+				</screen>
+				<para></para>
+				<screen>
+				<![CDATA[
+libespeak.so.1: cannot open shared object file: No such file or directory				
+				]]>
+				</screen>
+			</section>
 		</section>
 		<section>
 			<title>演示</title>
