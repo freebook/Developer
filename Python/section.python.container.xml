@@ -661,5 +661,61 @@ python3 docker.py logs nginx = docker-compose logs nginx
 			</screen>
 			<para>使用 -c 可以查看 compose yaml 脚本，使用 -e 可以导出 docker compose yaml</para>
 		</section>
+		<section>
+			<title>演示例子</title>
+			<section>
+				<title>Redis 主从配置</title>
+				<example>
+					<title>Redis Master/Slave</title>
+					<screen>
+					<![CDATA[
+from netkiller.docker import *
+
+image = 'redis:latest'
+requirepass='11223344'
+
+compose = Composes('redis-master-slave')
+compose.version('3.9')
+
+master =  Services('master')
+master.image(image)
+master.container_name('master')
+master.restart('always')
+master.environment(['TZ=Asia/Shanghai'])
+master.ports('6379:6379')
+master.volumes(['/tmp/master:/data'])
+master.sysctls(['net.core.somaxconn=1024'])
+master.command([
+	'--requirepass '+requirepass,
+	'--appendonly yes'])
+# master.debug()
+# print(master.dump())
+compose.services(master)
+
+
+for i in range(5) :
+    slave =  Services('slave-'+str(i))
+    slave.image(image).container_name('slave-'+str(i)).restart('always')
+    slave.ports(['638{port}:6379'.format(port=i)]).environment(['TZ=Asia/Shanghai'])
+    slave.volumes(['/tmp/slave{n}:/data'.format(n=i)])
+    slave.sysctls(['net.core.somaxconn=1024']).command([
+        '--slaveof master 6379',
+        '--masterauth '+requirepass,
+        '--requirepass ' + requirepass,
+        '--appendonly yes'
+    ])
+
+    # print(cluster.dump())
+    compose.services(slave)
+
+# print (compose.debug())
+print(compose.dump())
+# compose.save()
+compose.up()					
+					]]>
+					</screen>
+				</example>
+			</section>
+		</section>
 	</section>
 </section>

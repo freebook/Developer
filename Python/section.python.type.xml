@@ -229,57 +229,9 @@ print(b)
 			</programlisting>
 		</section>
 	</section>
-	<section>
-		<title>数据结构</title>
-		<section>
-			<title>Set</title>
-
-			<programlisting>
-		<![CDATA[
->>> set = {'a','b','c'}
->>> set
-set(['a', 'c', 'b'])
-
->>> set = {"one", "two", "three","one"}
->>> set
-set(['three', 'two', 'one'])		
-		]]>
-			</programlisting>
-			<programlisting>
-		<![CDATA[
->>> set.add('four')
->>> set
-set(['four', 'three', 'two', 'one'])
-		]]>
-			</programlisting>
-			<programlisting>
-		<![CDATA[
->>> ','.join(set);
-'four,three,two,one'
-
->>> set('four,three,two,one'.split(','));
-{'one', 'four', 'three', 'two'}
-
->>> fruit = [ 'banana', 'orange', 'pineapple' ]
->>> set(fruit)
-{'banana', 'pineapple', 'orange'}		
-		]]>
-			</programlisting>
-		</section>
-		<section>
-			<title>Dict</title>
-			<para>随机字典的 key 和 value</para>
-			<screen><![CDATA[
-			<![CDATA[
-names = {1: '张三', 2: '李四', 3: '王五', 4: '赵六', 5: '牛七', 6: '马八'}
-print(random.choice(list(names.keys())))
-print(random.choice(list(names.values())))			
-			]]>
-			</screen>
-		</section>
-	</section>
+	
 </section>
-<section>
+<section id="python.datastruct">
 	<title>数据结构</title>
 	<section id="data.list">
 		<title>List</title>
@@ -294,7 +246,72 @@ for i in range(5):
 	</section>
 	<section id="data.set">
 		<title>Set</title>
+
+		<programlisting>
+		<![CDATA[
+>>> set = {'a','b','c'}
+>>> set
+set(['a', 'c', 'b'])
+
+>>> set = {"one", "two", "three","one"}
+>>> set
+set(['three', 'two', 'one'])		
+		]]>
+		</programlisting>
+		<programlisting>
+		<![CDATA[
+>>> set.add('four')
+>>> set
+set(['four', 'three', 'two', 'one'])
+		]]>
+		</programlisting>
+		<programlisting>
+		<![CDATA[
+>>> ','.join(set);
+'four,three,two,one'
+
+>>> set('four,three,two,one'.split(','));
+{'one', 'four', 'three', 'two'}
+
+>>> fruit = [ 'banana', 'orange', 'pineapple' ]
+>>> set(fruit)
+{'banana', 'pineapple', 'orange'}		
+		]]>
+		</programlisting>
 	</section>
+	<section>
+		<title>Dict 字典</title>
+		<section>
+			<title>随机选择字典的 key 和 value</title>
+			<para>随机字典的 key 和 value</para>
+			<screen>
+			<![CDATA[
+			<![CDATA[
+names = {1: '张三', 2: '李四', 3: '王五', 4: '赵六', 5: '牛七', 6: '马八'}
+print(random.choice(list(names.keys())))
+print(random.choice(list(names.values())))			
+			]]>
+			</screen>
+		</section>
+		<section>
+			<title>字典合并</title>
+			<screen>
+			<![CDATA[
+dict1 = {'name','neo'}
+dict2 = {'nickname','netkiller'}
+dict1.update(dict2)
+print(dict1)			
+			]]>
+			</screen>
+			<para></para>
+			<screen>
+			<![CDATA[
+{'name', 'neo', 'nickname', 'netkiller'}			
+			]]>
+			</screen>
+		</section>
+	</section>
+
 </section>
 
 <section id="class">
@@ -360,5 +377,27 @@ if __name__ == '__main__':
 	c.getParentName()		
 		]]>
 		</programlisting>
+		<section>
+			<title>内嵌 Class 继承</title>
+			<programlisting>
+			<![CDATA[
+class Geometry:
+    class Curve:
+        def __init__(self,c=1):
+            self.c = c                          #curvature parameter
+            print ('Curvature %g'%self.c)
+            pass                                #some codes
+
+    class Line(Curve):
+        def __init__(self):
+            Geometry.Curve.__init__(self,0)     #the key point
+            pass                                #some codes
+
+g = Geometry()
+C = g.Curve(0.5)
+L = g.Line()			
+			]]>
+			</programlisting>
+		</section>
 	</section>
 </section>
