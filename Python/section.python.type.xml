@@ -180,6 +180,14 @@ print("The date is", dt_obj)
 			]]>
 			</programlisting>
 		</section>
+		<section>
+			<title>日期格式化</title>
+			<screen>
+			<![CDATA[
+timepoint = time.strftime('%Y-%m-%d.%H:%M:%S',time.localtime(time.time()))			
+			]]>
+			</screen>
+		</section>
 	</section>
 	<section id="bytes">
 		<title>bytes 类型</title>
@@ -243,6 +251,15 @@ import random
 for i in range(5):
     print random.choice([1, 2, 3, 5, 9])
 		]]></screen>
+		<programlisting>
+		<![CDATA[
+test = []
+test.append('1')
+test.append('b')
+test.append('c')
+print(test)	
+		]]>
+		</programlisting>
 	</section>
 	<section id="data.set">
 		<title>Set</title>
@@ -279,7 +296,7 @@ set(['four', 'three', 'two', 'one'])
 		]]>
 		</programlisting>
 	</section>
-	<section>
+	<section id="data.dict">
 		<title>Dict 字典</title>
 		<section>
 			<title>随机选择字典的 key 和 value</title>
