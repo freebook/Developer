@@ -100,7 +100,7 @@ To alter from str to bytes, capitalize on str.encode().
 			</programlisting>
 		</section>
 		<section>
-			<title>String format</title>
+			<title>String format 字符串格式化输出</title>
 			<para></para>
 			<screen>
 			<![CDATA[
@@ -118,6 +118,23 @@ for i in range(100):
     print('{0:0>3d}'.format(i))    		
 			]]>
 			</screen>
+			<section>
+				<title>格式化字典输出</title>
+				<screen>
+				<![CDATA[
+member = {'name':'neo','age':18}
+'my name is {name},age is {age}'.format(**member)        #**dict				
+				]]>
+				</screen>
+				<para>输出</para>
+				<screen>
+				<![CDATA[
+>>> member = {'name':'neo','age':18}
+>>> 'my name is {name},age is {age}'.format(**member) 
+'my name is neo,age is 18'				
+				]]>
+				</screen>
+			</section>
 		</section>
 	</section>
 	<section id="array">
