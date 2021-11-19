@@ -26,6 +26,7 @@ print(dt)
 	&section.library.syslog.xml;
 	&section.library.socket.xml;
 	&section.library.process.xml;
+	&section.library.yaml.xml;
 <section id="daemon">
 	<title>Daemon</title>
 	<para>http://www.myelin.co.nz/post/2003/3/13/#200303135</para>

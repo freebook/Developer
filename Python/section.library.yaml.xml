@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section>
+	<title>YAML</title>
+	<section>
+		<title>严格按段落展示 ｜、｜+、｜-</title>
+		<screen>
+		<![CDATA[
+|：文中自动换行 + 文末新增一空行
+|+：文中自动换行 + 文末新增两空行
+|-：文中自动换行 + 文末不新增行		
+		]]>
+		</screen>
+	</section>
+	<section>
+		<title><![CDATA[>、>+、>-]]></title>
+		<screen>
+		<![CDATA[
+>：文中不自动换行 + 文末新增一空行
+>+：文中不自动换行 + 文末新增两空行
+>-：文中不自动换行 + 文末不新增行		
+		]]>
+		</screen>
+	</section>
+	
+	<section>
+		<title>PyYAML</title>
+		<section>
+			<title>解决 ｜ 问题</title>
+			<screen>
+			<![CDATA[
+import sys
+import yaml
+
+x = u"""\
+-----BEGIN RSA PRIVATE KEY-----
+MIIEogIBAAKCAQEA6oySC+8/N9VNpk0gJS7Gk8vn9sYN7FhjpAQnoHRqTN/Oaiyx
+xk2AleP2vXpojA/DHldT1JO+o3j56AHD+yfNFFeYvgWKDY35g49HsZZhbyCEAB45
+...
+"""
+
+yaml.SafeDumper.org_represent_str = yaml.SafeDumper.represent_str
+
+def repr_str(dumper, data):
+    if '\n' in data:
+        return dumper.represent_scalar(u'tag:yaml.org,2002:str', data, style='|')
+    return dumper.org_represent_str(data)
+
+yaml.add_representer(str, repr_str, Dumper=yaml.SafeDumper)
+
+yaml.safe_dump(dict(a=1, b='hello world', c=x), sys.stdout)
+
+print('-'*50)
+
+class PSS(str):
+    pass
+
+x = PSS("""\
+-----BEGIN RSA PRIVATE KEY-----
+MIIEogIBAAKCAQEA6oySC+8/N9VNpk0gJS7Gk8vn9sYN7FhjpAQnoHRqTN/Oaiyx
+xk2AleP2vXpojA/DHldT1JO+o3j56AHD+yfNFFeYvgWKDY35g49HsZZhbyCEAB45
+...
+""")
+
+def pss_representer(dumper, data):
+        style = '|'
+        # if sys.versioninfo < (3,) and not isinstance(data, unicode):
+        #     data = unicode(data, 'ascii')
+        tag = u'tag:yaml.org,2002:str'
+        return dumper.represent_scalar(tag, data, style=style)
+
+yaml.add_representer(PSS, pss_representer, Dumper=yaml.SafeDumper)
+
+yaml.safe_dump(dict(a=1, b='hello world', c=x), sys.stdout)
+
+			
+			]]>
+			</screen>
+		</section>
+	</section>
+	<section id="ruamel.yaml">
+		<title>ruamel.yaml</title>
+		<screen>
+		<![CDATA[
+pip install ruamel.yaml
+		]]>
+		</screen>
+		<section>
+			<title>解决 ｜ 问题</title>
+			<programlisting>
+			<![CDATA[
+from ruamel.yaml import YAML
+from ruamel.yaml.scalarstring import PreservedScalarString as pss
+
+x = pss("""\
+external_url 'https://gitlab.example.com'
+gitlab_rails['time_zone'] = 'Asia/Shanghai'
+gitlab_rails['smtp_enable'] = true
+gitlab_rails['smtp_address'] = "smtp.aliyun.com"
+gitlab_rails['smtp_port'] = 465
+gitlab_rails['smtp_user_name'] = "netkiller@msn.com" 
+gitlab_rails['smtp_password'] = "******"
+gitlab_rails['smtp_domain'] = "aliyun.com"
+gitlab_rails['smtp_authentication'] = "login"
+gitlab_rails['smtp_enable_starttls_auto'] = true
+gitlab_rails['smtp_tls'] = true
+gitlab_rails['gitlab_email_from'] = 'netkiller@msn.com'
+gitlab_rails['gitlab_shell_ssh_port'] = 22
+""")
+
+yaml = YAML()
+
+yaml.dump(dict(a=1, b='hello world', c=x), sys.stdout)			
+			]]>
+			</programlisting>
+			<para>输出结果</para>
+			<screen>
+			<![CDATA[
+a: 1
+b: hello world
+c: |
+  external_url 'https://gitlab.example.com'
+  gitlab_rails['time_zone'] = 'Asia/Shanghai'
+  gitlab_rails['smtp_enable'] = true
+  gitlab_rails['smtp_address'] = "smtp.aliyun.com"
+  gitlab_rails['smtp_port'] = 465
+  gitlab_rails['smtp_user_name'] = "netkiller@msn.com" 
+  gitlab_rails['smtp_password'] = "******"
+  gitlab_rails['smtp_domain'] = "aliyun.com"
+  gitlab_rails['smtp_authentication'] = "login"
+  gitlab_rails['smtp_enable_starttls_auto'] = true
+  gitlab_rails['smtp_tls'] = true
+  gitlab_rails['gitlab_email_from'] = 'netkiller@msn.com'
+  gitlab_rails['gitlab_shell_ssh_port'] = 22			
+			]]>
+			</screen>
+		</section>
+	</section>
+</section>
