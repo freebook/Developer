@@ -14,3 +14,11 @@ pip install prompt-toolkit
 		</screen>
 	</section>
 </section>
+<section>
+	<title>Simple Terminal Menu</title>
+	<screen>
+	<![CDATA[
+pip install simple-term-menu	
+	]]>
+	</screen>
+</section>
