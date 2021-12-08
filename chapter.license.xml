@@ -7,16 +7,6 @@
 	<graphic format="png" fileref="../images/workflow/Development Flow.png" srccredit="neo" />
 
 </section>
-
-<section id="license">
-	<title>Open Source and License</title>
-	<para>GPL 你可以免费使用，但修改后必须开源。</para>
-	<para>GPLv3 你可以免费使用，但修改后必须开源，不允许加入闭源商业代码。</para>
-	<para>BSD 你可以免费使用，修改后可不开源，基本上你可以我所欲为。</para>
-	<para>Linux 中有许多BSD代码，但BSD却不能移植Linux 代码到BSD中，这是因为GPL License。</para>
-	<para>http://www.apache.org/licenses/</para>
-</section>
-
 <section>
 	<title>项目运作</title>
 	<para>

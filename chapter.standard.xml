@@ -1,36 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <section id="standard">
 	<title>标准与规范</title>
-	<section id="release_notes">
-		<title>Release Notes</title>
-		<para>Release Notes 撰写说明</para>
-		<para>当一个项目升级时，需要写一个文档纪录这次变动，内容包括，新增了什么，更改了什么，修复了什么，未解决得问题，改善了什么，忽略了什么</para>
-		<para>常用信息类型</para>
-		<screen>
-		<![CDATA[
-New
-Changed
-Fixed
-Unresolved
-Improved
-Ignore
-		]]>
-		</screen>
-		<example>
-			<title>Example - Release Notes</title>
-			<screen>
-			<![CDATA[
-NEW - xxxxxxxxxxxxx
-CHANGED - xxxxxxxxxxxxx
-FIXED - xxxxxxxxxxx
-UNRESOLVED - xxxxxxxxx
-IMPROVED - xxxxxxxxx
-			]]>
-			</screen>
-		</example>
-		<para>你也同样可以参考很多开源组织编写的Release Notes，例如apache, mysql, php 等等</para>
-	</section>
-	
 	<section id="project.dir">
 		<title>Project directory</title>
 		<para>一种很蠢目录规划：</para>
@@ -149,27 +119,7 @@ repositories ----> trunk    --------/-----------------> stable ---/-----> stable
 	<section>
 		<title>rc1,rc2,rc4</title>
 	</section>
-	<section>
-		<title>怎样写注释信息</title>
-		<section>
-			<title>Fixed Bug</title>
-			<screen>
-				svn ci -m "- Fixed bug #53412 (your comment)"
-			</screen>
-		</section>
-		<section>
-			<title>Implemented</title>
-			<screen>
-				svn ci -m "- Implemented FR #53271, FR #52410 (Building multiple XXXX binary)"
-			</screen>
-		</section>
-		<section>
-			<title>Add</title>
-			<screen>
-				svn ci -m "- Add Feature #534 (your message)"
-			</screen>
-		</section>
-	</section>
+	
 </section>
 	
 
