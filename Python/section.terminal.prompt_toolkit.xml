@@ -22,3 +22,11 @@ pip install simple-term-menu
 	]]>
 	</screen>
 </section>
+<section id="picotui">
+	<title>picotui</title>
+	<screen>
+	<![CDATA[
+pip install picotui	
+	]]>
+	</screen>
+</section>
