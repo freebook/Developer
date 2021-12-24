@@ -725,6 +725,44 @@ compose.up()
 	</section>
 	<section>
 		<title>使用 Python 编排 Dockerfile</title>
+		<para></para>
+		<programlisting>
+		<![CDATA[
+from netkiller.docker import *
+
+# 实例化 Dockerfile() 对象
+nginx = Dockerfile()
+
+# 基于什么镜像
+nginx.image('nginx:latest')
+
+# 配置挂载卷
+nginx.volume(['/etc/nginx','/var/log/nginx','/opt'])
+
+# 运行脚本
+nginx.run('apt update -y && apt install -y procps')
+
+# 暴漏端口
+nginx.expose(['80','443'])
+
+# 设置工作目录
+nginx.workdir('/opt')
+
+# 打印 Dockerfile
+nginx.show()		
+		]]>
+		</programlisting>
+		<para>运行结果</para>
+		<screen>
+		<![CDATA[
+FROM nginx:latest
+VOLUME ["/etc/nginx","/var/log/nginx","/opt"]
+RUN apt update -y && apt install -y procps
+EXPOSE 80 443
+WORKDIR /opt		
+		]]>
+		</screen>
+		<para>另一种写法</para>
 		<programlisting>
 		<![CDATA[
 from netkiller.docker import *
@@ -735,7 +773,30 @@ nginx.render()
 nginx.save('/tmp/Dockerfile')
 		]]>
 		</programlisting>
-		<para>完成演示</para>
+		<para>构建 Docker 镜像</para>
+		<programlisting>
+		<![CDATA[
+from netkiller.docker import *
+
+# 编排 Docker 镜像
+dockerfile = Dockerfile()
+dockerfile.image('openjdk:8').volume(['/srv']).run(
+    'apt update -y && apt install -y procps net-tools iputils-ping iproute2 telnet'
+).expose(['80', '443']).workdir('/srv')
+
+# 通过 Service 设置镜像名称是 netkiller:openjdk8
+image = Services('image')
+image.build(dockerfile)
+image.image('netkiller:openjdk8')
+
+# 构建镜像
+demo = Composes('demo')
+demo.version('3.9')
+demo.services(image)
+demo.build()		
+		]]>
+		</programlisting>
+		<para>完整演示</para>
 		<screen>
 		<![CDATA[
 #!/usr/bin/python3
@@ -808,7 +869,7 @@ mqbroker.build(dockerfile).image('registry.netkiller.cn/rocketmq/mqbroker:4.9.2'
 mqbroker.command('mqbroker -n mqnamesrv:9876 -c /srv/rocketmq/conf/broker.conf')
 mqbroker.volumes(['/tmp/logs:/home/rocketmq/logs/rocketmqlogs'])
 
-composes = Composes('rocketmq')
+composes = Composes('test')
 composes.version('3.9')
 composes.services(rocketmq)
 composes.services(mqnamesrv)
@@ -833,6 +894,12 @@ if __name__ == '__main__':
 		docker.main()
 	except KeyboardInterrupt:
 		print ("Crtl+C Pressed. Shutting down.")
+		]]>
+		</screen>
+		<para>运行</para>
+		<screen>
+		<![CDATA[
+python3 demo.py -e test -b rocketmq
 		]]>
 		</screen>
 	</section>
