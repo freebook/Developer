@@ -1715,5 +1715,158 @@ OK
 			]]>
 			</screen>
 		</section>
+		<section>
+			<title>部署 MySQL 到 kubernetes</title>
+			<programlisting>
+			<![CDATA[
+from netkiller.kubernetes import *
+namespace = 'default'
+
+config = ConfigMap('mysql')
+config.metadata().name('mysql').namespace(namespace).labels({'app': 'mysql'})
+config.data({'mysql.cnf': pss('''\
+[mysqld]
+max_connections=2048
+max_execution_time=120
+connect_timeout=120
+max_allowed_packet=32M
+net_read_timeout=120
+net_write_timeout=120
+# --wait_timeout=60
+# --interactive_timeout=60
+
+sql_mode=STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION
+character-set-server=utf8mb4
+collation-server=utf8mb4_general_ci
+explicit_defaults_for_timestamp=true
+max_execution_time=0
+''')})
+config.data({'MYSQL_ROOT_PASSWORD': '123456', 'MYSQL_DATABASE': 'test',
+            'MYSQL_USER': 'test', 'MYSQL_PASSWORD': 'test'})
+# config.debug()
+
+
+storageClassName = 'manual'
+persistentVolume = PersistentVolume('mysql-pv')
+persistentVolume.metadata().name(
+    'mysql-pv').labels({'type': 'local'})
+persistentVolume.spec().storageClassName(storageClassName)
+persistentVolume.spec().capacity({'storage': '2Gi'}).accessModes(
+    ['ReadWriteOnce']).hostPath({'path': "/var/lib/mysql"})
+persistentVolume.debug()
+
+persistentVolumeClaim = PersistentVolumeClaim('mysql-pvc')
+persistentVolumeClaim.metadata().name('mysql-pvc')
+persistentVolumeClaim.spec().storageClassName(storageClassName)
+persistentVolumeClaim.spec().resources({'requests': {'storage':'2Gi'}})
+persistentVolumeClaim.spec().accessModes(
+    ['ReadWriteOnce'])
+persistentVolumeClaim.debug()
+# exit()
+
+
+statefulSet = StatefulSet()
+statefulSet.metadata().name('mysql')
+statefulSet.spec().replicas(1)
+statefulSet.spec().serviceName('mysql')
+statefulSet.spec().selector({'matchLabels': {'app': 'mysql'}})
+statefulSet.spec().template().metadata().labels({'app': 'mysql'})
+statefulSet.spec().replicas(1)
+statefulSet.spec().template().spec().containers().name('mysql').image(
+    'mysql:latest').ports([{
+        'name': 'mysql',
+        'protocol': 'TCP',
+        'containerPort': 3306
+    }]).env([{'name': 'MYSQL_ROOT_PASSWORD', 'value': '123456'}]).volumeMounts([
+        {'name': 'config', 'mountPath': '/etc/mysql/conf.d/mysql.cnf',
+            'subPath': 'mysql.cnf'},
+        {'name': 'data', 'mountPath': '/var/lib/mysql'}
+    ]).imagePullPolicy('IfNotPresent')
+statefulSet.spec().template().spec().volumes().name(
+    'config').configMap({'name': 'mysql'})
+statefulSet.spec().template().spec().volumes().name(
+    'data').persistentVolumeClaim('mysql-pvc')
+# statefulSet.debug()
+
+service = Service()
+service.metadata().name('mysql')
+service.metadata().namespace(namespace).labels({'app': 'mysql'})
+service.spec().selector({'app': 'mysql'})
+service.spec().type('NodePort')
+service.spec().ports([{
+    'name': 'mysql',
+    'protocol': 'TCP',
+    'port': 3306,
+    'targetPort': 3306
+}])
+
+print("=" * 40, "Compose", "=" * 40)
+compose = Compose('development')
+# compose.add(namespace)
+compose.add(config)
+compose.add(persistentVolume)
+compose.add(persistentVolumeClaim)
+compose.add(statefulSet)
+compose.add(service)
+compose.debug()
+# compose.save()
+compose.delete()
+compose.create()
+			]]>
+			</programlisting>
+			<para></para>
+			<screen>
+			<![CDATA[
+neo@Netkiller-iMac ~> kubectl get pods
+NAME                    READY   STATUS             RESTARTS   AGE
+nginx-88c84c4d8-gb5rg   1/1     Running            1          4d
+redis-0                 1/1     Running            0          22h
+mysql-0                 1/1     Running            0          9m11s
+busybox                 0/1     CrashLoopBackOff   346        29h
+
+neo@Netkiller-iMac ~> kubectl get service
+NAME         TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)          AGE
+kubernetes   ClusterIP   10.43.0.1       <none>        443/TCP          12d
+nginx        NodePort    10.43.125.134   <none>        80:31656/TCP     4d
+redis        ClusterIP   10.43.91.64     <none>        6379/TCP         22h
+mysql        NodePort    10.43.198.188   <none>        3306:32322/TCP   9m22s
+ 
+neo@Netkiller-iMac ~ [1]> kubectl exec mysql-0 -it bash
+kubectl exec [POD] [COMMAND] is DEPRECATED and will be removed in a future version. Use kubectl exec [POD] -- [COMMAND] instead.
+
+root@mysql-0:/# mysql -uroot -p
+Enter password: 
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 9
+Server version: 8.0.27 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2021, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| performance_schema |
+| sys                |
++--------------------+
+4 rows in set (0.00 sec)
+
+mysql> create database test;
+Query OK, 1 row affected (0.16 sec)
+
+mysql> exit
+Bye
+root@mysql-0:/#			
+			]]>
+			</screen>
+		</section>
 	</section>
 </section>
