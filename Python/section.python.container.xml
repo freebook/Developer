@@ -259,7 +259,7 @@ deployment.apps "flask" deleted
 		</screen>
 	</section>
 </section>
-<section>
+<section id="docker">
 	<title>使用 python 优雅地编排 Docker 容器</title>
 	<para>用 Python 替代 docker compose 编排容器</para>
 	<para>docker compose 是 docker 的容器编排工具，它是基于 YAML 配置，YAML 是一种配置文件格式，支持传递环境变量，但是对于复杂的容器编排显得力不从心。</para>
@@ -905,7 +905,7 @@ python3 demo.py -e test -b rocketmq
 		</screen>
 	</section>
 </section>
-<section>
+<section id="kubernetes">
 	<title>使用 Python 优雅地编排 Kubernetes</title>
 	<section>
 		<title>快速演示编排Nginx</title>
@@ -1608,7 +1608,7 @@ neo@Netkiller-iMac ~> curl -k https://www.netkiller.cn
 		</screen>
 	</section>
 	<section id="StatefulSet">
-		<title>StatefulSet</title>
+		<title>StatefulSet 部署 Redis</title>
 		<programlisting>
 			<![CDATA[
 import sys
