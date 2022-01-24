@@ -134,5 +134,43 @@ c: |
 			]]>
 			</screen>
 		</section>
+		<section>
+			<title>LiteralScalarString, PreservedScalarString</title>
+			<programlisting>
+			<![CDATA[
+from ruamel.yaml.scalarstring import LiteralScalarString, PreservedScalarString
+from ruamel.yaml import YAML
+import sys
+
+yaml = YAML()
+data = {}
+data['data'] = PreservedScalarString("""\
+0.0, 1.0
+0.1, 1.5
+0.2, 1.7
+""")
+
+data['data_points'] = LiteralScalarString("""\
+0.0, 1.0
+0.1, 1.5
+0.2, 1.7""")
+
+yaml.dump(data, sys.stdout)
+
+print("=" * 50)
+
+yaml_str = """\
+any_value: 123.4
+data_points: |2-
+  a
+  b
+"""
+
+data = yaml.load(yaml_str)
+yaml.dump(data, sys.stdout)			
+			]]>
+			</programlisting>
+		</section>
+		
 	</section>
 </section>
