@@ -1109,4 +1109,20 @@ workbook.save('test.xls')
 			</programlisting>
 		</section>
 	</section>
+	<section id="xlwings">
+		<title>xlwings</title>
+		<screen>
+		<![CDATA[
+import matplotlib.pyplot as plt
+import xlwings as xw
+
+fig = plt.figure()
+plt.plot([1, 2, 3])
+
+sheet = xw.Book().sheets[0]
+sheet.pictures.add(fig, name='Plot', update=True)	
+		]]>
+		</screen>
+	</section>
+	
 </section>
