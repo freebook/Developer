@@ -254,6 +254,20 @@ print(df)
 			]]>
 			</programlisting>
 		</section>
+		<section>
+			<title>迭代行</title>
+			<programlisting>
+			<![CDATA[
+import pandas as pd
+import numpy as np
+
+df = pd.DataFrame({'c1': [10, 11, 12], 'c2': [100, 110, 120]})
+
+for index, row in df.iterrows():
+    print(row['c1'], row['c2'])			
+			]]>
+			</programlisting>
+		</section>
 	</section>
 	<section>
 		<title>数据访问</title>
