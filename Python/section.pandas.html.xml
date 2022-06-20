@@ -1,23 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <section>
-	<title>HTML 表格处理</title>
-	<para>工作中，我们常常需要提取HTML网页中的表格数据，多少会用到爬虫技术。</para>
-	<para>例如使用 requests 下载网页，然后使用HTML萃取工具，将HTML页面内部table表格中的数据提出去来。这种方法比较复杂，今天介绍的是 Pandas 读取网页中的表格，难度几乎是傻瓜级别的。</para>
-	<para>在不使用爬虫的情况下，这种方式是最佳选择。</para>
+	<title>Pandas 处理 HTML</title>
 	<section>
-		<title>安装依赖包</title>
-		<screen>
+		<title>HTML 表格处理</title>
+		<para>工作中，我们常常需要提取HTML网页中的表格数据，多少会用到爬虫技术。</para>
+		<para>例如使用 requests 下载网页，然后使用HTML萃取工具，将HTML页面内部table表格中的数据提出去来。这种方法比较复杂，今天介绍的是 Pandas 读取网页中的表格，难度几乎是傻瓜级别的。</para>
+		<para>在不使用爬虫的情况下，这种方式是最佳选择。</para>
+		<section>
+			<title>安装依赖包</title>
+			<screen>
 		<![CDATA[
 pip install lxml		
 		]]>
-		</screen>
-	</section>
-	<section>
-		<title>read_html 参数详解</title>
-		<para>read_html() 可以萃取 HTML table 标签中的数据。</para>
-		<para>pandas.read_html(io, match='.+', flavor=None, header=None, index_col=None, skiprows=None, attrs=None, parse_dates=False, tupleize_cols=None, thousands=', ', encoding=None, decimal='.', converters=None, na_values=None, keep_default_na=True, displayed_only=True)</para>
-		<para>详细参数</para>
-		<screen>
+			</screen>
+		</section>
+		<section>
+			<title>read_html 参数详解</title>
+			<para>read_html() 可以萃取 HTML table 标签中的数据。</para>
+			<para>pandas.read_html(io, match='.+', flavor=None, header=None, index_col=None, skiprows=None, attrs=None, parse_dates=False, tupleize_cols=None, thousands=', ', encoding=None, decimal='.', converters=None, na_values=None, keep_default_na=True, displayed_only=True)</para>
+			<para>详细参数</para>
+			<screen>
 		<![CDATA[
 io： 		str, path object 或 file-like objectURL，file-like对象或包含HTML的原始字符串。请注意，lxml仅接受http，ftp和文件url协议。如果您的网址以'https'您可以尝试删除's'。
 match： 		str 或 compiled regular expression, 可选参数将返回包含与该正则表达式或字符串匹配的文本的表集。除非HTML非常简单，否则您可能需要在此处传递非空字符串。默认为“。+”(匹配任何非空字符串)。默认值将返回页面上包含的所有表。此值转换为正则表达式，以便Beautiful Soup和lxml之间具有一致的行为。
@@ -35,11 +37,11 @@ na_values： 	iterable, 默认为 None自定义NA值。
 keep_default_na： bool, 默认为 True如果指定了na_values并且keep_default_na为False，则默认的NaN值将被覆盖，否则将附加它们。
 displayed_only： bool, 默认为 True是否应解析具有“display:none”的元素。
 		]]>
-		</screen>
-	</section>
-	<section>
-		<title>从文本变量中提取数据</title>
-		<programlisting>
+			</screen>
+		</section>
+		<section>
+			<title>从文本变量中提取数据</title>
+			<programlisting>
 		<![CDATA[
 import pandas as pd
 
@@ -59,9 +61,9 @@ data = pd.read_html(html)[0]
 
 print(data)
 		]]>
-		</programlisting>
-		<para>提取多个表格</para>
-		<programlisting>
+			</programlisting>
+			<para>提取多个表格</para>
+			<programlisting>
 		<![CDATA[
 import pandas as pd
 
@@ -82,12 +84,12 @@ for data in dfs:
     print(data)
 		
 		]]>
-		</programlisting>
-	</section>
-	<section>
-		<title>从文件获取表格数据</title>
-		<para>准备 table.html 文件</para>
-		<screen>
+			</programlisting>
+		</section>
+		<section>
+			<title>从文件获取表格数据</title>
+			<para>准备 table.html 文件</para>
+			<screen>
 		<![CDATA[
 <table border="1">
     <thead>
@@ -116,8 +118,8 @@ for data in dfs:
     </tbody>
 </table>		
 		]]>
-		</screen>
-		<programlisting>
+			</screen>
+			<programlisting>
 		<![CDATA[
 import pandas as pd
 
@@ -131,13 +133,13 @@ data = pd.read_html('table.html')[0]
 print(data)
 		
 		]]>
-		</programlisting>
-	</section>
+			</programlisting>
+		</section>
 
-	<section>
-		<title>从网址获取表格数据</title>
-		<para>获取页面中所有table的数据</para>
-		<programlisting>
+		<section>
+			<title>从网址获取表格数据</title>
+			<para>获取页面中所有table的数据</para>
+			<programlisting>
 		<![CDATA[
 import pandas as pd
 
@@ -146,12 +148,12 @@ data = pd.read_html(url)
 
 print(data)
 		]]>
-		</programlisting>
-	</section>
-	<section>
-		<title>处理多个表格</title>
-		<para>多个 table 会返回一个数组，通过数组下标可以读取指定表格。</para>
-		<programlisting>
+			</programlisting>
+		</section>
+		<section>
+			<title>处理多个表格</title>
+			<para>多个 table 会返回一个数组，通过数组下标可以读取指定表格。</para>
+			<programlisting>
 		<![CDATA[
 import pandas as pd
 
@@ -160,12 +162,12 @@ data = pd.read_html(url)[1]
 
 print(data)		
 		]]>
-		</programlisting>
-	</section>
-	<section>
-		<title>获取指定属性的表格</title>
-		<para>通过 id 属性，精确提取指定表格中的数据。</para>
-		<programlisting>
+			</programlisting>
+		</section>
+		<section>
+			<title>获取指定属性的表格</title>
+			<para>通过 id 属性，精确提取指定表格中的数据。</para>
+			<programlisting>
 		<![CDATA[
 import pandas as pd
 
@@ -183,9 +185,9 @@ data = pd.read_html(html, attrs={'id': 'second'})
 print(data[0])
 		
 		]]>
-		</programlisting>
-		<para>获取 html table 标签 id 属性为 oTable 的表格数据 </para>
-		<programlisting>
+			</programlisting>
+			<para>获取 html table 标签 id 属性为 oTable 的表格数据 </para>
+			<programlisting>
 		<![CDATA[
 import pandas as pd
 
@@ -194,19 +196,19 @@ data = pd.read_html(url,attrs = {'id': 'oTable'})
 
 print(data)		
 		]]>
-		</programlisting>
-	</section>
-	<section>
-		<title>结合 Xpath 使用</title>
-		<para>HTML 属性，只有 id 是唯一的，其他属性都允许重复使用，例如 class，所以使用 class 会选中多张 HTML 表格。</para>
-		<programlisting>
+			</programlisting>
+		</section>
+		<section>
+			<title>结合 Xpath 使用</title>
+			<para>HTML 属性，只有 id 是唯一的，其他属性都允许重复使用，例如 class，所以使用 class 会选中多张 HTML 表格。</para>
+			<programlisting>
 		<![CDATA[
 data = pd.read_html(text, attrs={'class': 'netkiller'})
 print(len(data))		
 		]]>
-		</programlisting>
-		<para>我的做法是使用 xpath 精准匹配，为什么部用数组下标了，因为页面的变化很可能造成数字顺序错乱。</para>
-		<programlisting>
+			</programlisting>
+			<para>我的做法是使用 xpath 精准匹配，为什么部用数组下标了，因为页面的变化很可能造成数字顺序错乱。</para>
+			<programlisting>
 		<![CDATA[
 import pandas as pd
 from lxml import etree
@@ -229,13 +231,13 @@ text = etree.tostring(result[0], encoding='utf-8').decode('utf-8')
 data = pd.read_html(text)
 print(data[0])
 		]]>
-		</programlisting>
-	</section>
-	<section>
-		<title>指定编码</title>
-		<para>目前仍有部分中文网站使用 GB2312和GBK编码，遇到输出乱码的情况，使用encoding指定编码即可。</para>
-		<para>建议：中文建议使用 GB18030，GB18038 包含了中日韩三国字符集，也就是说GB18030 是涵盖 GB2312和GBK的。</para>
-		<programlisting>
+			</programlisting>
+		</section>
+		<section>
+			<title>指定编码</title>
+			<para>目前仍有部分中文网站使用 GB2312和GBK编码，遇到输出乱码的情况，使用encoding指定编码即可。</para>
+			<para>建议：中文建议使用 GB18030，GB18038 包含了中日韩三国字符集，也就是说GB18030 是涵盖 GB2312和GBK的。</para>
+			<programlisting>
 		<![CDATA[
 import pandas as pd
 
@@ -244,7 +246,74 @@ data = pd.read_html(url, encoding="GB18030")
 print(data[0])
 		
 		]]>
-		</programlisting>
+			</programlisting>
 
+		</section>
 	</section>
+	<section>
+		<title>使用 Dominate 生成 HTML</title>
+		<programlisting>
+		<![CDATA[
+import dominate
+from dominate.tags import *
+import time
+import os
+import pandas as pd
+
+os.chdir(os.path.dirname(__file__))
+
+df = pd.read_excel("2022年6月17 Excle.xlsx", '6月17', usecols="A:R")
+
+print("=" * 20, '打印表头列名', "=" * 20)
+header = df.columns[4:].tolist()
+print(header)
+
+print("=" * 20, '价格', "=" * 20)
+price = df.iloc[0][4:].fillna('').to_dict()
+print(price)
+
+print("行：{0}".format(df.index.size))
+print("列：{0}".format(df.columns.size))
+
+doc = dominate.document(title='Dominate your HTML')
+with doc:
+    with div(id='content'):
+        for index, row in df.iterrows():
+            # print(row.to_dict())
+            t = row[1:].fillna(0).to_dict()
+            if t['合计'] == 0:
+                continue
+            br()
+            with table(id=index, border=1, cellspacing="0", cellpadding="0", width='50%'):
+                caption('亲！本期团购清单如下：{0}'.format(
+                    time.strftime('%Y-%m-%d', time.localtime())))
+                h = tr(align="center")
+                b = tr(align="center")
+                thprice = tr(align="center")
+                for key, value in t.items():
+                    # print(value)
+                    # print(t)
+                    # if not value.isnull():
+                    if value != 0:
+                        h.add(th(key))
+                        b.add(td(value))
+                        if key in price.keys():
+                            thprice.add(td(price[key]))
+                        elif key == '几期':
+                            thprice.add(td('单价'))
+                        else:
+                            thprice.add(td(''))
+                thead().add(h)
+                thead().add(thprice)
+                tbody().add(b)
+                # tfoot().add(p)
+
+with open('doc.html', 'w') as file:
+    file.write(doc.render())
+# print(doc)
+		
+		]]>
+		</programlisting>
+	</section>
+	
 </section>
