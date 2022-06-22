@@ -471,4 +471,86 @@ for month in months:
 		]]>
 		</programlisting>
 	</section>
+	<section>
+		<title>替换NaN(dropna,fillna,isnull)</title>
+		<programlisting>
+		<![CDATA[
+import pandas as pd
+import numpy as np
+
+a = np.arange(25, dtype=float).reshape((5, 5))
+# print(len(a))
+for i in range(len(a)):
+    a[i, :i] = np.nan
+a[3, 0] = 25.0
+df = pd.DataFrame(data=a, columns=list('ABCDE'))
+print('-'*20, '原始数据', '-'*20)
+print(df)
+
+print('-'*20, '填充0', '-'*20)
+print(df.fillna(value=0))
+
+print('-'*20, '向后填充', '-'*20)
+print(df.fillna(method='pad'))
+
+print('-'*20, '向前填充', '-'*20)
+print(df.fillna(method='backfill'))
+
+print('-'*20, '用字典填充', '-'*20)
+values = {'A': 0, 'B': 1, 'C': 2, 'D': 3, 'E': 4}
+print(df.fillna(value=values))
+
+print('-'*20, '只替换第1个NaN值', '-'*20)
+print(df.fillna(method='pad', limit=1))
+	
+		]]>
+		</programlisting>
+		<para>输出结果</para>
+		<screen>
+		<![CDATA[
+-------------------- 原始数据 --------------------
+      A    B     C     D     E
+0   0.0  1.0   2.0   3.0   4.0
+1   NaN  6.0   7.0   8.0   9.0
+2   NaN  NaN  12.0  13.0  14.0
+3  25.0  NaN   NaN  18.0  19.0
+4   NaN  NaN   NaN   NaN  24.0
+-------------------- 填充0 --------------------
+      A    B     C     D     E
+0   0.0  1.0   2.0   3.0   4.0
+1   0.0  6.0   7.0   8.0   9.0
+2   0.0  0.0  12.0  13.0  14.0
+3  25.0  0.0   0.0  18.0  19.0
+4   0.0  0.0   0.0   0.0  24.0
+-------------------- 向后填充 --------------------
+      A    B     C     D     E
+0   0.0  1.0   2.0   3.0   4.0
+1   0.0  6.0   7.0   8.0   9.0
+2   0.0  6.0  12.0  13.0  14.0
+3  25.0  6.0  12.0  18.0  19.0
+4  25.0  6.0  12.0  18.0  24.0
+-------------------- 向前填充 --------------------
+      A    B     C     D     E
+0   0.0  1.0   2.0   3.0   4.0
+1  25.0  6.0   7.0   8.0   9.0
+2  25.0  NaN  12.0  13.0  14.0
+3  25.0  NaN   NaN  18.0  19.0
+4   NaN  NaN   NaN   NaN  24.0
+-------------------- 用字典填充 --------------------
+      A    B     C     D     E
+0   0.0  1.0   2.0   3.0   4.0
+1   0.0  6.0   7.0   8.0   9.0
+2   0.0  1.0  12.0  13.0  14.0
+3  25.0  1.0   2.0  18.0  19.0
+4   0.0  1.0   2.0   3.0  24.0
+-------------------- 只替换第1个NaN值 --------------------
+      A    B     C     D     E
+0   0.0  1.0   2.0   3.0   4.0
+1   0.0  6.0   7.0   8.0   9.0
+2   NaN  6.0  12.0  13.0  14.0
+3  25.0  NaN  12.0  18.0  19.0
+4  25.0  NaN   NaN  18.0  24.0		
+		]]>
+		</screen>
+	</section>
 </section>	

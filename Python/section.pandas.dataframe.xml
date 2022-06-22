@@ -939,8 +939,6 @@ print(df)
 		]]>
 		</screen>
 	</section>
-
-
 	<section>
 		<title>筛选</title>
 		<programlisting>
@@ -1327,5 +1325,13 @@ print(df.info())
 		</section>
 
 	</section>
-
+	<section>
+		<title>迭代输出</title>
+		<programlisting>
+		<![CDATA[
+for index, row in df.iterrows():
+    print(index, row.to_dict())		
+		]]>
+		</programlisting>
+	</section>
 </section>
