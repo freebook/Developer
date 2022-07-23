@@ -1323,7 +1323,60 @@ print(df.info())
 			]]>
 			</programlisting>
 		</section>
+		<section>
+			<title>小数位数</title>
+			<programlisting>
+			<![CDATA[
+>>> import numpy as np
+>>> import pandas as pd
+>>> df = pd.DataFrame([
+	(.1, .044), 
+	(.21, .32), 
+	(.01, .6), 
+	(.001, .0006), 
+	(.66, .03), 
+	(.21, .183)
+	],columns=['dogs', 'cats'])
+>>> df
+    dogs    cats
+0  0.100  0.0440
+1  0.210  0.3200
+2  0.010  0.6000
+3  0.001  0.0006
+4  0.660  0.0300
+5  0.210  0.1830
 
+# 统一保持2位小数
+>>> df.round(2)
+   dogs  cats
+0  0.10  0.04
+1  0.21  0.32
+2  0.01  0.60
+3  0.00  0.00
+4  0.66  0.03
+5  0.21  0.18
+
+# 统一保持一位小数
+>>> df.round(1)
+   dogs  cats
+0   0.1   0.0
+1   0.2   0.3
+2   0.0   0.6
+3   0.0   0.0
+4   0.7   0.0
+5   0.2   0.2
+
+>>> df.round(0)
+   dogs  cats
+0   0.0   0.0
+1   0.0   0.0
+2   0.0   1.0
+3   0.0   0.0
+4   1.0   0.0
+5   0.0   0.0	
+			]]>
+			</programlisting>
+		</section>
 	</section>
 	<section>
 		<title>迭代输出</title>

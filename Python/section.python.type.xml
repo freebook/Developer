@@ -137,6 +137,15 @@ member = {'name':'neo','age':18}
 			</section>
 		</section>
 	</section>
+	<section>
+		<title>float 浮点数值</title>
+		<programlisting>
+		<![CDATA[
+for i in [12.12300, 12.00, 200.12000, 200.0]:
+    print('{:g}'.format(i))		
+		]]>
+		</programlisting>
+	</section>
 	<section id="array">
 		<title>Array</title>
 		<section>
