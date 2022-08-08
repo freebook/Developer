@@ -1114,6 +1114,34 @@ Commercial support is available at
 		</screen>
 	</section>
 	<section>
+		<title>创建命名空间</title>
+		<programlisting>
+		<![CDATA[
+import os, sys
+from netkiller.kubernetes import *
+
+print("=" * 40, "Namespace", "=" * 40)
+namespaces = []
+environment = ['development','testing','production']
+for name in environment :
+    namespace = Namespace(name)
+    namespace.metadata().name(name)
+    namespace.metadata().namespace(name)
+    # namespace.debug()
+    namespaces.append(namespace)
+
+compose = Compose('development')
+for ns in namespaces :
+    compose.add(ns)
+
+# compose.debug()
+# compose.save('/tmp/test.yaml')
+# compose.delete()
+compose.create()		
+		]]>
+		</programlisting>
+	</section>
+	<section>
 		<title>ConfigMap/Secret 编排演示</title>
 		<para>ConfigMap 实例</para>
 		<programlisting>
