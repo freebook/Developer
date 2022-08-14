@@ -8,6 +8,14 @@ neo@MacBook-Pro-Neo ~/w/D/window (master)> java -version
 openjdk version "18.0.1.1" 2022-04-22
 OpenJDK Runtime Environment Homebrew (build 18.0.1.1+0)
 OpenJDK 64-Bit Server VM Homebrew (build 18.0.1.1+0, mixed mode, sharing)
+
+
+export JAVA_HOME=`/usr/libexec/java_home -v 1.6`;
+或者
+export JAVA_HOME=`/usr/libexec/java_home -v 1.7`;
+或者
+export JAVA_HOME=`/usr/libexec/java_home -v 1.8`;
+
 ```
 
 ## Ant
@@ -18,3 +26,6 @@ OpenJDK 64-Bit Server VM Homebrew (build 18.0.1.1+0, mixed mode, sharing)
 
 $ brew install maven
 
+vim /usr/local/Cellar/maven/3.8.6/libexec/conf/settings.xml
+ 
+ 
