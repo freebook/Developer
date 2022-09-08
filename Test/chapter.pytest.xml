@@ -33,7 +33,7 @@ pytest 6.2.4
 		</screen>
 	</section>
 	<section>
-		<title></title>
+		<title>调用 allure</title>
 		<screen>
 		<![CDATA[
 [gitlab-runner@localhost api_test]$ pytest --tb=no --alluredir=/dev/shm/allure_results --no-header		
