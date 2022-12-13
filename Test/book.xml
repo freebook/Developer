@@ -14,6 +14,9 @@
 
 	<!ENTITY % doctype.entity.xml 	SYSTEM "doctype.entity.xml">
 	%doctype.entity.xml;
+
+	<!ENTITY % java.doctype.entity.xml 	SYSTEM "Java/doctype.entity.xml">
+	%java.doctype.entity.xml;
 ]>
 <book xml:base="http://netkiller.sourceforge.net/testing/"
 	xmlns="http://docbook.org/ns/docbook" xml:lang="zh-cn">
@@ -79,8 +82,8 @@ a2p,ab,aclocal,aclocal-1.11,addftinfo,addr2line,airdaemon,apropos,ar,as,attr,aul
 	&chapter.network.xml;
 	&chapter.performance.xml;
 	&chapter.unittest.xml;
-
 	&chapter.appium.xml;
+	&chapter.java.xml;
 	
 	&part.gui.xml;
 	

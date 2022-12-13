@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<part id="index"><?dbhtml dir="java" ?>
+	<title>Java UnitTest</title>
+	&section.java.junit.xml;
+	&section.java.testng.xml;
+	&section.java.jacoco.xml;
+	&section.java.restassured.xml;
+</part>

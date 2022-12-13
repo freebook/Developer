@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!ENTITY chapter.java.xml					SYSTEM "chapter.java.xml">
+<!ENTITY section.java.junit.xml				SYSTEM "section.java.junit.xml">
+<!ENTITY section.java.testng.xml			SYSTEM "section.java.testng.xml">
+<!ENTITY section.java.jacoco.xml			SYSTEM "section.java.jacoco.xml">
+<!ENTITY section.java.restassured.xml		SYSTEM "section.java.restassured.xml">
