@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<section id="index"><?dbhtml dir="java"?>
+<section id="index">
+	<?dbhtml dir="java"?>
 	<title>Java</title>
 	<section id="mac">
 		<title>Apple Mac 例子 Java 11 + Junit5 + Selenium + Safari</title>
@@ -199,8 +200,15 @@ driver.getTitle();
 			]]>
 			</programlisting>
 			<para></para>
-			<programlisting>
 
+		</section>
+		<section>
+			<title>当前 URL</title>
+			<programlisting>
+			<![CDATA[ 
+			WebDriver driver = new WebDriver();
+			String url = driver.getCurrentUrl();			
+			]]>
 			</programlisting>
 		</section>
 	</section>
@@ -258,7 +266,7 @@ String textFound = driver.findElement(By.cssSelector("h1")).getText();
 			</programlisting>
 		</section>
 		<section>
-			<title>By.xpath(String xpath);	</title>
+			<title>By.xpath(String xpath); </title>
 			<programlisting>
 
 			</programlisting>
@@ -335,13 +343,51 @@ driver.manage().timeouts().pageLoadTimeout(10, TimeUnit.SECONDS);
 			]]>
 			</programlisting>
 		</section>
-	</section>
-	<section id="对话框">
-		<title>对话框</title>
-		<para></para>
 		<section>
-			<title>Alert</title>
+			<title>模拟手机浏览器</title>
+			<para>通过 options.addArguments 添加用户代理设置</para>
 			<screen>
+			<![CDATA[
+EdgeOptions options = new EdgeOptions();
+options.addArguments("--user-agent=iphone 8");
+WebDriver driver = new EdgeDriver(options);	
+			]]>
+			</screen>
+			<para>方法二</para>
+			<screen>
+		<![CDATA[
+//配置参数
+Map<String, Object> deviceMetrics = new HashMap<String, Object>();
+
+//设置屏幕大小、像素
+deviceMetrics.put("width", 480);
+deviceMetrics.put("height", 720);
+deviceMetrics.put("pixelRatio", 3.0);
+
+Map<String, Object> mobileEmulation = new HashMap<String, Object>();
+mobileEmulation.put("deviceMetrics", deviceMetrics);
+
+//设置要模拟的手机标识
+mobileEmulation.put("userAgent",
+		"Mozilla/5.0 (iPhone; CPU iPhone OS 11_0 like Mac OS X) AppleWebKit/604.1.38 (KHTML, like Gecko) Version/11.0 Mobile/15A372 Safari/604.1");
+
+//声明ChromeOptions，主要是给chrome设置参数
+ChromeOptions chromeOptions = new ChromeOptions();
+chromeOptions.setExperimentalOption("mobileEmulation", mobileEmulation);
+
+//设置驱动位置
+System.setProperty("webdriver.chrome.driver", "D:\\Tools\\chromedriver.exe");
+WebDriver driver = new ChromeDriver(chromeOptions);	
+			]]>
+			</screen>
+		</section>
+
+		<section id="对话框">
+			<title>对话框</title>
+			<para></para>
+			<section>
+				<title>Alert</title>
+				<screen>
 			<![CDATA[
 // for alert
         WebElement clickOnAlert = driver.findElement(By
@@ -355,10 +401,10 @@ driver.manage().timeouts().pageLoadTimeout(10, TimeUnit.SECONDS);
         alert.accept();
 			]]>
 			</screen>
-		</section>
-		<section>
-			<title>输入对话框</title>
-			<screen>
+			</section>
+			<section>
+				<title>输入对话框</title>
+				<screen>
 			<![CDATA[
 // for prompt
         WebElement clickOnPrompt = driver.findElement(By
@@ -376,10 +422,10 @@ driver.manage().timeouts().pageLoadTimeout(10, TimeUnit.SECONDS);
         afterAccept.accept();	
 			]]>
 			</screen>
-		</section>
-		<section>
-			<title>确认对话框</title>
-			<screen>
+			</section>
+			<section>
+				<title>确认对话框</title>
+				<screen>
 				<![CDATA[
 		// for confirm
         WebElement clickOnConfirm = driver.findElement(By
@@ -395,11 +441,12 @@ driver.manage().timeouts().pageLoadTimeout(10, TimeUnit.SECONDS);
         afterDismiss.accept();
 			]]>
 			</screen>
+			</section>
 		</section>
 	</section>
-	<section id="">
+	<section>
 		<title>等待</title>
-		
+
 		<section>
 			<title>等待显示</title>
 			<programlisting>
@@ -459,5 +506,19 @@ wait.until(ExpectedConditions.elementToBeClickable(By.id("name"))).sendKeys("用
 			</programlisting>
 		</section>
 	</section>
-	&section.selenium.java.form.xml;
-</section>
+	<section>
+		<title>等待页面</title>
+		<ulink url="" />
+		<screen>
+		<![CDATA[ 
+		driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(12));
+
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(12));
+
+		driver.manage().timeouts().scriptTimeout(Duration.ofSeconds(10));
+		
+		WebElement res = new WebDriverWait(driver, Duration.ofSeconds(15))
+        .until(ExpectedConditions.elementToBeClickable(By.xpath(“//a/h1”)));		
+		]]>
+		</screen>
+	</section> &section.selenium.java.form.xml; </section>

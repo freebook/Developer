@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- $Id: chapter.webdriver.xml 471 2012-10-23 05:48:27Z netkiller $ -->
+<section id="webdriver">
+	<title>WEBDRIVER</title>
+	<para>
+		<ulink url="http://code.google.com/p/webdriver/wiki/GettingStarted">
+			http://code.google.com/p/webdriver/wiki/GettingStarted</ulink>
+	</para>
+	<section id="webdriver.java">
+		<title>Java</title>
+		<para>
+			<ulink url="http://code.google.com/p/webdriver/wiki/GettingStarted">
+				http://code.google.com/p/webdriver/wiki/GettingStarted</ulink>
+		</para>
+	</section>
+	<section id="webdriver.php">
+		<title>php-webdriver -- A very thin wrapper of WebDriver</title>
+		<para>
+			<ulink url="https://github.com/facebook/php-webdriver" />
+		</para>
+	</section>
+</section>

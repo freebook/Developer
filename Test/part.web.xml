@@ -2,7 +2,9 @@
 <!-- $Id: part.testing.xml 473 2012-10-26 10:00:21Z netkiller $ -->
 <part id="index"><?dbhtml dir="web"?>
 	<title>Web Testing</title>
+	&chapter.selenium.xml;
 	&chapter.web.xml;
+	&chapter.watir.xml;
 	&chapter.framework.xml;
 	&chapter.testing.data.xml;
 </part>

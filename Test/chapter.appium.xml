@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<chapter id="appium">
+<chapter id="index"><?dbhtml dir="appium"?>
 	<title>appium</title>
 	<para>Appium is an open source test automation framework for use with native, hybrid and mobile web apps. 
 It drives iOS, Android, and Windows apps using the WebDriver protocol.</para>
