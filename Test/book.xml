@@ -58,7 +58,7 @@
 		</releaseinfo>
 
 		&book.info.legalnotice.xml;
-		&book.info.abstract.xml;
+<!-- 		&book.info.abstract.xml; -->
 
 		<keywordset>
 			<keyword>CentOS</keyword>

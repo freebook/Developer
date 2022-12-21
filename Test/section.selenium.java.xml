@@ -400,7 +400,7 @@ WebDriver driver = new ChromeDriver(chromeOptions);
         // click alert ok
         alert.accept();
 			]]>
-			</screen>
+				</screen>
 			</section>
 			<section>
 				<title>输入对话框</title>
@@ -421,7 +421,7 @@ WebDriver driver = new ChromeDriver(chromeOptions);
         // click alert ok
         afterAccept.accept();	
 			]]>
-			</screen>
+				</screen>
 			</section>
 			<section>
 				<title>确认对话框</title>
@@ -440,7 +440,7 @@ WebDriver driver = new ChromeDriver(chromeOptions);
         delay(2);
         afterDismiss.accept();
 			]]>
-			</screen>
+				</screen>
 			</section>
 		</section>
 	</section>
@@ -521,4 +521,6 @@ wait.until(ExpectedConditions.elementToBeClickable(By.id("name"))).sendKeys("用
         .until(ExpectedConditions.elementToBeClickable(By.xpath(“//a/h1”)));		
 		]]>
 		</screen>
-	</section> &section.selenium.java.form.xml; </section>
+	</section> 
+	&section.selenium.java.form.xml;
+</section>

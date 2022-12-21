@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- $Id: part.testing.xml 473 2012-10-26 10:00:21Z netkiller $ -->
-<part id="index"><?dbhtml dir="web"?>
+<part>
 	<title>Web Testing</title>
 	&chapter.selenium.xml;
 	&chapter.web.xml;

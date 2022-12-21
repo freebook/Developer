@@ -6,7 +6,8 @@
 	<para>
 		<ulink url="http://selenium.seleniumhq.org/">http://selenium.seleniumhq.org/</ulink>
 	</para>
-	&chapter.webdriver.xml; <section id="server">
+	&section.selenium.webdriver.xml;
+	<section id="server">
 		<title>Selenium RC</title>
 		<ulink url="http://seleniumhq.org/download/" />
 		<screen>
@@ -90,8 +91,8 @@ unittest.main()
 			)
 		</screen>
 	</section> &section.selenium.python.xml; &section.selenium.ruby.xml;
-	&section.selenium.nodejs.xml; &section.selenium.php.xml; &section.selenium.java.xml; <section
-		id="browser">
+	&section.selenium.nodejs.xml; &section.selenium.php.xml; &section.selenium.java.xml;
+	<section id="browser">
 		<title>Browser Config</title>
 		<section id="browsers">
 			<title>支持浏览器</title>
