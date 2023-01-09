@@ -224,3 +224,41 @@ if __name__ == '__main__':
 		</programlisting>
 	</section>
 </section>
+<section id="graphviz">
+	<title>graphviz</title>
+	<section>
+		<title>安装 graphviz 环境</title>
+		<para>安装 graphviz 命令</para>
+		<screen>
+		<![CDATA[ 
+brew install graphviz
+		]]>
+		</screen>
+		<para>安装 graphviz 包</para>
+		<screen>
+		<![CDATA[ 
+pip install graphviz	
+		]]>
+		</screen>
+	</section>
+	<section>
+		<title>例子</title>
+		<screen>
+		<![CDATA[ 
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+from graphviz import Digraph
+
+A = [('Yellow', 'ink'), ('blue', 'ink'), ('pink', 'ink')]
+
+e = Digraph()
+e.attr(rankdir='LR')
+for a in A:
+	e.node(a[0])
+	e.edge(a[0], a[1])
+
+e.view()		
+		]]>
+		</screen>
+	</section>
+</section>
