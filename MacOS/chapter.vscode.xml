@@ -1,0 +1,10 @@
+<section>
+    <title>VS Code diff</title>
+    <para>比较两个文件</para>
+    <screen>
+    <![CDATA[ 
+neo@MacBook-Pro-M2 ~ > sudo ln -s /Applications/Visual\ Studio\ Code.app/Contents/Resources/app/bin/code /usr/local/bin/code
+neo@MacBook-Pro-M2 ~> code --diff test.txt sock.sh
+    ]]>
+    </screen>
+</section>
