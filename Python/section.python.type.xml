@@ -136,6 +136,19 @@ member = {'name':'neo','age':18}
 				</screen>
 			</section>
 		</section>
+		<section>
+			<title>正则处理字符串</title>
+			<screen>
+			<![CDATA[ 
+import re
+
+string = "TMP AAAAAA\r\nMSG BBBB"
+
+print(re.sub(r'(TMP|MSG)\s', "", string))
+
+			]]>
+			</screen>
+		</section>
 	</section>
 	<section>
 		<title>float 浮点数值</title>
