@@ -150,7 +150,7 @@ print(re.sub(r'(TMP|MSG)\s', "", string))
 			</screen>
 		</section>
 	</section>
-	<section>
+	<section id="float">
 		<title>float 浮点数值</title>
 		<programlisting>
 		<![CDATA[
@@ -227,17 +227,32 @@ timepoint = time.strftime('%Y-%m-%d.%H:%M:%S',time.localtime(time.time()))
 			]]>
 			</screen>
 		</section>
+		<section>
+			<title>日期运算</title>
+			<section>
+				<title>天数差</title>
+				<programlisting>
+				<![CDATA[
+from datetime import datetime
+
+begin='2023-02-01'
+end='2023-02-28'
+
+interval=datetime.strptime(end,'%Y-%m-%d').date() - datetime.strptime(begin,'%Y-%m-%d').date()
+print(interval.days)				
+				]]>
+				</programlisting>
+			</section>
+		</section>
 	</section>
 	<section id="bytes">
 		<title>bytes 类型</title>
-
-
 		<section>
 			<title>bytes to string </title>
 			<screen>
-		<![CDATA[
+			<![CDATA[
 .decode()
-		]]>
+			]]>
 			</screen>
 		</section>
 		<section>

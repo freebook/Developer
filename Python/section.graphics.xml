@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section>
+	<title>SVG 图形库</title>
+	<section>
+		<title>安装</title>
+		<screen>
+		<![CDATA[
+pip3 install drawsvg -i https://pypi.tuna.tsinghua.edu.cn/simple
+pip3 install cairosvg -i https://pypi.tuna.tsinghua.edu.cn/simple
+		]]>
+		</screen>
+	</section>
+</section>
