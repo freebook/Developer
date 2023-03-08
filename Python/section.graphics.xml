@@ -10,4 +10,28 @@ pip3 install cairosvg -i https://pypi.tuna.tsinghua.edu.cn/simple
 		]]>
 		</screen>
 	</section>
+	<section>
+		<title>绘制多边形</title>
+		<screen>
+		<![CDATA[
+lines = draw.Lines(
+    # 坐标
+    5, 5,
+    # 横线 
+    200, 5,
+    # 竖线 
+    200, 40, 
+    # 斜线
+    200 - 10, 20,
+    # 横线2
+    5 + 10, 20,
+    # 斜线
+    5, 40,
+    # 闭合竖线
+    5,5,
+    fill='none', stroke='black')		
+		]]>
+		</screen>
+	</section>
+	
 </section>
