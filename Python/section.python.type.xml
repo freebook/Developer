@@ -197,11 +197,43 @@ for i in range(0, len(colours)):
 	<section id="datetime">
 		<title>Datetime</title>
 		<section>
-			<title>datetime</title>
+			<title>当前时间</title>
+			<programlisting>
+			<![CDATA[
+from datetime import datetime
+
+print(datetime.today())
+print(datetime.now())
+print(datetime.now().date())
+print(datetime.now().time())
+			]]>
+			</programlisting>
+			<screen>
+			<![CDATA[
+2023-03-11 18:30:34.657155
+2023-03-11 18:30:34.657176
+2023-03-11
+18:30:34.657182			
+			]]>
+			</screen>
+		</section>
+		<section>
+			<title>生成时间</title>
+			<programlisting>
+			<![CDATA[
+from datetime import date
+print(date(2002, 12, 31))			
+			]]>
+			</programlisting>
+		</section>
+		<section>
+			<title>日期格式化</title>
 			<screen>
 			<![CDATA[
 from datetime import datetime
 datetime.today().strftime('%Y-%m-%d.%H:%M:%S')
+
+timepoint = time.strftime('%Y-%m-%d.%H:%M:%S',time.localtime(time.time()))
 			]]>
 			</screen>
 		</section>
@@ -220,13 +252,15 @@ print("The date is", dt_obj)
 			</programlisting>
 		</section>
 		<section>
-			<title>日期格式化</title>
-			<screen>
+			<title>日期转字符串</title>
+			<programlisting>
 			<![CDATA[
-timepoint = time.strftime('%Y-%m-%d.%H:%M:%S',time.localtime(time.time()))			
+from datetime import date
+print(date(2002, 12, 31).strftime('%Y-%m-%d'))			
 			]]>
-			</screen>
+			</programlisting>
 		</section>
+
 		<section>
 			<title>日期运算</title>
 			<section>
@@ -239,8 +273,60 @@ begin='2023-02-01'
 end='2023-02-28'
 
 interval=datetime.strptime(end,'%Y-%m-%d').date() - datetime.strptime(begin,'%Y-%m-%d').date()
-print(interval.days)				
+print(interval.days)
 				]]>
+				</programlisting>
+			</section>
+			<section>
+				<title>月/周 首尾计算</title>
+				<programlisting>
+			<![CDATA[
+from datetime import timedelta,datetime
+
+now = datetime.now()
+
+# 获取昨天日期：
+yesterday = now - timedelta(days=1)
+# 获取明天日期：
+tomorrow = now + timedelta(days=1)			
+			]]>
+				</programlisting>
+				<programlisting>
+			<![CDATA[
+# 获取本周第一天和最后一天：
+this_week_start = now - timedelta(days=now.weekday())
+this_week_end = now + timedelta(days=6-now.weekday())
+
+# 获取上周第一天和最后一天：
+last_week_start = now - timedelta(days=now.weekday()+7)
+last_week_end = now - timedelta(days=now.weekday()+1)
+
+# 获取上月第一天和最后一天:
+
+last_month_end = this_month_start - timedelta(days=1) 
+last_month_start = datetime.datetime(last_month_end.year, last_month_end.month, 1)
+
+# 获取本季第一天和最后一天：
+
+month = (now.month - 1) - (now.month - 1) % 3 + 1
+this_quarter_start = datetime.datetime(now.year, month, 1)
+this_quarter_end = datetime.datetime(now.year, month, calendar.monthrange(now.year, now.month)[1]) 
+
+# 获取上季第一天和最后一天：
+
+last_quarter_end = this_quarter_start - timedelta(days=1)
+last_quarter_start = datetime.datetime(last_quarter_end.year, last_quarter_end.month - 2, 1)
+
+# 获取本年第一天和最后一天：
+
+this_year_start = datetime.datetime(now.year, 1, 1)
+this_year_end = datetime.datetime(now.year + 1, 1, 1) - timedelta(days=1)
+
+# 获取去年第一天和最后一天：
+
+last_year_end = this_year_start - timedelta(days=1)
+last_year_start = datetime.datetime(last_year_end.year, 1, 1) 
+			]]>
 				</programlisting>
 			</section>
 		</section>
@@ -291,7 +377,7 @@ print(b)
 			</programlisting>
 		</section>
 	</section>
-	
+
 </section>
 <section id="python.datastruct">
 	<title>数据结构</title>
