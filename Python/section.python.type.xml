@@ -372,6 +372,24 @@ for (b, e) in lists:
 			]]>
 			</programlisting>
 		</section>
+		<section>
+			<title>日期排序</title>
+			<programlisting>
+			<![CDATA[
+import datetime
+ 
+list_time=["2018-05-01","2018-02-01","2018-07-10","2019-06-01"]
+ 
+list_time1=sorted(list_time,key=lambda date:datetime.datetime.strptime(date,"%Y-%m-%d").timestamp())
+ 
+print('before', list_time)
+print('after', list_time1)
+
+print('before', list_time)
+print('min', min(list_time1), 'max', max(list_time1))			
+			]]>
+			</programlisting>
+		</section>
 	</section>
 	<section id="bytes">
 		<title>bytes 类型</title>
