@@ -35,8 +35,8 @@
 	xmlns="http://docbook.org/ns/docbook" xml:lang="zh-cn">
 	<info>
 		<title>Netkiller Python 手札</title>
-		<subtitle><ulink url="https://edu.51cto.com/course/27794.html">《Netkiller Python 手札》视频教程</ulink>（<?dbtimestamp format="Y"?>版）</subtitle>
-		<!-- https://www.bilibili.com/video/bv1NU4y1h7EK -->
+		<subtitle><ulink url="https://space.bilibili.com/486347986/video">《Netkiller Python 手札》视频教程</ulink>（<?dbtimestamp format="Y"?>版）</subtitle>
+
 		&book.info.author.xml;
 
 		<copyright>
