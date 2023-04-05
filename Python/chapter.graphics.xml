@@ -2,7 +2,7 @@
 <chapter id="index"><?dbhtml dir="graphics" ?>
 	<title>图形开发</title>
 
-	&&section.graphics.xml;
+	&section.graphics.xml;
 	<section>
 		<title>二维码</title>
 		<section id="qrcode">
