@@ -48,6 +48,23 @@ $ sudo apt-get install python3.3
 			]]></screen>
 		</section>
 	</section>
+	<section>
+		<title>Docker 安装</title>
+		<screen>
+		<![CDATA[
+$ docker run --name python --rm -it python
+Python 3.10.1 (main, Dec 21 2021, 09:01:08) [GCC 10.2.1 20210110] on linux
+Type "help", "copyright", "credits" or "license" for more information.
+>>>		
+		]]>
+		</screen>
+		<para>Dockerfile 制作自己的镜像</para>
+		<screen>
+		<![CDATA[
+		
+		]]>
+		</screen>
+	</section>
 	<section id="pypy">
 		<title>pypy - fast alternative implementation of Python - PyPy interpreter</title>
 		<para>http://pypy.org/</para>

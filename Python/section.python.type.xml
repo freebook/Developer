@@ -216,6 +216,12 @@ print(datetime.now().time())
 18:30:34.657182			
 			]]>
 			</screen>
+			<screen>
+			<![CDATA[
+today = datetime.today()
+yesterday = (today - timedelta(days=1)).date()			
+			]]>
+			</screen>
 		</section>
 		<section>
 			<title>生成时间</title>
