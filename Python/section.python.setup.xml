@@ -61,7 +61,17 @@ Type "help", "copyright", "credits" or "license" for more information.
 		<para>Dockerfile 制作自己的镜像</para>
 		<screen>
 		<![CDATA[
-		
+FROM python:latest
+
+MAINTAINER Netkiller <netkiller@msn.com>
+
+RUN pip install pymysql sqlalchemy openpyxl pandas -i https://pypi.tuna.tsinghua.edu.cn/simple
+RUN mkdir /data
+ADD export.py /srv
+VOLUME ["/tmp"]
+WORKDIR /data
+#EXPOSE 80 443
+ENTRYPOINT python3 /srv/export.py
 		]]>
 		</screen>
 	</section>
