@@ -46,10 +46,9 @@
 
 	<!ENTITY % ruby.doctype.entity.xml 		SYSTEM "Ruby/doctype.entity.xml">
 	%ruby.doctype.entity.xml;
-<!--
-	<!ENTITY % java.doctype.entity.xml 		SYSTEM "Java/doctype.entity.xml">
-	%java.doctype.entity.xml;
--->
+
+	<!ENTITY % electron.doctype.entity.xml 		SYSTEM "Electron/doctype.entity.xml">
+	%electron.doctype.entity.xml;
 	
 	<!ENTITY % chart.doctype.entity.xml 	SYSTEM "Chart/doctype.entity.xml">
 	%chart.doctype.entity.xml;
@@ -118,6 +117,7 @@
 	<!-- &part.php.xml; -->
 	<!-- &part.python.xml; -->
 	<!-- &chapter.java.xml; -->
+	&chapter.electron.xml;
 	&part.ruby.xml;
 	&part.node.xml;
 <!-- =========================================================================== -->
