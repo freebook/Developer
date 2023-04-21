@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<section id="type">
+<chapter id="type">
 	<title>数据类型</title>
 	<section id="type">
 		<title>type 数据类型检测</title>
@@ -623,4 +623,4 @@ L = g.Line()
 			</programlisting>
 		</section>
 	</section>
-</section>
+</chapter>

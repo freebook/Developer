@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<section id="python.module">
+<chapter id="python.module">
 	<title>Python 模块</title>
 	<section>
 		<title>同级目录</title>
@@ -155,4 +155,4 @@ tc.say()
 		]]>
 		</screen>
 	</section>
-</section>
+</chapter>

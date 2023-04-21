@@ -4,10 +4,10 @@
 	<title>Python 入门</title>
 	&section.python.introduction.xml;
 	&section.python.setup.xml;
+</chapter>
 	&section.python.pypi.xml;
 	&section.python.module.xml;
 	&section.python.type.xml;
-</chapter>
 <chapter id="stdio">
 	<title>Input/Output</title>
 	<section id="sys">
