@@ -8,4 +8,12 @@ npm install electron --save-dev
 	
 	]]>
 	</screen>
+	<section>
+		<title></title>
+		<screen>
+		<![CDATA[
+npm install appdmg		
+		]]>
+		</screen>
+	</section>
 </chapter>
