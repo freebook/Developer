@@ -444,8 +444,8 @@ print(b)
 		</section>
 	</section>
 
-</section>
-<section id="python.datastruct">
+</chapter>
+<chapter id="python.datastruct">
 	<title>数据结构</title>
 	<section id="data.list">
 		<title>List</title>
@@ -535,9 +535,9 @@ print(dict1)
 		</section>
 	</section>
 
-</section>
+</chapter>
 
-<section id="class">
+<chapter id="class">
 	<title>Class</title>
 	<screen><![CDATA[
 class MyClass:
