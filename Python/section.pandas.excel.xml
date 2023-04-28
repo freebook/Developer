@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<section>
+<section id="pandas.excel">
 	<title>Excel 处理</title>
 	<para>本节主要介绍和excel的交互。</para>
 	<section>
@@ -435,8 +435,6 @@ high_salary = sheet[(sheet['工资'] >= 8000) & (sheet['工资'] <=10000)][['姓
 
 		</section>
 	</section>
-
-
 	<section>
 		<title>Excel 设置项</title>
 		<programlisting>
@@ -450,9 +448,26 @@ pd.set_option('display.float_format', lambda x: '%.2f' % x)
 		]]>
 		</programlisting>
 	</section>
-
+	<section>
+		<title>大数据写入Excel问题</title>
+		<para>df.to_excel 导出大数据会出现 Excle 表格损坏或没有数据的情况</para>
+		<screen>
+		<![CDATA[
+df = pd.read_sql_query(text(sqlOrder), engine.connect())
+df.to_excel("{yesterday}.xlsx".format(yesterday=yesterday), sheet_name='Sheet1', index=False)		
+		]]>
+		</screen>
+		<para>解决方案</para>
+		<screen>
+		<![CDATA[
+	df = pd.read_sql_query(text(query), connect)
+    with pd.ExcelWriter(xlsxfile) as writer:
+        df.to_excel(writer, sheet_name=platform_name.replace(':',''), index=False)
+		]]>
+		</screen>
+	</section>
 </section>
-<section>
+<section id="pandas.csv">
 	<title>Pandas 读写 CSV 文件</title>
 
 	<section>
