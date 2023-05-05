@@ -487,7 +487,60 @@ for month in months:
 		</programlisting>
 	</section>
 	<section>
-		<title>替换NaN(dropna,fillna,isnull)</title>
+		<title>写入表头列名</title>
+		<para>header=True</para>
+		<programlisting>
+		<![CDATA[
+df.to_csv(f'/tmp/{month}天气预报数据.csv', mode='a+', index=False, header=True)		
+		]]>
+		</programlisting>
+	</section>
+	<section>
+		<title>分隔符</title>
+		<programlisting>
+		<![CDATA[
+dt.to_csv('C:/Users/think/Desktop/Result.csv',sep='?')	
+dt.to_csv('C:/Users/think/Desktop/Result.csv',sep=':')	
+		]]>
+		</programlisting>
+	</section>
+	<section>
+		<title>格式化</title>
+		<programlisting>
+		<![CDATA[
+# 格式 float_format: Format string for floating point numbers
+# 保留两位小数
+dt.to_csv('/tmp/neo.csv',float_format='%.2f') 
+		]]>
+		</programlisting>
+	</section>
+	<section>
+		<title>指定列输出</title>
+		<programlisting>
+		<![CDATA[
+# cols: Columns to write (default None)
+dt.to_csv('C:/Users/think/Desktop/Result.csv',columns=['name']) 	
+		]]>
+		</programlisting>
+	</section>
+	<section>
+		<title>留行索引</title>
+		<programlisting>
+		<![CDATA[
+# index:  whether to write row (index) names (default True)
+dt.to_csv('/tmp/neo.csv',index=0) 		
+		]]>
+		</programlisting>
+	</section>
+	<section>
+		<title>替换空值</title>
+		<programlisting>
+		<![CDATA[
+# na_rep: A string representation of a missing value (default ‘’)
+dt.to_csv('/tmp/neo.csv',na_rep='NA') 		
+		]]>
+		</programlisting>
+		<para>替换NaN(dropna,fillna,isnull)</para>
 		<programlisting>
 		<![CDATA[
 import pandas as pd
