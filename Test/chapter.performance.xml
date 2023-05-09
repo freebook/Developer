@@ -120,7 +120,51 @@ ab -n 2000000 -c 20000 -t 30 -H 'Accept-Encoding: gzip' -k http://172.16.0.2/
 			]]>
 			</screen>
 		</section>
+		<section>
+			<title>持续时间</title>
+			<para>持续 30 秒</para>
+			<screen>
+			<![CDATA[
+# ab -t 30 -c 100 https://neo.netkiller.cn/
+			]]>
+			</screen>
+		</section>
+		
 	</chapter>
+	<chapter id="wrk">
+		<title>wrk</title>
+		<section>
+			<title>安装 wrk</title>
+			<screen>
+			<![CDATA[
+# apk add wrk			
+			]]>
+			</screen>
+		</section>
+		<section>
+			<title>使用方法</title>
+			<para>发起 100 个连接，持续时间 10 秒种</para>
+			<screen>
+			<![CDATA[
+wrk -c 100 -d 10 http://www.example.com
+			]]>
+			</screen>
+			<para>指定 User-Agent</para>
+			<screen>
+			<![CDATA[
+wrk -c 100 -d t 100 -H 'User-Agent: Neo' http://www.example.com
+wrk -c 1000 -d 1 -t 100 -H 'User-Agent: Android 12' http://www.example.com
+			]]>
+			</screen>
+			<para>测试短连接</para>
+			<screen>
+			<![CDATA[
+wrk -H "Connection: Close" -c 100 -d 10 http://domain/path			
+			]]>
+			</screen>
+		</section>
+	</chapter>
+	
 	<chapter id="jmeter">
 		<title>JMeter</title>
 	</chapter>
