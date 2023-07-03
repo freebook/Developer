@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<section id="subprocess"> 
+<section id="subprocess">
 	<title>subprocess</title>
 	<section>
 		<title>check_output</title>
@@ -8,6 +8,16 @@
 sp = subprocess.check_output(cmd)
 text = sp.decode('UTF8')
 print(text)
+		]]>
+		</programlisting>
+		<para>获取IP地址</para>
+		<programlisting>
+		<![CDATA[ 
+import subprocess
+
+command = "/usr/bin/ip addr show eth0 | grep 'inet ' | awk '{print $2}' | cut -d/ -f1"
+screen = subprocess.check_output(command, shell=True)
+print(screen.decode().replace("\n", ""))		
 		]]>
 		</programlisting>
 	</section>
