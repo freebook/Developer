@@ -6,7 +6,7 @@
 <!ENTITY section.python.pypi.xml			SYSTEM "section.python.pypi.xml">
 
 <!ENTITY chapter.python.pipe.xml			SYSTEM "chapter.python.pipe.xml">
-	
+
 <!ENTITY chapter.library.xml				SYSTEM "chapter.library.xml">
 <!ENTITY section.library.syslog.xml			SYSTEM "section.library.syslog.xml">
 <!ENTITY section.library.threading.xml		SYSTEM "section.library.threading.xml">
@@ -69,6 +69,7 @@
 <!ENTITY chapter.nlp.xml					SYSTEM "chapter.nlp.xml">
 <!ENTITY section.nlp.jieba.xml				SYSTEM "section.nlp.jieba.xml">
 <!ENTITY section.nlp.wordcloud.xml			SYSTEM "section.nlp.wordcloud.xml">
+<!ENTITY section.nlp.transformers.xml		SYSTEM "section.nlp.transformers.xml">
 
 <!ENTITY chapter.graphics.xml				SYSTEM "chapter.graphics.xml">
 <!ENTITY section.graphics.xml				SYSTEM "section.graphics.xml">

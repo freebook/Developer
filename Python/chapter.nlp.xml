@@ -52,4 +52,5 @@
 	</section>
 	&section.nlp.jieba.xml;
 	&section.nlp.wordcloud.xml;
+	&section.nlp.transformers.xml;
 </chapter>
