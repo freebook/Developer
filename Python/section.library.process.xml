@@ -28,6 +28,9 @@ print(screen.decode().replace("\n", ""))
 import subprocess
 
 output = subprocess.check_output("ls", cwd="/")
+print(output.decode())
+
+output = subprocess.check_output("/usr/bin/git pull", cwd="/opt/netkiller", shell=True)
 print(output.decode())		
 		]]>
 		</programlisting>
