@@ -20,5 +20,16 @@ screen = subprocess.check_output(command, shell=True)
 print(screen.decode().replace("\n", ""))		
 		]]>
 		</programlisting>
+		<para>制定运行目录</para>
+		<programlisting>
+		<![CDATA[ 
+#!/usr/bin/python
+# -*-coding：utf-8-*-
+import subprocess
+
+output = subprocess.check_output("ls", cwd="/")
+print(output.decode())		
+		]]>
+		</programlisting>
 	</section>
 </section>
