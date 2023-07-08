@@ -1,36 +1,36 @@
 <section id="python.pylons">
-	<title>Pylons</title>
-<section>
-	<title>Getting Started with Pylons</title>
-	<section>
-		<title>Installing</title>
-	<screen>
+  <title>Pylons</title>
+  <section>
+    <title>Getting Started with Pylons</title>
+    <section>
+      <title>Installing</title>
+      <screen><![CDATA[
 [neo@development ~]$ curl http://pylonshq.com/download/1.0/go-pylons.py | python - mydevenv
 [neo@development ~]$ source mydevenv/bin/activate
 (mydevenv)[neo@development ~]$
 
 (mydevenv)[neo@development ~]$ paster create -t pylons helloworld	
-	</screen>
-	<para>Running the application</para>
-	<screen>
+	]]></screen>
+      <para>Running the application</para>
+      <screen><![CDATA[
 (mydevenv)[neo@development ~]$ cd helloworld
 (mydevenv)[neo@development helloworld]$ paster serve --reload development.ini
 Starting subprocess with file monitor
 Starting server in PID 26895.
 16:38:39,051 INFO  [paste.httpserver.ThreadPool] Cannot use kill_thread_limit as ctypes/killthread is not available
 serving on http://127.0.0.1:5000	
-	</screen>
-	<para>create a controller</para>
-	<screen>
+	]]></screen>
+      <para>create a controller</para>
+      <screen><![CDATA[
 (mydevenv)[neo@development helloworld]$ paster controller hello
 Creating /home/neo/helloworld/helloworld/controllers/hello.py
 Creating /home/neo/helloworld/helloworld/tests/functional/test_hello.py	
-	</screen>
-	<para>http://192.168.3.9:5000/hello/index</para>
-	</section>
-	<section>
-		<title>Debian/Ubuntu</title>
-		<screen>
+	]]></screen>
+      <para>http://192.168.3.9:5000/hello/index</para>
+    </section>
+    <section>
+      <title>Debian/Ubuntu</title>
+      <screen><![CDATA[
 $ sudo apt-cache search pylons
 $ sudo apt-get install python-pylons
 $ paster create -t pylons helloworld
@@ -99,35 +99,37 @@ Creating directory ./helloworld
   Copying test.ini_tmpl to ./helloworld/test.ini
 Running /usr/bin/python setup.py egg_info
 
-		</screen>
-		<para>配置host监听地址</para>
-		<screen>
+		]]></screen>
+      <para>配置host监听地址</para>
+      <screen><![CDATA[
 $ cd helloworld
 $ vim development.ini		
 host = 0.0.0.0
-		</screen>
-		<para>启动服务</para>
-		<screen>
+		]]></screen>
+      <para>启动服务</para>
+      <screen><![CDATA[
 $ paster serve --reload development.ini
-		</screen>
-	</section>
-</section>
-<section>
-	<title>config/routing.py</title>
-	<para>url routing 做为静态化让所有后缀加上.html</para>
-	<screen>
+		]]></screen>
+    </section>
+  </section>
+  <section>
+    <title>config/routing.py</title>
+    <para>url routing 做为静态化让所有后缀加上.html</para>
+    <screen><![CDATA[
 (mydevenv)[neo@development helloworld]$ vim helloworld/config/routing.py
 
     map.connect('/{controller}/{action}.html')
     map.connect('/{controller}/{action}/{id}.html')
-	</screen>
-</section>
-<section id="mako">
-	<title>mako template</title>
-	<para><ulink url="http://www.makotemplates.org/">http://www.makotemplates.org/</ulink></para>
-	<section>
-		<title>include</title>
-		<programlisting>
+	]]></screen>
+  </section>
+  <section id="mako">
+    <title>mako template</title>
+    <para>
+      <ulink url="http://www.makotemplates.org/">http://www.makotemplates.org/</ulink>
+    </para>
+    <section>
+      <title>include</title>
+      <programlisting>
 		<![CDATA[
 <%include file="header.html"/>
 
@@ -136,21 +138,21 @@ $ paster serve --reload development.ini
 <%include file="footer.html"/>
 		]]>
 		</programlisting>
-		<para>传递参数</para>
-		<programlisting>
+      <para>传递参数</para>
+      <programlisting>
 		<![CDATA[
 <%include file="toolbar.html" args="current_section='members', username='ed'"/>
 		]]>
 		</programlisting>
-	</section>
-	<section>
-		<title>inherit</title>
-		<programlisting role="mako">
+    </section>
+    <section>
+      <title>inherit</title>
+      <programlisting role="mako">
 		<![CDATA[
 <%inherit file="base.html"/>
 		]]>
 		</programlisting>
-	
-	</section>
-</section>
+
+    </section>
+  </section>
 </section>
