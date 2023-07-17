@@ -19,7 +19,77 @@ with shelve.open("/var/tmp/test") as db:
 		</programlisting>
 		<programlisting>
 		<![CDATA[ 
-		
+import shelve, json
+
+data = json.loads(json.dumps({"800": "AAAA", "900": "BBBB", "1000": "CCCC"}))
+print(data, type(data))
+with shelve.open("/var/tmp/test", "n") as db:
+	for k, v in data.items():
+		db[k] = v
+
+with shelve.open("/var/tmp/test") as db:
+	for k, v in db.items():
+		print(k, ":", v)
+		]]>
+		</programlisting>
+	</section>
+	<section>
+		<title>队列</title>
+		<programlisting>
+		<![CDATA[ 
+import queue
+
+q = queue.SimpleQueue()
+
+for n in range(10):
+	q.put(n)
+
+print("队列数量:", q.qsize())
+
+while not q.empty():
+	print(q.get())
+
+print("队列状态：", q.empty())
+			]]>
+		</programlisting>
+		<para>先进先出队列，保持队列最大尺寸，超过尺寸自动出队</para>
+		<programlisting>
+		<![CDATA[ 
+from queue import Queue
+
+q = Queue(maxsize=3)
+
+for i in range(10):
+	if q.full():
+		q.get()
+	q.put(i, block=False)
+
+
+print(type(q.queue), q.queue)
+
+while not q.empty():
+	i = q.get(block=False)
+	print(i)		
+		]]>
+		</programlisting>
+		<programlisting>
+		<![CDATA[ 
+from queue import Queue
+
+q = Queue(maxsize=10)
+
+for i in range(20):
+	if q.full():
+		q.get()
+	q.put(i, block=False)
+
+
+print(type(q.queue), q.queue)
+
+for n in range(5):
+	if not q.empty():
+		i = q.get(block=False)
+		print(i)		
 		]]>
 		</programlisting>
 	</section> &section.library.random.xml; &section.library.threading.xml; &section.library.syslog.xml; &section.library.socket.xml; &section.library.process.xml; &section.library.yaml.xml; &section.library.daemon.xml; <section id="python-memcached">

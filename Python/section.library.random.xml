@@ -77,6 +77,15 @@ print "randrange(100, 1000, 3) : ", random.randrange(100, 1000, 3)
 		</programlisting>
 		<para>保留两位小数</para>
 		<programlisting>
+		<![CDATA[ 
+import random
+
+number = random.uniform(-0.0, -10)
+print(round(number, 2))				
+		]]>
+		</programlisting>
+		<para>字符串格式化方法</para>
+		<programlisting>
 		<![CDATA[
 import random
 

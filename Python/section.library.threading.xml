@@ -5,6 +5,7 @@
 		<title>threading 高级线程接口</title>
 		<subtitle>threading — Higher-level threading interface</subtitle>
 		<screen>
+        
 import threading  
 class MyThread(threading.Thread):  
     def __init__(self, name=None):  
