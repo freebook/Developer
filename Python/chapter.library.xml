@@ -1,113 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- $Id: chapter.library.xml 661 2013-08-12 10:24:47Z netkiller $ -->
-<chapter id="index"><?dbhtml dir="library" ?>
+<chapter id="index">
+	<?dbhtml dir="library"?>
 	<title>Library</title>
-<section>
-	<title>日期与时间</title>
-	<para>当前日期</para>
-	<screen>
-	<![CDATA[
-import time	
-dt = time.strftime('%Y-%m-%d.%X',time.localtime(time.time()))
-print(dt)	
-	]]>
-	</screen>
-	<screen>
-	<![CDATA[
->>> import time 
->>> dt = time.strftime('%Y-%m-%d.%X',time.localtime(time.time()))
->>> print(dt)
-2014-01-23.11:07:28	
-	]]>
-	</screen>
-</section>	
-	&section.library.random.xml;
-	&section.library.threading.xml;
-	&section.library.syslog.xml;
-	&section.library.socket.xml;
-	&section.library.process.xml;
-	&section.library.yaml.xml;
-<section id="daemon">
-	<title>Daemon</title>
-	<para>http://www.myelin.co.nz/post/2003/3/13/#200303135</para>
-	<programlisting language="python">
-	<![CDATA[
-#!/usr/bin/env python
+	<section>
+		<title>序列化</title>
+		<programlisting>
+		<![CDATA[ 
+import shelve
 
-import os, sys
+with shelve.open("/var/tmp/test") as db:
+	db["hello"] = "helloworld"
 
-print "I'm going to fork now - the child will write something to a pipe, and the parent will read it back"
-
-r, w = os.pipe()           # r,w是文件描述符, 不是文件对象
-
-pid = os.fork()
-if pid:
-    # 父进程
-    os.close(w)           # 关闭一个文件描述符
-    r = os.fdopen(r)      # 将r转化为文件对象
-    print "parent: reading"
-    txt = r.read()
-    os.waitpid(pid, 0)   # 确保子进程被撤销
-else:
-    # 子进程
-    os.close(r)
-    w = os.fdopen(w, 'w')
-    print "child: writing"
-    w.write("here's some text from the child")
-    w.close()
-    print "child: closing"
-    sys.exit(0)
-
-print "parent: got it; text =", txt
-	]]>
-	</programlisting>
-	<programlisting language="python">
-	<![CDATA[
-import sys, os
-
-if __name__ == "__main__":
-    # do the UNIX double-fork magic, see Stevens' "Advanced
-    # Programming in the UNIX Environment" for details (ISBN 0201563177)
-    try:
-        pid = os.fork()
-        if pid > 0:
-            # exit first parent
-            sys.exit(0)
-    except OSError, e:
-        print >>sys.stderr, "fork #1 failed: %d (%s)" % (e.errno, e.strerror)
-        sys.exit(1)
-
-    # decouple from parent environment
-    os.chdir("/")
-    os.setsid()
-    os.umask(0)
-
-    # do second fork
-    try:
-        pid = os.fork()
-        if pid > 0:
-            # exit from second parent, print eventual PID before
-            print "Daemon PID %d" % pid
-            sys.exit(0)
-    except OSError, e:
-        print >>sys.stderr, "fork #2 failed: %d (%s)" % (e.errno, e.strerror)
-        sys.exit(1)
-
-    # start the daemon main loop
-	]]>
-	</programlisting>
-	<para></para>
-	<programlisting language="python">
-	<![CDATA[
-# Redirect standard file descriptors
-sys.stdin = open('/dev/null', 'r')
-sys.stdout = open('/dev/null', 'w')
-sys.stderr = open('/dev/null', 'w')
-	]]>
-	</programlisting>
-</section>
-
-	<section id="python-memcached">
+with shelve.open("/var/tmp/test") as db:
+	for k, v in db.items():
+		print(k, ":", v)		
+		]]>
+		</programlisting>
+		<programlisting>
+		<![CDATA[ 
+		
+		]]>
+		</programlisting>
+	</section> &section.library.random.xml; &section.library.threading.xml; &section.library.syslog.xml; &section.library.socket.xml; &section.library.process.xml; &section.library.yaml.xml; &section.library.daemon.xml; <section id="python-memcached">
 		<title>python-memcached</title>
 		<link linkend="python">参考Python安装</link>
 		<screen>
@@ -185,16 +100,14 @@ cd Imaging-1.1.6/
 	</section>
 	<section id="getopt">
 		<title>getopt – Command line option parsing</title>
-	</section>
-	&section.library.syslog.xml;
-<section id="python-subversion">
-	<title>python-subversion</title>
-	<screen>
+	</section> &section.library.syslog.xml; <section id="python-subversion">
+		<title>python-subversion</title>
+		<screen>
 	<![CDATA[
 $ sudo apt-get install python-subversion
 	]]>
 	</screen>
-	<screen>
+		<screen>
 	<![CDATA[
 $ dpkg -L python-subversion
 /.
@@ -261,7 +174,7 @@ $ dpkg -L python-subversion
 /usr/lib/libsvn_swig_py2.6-1.so.1
 	]]>
 	</screen>
-</section>
+	</section>
 	<section id="simplehttpserver">
 		<title>SimpleHTTPServer</title>
 		<example>
@@ -279,59 +192,63 @@ curl http://localhost:8000/
 		</example>
 	</section>
 <section id="fuse-python">
-	<title>fuse-python.x86_64 : Python bindings for FUSE - filesystem in userspace</title>
+		<title>fuse-python.x86_64 : Python bindings for FUSE - filesystem in userspace</title>
 
-</section>
+	</section>
 
 <section id="python.network">
-	<title>Network</title>
-	<section id="gevent">
-		<title>gevent - A coroutine-based network library for Python</title>
-		<para>http://www.gevent.org/</para>
+		<title>Network</title>
+		<section id="gevent">
+			<title>gevent - A coroutine-based network library for Python</title>
+			<para>http://www.gevent.org/</para>
+		</section>
 	</section>
-</section>
 	
 <section id="python-spdylay">
-	<title>Python-spdylay - Spdylay Python Extension Module</title>
-	<para><ulink url="http://spdylay.sourceforge.net/" /></para>
-</section>	
+		<title>Python-spdylay - Spdylay Python Extension Module</title>
+		<para>
+			<ulink url="http://spdylay.sourceforge.net/" />
+		</para>
+	</section>	
 <section id="mechanize">
-	<title>mechanize</title>
-	<para><ulink url="http://wwwsearch.sourceforge.net/mechanize/" /></para>
-	<para>Ubuntu</para>
-	<screen>
+		<title>mechanize</title>
+		<para>
+			<ulink url="http://wwwsearch.sourceforge.net/mechanize/" />
+		</para>
+		<para>Ubuntu</para>
+		<screen>
 	<![CDATA[
 $ sudo apt-get install python-mechanize
 	]]>
 	</screen>
-	<para>Pip</para>
-	<screen>
+		<para>Pip</para>
+		<screen>
 	<![CDATA[
 $ sudo pip install mechanize	
 	]]>
 	</screen>
-	<para>Python 3</para>
-	<screen>
+		<para>Python 3</para>
+		<screen>
 	<![CDATA[
 git clone https://github.com/adevore/mechanize.git	
 cd mechanize/
 git checkout python3
 	]]>
 	</screen>
-</section>
+	</section>
 <section id="Dominate">
-	<title>Dominate</title>
-	<para>Dominate is a Python library for creating and manipulating HTML documents using an elegant DOM API. It allows you to write HTML pages in pure Python very concisely, which eliminates the need to learn another template language, and lets you take advantage of the more powerful features of Python.</para>
-	<para>https://pypi.org/project/dominate/</para>
-	<screen>
+		<title>Dominate</title>
+		<para>Dominate is a Python library for creating and manipulating HTML documents using an elegant DOM API. It allows you to write HTML pages in pure Python very concisely, which eliminates the need to learn another template language, and lets you take advantage of the more powerful features of Python.</para>
+		<para>https://pypi.org/project/dominate/</para>
+		<screen>
 	<![CDATA[
 pip install dominate
 	]]>
 	</screen>
-	<programlisting>
+		<programlisting>
 	<![CDATA[
 	
 	]]>
 	</programlisting>
-</section>
+	</section>
 </chapter>

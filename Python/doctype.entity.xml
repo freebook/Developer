@@ -14,6 +14,7 @@
 <!ENTITY section.library.random.xml			SYSTEM "section.library.random.xml">
 <!ENTITY section.library.process.xml		SYSTEM "section.library.process.xml">
 <!ENTITY section.library.yaml.xml			SYSTEM "section.library.yaml.xml">
+<!ENTITY section.library.daemon.xml			SYSTEM "section.library.daemon.xml">
 <!ENTITY chapter.exe.xml					SYSTEM "chapter.exe.xml">
 <!ENTITY chapter.3rdparty.xml				SYSTEM "chapter.3rdparty.xml">
 

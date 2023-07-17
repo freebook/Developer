@@ -198,6 +198,22 @@ for i in range(0, len(colours)):
 		<title>日期和时间</title>
 		<section>
 			<title>当前时间</title>
+			<para>当前日期</para>
+			<screen>
+			<![CDATA[
+import time	
+dt = time.strftime('%Y-%m-%d.%X',time.localtime(time.time()))
+print(dt)	
+			]]>
+			</screen>
+			<screen>
+			<![CDATA[
+>>> import time 
+>>> dt = time.strftime('%Y-%m-%d.%X',time.localtime(time.time()))
+>>> print(dt)
+2014-01-23.11:07:28	
+			]]>
+			</screen>
 			<programlisting>
 			<![CDATA[
 from datetime import datetime
