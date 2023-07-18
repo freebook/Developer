@@ -138,16 +138,51 @@ member = {'name':'neo','age':18}
 		</section>
 		<section>
 			<title>正则处理字符串</title>
-			<screen>
-			<![CDATA[ 
+			<section>
+				<title>正则替换</title>
+				<screen>
+				<![CDATA[ 
 import re
 
 string = "TMP AAAAAA\r\nMSG BBBB"
 
 print(re.sub(r'(TMP|MSG)\s', "", string))
 
-			]]>
-			</screen>
+				]]>
+				</screen>
+			</section>
+			<section>
+				<title>match</title>
+				<programlisting>
+				<![CDATA[ 
+#!/usr/bin/python
+import re
+
+string = "/aaa/bbb/ccc"
+match = re.match(r"/aaa/bbb/(.*)", string)
+print(match)
+print(match.span())
+print(match.string)
+print(match.group())
+print(match.group(1))
+print(match.groups())
+print(match.groupdict())				
+				]]>
+				</programlisting>
+				<para>输出</para>
+				<screen>
+				<![CDATA[ 
+<re.Match object; span=(0, 12), match='/aaa/bbb/ccc'>
+(0, 12)
+/aaa/bbb/ccc
+/aaa/bbb/ccc
+ccc
+('ccc',)
+{}				
+				]]>	
+				</screen>
+
+			</section>
 		</section>
 	</section>
 	<section id="float">

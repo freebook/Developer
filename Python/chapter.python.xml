@@ -1,13 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- $Id: chapter.python.xml 659 2013-08-09 10:01:31Z netkiller $ -->
 <chapter id="introduction">
-	<title>Python 入门</title>
-	&section.python.introduction.xml;
-	&section.python.setup.xml;
+	<title>Python 入门</title> &section.python.introduction.xml; &section.python.setup.xml; </chapter>
+&section.python.pypi.xml;
+&section.python.module.xml;
+&section.python.type.xml;
+<chapter>
+	<title>循环</title>
+	<programlisting>
+	<![CDATA[ 
+for alt in range(100, 700, 10):
+print(alt)
+
+for alt in range(1000, 500, -10):
+print(alt)		
+	]]>
+	</programlisting>
+
+
 </chapter>
-	&section.python.pypi.xml;
-	&section.python.module.xml;
-	&section.python.type.xml;
 <chapter id="stdio">
 	<title>Input/Output</title>
 	<section id="sys">
@@ -49,11 +60,13 @@ with open("myfile.txt") as f:
 		]]></screen>
 		<para></para>
 		<programlisting>
+		<![CDATA[
 with open('beak', 'rb+') as f:
     content = f.read()
     f.seek(0)
     f.write(content.replace(b'\r', b''))
-    f.truncate()		
+    f.truncate()
+		]]>		
 		</programlisting>
 	</section>
 </chapter>
