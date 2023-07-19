@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section id="asr">
+    <title>Automatic Speech Recognition</title>
+    <section>
+        <title>kaldi</title>
+        <screen>
+        <![CDATA[ 
+docker run -it kaldiasr/kaldi:latest bash
+docker run -it --runtime=nvidia kaldiasr/kaldi:gpu-latest bash
+        ]]>
+        </screen>
+        <screen>
+        <![CDATA[ 
+docker run -it kaldiasr/kaldi:latest bash        
+        ]]>
+        </screen>
+    </section>
+    <section>
+        <title>OpenAI Whisper</title>
+        <para>https://github.com/openai/whisper</para>
+        <programlisting>
+        <![CDATA[ 
+import openai
+audio_file= open("/path/to/file/audio.mp3", "rb")
+transcript = openai.Audio.transcribe("whisper-1", audio_file)                
+        ]]>
+        </programlisting>
+    </section>
+</section>

@@ -46,6 +46,7 @@
 
 <!ENTITY part.ai.xml						SYSTEM "part.ai.xml">
 <!ENTITY chapter.speech.xml					SYSTEM "chapter.speech.xml">
+<!ENTITY section.speech.xml					SYSTEM "section.speech.xml">
 <!ENTITY chapter.stock.xml					SYSTEM "chapter.stock.xml">
 <!ENTITY chapter.video.xml					SYSTEM "chapter.video.xml">
 <!ENTITY section.ai.face.xml				SYSTEM "section.ai.face.xml">
