@@ -6,7 +6,6 @@
 	</section>
 	&chapter.framework.pylons.xml;
 	&chapter.framework.django.xml;
-	&chapter.framework.pyramid.xml;
 	&chapter.framework.gevent.xml;
 	
 	<section id="robotframework">

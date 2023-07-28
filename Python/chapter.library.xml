@@ -306,7 +306,7 @@ git checkout python3
 	]]>
 	</screen>
 	</section>
-<section id="Dominate">
+	<section id="Dominate">
 		<title>Dominate</title>
 		<para>Dominate is a Python library for creating and manipulating HTML documents using an elegant DOM API. It allows you to write HTML pages in pure Python very concisely, which eliminates the need to learn another template language, and lets you take advantage of the more powerful features of Python.</para>
 		<para>https://pypi.org/project/dominate/</para>
@@ -321,4 +321,5 @@ pip install dominate
 	]]>
 	</programlisting>
 	</section>
+	&section.library.other.xml;
 </chapter>

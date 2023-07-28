@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section id="keyboard">
+	<title>keyboard</title>
+	<screen>
+	<![CDATA[
+pip install keyboard	
+	]]>
+	</screen>
+	<section>
+		<title>读取键盘值</title>
+		<para>读取键盘值</para>
+		<programlisting>
+		<![CDATA[
+root@debian:~# cat test.py
+import keyboard
+
+while True:
+    k = keyboard.read_key()
+    print(k)
+		]]>
+		</programlisting>
+		<para>按键按下时触发</para>
+		<programlisting>
+		<![CDATA[
+root@debian:~# cat test.py
+import keyboard
+
+def callback(x):
+    print(x)
+    print()
+
+keyboard.on_press(callback)
+keyboard.wait()		
+		]]>
+		</programlisting>
+		<para>按键释放触发</para>
+		<programlisting>
+		<![CDATA[
+root@debian:~# cat test.py
+import keyboard
+
+def callback(x):
+    print(x)
+    print()
+
+keyboard.on_release(callback)
+keyboard.wait()		
+		]]>
+		</programlisting>
+	</section>
+	<section>
+		<title>功能键</title>
+		<programlisting>
+		<![CDATA[
+>>> keyboard.get_hotkey_name(['+', 'left ctrl', 'shift'])
+'ctrl+shift+plus'
+
+>>> keyboard.get_hotkey_name(['+', 'left ctrl', 'f13'])
+'ctrl+f13+plus'		
+		]]>
+		</programlisting>
+	</section>
+	
+</section>
