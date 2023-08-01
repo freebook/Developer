@@ -1,5 +1,56 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<chapter id="pipe">
+<section id="stdio">
+		<title>Input/Output</title>
+		<section id="sys">
+			<title>Standard</title>
+			<section>
+				<title>Standard Input</title>
+				<screen><![CDATA[
+sys.stdin.readline().strip()
+			]]></screen>
+			</section>
+			<section>
+				<title>Standard Output</title>
+				<screen><![CDATA[
+sys.stdout.write("输出的字串")
+			]]></screen>
+			</section>
+		</section>
+		<section id="io.file">
+			<title>File</title>
+			<programlisting role="python">
+		<![CDATA[
+f = open('/tmp/workfile', 'r+')
+f.write('0123456789abcdef')
+f.seek(5)     # Go to the 6th byte in the file
+f.read(1)
+f.seek(-3, 2) # Go to the 3rd byte before the end
+f.read(1)
+f.readline()
+f.close()
+		]]>
+			</programlisting>
+			<screen><![CDATA[
+for line in open("myfile.txt"):
+    print line
+
+with open("myfile.txt") as f:
+    for line in f:
+        print line
+		]]></screen>
+			<para></para>
+			<programlisting>
+		<![CDATA[
+with open('beak', 'rb+') as f:
+    content = f.read()
+    f.seek(0)
+    f.write(content.replace(b'\r', b''))
+    f.truncate()
+		]]>
+			</programlisting>
+		</section>
+	</section>
+<section id="pipe">
 	<title>Pipe</title>
 	<section id="stdin">
 		<title>stdin</title>
@@ -61,4 +112,4 @@ for i in range(10):
 		<title>socketpair</title>
 		<para>socketpair 实现双向管道</para>
 	</section>
-</chapter>
+</section>

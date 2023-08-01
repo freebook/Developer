@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<chapter id="index"><?dbhtml dir="debug" ?>
+	<title>Python 调试技巧</title>
+	<section>
+		<title>显示代码所在文件行</title>
+		<programlisting>
+		<![CDATA[
+#!/usr/bin/python
+import sys
+
+print("=" * 50)
+print("here is :", __file__, sys._getframe().f_lineno)
+print("=" * 50)		
+		]]>
+		</programlisting>
+	</section>
+</chapter>

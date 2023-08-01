@@ -4,8 +4,7 @@
 <!ENTITY section.python.introduction.xml	SYSTEM "section.python.introduction.xml">
 <!ENTITY section.python.setup.xml			SYSTEM "section.python.setup.xml">
 <!ENTITY section.python.pypi.xml			SYSTEM "section.python.pypi.xml">
-
-<!ENTITY chapter.python.pipe.xml			SYSTEM "chapter.python.pipe.xml">
+<!ENTITY section.python.pipe.xml			SYSTEM "section.python.pipe.xml">
 
 <!ENTITY chapter.library.xml				SYSTEM "chapter.library.xml">
 <!ENTITY section.library.syslog.xml			SYSTEM "section.library.syslog.xml">
@@ -77,4 +76,5 @@
 <!ENTITY section.graphics.xml				SYSTEM "section.graphics.xml">
 <!ENTITY chapter.opencv.xml					SYSTEM "chapter.opencv.xml">
 
+<!ENTITY chapter.python.debug.xml			SYSTEM "chapter.python.debug.xml">
 <!ENTITY chapter.faq.xml					SYSTEM "chapter.faq.xml">

@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- $Id: chapter.python.xml 659 2013-08-09 10:01:31Z netkiller $ -->
 <chapter id="introduction">
-	<title>Python 入门</title> &section.python.introduction.xml; &section.python.setup.xml; </chapter>
-&section.python.pypi.xml;
-&section.python.module.xml;
-&section.python.type.xml;
-<chapter>
-	<title>循环</title>
-	<programlisting>
+	<title>Python 入门</title> 
+	&section.python.introduction.xml; 
+	&section.python.setup.xml; 
+	&section.python.pypi.xml;
+	&section.python.module.xml;
+	&section.python.type.xml;
+	<section>
+		<title>循环</title>
+		<programlisting>
 	<![CDATA[ 
 for alt in range(100, 700, 10):
 print(alt)
@@ -15,58 +17,7 @@ print(alt)
 for alt in range(1000, 500, -10):
 print(alt)		
 	]]>
-	</programlisting>
-
-
-</chapter>
-<chapter id="stdio">
-	<title>Input/Output</title>
-	<section id="sys">
-		<title>Standard</title>
-		<section>
-			<title>Standard Input</title>
-			<screen><![CDATA[
-sys.stdin.readline().strip()
-			]]></screen>
-		</section>
-		<section>
-			<title>Standard Output</title>
-			<screen><![CDATA[
-sys.stdout.write("输出的字串")
-			]]></screen>
-		</section>
-	</section>
-	<section id="io.file">
-		<title>File</title>
-		<programlisting role="python">
-		<![CDATA[
-f = open('/tmp/workfile', 'r+')
-f.write('0123456789abcdef')
-f.seek(5)     # Go to the 6th byte in the file
-f.read(1)
-f.seek(-3, 2) # Go to the 3rd byte before the end
-f.read(1)
-f.readline()
-f.close()
-		]]>
-		</programlisting>
-		<screen><![CDATA[
-for line in open("myfile.txt"):
-    print line
-
-with open("myfile.txt") as f:
-    for line in f:
-        print line
-		]]></screen>
-		<para></para>
-		<programlisting>
-		<![CDATA[
-with open('beak', 'rb+') as f:
-    content = f.read()
-    f.seek(0)
-    f.write(content.replace(b'\r', b''))
-    f.truncate()
-		]]>		
 		</programlisting>
 	</section>
+	&section.python.pipe.xml;
 </chapter>
