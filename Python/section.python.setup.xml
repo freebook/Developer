@@ -1,54 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <section id="python.install">
 	<title>install</title>
-	<section id="python2">
-		<title>Python2.x</title>
-		<section>
-			<title>编译安装</title>
-			<para>Python2.x</para>
-			<screen><![CDATA[
-wget http://www.python.org/ftp/python/2.x.x/Python-2.x.x.tgz
-tar zxvf Python-2.x.x.tgz
-cd Python-2.x.x
-./configure --prefix=/usr/local/python2.x
-make
-make install
 
-ln -s /usr/local/python/bin/python2.5 /usr/bin/
-ln -s /usr/local/python/bin/* /usr/local/bin/
-			]]></screen>
-		</section>
-		<section>
-			<title>Ubuntu 安装</title>
-			<screen><![CDATA[
-sudo apt-get install python
-sudo apt-get install python-setuptools
-			]]></screen>
-		</section>
-	</section>
-	<section id="python3">
-		<title>Python3.x</title>
-		<section>
-			<title>编译安装</title>
-			<screen>
-			<![CDATA[
-./configure --prefix=/usr/local/python-3.1.2
-make && make install
-			]]>
-			</screen>
-		</section>
-		<section>
-			<title>Ubunut 13.04 环境安装python3</title>
-			<screen><![CDATA[
-$ sudo apt-get install python3
-			]]></screen>
-			<para>python 3.3</para>
-			<screen><![CDATA[
-$ sudo apt-get install python3.3
-			]]></screen>
-		</section>
-	</section>
-	<section>
+
+	<section id="python.install.docker">
 		<title>Docker 安装</title>
 		<screen>
 		<![CDATA[
@@ -75,8 +30,86 @@ ENTRYPOINT python3 /srv/export.py
 		]]>
 		</screen>
 	</section>
+	<section id="python3.dnf">
+		<title>dnf 安装 python3.11</title>
+		<para>安装 Python 3.11 适用鱼 Rocky Linux 9.2 和 AlmaLinux 9.2</para>
+		<screen>
+		<![CDATA[
+dnf install -y python3.11 python3.11-pip		
+		]]>
+		</screen>
+		<para>系统默认是 python3.9，将其切换到 python3.11</para>
+		<screen>
+		<![CDATA[
+
+update-alternatives --install /usr/bin/python python /usr/bin/python3.11 1
+update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.11 2
+		]]>
+		</screen>
+		<para>切换 pip 到 3.11</para>
+		<screen>
+		<![CDATA[
+[root@iZwz9cug5b7jbx1dc4nwniZ ~]# mv /usr/bin/pip{,.backup}
+[root@iZwz9cug5b7jbx1dc4nwniZ ~]# mv /usr/bin/pip3{,.backup}
+[root@iZwz9cug5b7jbx1dc4nwniZ ~]# alternatives --install /usr/bin/pip pip /usr/bin/pip3.11 1
+[root@iZwz9cug5b7jbx1dc4nwniZ ~]# alternatives --install /usr/bin/pip3 pip3 /usr/bin/pip3.11 2
+[root@iZwz9cug5b7jbx1dc4nwniZ ~]# pip -V
+pip 22.3.1 from /usr/lib/python3.11/site-packages/pip (python 3.11)
+		]]>
+		</screen>
+		<para>检查 python 是否工作正常</para>
+		<screen>
+		<![CDATA[
+[root@iZwz9cug5b7jbx1dc4nwniZ srv]# alternatives --list
+libnssckbi.so.x86_64  	auto  	/usr/lib64/pkcs11/p11-kit-trust.so
+soelim                	auto  	/usr/bin/soelim.groff
+cifs-idmap-plugin     	auto  	/usr/lib64/cifs-utils/cifs_idmap_sss.so
+iptables              	auto  	/usr/sbin/iptables-nft
+ebtables              	auto  	/usr/sbin/ebtables-nft
+arptables             	auto  	/usr/sbin/arptables-nft
+ld                    	auto  	/usr/bin/ld.bfd
+man                   	auto  	/usr/bin/man.man-db
+nc                    	auto  	/usr/bin/ncat
+man.7.gz              	auto  	/usr/share/man/man7/man.man-pages.7.gz
+libwbclient.so.0.15-64	auto  	/usr/lib64/samba/wbclient/libwbclient.so.0.15
+python                	auto  	/usr/bin/python3.11
+
+[root@iZwz9cug5b7jbx1dc4nwniZ srv]# alternatives --display python
+python - status is auto.
+ link currently points to /usr/bin/python3.11
+/usr/bin/python3.11 - priority 1
+Current `best' version is /usr/bin/python3.11.
+
+[root@iZwz9cug5b7jbx1dc4nwniZ srv]# python
+Python 3.11.2 (main, May 24 2023, 00:00:00) [GCC 11.3.1 20221121 (Red Hat 11.3.1-4)] on linux
+Type "help", "copyright", "credits" or "license" for more information.
+>>>
+		]]>
+		</screen>
+	</section>
+	<section>
+			<title>编译安装 Python3.x</title>
+			<screen>
+			<![CDATA[
+./configure --prefix=/usr/local/python-3.1.2
+make && make install
+			]]>
+			</screen>
+		</section>
+	<section>
+		<title>Ubunut 13.04 环境安装python3</title>
+		<screen><![CDATA[
+$ sudo apt-get install python3
+			]]></screen>
+		<para>python 3.3</para>
+		<screen><![CDATA[
+$ sudo apt-get install python3.3
+			]]></screen>
+	</section>
 	<section id="pypy">
-		<title>pypy - fast alternative implementation of Python - PyPy interpreter</title>
+		<title>pypy - fast alternative implementation of Python - PyPy
+			interpreter
+		</title>
 		<para>http://pypy.org/</para>
 		<section>
 			<title>Ubuntu 环境安装</title>
@@ -135,5 +168,30 @@ $ pyinstaller test.py
 			<para>此软件 2008-11-16 后不再更新</para>
 		</section>
 
+	</section>
+	<section id="python2">
+		<title>Python2.x</title>
+		<section>
+			<title>编译安装</title>
+			<para>Python2.x</para>
+			<screen><![CDATA[
+wget http://www.python.org/ftp/python/2.x.x/Python-2.x.x.tgz
+tar zxvf Python-2.x.x.tgz
+cd Python-2.x.x
+./configure --prefix=/usr/local/python2.x
+make
+make install
+
+ln -s /usr/local/python/bin/python2.5 /usr/bin/
+ln -s /usr/local/python/bin/* /usr/local/bin/
+			]]></screen>
+		</section>
+		<section>
+			<title>Ubuntu 安装</title>
+			<screen><![CDATA[
+sudo apt-get install python
+sudo apt-get install python-setuptools
+			]]></screen>
+		</section>
 	</section>
 </section>

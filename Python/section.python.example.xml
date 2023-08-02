@@ -214,5 +214,63 @@ if __name__ == '__main__':
 			</example>
 		</simplesect>
 	</section>
+	<section>
+		<title>心知天气</title>
+		<programlisting>
+		<![CDATA[
+import requests, time, hmac, hashlib, base64
+from urllib import parse
+
+UID = "Pi62K5jkMsbsrfvBW"  # 用户ID
+KEY = "SU8HCiR5slL8RvBMj"  # API key
+
+# UID = "U785B76FC9"  # 用户ID
+# KEY = "4r9bergjetiv1tsd"  # API key
+
+LOCATION = "Huayin"  # 所查询的位置，可以使用城市拼音、v3 ID、经纬度等
+API = "https://api.seniverse.com/v3/weather/now.json"  # API URL，可替换为其他 URL
+UNIT = "c"  # 单位
+LANGUAGE = "zh-Hans"  # 查询结果的返回语言
+
+
+def getJsonpUrl():
+    ts = int(time.time())  # 当前时间戳
+    text = "ts={ts}&ttl=300&uid={uid}".format(ts=ts, uid=UID)
+    key = bytes(KEY, "UTF-8")
+    raw = bytes(text, "UTF-8")
+
+    # 使用 HMAC-SHA1 方式，以 API 密钥（key）对上一步生成的参数字符串（raw）进行加密
+    digest = hmac.new(key, raw, hashlib.sha1).digest()
+    # 将上一步生成的加密结果用 base64 编码，并做一个 urlencode，得到签名sig
+    signature = base64.b64encode(digest)
+    params = {"location": LOCATION, "language": LANGUAGE, "unit": UNIT, "ts": ts, "ttl": "300", "uid": UID, "sig": signature}
+
+    response = requests.get(API, params=params, timeout=10)
+
+    if response.status_code == 200:
+        result = response.json()["results"].pop()
+    else:
+        result = {}
+    return result
+
+
+def fetchWeather():
+    params = {"key": KEY, "location": LOCATION, "language": LANGUAGE, "unit": UNIT}
+    response = requests.get(API, params=params, timeout=10)
+    if response.status_code == 200:
+        result = response.json()["results"].pop()
+    else:
+        result = {}
+    return result
+
+
+if __name__ == "__main__":
+    print(fetchWeather())
+    print("-" * 50)
+    print(getJsonpUrl())
+		
+		]]>
+		</programlisting>
+	</section>
 
 </chapter>
