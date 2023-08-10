@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section id="fastapi">
+	<title>FastAPI</title>
+	<section>
+		<title>slowapi 流向控制</title>
+		<programlisting>
+		<![CDATA[
+pip install slowapi		
+		]]>
+		</programlisting>
+		<para></para>
+		<programlisting>
+		<![CDATA[
+from fastapi import FastAPI
+from slowapi import Limiter, _rate_limit_exceeded_handler
+from slowapi.util import get_remote_address
+
+
+limiter = Limiter(key_func=get_remote_address)
+app = FastAPI()
+app.state.limiter = limiter
+app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)
+
+@app.get("/home")
+@limiter.limit("5/minute")
+async def homepage(request: Request):
+    return PlainTextResponse("test")
+
+@app.get("/mars")
+@limiter.limit("5/minute")
+async def homepage(request: Request, response: Response):
+    return {"key": "value"}		
+		]]>
+		</programlisting>
+	</section>
+	<section>
+		<title>异步执行</title>
+		<programlisting>
+		<![CDATA[
+from fastapi import APIRouter
+import time
+import asyncio
+ 
+router = APIRouter()
+
+ 
+@router.get("/a")
+async def a():
+    time.sleep(1)
+    return {"message": "异步模式，但是同步执行sleep函数，执行过程是串行的"}
+ 
+ 
+@router.get("/b")
+async def b():
+    loop = asyncio.get_event_loop()
+    await loop.run_in_executor(None, time.sleep, 1)
+    return {"message": "异步线程池中运行sleep函数"}
+ 
+ 
+@router.get("/c")
+async def c():
+    await asyncio.sleep(1)
+    return {"message": "异步模式，且异步执行sleep函数"}
+ 
+ 
+@router.get("/d")
+def d():
+    time.sleep(1)
+    return {"message": "同步模式"}
+		]]>
+		</programlisting>
+	</section>
+</section>
