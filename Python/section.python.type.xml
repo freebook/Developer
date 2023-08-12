@@ -136,54 +136,7 @@ member = {'name':'neo','age':18}
 				</screen>
 			</section>
 		</section>
-		<section>
-			<title>正则处理字符串</title>
-			<section>
-				<title>正则替换</title>
-				<screen>
-				<![CDATA[ 
-import re
-
-string = "TMP AAAAAA\r\nMSG BBBB"
-
-print(re.sub(r'(TMP|MSG)\s', "", string))
-
-				]]>
-				</screen>
-			</section>
-			<section>
-				<title>match</title>
-				<programlisting>
-				<![CDATA[ 
-#!/usr/bin/python
-import re
-
-string = "/aaa/bbb/ccc"
-match = re.match(r"/aaa/bbb/(.*)", string)
-print(match)
-print(match.span())
-print(match.string)
-print(match.group())
-print(match.group(1))
-print(match.groups())
-print(match.groupdict())				
-				]]>
-				</programlisting>
-				<para>输出</para>
-				<screen>
-				<![CDATA[ 
-<re.Match object; span=(0, 12), match='/aaa/bbb/ccc'>
-(0, 12)
-/aaa/bbb/ccc
-/aaa/bbb/ccc
-ccc
-('ccc',)
-{}				
-				]]>	
-				</screen>
-
-			</section>
-		</section>
+		
 	</section>
 	<section id="float">
 		<title>float 浮点数值</title>
@@ -673,5 +626,110 @@ L = g.Line()
 			]]>
 			</programlisting>
 		</section>
+	</section>
+</section>
+<section id="python.regular">
+	<title>正则处理字符串</title>
+	<section>
+		<title>正则替换</title>
+		<screen>
+				<![CDATA[ 
+import re
+
+string = "TMP AAAAAA\r\nMSG BBBB"
+
+print(re.sub(r'(TMP|MSG)\s', "", string))
+
+				]]>
+		</screen>
+	</section>
+	<section>
+		<title>match</title>
+		<programlisting>
+				<![CDATA[ 
+#!/usr/bin/python
+import re
+
+string = "/aaa/bbb/ccc"
+match = re.match(r"/aaa/bbb/(.*)", string)
+print(match)
+print(match.span())
+print(match.string)
+print(match.group())
+print(match.group(1))
+print(match.groups())
+print(match.groupdict())				
+				]]>
+		</programlisting>
+		<para>输出</para>
+		<screen>
+				<![CDATA[ 
+<re.Match object; span=(0, 12), match='/aaa/bbb/ccc'>
+(0, 12)
+/aaa/bbb/ccc
+/aaa/bbb/ccc
+ccc
+('ccc',)
+{}				
+				]]>
+		</screen>
+	</section>
+	<section>
+		<title>正则查找</title>
+		<programlisting>
+				<![CDATA[
+#!/usr/bin/python
+import re
+
+regular = "打开|关闭|结束|暂停"
+question = "打开电灯，然后关闭"
+pattern = re.compile(regular)
+result = pattern.findall(question)
+print(result)
+				]]>
+		</programlisting>
+		<programlisting>
+				<![CDATA[
+#!/usr/bin/python
+import re
+
+regular = "(打开|播放)圣经第(.+)卷第(.*)章"
+question = "打开圣经第三卷第二章"
+pattern = re.compile(regular)
+result = pattern.findall(question)
+print(result)				
+				]]>
+		</programlisting>
+	</section>
+	<section>
+		<title>正则匹配后返回字典</title>
+		<programlisting>
+		<![CDATA[
+#!/usr/bin/python
+import re
+
+m = re.match(r"(?P<firstname>\w+) (?P<lastname>\w+)", "Neo Chen")
+print(m.group("firstname"), m.group("lastname"))		
+		]]>
+		</programlisting>
+		<para></para>
+		<programlisting>
+		<![CDATA[
+>>> match = re.search(r'(foo)?(bar)?', 'foo')
+>>> match and match.groups()[1]
+None
+>>> match = re.search(r'(foo)?(bar)?', 'foobar')
+>>> match and match.groups()[1]
+'bar'
+
+match = re.search(r'(?P<foo>foo)?(?P<bar>bar)?', 'foo')
+match and match.groupdict().get('bar')
+
+match = re.search(r'(?P<foo>foo)?(?P<bar>bar)?', 'foobar')
+match and match.groupdict().get('bar')
+
+		
+		]]>
+		</programlisting>
 	</section>
 </section>
