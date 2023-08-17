@@ -2,7 +2,9 @@
 <chapter id="index"><?dbhtml dir="nlp" ?>
 	<title>自然语言处理</title>
 	<para>自然语言处理（Natural Language Processing）</para>
-	<para>中文分词(Chinese Word Segmentation)，英文是由单词组成，并使用空格来分开每个单词，而中文以字为单位，由字组成词，字于词的含有可能完全不同，因此，中文分词NPL相比英文分词要复杂的多。</para>
+	<para>中文分词(Chinese Word
+		Segmentation)，英文是由单词组成，并使用空格来分开每个单词，而中文以字为单位，由字组成词，字于词的含有可能完全不同，因此，中文分词NPL相比英文分词要复杂的多。
+	</para>
 	<itemizedlist>
 		<title>中文分词技术主要使用场景有哪些：</title>
 		<listitem>搜索优化，关键词提取</listitem>
@@ -16,13 +18,15 @@
 	<section>
 		<title>全文索引（full-text index）</title>
 		<para>全文索引 (也称全文检索)是目前搜索引擎使用的一种关键技术。</para>
-		<para>全文索引是利用分词技术，首先将一段文本中的关键词提取出来，同时获得该词在文本中出现的位置。然后对提取的关键词做索引。</para>
+		<para>全文索引是利用分词技术，首先将一段文本中的关键词提取出来，同时获得该词在文本中出现的位置。然后对提取的关键词做索引。
+		</para>
 		<para>当用户查询关键词，并且命中的时候，返回查询结果。同时记录关键词的查询频率，再进行词频优化，以便下次命中率更高。</para>
 	</section>
 	<section>
 		<title>人机对话</title>
 		<para>
-			在前面的视频中我们介绍了“TTS(Text To Speech) 文本转语音”和“STT(Speech To Text) 语音转文本”，在人工智能领域仅仅实现TTS和STT还无法做到人机对话，因为机器无法理解我们说的话，所以无法执行我们下达的指令。
+			在前面的视频中我们介绍了“TTS(Text To Speech) 文本转语音”和“STT(Speech To Text)
+			语音转文本”，在人工智能领域仅仅实现TTS和STT还无法做到人机对话，因为机器无法理解我们说的话，所以无法执行我们下达的指令。
 		</para>
 		<para>机器是怎样听懂我们所说的话？答案是提取一句话中的重点部分。</para>
 		<para>例如：小爱同学请播放音乐。重点是：“播放音乐”四个字，其他都可以忽略。</para>
@@ -30,7 +34,8 @@
 	</section>
 	<section>
 		<title>情感分析</title>
-		<para>情感分析是自然语言处理的一个分支，通过分词技术，提取文本中带有情感色彩（褒义贬义/正向负向）的主观性文本进行分析，以确定该文本的观点、喜好、情感倾向。</para>
+		<para>情感分析是自然语言处理的一个分支，通过分词技术，提取文本中带有情感色彩（褒义贬义/正向负向）的主观性文本进行分析，以确定该文本的观点、喜好、情感倾向。
+		</para>
 		<para>例如：</para>
 		<para>“这本书读起来让人爱不释手” 归为正向，“这本书很难看”归为负向。</para>
 		<para>“这款产品很不错”归为正向，“这款产能缺陷很多”归为负向。</para>
@@ -53,4 +58,51 @@
 	&section.nlp.jieba.xml;
 	&section.nlp.wordcloud.xml;
 	&section.nlp.transformers.xml;
+	<section>
+		<title>汉字转拼音</title>
+		<section>
+			<title></title>
+			<programlisting>
+			<![CDATA[
+from xpinyin import Pinyin
+
+p = Pinyin()
+o = p.get_pinyin("阅读圣经第五百零三节")
+print(o)			
+			]]>
+			</programlisting>
+		</section>
+		<section>
+			<title>pypinyin</title>
+			<programlisting>
+			<![CDATA[
+from pypinyin import lazy_pinyin, load_phrases_dict, load_single_dict, Style
+
+hans = "打开圣经第一卷"
+
+print(lazy_pinyin(hans))
+
+load_single_dict({ord("零"): "零", ord("一"): "一", ord("二"): "二", ord("三"): "三", ord("四"): "四", ord("五"): "五", ord("六"): "六", ord("七"): "七", ord("八"): "八", ord("九"): "九", ord("十"): "十", ord("百"): "百", ord("千"): "千", ord("万"): "万", ord("亿"): "亿"})
+
+load_phrases_dict(
+    {
+        "一卷": [["一"], ["juan"]],
+        "三节": [["三"], ["jie"]],
+        "一百": [["一"], ["百"]],
+    }
+)
+
+
+print("=" * 50)
+print(lazy_pinyin("播放圣经第一卷"))
+print(lazy_pinyin("打开圣经第二卷"))
+print(lazy_pinyin("打开圣经第一章"))
+print(lazy_pinyin("打开圣经第一亿元"))
+print(lazy_pinyin("阅读圣经第一百零六章"))
+print(lazy_pinyin("阅读圣经第五百零六章"))
+print(lazy_pinyin("阅读圣经第五百零五节"))			
+			]]>
+			</programlisting>
+		</section>
+	</section>
 </chapter>

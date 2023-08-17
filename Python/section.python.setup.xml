@@ -1,8 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <section id="python.install">
 	<title>install</title>
-
-
+	<section id="venv">
+		<title>venv</title>
+		<screen>
+		<![CDATA[
+python3 -m venv /srv/python		
+		]]>
+		</screen>
+		<para></para>
+		<screen>
+		<![CDATA[
+root@debian:~# update-alternatives --install /usr/bin/python python /srv/python/bin/python 1
+		]]>
+		</screen>
+	</section>
 	<section id="python.install.docker">
 		<title>Docker 安装</title>
 		<screen>
