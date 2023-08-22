@@ -28,5 +28,80 @@ uvicorn main:app --host=127.0.0.1 --port=8000 --reload
 		]]>
 		</programlisting>
 	</section>
+	<section>
+		<title>日志</title>
+		<screen>
+		<![CDATA[
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+##############################################
+# Home	: https://www.netkiller.cn
+# Author: Neo <netkiller@msn.com>
+# Upgrade: 2023-07-07
+##############################################
+try:
+    import uvicorn, logging, sys
+
+    from config import LOGFILE
+except ImportError as err:
+    print("ImportError: %s" % (err))
+    exit()
+
+LOGGING_CONFIG = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "formatters": {
+        "default": {
+            "()": "uvicorn.logging.DefaultFormatter",
+            "fmt": "%(levelprefix)s %(message)s",
+            "use_colors": None,
+        },
+        "access": {
+            "()": "uvicorn.logging.AccessFormatter",
+            "fmt": '%(levelprefix)s %(client_addr)s - "%(request_line)s" %(status_code)s',
+        },
+    },
+    "handlers": {
+        "default": {"formatter": "default", "class": "logging.handlers.TimedRotatingFileHandler", "filename": LOGFILE},
+        "access": {"formatter": "access", "class": "logging.handlers.TimedRotatingFileHandler", "filename": f"{LOGFILE}.access.log"},
+    },
+    "loggers": {
+        "": {"handlers": ["default"], "level": "INFO"},
+        "uvicorn.error": {"level": "INFO"},
+        "uvicorn.access": {"handlers": ["access"], "level": "INFO", "propagate": False},
+    },
+}
+
+if __name__ == "__main__":
+    try:
+        uvicorn.run(app="main:app", host="0.0.0.0", port=8000, workers=4, log_config=LOGGING_CONFIG)
+    except KeyboardInterrupt:
+        print("Crtl+C Pressed. Shutting down.")		
+		]]>
+		</screen>
+		<para>输出结果</para>
+		<screen>
+		<![CDATA[
+docker@debian:~$ tail /tmp/uvicorn.access.log 
+INFO:     172.16.0.102:61485 - "GET / HTTP/1.1" 200 OK
+INFO:     172.16.0.102:61485 - "GET / HTTP/1.1" 304 Not Modified
+INFO:     172.16.0.102:61485 - "GET / HTTP/1.1" 304 Not Modified
+INFO:     172.16.0.102:61485 - "GET / HTTP/1.1" 304 Not Modified
+INFO:     172.16.0.102:61485 - "GET / HTTP/1.1" 304 Not Modified
+
+docker@debian:~$ tail /tmp/uvicorn.log
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     OPENAI_API_KEY=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
+INFO:     Started server process [21112]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     OPENAI_API_KEY=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
+INFO:     Started server process [21110]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.		
+		]]>
+		</screen>
+	</section>
 	&section.uvicorn.fastapi.xml;
 </chapter>
