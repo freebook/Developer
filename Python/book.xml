@@ -78,6 +78,7 @@
 <!-- =========================================================================== -->
 	&book.preface.xml;
 	&part.python.xml;
+	&part.framework.xml;
 	&part.bigdata.xml;
 	&part.ai.xml;
 	&chapter.ops.xml;

@@ -17,12 +17,13 @@
 <!ENTITY chapter.exe.xml					SYSTEM "chapter.exe.xml">
 <!ENTITY chapter.3rdparty.xml				SYSTEM "chapter.3rdparty.xml">
 
-<!ENTITY chapter.framework.xml				SYSTEM "chapter.framework.xml">
+<!ENTITY part.framework.xml					SYSTEM "part.framework.xml">
+<!ENTITY chapter.framework.uvicorn.xml 		SYSTEM "chapter.framework.uvicorn.xml">
 <!ENTITY chapter.framework.pylons.xml 		SYSTEM "chapter.framework.pylons.xml">
 <!ENTITY chapter.framework.django.xml 		SYSTEM "chapter.framework.django.xml">
 <!ENTITY section.library.other.xml	 		SYSTEM "section.library.other.xml">
 <!ENTITY chapter.framework.gevent.xml 		SYSTEM "chapter.framework.gevent.xml">
-<!ENTITY section.framework.uvicorn.xml 		SYSTEM "section.framework.uvicorn.xml">
+<!ENTITY section.uvicorn.fastapi.xml 		SYSTEM "section.uvicorn.fastapi.xml">
 
 <!ENTITY section.python.example.xml 		SYSTEM "section.python.example.xml">
 <!ENTITY section.python.container.xml 		SYSTEM "section.python.container.xml">

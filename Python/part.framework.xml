@@ -1,0 +1,15 @@
+<part id="index"><?dbhtml dir="framework" ?>
+	<title>Frameworks</title>
+	&chapter.framework.uvicorn.xml;
+	<chapter id="robotframework">
+		<title>Robot Framework 测试框架</title>
+		<para>http://robotframework.org/</para>
+	</chapter>
+	<chapter>
+		<title>Web framework</title>
+		<para>http://wiki.secondlife.com/wiki/Mulib</para>
+		&chapter.framework.pylons.xml;
+		&chapter.framework.django.xml;
+		&chapter.framework.gevent.xml;
+	</chapter>
+</part>
