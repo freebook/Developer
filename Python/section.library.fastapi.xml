@@ -2,6 +2,96 @@
 <section id="fastapi">
 	<title>FastAPI</title>
 	<section>
+		<title>Post Request</title>
+		<section>
+			<title>From 数据</title>
+			<screen>
+			<![CDATA[
+pip install python-multipart
+			]]>
+			</screen>
+			<programlisting>
+            	<![CDATA[
+from fastapi import FastAPI, Form
+# from starlette.requests import Request
+from starlette.responses import Response
+from starlette.testclient import TestClient
+
+app = FastAPI()
+
+@app.post("/form")
+async def login(username: str = Form(), password: str = Form()):
+    return {"username": username, "password": password}
+
+client = TestClient(app)
+data = {"username": "netkiller", "password": "123456"}
+response = client.post("/form", data=data)
+print(response.content.decode())
+            	]]>
+			</programlisting>
+		</section>
+		<section>
+			<title>Json 数据</title>
+
+			<programlisting>
+            <![CDATA[ 
+from fastapi import FastAPI, Request
+from typing import Dict
+
+# from starlette.requests import Request
+from starlette.responses import Response
+from starlette.testclient import TestClient
+
+app = FastAPI()
+
+
+@app.post("/json")
+async def json(item: dict):
+    print(item)
+    return "OK"
+
+
+client = TestClient(app)
+data = {"key": "value"}
+response = client.post("/json", json=data)
+print(response.content.decode())      
+            ]]>
+			</programlisting>
+		</section>
+		<section>
+			<title>Data 原始数据</title>
+
+			<programlisting>
+		    <![CDATA[
+from fastapi import FastAPI, Request
+
+# from starlette.requests import Request
+from starlette.responses import Response
+from starlette.testclient import TestClient
+
+app = FastAPI()
+
+
+@app.post("/webhook")
+async def the_webhook(request: Request):
+    return await request.body()
+
+
+data = b"""EURUSD Less Than 1.09092
+{"Condition": "value"}
+[3,4,5,]
+{}"""
+
+data = b"""EURUSD Less Than 1.09092"""
+
+client = TestClient(app)
+response = client.post("/webhook", data=data)
+print(response.content.decode())
+            ]]>
+			</programlisting>
+		</section>
+	</section>
+	<section>
 		<title>slowapi 流向控制</title>
 		<programlisting>
 		<![CDATA[

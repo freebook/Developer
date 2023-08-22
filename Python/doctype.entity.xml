@@ -22,6 +22,7 @@
 <!ENTITY chapter.framework.django.xml 		SYSTEM "chapter.framework.django.xml">
 <!ENTITY section.library.other.xml	 		SYSTEM "section.library.other.xml">
 <!ENTITY chapter.framework.gevent.xml 		SYSTEM "chapter.framework.gevent.xml">
+<!ENTITY section.framework.uvicorn.xml 		SYSTEM "section.framework.uvicorn.xml">
 
 <!ENTITY section.python.example.xml 		SYSTEM "section.python.example.xml">
 <!ENTITY section.python.container.xml 		SYSTEM "section.python.container.xml">

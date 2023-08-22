@@ -1,62 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <section id="uvicorn">
-    <title>Uvicorn</title>
-    <section>
-        <title>Fastapi</title>
-        <section>
-            <title>Post Request</title>
-            <programlisting>
-            <![CDATA[ 
-from fastapi import FastAPI, Request
-from typing import Dict
-
-# from starlette.requests import Request
-from starlette.responses import Response
-from starlette.testclient import TestClient
-
-app = FastAPI()
-
-
-@app.post("/json")
-async def json(item: dict):
-    print(item)
-    return "OK"
-
-
-client = TestClient(app)
-data = {"key": "value"}
-response = client.post("/json", json=data)
-print(response.content.decode())      
-            ]]>
-            </programlisting>
-            <programlisting>
-		    <![CDATA[
-from fastapi import FastAPI, Request
-
-# from starlette.requests import Request
-from starlette.responses import Response
-from starlette.testclient import TestClient
-
-app = FastAPI()
-
-
-@app.post("/webhook")
-async def the_webhook(request: Request):
-    return await request.body()
-
-
-data = b"""EURUSD Less Than 1.09092
-{"Condition": "value"}
-[3,4,5,]
-{}"""
-
-data = b"""EURUSD Less Than 1.09092"""
-
-client = TestClient(app)
-response = client.post("/webhook", data=data)
-print(response.content.decode())
-            ]]>
-            </programlisting>
-        </section>
-    </section>
+	<title>Uvicorn</title>
+	<section>
+		<title>代码启动</title>
+		<programlisting>
+		<![CDATA[
+if __name__ == "__main__":
+    import uvicorn
+    uvicorn.run(app=app, host="127.0.0.1", port=8000)	
+		]]>
+		</programlisting>
+		<programlisting>
+		<![CDATA[
+if __name__ == "__main__":
+    import uvicorn
+    uvicorn.run(app='main:app', host="127.0.0.1", port=8000, reload=True, debug=True)
+		
+		]]>
+		</programlisting>
+	</section>
+	<section>
+		<title>命令行启动</title>
+		<programlisting>
+		<![CDATA[
+uvicorn main:app --host=127.0.0.1 --port=8000 --reload
+		
+		]]>
+		</programlisting>
+	</section>
+	
 </section>
