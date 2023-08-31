@@ -200,4 +200,43 @@ async def startup():
 		]]>
 		</programlisting>
 	</section>
+	<section>
+		<title>HTTP Auth</title>
+		<programlisting>
+		<![CDATA[
+security = HTTPBasic()
+
+def auth(credentials: Annotated[HTTPBasicCredentials, Depends(security)]):
+    current_username_bytes = credentials.username.encode("utf8")
+    correct_username_bytes = b"admin"
+    is_correct_username = compare_digest(current_username_bytes, correct_username_bytes)
+    current_password_bytes = credentials.password.encode("utf8")
+    correct_password_bytes = b"admin"
+    is_correct_password = compare_digest(current_password_bytes, correct_password_bytes)
+    if not (is_correct_username and is_correct_password):
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Incorrect username or password",
+            headers={"WWW-Authenticate": "Basic"},
+        )
+    return credentials.username
+
+		]]>
+		</programlisting>
+		<para>应用与方法</para>
+		<programlisting>
+		<![CDATA[
+@app.get("/who")
+@cache(expire=60)
+def read_current_user(username: Annotated[str, Depends(auth)]):
+    return {"username": username}		
+		]]>
+		</programlisting>
+		<para>全局配置</para>
+		<programlisting>
+		<![CDATA[
+app = FastAPI(title="netkiller", description="HTTP Auth 测试", dependencies=[Depends(auth)])			
+		]]>
+		</programlisting>
+	</section>
 </section>
