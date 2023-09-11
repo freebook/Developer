@@ -1,4 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<section>
+	<title>dbm Key-Value 数据库</title>
+	<programlisting>
+	<![CDATA[
+import dbm
+
+with dbm.open(file="/tmp/cache", flag="c") as db:
+    print(db.keys())
+    print("=" * 20)
+    if "hello".encode() in db.keys():
+        print(f"找到: { db['hello']}")
+    else:
+        print(f"没找到")
+        db["hello"] = "world"	
+	]]>
+	</programlisting>
+</section>
 <section id="keyboard">
 	<title>keyboard</title>
 	<screen>
