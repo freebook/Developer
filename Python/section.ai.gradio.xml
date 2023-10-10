@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<chapter id="index"><?dbhtml dir="gradio" ?>
+	<title>gradio</title>
+	<screen>
+	<![CDATA[
+pip install gradio
+
+#为了更快安装，可以使用清华镜像源
+pip install -i https://pypi.tuna.tsinghua.edu.cn/simple gradio	
+	]]>
+	</screen>
+	<section id="demo">
+		<title>Demo</title>
+		<programlisting>
+		<![CDATA[
+import gradio as gr
+
+def greet(name):
+    return "Hello " + name + "!"
+
+demo = gr.Interface(fn=greet, inputs="text", outputs="text")
+demo.launch()		
+		]]>
+		</programlisting>
+	</section>
+	<section>
+		<title>RGB 图像转灰度图像</title>
+		<programlisting>
+		<![CDATA[
+import gradio as gr
+import cv2
+​
+def to_black(image):
+    output = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+    return output
+​
+interface = gr.Interface(fn=to_black, inputs="image", outputs="image")
+interface.launch()		
+		]]>
+		</programlisting>
+	</section>
+	
+</chapter>

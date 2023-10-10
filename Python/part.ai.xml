@@ -6,4 +6,6 @@
 	&chapter.video.xml;
 	&section.ai.face.xml;
 	&chapter.nlp.xml;
+	&section.ai.openai.xml;
+	&section.ai.langchain.xml;
 </part>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<chapter id="index"><?dbhtml dir="LangChain" ?>
+	<title>LangChain</title>
+	<section id="LangChain.OpenAI">
+		<title>ChatGPT</title>
+		<screen>
+		<![CDATA[
+pip install openai gradio langchain llama-index		
+		]]>
+		</screen>
+		<para></para>
+		<screen>
+		<![CDATA[
+pip install -i https://pypi.tuna.tsinghua.edu.cn/simple openai gradio langchain llama-index		
+		]]>
+		</screen>
+		<programlisting>
+		<![CDATA[
+		
+		]]>
+		</programlisting>
+	</section>
+</chapter>
