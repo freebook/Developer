@@ -589,6 +589,39 @@ print(dict1)
 			]]>
 			</screen>
 		</section>
+		<section>
+			<title>取最大值</title>
+			<programlisting>
+			<![CDATA[
+
+data = [
+    {
+      "question": "为什么过只加汇摇晃",
+      "answer": "因为支架是由很多支索小圆轮组成的，所以吊厢过索轮时会有轻微的震动和摇晃，这些都是正常的",
+      "ratio": 0,
+      "distance": 41.112388610839844
+    },
+    {
+      "question": "吊厢过之家为什么会摇晃",
+      "answer": "因为支架是由很多支索小圆轮组成的，所以吊厢过索轮时会有轻微的震动和摇晃，这些都是正常的",
+      "ratio": 0,
+      "distance": 42.78510284423828
+    },
+    {
+      "question": "嗦道为啥会摇晃",
+      "answer": "因为支架是由很多支索小圆轮组成的，所以吊厢过索轮时会有轻微的震动和摇晃，这些都是正常的",
+      "ratio": 1,
+      "distance": 44.00849914550781
+    }
+   
+  ]
+
+ret = max(data, key=lambda dic: dic['ratio']) 
+print(ret)  
+			
+			]]>
+			</programlisting>
+		</section>
 	</section>
 
 </section>
