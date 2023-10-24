@@ -24,4 +24,12 @@ with open(cfgfile+'.in','r', encoding='utf-8', errors='ignore') as f:
      	pring(line)
 		</screen>
 	</section>
+	<section>
+		<title>ERROR: Could not install packages due to an EnvironmentError: [Errno 28] No space left on device</title>
+		<screen>
+		<![CDATA[
+pip install -b /your_path netkiller-devops		
+		]]>
+		</screen>
+	</section>
 </chapter>

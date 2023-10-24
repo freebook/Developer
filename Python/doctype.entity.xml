@@ -46,11 +46,13 @@
 <!ENTITY section.ocr.tesseract.xml			SYSTEM "section.ocr.tesseract.xml">
 
 <!ENTITY part.ai.xml						SYSTEM "part.ai.xml">
+<!ENTITY chapter.ai.xml						SYSTEM "chapter.ai.xml">
 <!ENTITY chapter.speech.xml					SYSTEM "chapter.speech.xml">
 <!ENTITY section.speech.xml					SYSTEM "section.speech.xml">
 <!ENTITY chapter.stock.xml					SYSTEM "chapter.stock.xml">
 <!ENTITY chapter.video.xml					SYSTEM "chapter.video.xml">
 
+<!ENTITY section.ai.xml						SYSTEM "section.ai.xml">
 <!ENTITY section.ai.openai.xml				SYSTEM "section.ai.openai.xml">
 <!ENTITY section.ai.face.xml				SYSTEM "section.ai.face.xml">
 <!ENTITY section.ai.langchain.xml			SYSTEM "section.ai.langchain.xml">
@@ -72,7 +74,7 @@
 <!ENTITY chapter.terminal.xml				SYSTEM "chapter.terminal.xml">
 <!ENTITY section.terminal.prompt_toolkit.xml	SYSTEM "section.terminal.prompt_toolkit.xml">
 
-<!ENTITY chapter.nlp.xml					SYSTEM "chapter.nlp.xml">
+<!ENTITY chapter.ai.nlp.xml					SYSTEM "chapter.ai.nlp.xml">
 <!ENTITY section.nlp.jieba.xml				SYSTEM "section.nlp.jieba.xml">
 <!ENTITY section.nlp.wordcloud.xml			SYSTEM "section.nlp.wordcloud.xml">
 <!ENTITY section.nlp.transformers.xml		SYSTEM "section.nlp.transformers.xml">

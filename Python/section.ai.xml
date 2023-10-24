@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section id="tokenizers">
+	<title>tokenizers</title>
+	<section>
+		<title>Normalization</title>
+		<para>文本清洗，Normalization 对原始文本 sentence 执行一系列清洗操作，如：删除空格、去除重音字符、小写化</para>
+		<programlisting>
+		<![CDATA[
+from tokenizers import normalizers
+from tokenizers.normalizers import NFD, StripAccents
+
+normalizer = normalizers.Sequence([NFD(), StripAccents()])
+text = normalizer.normalize_str("Héllò hôw are ü?")
+print(text)
+# "Hello how are u?"		
+		]]>
+		</programlisting>
+	</section>
+	<section>
+		<title>Pre-Tokenization</title>
+		<para>拆分文本，并标记文本的位置</para>
+		<programlisting>
+		<![CDATA[
+from tokenizers.pre_tokenizers import Whitespace
+from tokenizers import pre_tokenizers
+from tokenizers.pre_tokenizers import Digits
+
+#Whitespace使用正则表达式\w+|[^\w\s]+，即以word开头，以空格或非word结尾来拆分token，返回数据  List[Tuple[str, Offsets]]:
+pre_tokenizer = Whitespace()
+data1 = pre_tokenizer.pre_tokenize_str("What's your nickname? My nickname is netkiller.")
+print(data1)
+
+pre_tokenizer = pre_tokenizers.Sequence([Whitespace(), Digits(individual_digits=True)])
+data2 = pre_tokenizer.pre_tokenize_str("https://www.netkiller.cn")
+print(data2)		
+		]]>
+		</programlisting>
+		<para>输出结果</para>
+		<screen>
+		<![CDATA[
+[('What', (0, 4)), ("'", (4, 5)), ('s', (5, 6)), ('your', (7, 11)), ('nickname', (12, 20)), ('?', (20, 21)), ('My', (22, 24)), ('nickname', (25, 33)), ('is', (34, 36)), ('netkiller', (37, 46)), ('.', (46, 47))]
+[('https', (0, 5)), ('://', (5, 8)), ('www', (8, 11)), ('.', (11, 12)), ('netkiller', (12, 21)), ('.', (21, 22)), ('cn', (22, 24))]		
+		]]>
+		</screen>
+	</section>
+</section>
+<section id="transformers">
+	<title>transformers</title>
+	<section>
+		<title>安装 transformers</title>
+		<para>安装 transformers</para>
+		<programlisting>
+	<![CDATA[
+pip install transformers	
+	]]>
+		</programlisting>
+	</section>
+	<section>
+		<title>加载本地模型</title>
+		<programlisting>
+		<![CDATA[
+#!/usr/bin/python
+# -*-coding：utf-8-*-
+from transformers import BertTokenizer, BertModel
+
+model = "./transformers/bert-base-chinese"
+tokenizer = BertTokenizer.from_pretrained(model)
+print(tokenizer.tokenize("I have a good time, thank you."))		
+		]]>
+		</programlisting>
+		<screen>
+		<![CDATA[
+neo@MacBook-Pro-M2 ~/w/test> ll transformers/bert-base-chinese/
+total 804576
+-rw-r--r--  1 neo  staff   624B 10 23 17:00 config.json
+-rw-r--r--  1 neo  staff   392M 10 23 17:05 model.safetensors
+-rw-r--r--  1 neo  staff   263K 10 23 17:05 tokenizer.json
+-rw-r--r--  1 neo  staff    29B 10 23 17:05 tokenizer_config.json
+-rw-r--r--@ 1 neo  staff   107K 10 23 16:13 vocab.txt		
+		]]>
+		</screen>
+		<para>运行结果</para>
+		<screen>
+		<![CDATA[
+neo@MacBook-Pro-M2 ~/w/test> python3 /Users/neo/workspace/test/test.py
+['[UNK]', 'have', 'a', 'good', 'time', ',', 'than', '##k', 'you', '.']		
+		]]>
+		</screen>
+	</section>
+	<section>
+		<title>自动下载模型</title>
+		<programlisting>
+		<![CDATA[
+#!/usr/bin/python
+# -*-coding：utf-8-*-
+from transformers import AutoTokenizer, AutoModel
+
+modelPath = "hfl/chinese-macbert-base"
+tokenizer = AutoTokenizer.from_pretrained(modelPath)
+print(tokenizer.tokenize("I have a good time, thank you."))		
+		]]>
+		</programlisting>
+	</section>
+	<section>
+		<title>编码</title>
+		<programlisting>
+		<![CDATA[
+#!/usr/bin/python
+# -*-coding：utf-8-*-
+from transformers import BertTokenizer, BertModel
+
+model_path = "./transformers/bert-base-chinese"
+tokenizer = BertTokenizer.from_pretrained(model_path)
+
+print(tokenizer.encode('你好世界')) 
+print(tokenizer.encode_plus('我不喜欢这世界','你好中国'))
+print(tokenizer.convert_ids_to_tokens(tokenizer.encode('我爱你')))		
+		]]>
+		</programlisting>
+	</section>
+	<section>
+		<title>FAQ</title>
+		<section>
+			<title>隐藏警告</title>
+			<screen>
+			<![CDATA[
+- This IS expected if you are initializing BertModel from the checkpoint of a model trained on another task or with another architecture (e.g. initializing a BertForSequenceClassification model from a BertForPreTraining model).
+- This IS NOT expected if you are initializing BertModel from the checkpoint of a model that you expect to be exactly identical (initializing a BertForSequenceClassification model from a BertForSequenceClassification model).			
+			]]>
+			</screen>
+			<para>解决方案</para>
+			<screen>
+			<![CDATA[
+from transformers import logging
+logging.set_verbosity_warning()
+
+或：
+
+from transformers import logging
+logging.set_verbosity_error()			
+			]]>
+			</screen>
+			<para>打开 config.json 文件，查看 architectures 配置项，讲 BertModel 更换为 BertForMaskedLM 即可</para>
+			<programlisting>
+			<![CDATA[
+{
+  "architectures": [
+    "BertForMaskedLM"
+  ],
+  "attention_probs_dropout_prob": 0.1,
+  "directionality": "bidi",
+  "hidden_act": "gelu",
+  "hidden_dropout_prob": 0.1,
+  "hidden_size": 768,
+  "initializer_range": 0.02,
+  "intermediate_size": 3072,
+  "layer_norm_eps": 1e-12,
+  "max_position_embeddings": 512,
+  "model_type": "bert",
+  "num_attention_heads": 12,
+  "num_hidden_layers": 12,
+  "pad_token_id": 0,
+  "pooler_fc_size": 768,
+  "pooler_num_attention_heads": 12,
+  "pooler_num_fc_layers": 3,
+  "pooler_size_per_head": 128,
+  "pooler_type": "first_token_transform",
+  "type_vocab_size": 2,
+  "vocab_size": 21128
+}
+			]]>
+			</programlisting>
+			<screen>
+			<![CDATA[
+Some weights of the model checkpoint at ./transformers/bert-base-chinese were not used when initializing BertForMaskedLM: ['cls.seq_relationship.bias', 'cls.seq_relationship.weight']
+- This IS expected if you are initializing BertForMaskedLM from the checkpoint of a model trained on another task or with another architecture (e.g. initializing a BertForSequenceClassification model from a BertForPreTraining model).
+- This IS NOT expected if you are initializing BertForMaskedLM from the checkpoint of a model that you expect to be exactly identical (initializing a BertForSequenceClassification model from a BertForSequenceClassification model).			
+			]]>
+			</screen>
+			<para>添加 from_tf=True 参数</para>
+			<programlisting>
+			<![CDATA[
+#!/usr/bin/python
+# -*-coding：utf-8-*-
+from transformers import BertTokenizer, BertModel,BertConfig,BertForMaskedLM
+pretrained_model_name_or_path = "./transformers/bert-base-chinese"
+tokenizer = BertTokenizer.from_pretrained(pretrained_model_name_or_path)
+model = BertForMaskedLM.from_pretrained(pretrained_model_name_or_path, from_tf=True)
+			]]>
+			</programlisting>
+			<screen>
+			<![CDATA[
+All TF 2.0 model weights were used when initializing BertForMaskedLM.
+
+All the weights of BertForMaskedLM were initialized from the TF 2.0 model.
+If your task is similar to the task the model of the checkpoint was trained on, you can already use BertForMaskedLM for predictions without further training.			
+			]]>
+			</screen>
+		</section>
+	</section>
+</section>
