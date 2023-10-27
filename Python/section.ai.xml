@@ -100,6 +100,7 @@ tokenizer = AutoTokenizer.from_pretrained(modelPath)
 print(tokenizer.tokenize("I have a good time, thank you."))		
 		]]>
 		</programlisting>
+		
 	</section>
 	<section>
 		<title>编码</title>
@@ -115,6 +116,28 @@ tokenizer = BertTokenizer.from_pretrained(model_path)
 print(tokenizer.encode('你好世界')) 
 print(tokenizer.encode_plus('我不喜欢这世界','你好中国'))
 print(tokenizer.convert_ids_to_tokens(tokenizer.encode('我爱你')))		
+		]]>
+		</programlisting>
+	</section>
+	<section>
+		<title>计算向量</title>
+		<programlisting>
+		<![CDATA[
+from transformers import AutoTokenizer, AutoModel
+
+cache_dir = "/tmp/transformers"
+# model = "hfl/chinese-macbert-base"
+pretrained_model_name_or_path = "bert-base-chinese"
+
+tokenizer = AutoTokenizer.from_pretrained(pretrained_model_name_or_path, cache_dir=cache_dir)  # , force_download=True
+model = AutoModel.from_pretrained(pretrained_model_name_or_path, cache_dir=cache_dir)
+
+sentences = ['https://www.netkiller.cn']
+
+inputs = tokenizer(sentences, return_tensors="pt")
+outputs = model(**inputs)
+array = outputs.pooler_output.tolist()
+print(array)		
 		]]>
 		</programlisting>
 	</section>

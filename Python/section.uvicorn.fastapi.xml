@@ -30,8 +30,8 @@ print(response.content.decode())
             	]]>
 			</programlisting>
 		</section>
-		<section>
-			<title>Json 数据</title>
+		<section id="post.json.dict">
+			<title>Json 数据转为 dict</title>
 
 			<programlisting>
             <![CDATA[ 
@@ -58,7 +58,7 @@ print(response.content.decode())
             ]]>
 			</programlisting>
 		</section>
-		<section>
+		<section id="post.data">
 			<title>Data 原始数据</title>
 
 			<programlisting>
@@ -90,7 +90,31 @@ print(response.content.decode())
             ]]>
 			</programlisting>
 		</section>
+		<section id="post.json">
+			<title>POST 接收 JSON 数据</title>
+			<programlisting>
+			<![CDATA[
+@app.post("/android/notification", summary="通知", description=f"通知接口", tags=["android"])
+async def notification(request: Request):
+    jsonText = (await request.body()).decode()
+    print(jsonText)
+    print(await request.json())
+    return {"status": true, "data": {}, "msg": "成功"}			
+			]]>
+			</programlisting>
+		</section>
 	</section>
+	<section id="app.api_route">
+		<title>api_route</title>
+		<programlisting>
+		<![CDATA[
+@app.api_route("/", methods=["GET", "POST"])
+async def handler():
+    return {}		
+		]]>
+		</programlisting>
+	</section>
+	
 	<section id="fastapi.slowapi">
 		<title>slowapi 流向控制</title>
 		<programlisting>
