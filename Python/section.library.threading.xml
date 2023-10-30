@@ -2,6 +2,40 @@
 <section id="threading">
 	<title>Python 多线程</title>
 	<section>
+		<title>创建线程</title>
+		<programlisting>
+		<![CDATA[
+from threading import Thread
+import time
+
+
+def fun1():
+    print("fun1 begin")
+    time.sleep(2)
+    print("fun1 end")
+
+
+def fun2():
+    print("fun2 begin")
+    time.sleep(6)
+    print("fun2 end")
+
+
+threads = []
+threads.append(Thread(target=fun1))
+threads.append(Thread(target=fun2))
+print(threads)
+
+if __name__ == "__main__":
+    for t in threads:
+        print(t)
+        t.start()
+    print("Done")		
+		]]>
+		</programlisting>
+	</section>
+	
+	<section>
 		<title>threading 高级线程接口</title>
 		<subtitle>threading — Higher-level threading interface</subtitle>
 		<screen>
