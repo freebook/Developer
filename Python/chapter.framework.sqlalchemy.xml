@@ -1,0 +1,44 @@
+<chapter id="sqlalchemy">
+	<title>Sqlalchemy</title>
+	<section>
+		<title>安装 Sqlalchemy</title>
+		<screen>
+		<![CDATA[
+pip install pymysql
+pip install sqlalchemy		
+		]]>
+		</screen>
+	</section>
+	<section>
+		<title>链接测试</title>
+		<programlisting>
+		<![CDATA[
+from sqlalchemy import create_engine
+
+HOST_NAME = '127.0.0.1'	# 主机
+PORT = '3306'	# 端口号
+DB_NAME = '数据库名称，需提前创建好'
+USERNAME = '用户名'
+PASSWORD = '密码'
+
+DB_URL = 'mysql+pymysql://{}:{}@{}:{}/{}?charset=utf8'.format(
+    USERNAME, PASSWORD, HOST_NAME, PORT, DB_NAME
+)
+engine = create_engine(DB_URL)
+
+if __name__ == '__main__':
+    connection = engine.connect()
+    result = connection.execute('select 1')
+    print(result.fetchone())
+		]]>
+		</programlisting>
+	</section>
+	<section>
+		<title>创建表</title>
+		<programlisting>
+		<![CDATA[
+models.Base.metadata.create_all(bind=engine)		
+		]]>
+		</programlisting>
+	</section>
+</chapter>	

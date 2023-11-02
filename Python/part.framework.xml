@@ -8,8 +8,8 @@
 	<chapter>
 		<title>Web framework</title>
 		<para>http://wiki.secondlife.com/wiki/Mulib</para>
-		&chapter.framework.pylons.xml;
 		&chapter.framework.django.xml;
 		&chapter.framework.gevent.xml;
 	</chapter>
+	&chapter.sqlalchemy.xml;
 </part>

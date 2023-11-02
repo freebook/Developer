@@ -52,7 +52,7 @@ True
 		</screen>
 	</section>
 	<section id="string">
-		<title>String</title>
+		<title>字符串</title>
 		<section id="str.fun">
 			<title>String function</title>
 			<section id="str.find">
@@ -70,10 +70,36 @@ a = 'hello word'
 a.replace('word','python')
 				]]></screen>
 			</section>
-		</section>
-		<section>
-			<title>Convert str to bytes in python</title>
-			<programlisting role="python">
+			<section>
+				<title>format 方法</title>
+				<programlisting>
+			<![CDATA[
+DB_URL = 'mysql+pymysql://{}:{}@{}:{}/{}?charset=utf8'.format(
+    USERNAME, PASSWORD, HOST_NAME, PORT, DB_NAME
+)			
+			]]>
+				</programlisting>
+				<section>
+					<title>格式化字典输出</title>
+					<screen>
+				<![CDATA[
+member = {'name':'neo','age':18}
+'my name is {name},age is {age}'.format(**member)        #**dict				
+				]]>
+					</screen>
+					<para>输出</para>
+					<screen>
+				<![CDATA[
+>>> member = {'name':'neo','age':18}
+>>> 'my name is {name},age is {age}'.format(**member) 
+'my name is neo,age is 18'				
+				]]>
+					</screen>
+				</section>
+			</section>
+			<section>
+				<title>Convert str to bytes in python</title>
+				<programlisting role="python">
 			<![CDATA[
 >>> b = str.encode(y)
 >>> type(b) >>> b b’Hello World!’
@@ -97,10 +123,12 @@ To alter from str to bytes, capitalize on str.encode().
 # to utf-16
 'BG7NYT'.encode('utf-16')
 			]]>
-			</programlisting>
+				</programlisting>
+			</section>
 		</section>
+
 		<section>
-			<title>String format 字符串格式化输出</title>
+			<title>% 字符串格式化输出</title>
 			<para></para>
 			<screen>
 			<![CDATA[
@@ -118,24 +146,9 @@ for i in range(100):
     print('{0:0>3d}'.format(i))    		
 			]]>
 			</screen>
-			<section>
-				<title>格式化字典输出</title>
-				<screen>
-				<![CDATA[
-member = {'name':'neo','age':18}
-'my name is {name},age is {age}'.format(**member)        #**dict				
-				]]>
-				</screen>
-				<para>输出</para>
-				<screen>
-				<![CDATA[
->>> member = {'name':'neo','age':18}
->>> 'my name is {name},age is {age}'.format(**member) 
-'my name is neo,age is 18'				
-				]]>
-				</screen>
-			</section>
+
 		</section>
+
 		<section id="f-string">
 			<title>f-string 格式化字符串</title>
 			<programlisting>
