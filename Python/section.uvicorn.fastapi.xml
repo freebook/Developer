@@ -298,7 +298,7 @@ app = FastAPI(title="netkiller", description="HTTP Auth 测试", dependencies=[D
 		]]>
 		</programlisting>
 	</section>
-	<section>
+	<section id="fastapi.sse">
 		<title>SSE</title>
 		<para>SSE 协议格式</para>
 		<literallayout>
@@ -378,5 +378,9 @@ if __name__ == "__main__":
 		]]>
 		</programlisting>
 		
+	</section>
+	<section>
+		<title>Fief 认证框架</title>
+		<ulink url="https://docs.fief.dev/integrate/python/fastapi/" />
 	</section>
 </section>

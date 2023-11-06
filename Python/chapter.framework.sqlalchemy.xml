@@ -32,12 +32,176 @@ if __name__ == '__main__':
     print(result.fetchone())
 		]]>
 		</programlisting>
+		<para>打印 SQL 语句</para>
+		<programlisting>
+		<![CDATA[
+SQLAlchemy 通过 echo=true，将连接这个数据库引擎的所有执行语句打印出来：
+
+engine = create_engine("<db_rul>", echo=True)		
+		]]>
+		</programlisting>
 	</section>
 	<section>
 		<title>创建表</title>
 		<programlisting>
 		<![CDATA[
 models.Base.metadata.create_all(bind=engine)		
+		]]>
+		</programlisting>
+	</section>
+	<section>
+		<title>Session</title>
+		<programlisting>
+		<![CDATA[
+# 创建数据库会话
+Session = sessionmaker(autocommit=False, autoflush=False, bind=engine)		
+		]]>
+		</programlisting>
+	</section>
+	<section>
+		<title>模型定义</title>
+		<programlisting>
+		<![CDATA[
+name = Column(String(20), default=None, nullable=False, comment="姓名")		
+		]]>
+		</programlisting>
+	</section>
+	<section>
+		<title>增删改</title>
+		<para>插入数据</para>
+		<programlisting>
+		<![CDATA[
+from sqlalchemy.orm import sessionmaker
+​
+# 创建会话session
+Session = sessionmaker(bind=engine)
+session = Session()
+# 新增数据
+new_data = Employees(name='Neo', sex='男', age=25, birth='1980-10-24', jobs='CEO')
+session.add(new_data)
+session.commit()
+session.close()		
+		]]>
+		</programlisting>
+		<para>删除数据</para>
+		<programlisting>
+		<![CDATA[
+from sqlalchemy.orm import sessionmaker
+​
+# 创建会话session
+Session = sessionmaker(bind=engine)
+session = Session()
+# 删除数据
+data = session.query(Employees).filter_by(id=1).delete()
+print('已删除数据的数据量为:', data)
+session.commit()
+session.close()
+
+session.query(Students).filter(Students.name == 'netkiller').delete()
+session.commit()
+		]]>
+		</programlisting>
+		<para>修改数据</para>
+		<programlisting>
+		<![CDATA[
+# 创建会话session
+Session = sessionmaker(bind=engine)
+session = Session()
+
+# 更新数据
+session.query(Employees).filter_by(id=1).update({Employees.age: 12})
+session.commit()
+session.close()	
+
+# 查询后更新数据
+data = session.query(Employees).filter_by(id=5).first()
+data.name = '张三'
+session.commit()
+session.close()	
+		]]>
+		</programlisting>
+	</section>
+	<section>
+		<title>查询</title>
+		<para>所有数据</para>
+		<programlisting>
+		<![CDATA[
+results = session.query(Player).all()
+for result in results:
+    print(f"查询结果为: {result}")		
+		]]>
+		</programlisting>
+		<para>第一条数据</para>
+		<programlisting>
+		<![CDATA[
+first = session.query(Player).first()
+print(first)		
+		]]>
+		</programlisting>
+		<para>LIKE</para>
+		<programlisting>
+		<![CDATA[
+query_result = session.query(Player).filter(Player.name.like("%sa%"))		
+		]]>
+		</programlisting>
+		<para>与操作符 and</para>
+		<programlisting>
+		<![CDATA[
+query_result = session.query.filter(and_(Player.name == 'Salah', Player.id > 1))		
+# 单个filter()中设置多个表达式
+query_result = session.query.filter(Player.name == 'Salah', Player.id > 1)
+
+# 使用多个filter()
+query_result = session.query.filter(Player.name == 'Salah').filter(Player.id > 1)
+		]]>
+		</programlisting>
+		<para>或操作符 or</para>
+		<programlisting>
+		<![CDATA[
+from sqlalchemy import or_
+		
+results = session.query.filter(or_(Player.name == 'Salah', Player.id > 1))		
+		]]>
+		</programlisting>
+		<para>IN 包含</para>
+		<programlisting>
+		<![CDATA[
+query_result = session.query.filter(Player.club.in_(["Liverpool", "Chelsea"]))		
+		]]>
+		</programlisting>
+		<para>NOT IN 排除</para>
+		<programlisting>
+		<![CDATA[
+query_result = session.query.filter(~Player.country.in_(["Eygpt", "China"]))		
+		]]>
+		</programlisting>
+		<para>slice 切片操作，返回 list</para>
+		<programlisting>
+		<![CDATA[
+slice(起始值，结束值)
+
+results = session.query(Arctire).slice(90,100).all()
+print(results)
+
+我们也可以使用如下方法，获得同样的结果。
+results = session.query(Arctire)[90:100]
+		]]>
+		</programlisting>
+	</section>
+	<section>
+		<title>统计数量</title>
+		<programlisting>
+		<![CDATA[
+result = session.query(Students).count()
+result = session.query(Students).filter(Students.name == 'neo').count()		
+		]]>
+		</programlisting>
+	</section>
+	<section id="query.order_by">
+		<title>排序</title>
+		<programlisting>
+		<![CDATA[
+results = session.query(Students).order_by(Students.id.desc()).all()	
 		]]>
 		</programlisting>
 	</section>
