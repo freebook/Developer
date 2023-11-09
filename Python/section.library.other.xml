@@ -78,3 +78,101 @@ keyboard.wait()
 		</programlisting>
 	</section>
 </section>
+<section id="httpx">
+	<title>httpx</title>
+	<section>
+		<title>安装 https</title>
+
+		<screen>
+	<![CDATA[
+python3 -m pip install httpx
+
+# HTTP/2 支持，我们需要额外安装一个库
+
+python3 -m pip install httpx[http2]
+	
+	]]>
+		</screen>
+
+	</section>
+	<section>
+		<title>操作演示</title>
+		<programlisting>
+		<![CDATA[
+import httpx
+r = httpx.get('https://www.example.org/')
+r.text
+r.content
+r.json()
+r.status_code		
+		]]>
+		</programlisting>
+	</section>
+	<section>
+		<title>Restful CRUD 操作</title>
+		<programlisting>
+		<![CDATA[
+r = httpx.get('https://netkiller.cn/get')
+r = httpx.post('https://netkiller.cn/post', data={'key': 'value'})
+r = httpx.put('https://netkiller.cn/put', data={'key': 'value'})
+r = httpx.delete('https://netkiller.cn/delete')
+r = httpx.head('https://netkiller.cn/head')
+r = httpx.options('https://netkiller.cn/options')
+		]]>
+		</programlisting>
+	</section>
+	<section>
+		<title>HTTP 2</title>
+		<programlisting>
+		<![CDATA[
+import httpx
+client = httpx.Client(http2=True, verify=False)
+headers = {
+    'Host': 'netkiller.com',
+    'upgrade-insecure-requests': '1',
+    'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.121 Safari/537.36',
+    'accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9',
+    'sec-fetch-site': 'none',
+    'sec-fetch-mode': 'navigate',
+    'sec-fetch-dest': 'document',
+    'accept-language': 'zh-CN,zh;q=0.9'
+}
+
+response = client.get('https://www.netkiller.cn/linux/', headers=headers)
+print(response.text)
+		]]>
+		</programlisting>
+	</section>
+	<section>
+		<title>异步请求</title>
+		<programlisting>
+		<![CDATA[
+async with httpx.AsyncClient() as client:
+    resp = await client.get('https://www.netkiller.cn/index.html')
+    assert resp.status_code == 200
+    html = resp.text
+		]]>
+		</programlisting>
+	</section>
+</section>
+<section>
+	<title>日志彩色输出</title>
+	<programlisting>
+		<![CDATA[
+# Create a logger object.
+import logging
+logger = logging.getLogger('your-module')
+
+# Initialize coloredlogs.
+import coloredlogs
+coloredlogs.install(level='DEBUG')
+
+# Some examples.
+logger.debug("this is a debugging message")
+logger.info("this is an informational message")
+logger.warn("this is a warning message")
+logger.error("this is an error message")
+logger.critical("this is a critical message")		
+		]]>
+	</programlisting>
+</section>

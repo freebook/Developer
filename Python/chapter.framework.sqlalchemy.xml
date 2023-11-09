@@ -188,6 +188,19 @@ results = session.query(Arctire)[90:100]
 		]]>
 		</programlisting>
 	</section>
+	<section id="models.label">
+		<title>标签</title>
+		<programlisting>
+		<![CDATA[
+        results = (
+            session.query(Picture.image.label("image"))
+            .filter(Picture.android_id == android_id)
+            .all()
+        )
+        data = [url[0] for url in results]		
+		]]>
+		</programlisting>
+	</section>
 	<section>
 		<title>统计数量</title>
 		<programlisting>
@@ -204,5 +217,46 @@ result = session.query(Students).filter(Students.name == 'neo').count()
 results = session.query(Students).order_by(Students.id.desc()).all()	
 		]]>
 		</programlisting>
+	</section>
+	<section id="sqlalchemy.func">
+		<title></title>
+		<programlisting>
+		<![CDATA[
+from sqlalchemy import func		
+		]]>
+		</programlisting>
+		<section>
+			<title>count</title>
+			<programlisting>
+			<![CDATA[
+        count, min, max = (
+            session.query(
+                func.count().label("count"),
+                func.min(Picture.id).label("min"),
+                func.max(Picture.id).label("max"),
+            )
+            .filter(Picture.android_id == android_id)
+            .one()
+        )
+        data = {"count": count, "min": min, "max": max}			
+			]]>
+			</programlisting>
+		</section>
+		<section>
+			<title>min/max</title>
+			<programlisting>
+			<![CDATA[
+        data = session.query(
+            func.min(Picture.id).label("min"), func.max(Picture.id).label("max")
+        ).one()	
+        
+        min, max = session.query(
+            func.min(Picture.id).label("min"), func.max(Picture.id).label("max")
+        ).one()
+        
+        data = {"min": min, "max": max}        
+			]]>
+			</programlisting>
+		</section>
 	</section>
 </chapter>	
