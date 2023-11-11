@@ -58,13 +58,44 @@ Session = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 		]]>
 		</programlisting>
 	</section>
-	<section>
+	<section id="sqlalchemy.models">
 		<title>模型定义</title>
 		<programlisting>
 		<![CDATA[
 name = Column(String(20), default=None, nullable=False, comment="姓名")		
 		]]>
 		</programlisting>
+		<section>
+			<title>外键</title>
+			<programlisting>
+			<![CDATA[
+class Picture(Base):
+    __tablename__ = "picture"
+    id = Column(BIGINT, autoincrement=True, primary_key=True, comment="唯一ID")
+    android_id = Column(String(16), nullable=False, comment="安卓设备ID")
+    session = Column(String(36), nullable=False, unique=True, comment="回话ID")
+    prompt = Column(String(250), nullable=False, comment="提示词")
+    thumbnail = Column(String(250), nullable=True, comment="缩图")
+    original = Column(String(250), nullable=True, comment="原始图片")
+    image = Column(String(250), nullable=True, comment="图片")
+    story = Column(TEXT, nullable=True, comment="故事")
+    share = Column(Boolean, nullable=False, default=True, comment="共享")
+    like = Column(INTEGER, nullable=False, default=0, comment="点赞")
+    ctime = Column(DateTime, default=datetime.now(), comment="创建时间")
+    mtime = Column(DateTime, default=datetime.now(), comment="修改时间")
+
+
+class PictureLike(Base):
+    __tablename__ = "picture_like"
+    id = Column(BIGINT, autoincrement=True, primary_key=True, comment="唯一ID")
+    android_id = Column(String(16), nullable=False, comment="安卓设备ID")
+    picture_id = Column(
+        BIGINT, ForeignKey("picture.id"), nullable=False, comment="图片ID"
+    )
+    ctime = Column(DateTime, default=datetime.now(), comment="创建时间")			
+			]]>
+			</programlisting>
+		</section>
 	</section>
 	<section>
 		<title>增删改</title>
@@ -123,6 +154,16 @@ session.close()
 	</section>
 	<section>
 		<title>查询</title>
+		<para>打印SQL</para>
+		<programlisting>
+		<![CDATA[
+        query = session.query(PictureLike).filter(
+            PictureLike.android_id == android_id,
+            PictureLike.picture_id == picture_id,
+        )
+        print(f"SQL: {query}")		
+		]]>
+		</programlisting>
 		<para>所有数据</para>
 		<programlisting>
 		<![CDATA[
@@ -201,7 +242,7 @@ results = session.query(Arctire)[90:100]
 		]]>
 		</programlisting>
 	</section>
-	<section>
+	<section id="query.count">
 		<title>统计数量</title>
 		<programlisting>
 		<![CDATA[
@@ -217,6 +258,58 @@ result = session.query(Students).filter(Students.name == 'neo').count()
 results = session.query(Students).order_by(Students.id.desc()).all()	
 		]]>
 		</programlisting>
+	</section>
+	<section id="query.exists">
+		<title>查询数据是否存在</title>
+		<section>
+			<title>返回 exists SQL 语句</title>
+			<programlisting>
+		<![CDATA[
+        exist = (
+            session.query(PictureLike)
+            .filter(
+                PictureLike.android_id == android_id,
+                PictureLike.picture_id == picture_id,
+            )
+            .exists()
+        )		
+		]]>
+		</programlisting>
+		<para>输出结果</para>
+		<screen>
+		<![CDATA[
+EXISTS (SELECT 1 
+FROM picture_like 
+WHERE picture_like.android_id = :android_id_1 AND picture_like.picture_id = :picture_id_1)		
+		]]>
+		</screen>
+		</section>
+		<section>
+			<title>exists()</title>
+			<programlisting>
+		<![CDATA[
+from sqlalchemy import exists
+
+it_exists = Session.query(
+    exists().where( SomeObject.field==value )
+).scalar()		
+		]]>
+			</programlisting>
+		</section>
+		<section>
+			<title>query.exists()</title>
+			<programlisting>
+			<![CDATA[
+        query = session.query(PictureLike).filter(
+            PictureLike.android_id == android_id,
+            PictureLike.picture_id == picture_id,
+        )
+        print(f"SQL: {query}")
+        exists = session.query(query.exists()).scalar()
+        print(exists)
+			]]>
+			</programlisting>
+		</section>
 	</section>
 	<section id="sqlalchemy.func">
 		<title></title>
