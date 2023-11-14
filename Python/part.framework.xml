@@ -11,5 +11,5 @@
 		&chapter.framework.django.xml;
 		&chapter.framework.gevent.xml;
 	</chapter>
-	&chapter.sqlalchemy.xml;
+	&chapter.framework.sqlalchemy.xml;
 </part>
