@@ -202,6 +202,35 @@ datetime.date(2023, 9, 2)
 			]]>
 			</programlisting>
 		</section>
+		<section>
+			<title>去除中文</title>
+			<programlisting>
+			<![CDATA[
+import re
+prompt='给我画一张 An octopus catches crabs in the sea 3D'
+string=re.sub('[\u4e00-\u9fa5]', '', prompt)
+print(string)			
+			]]>
+			</programlisting>
+		</section>
+		<section>
+			<title>去除标点符号</title>
+			<programlisting>
+			<![CDATA[
+simple_punctuation = '[’!"#$%&\'()*+,-/:;<=>?@[\\]^_`{|}~，。,]'
+line = re.sub(simple_punctuation, '', string)			
+			]]>
+			</programlisting>
+		</section>
+		<section>
+			<title>去除数字</title>
+			<programlisting>
+			<![CDATA[
+re.sub("[0-9]", " ", line)			
+			]]>
+			</programlisting>
+		</section>
+		
 	</section>
 	<section id="float">
 		<title>float 浮点数值</title>

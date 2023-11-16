@@ -60,12 +60,139 @@ Session = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 	</section>
 	<section id="sqlalchemy.models">
 		<title>模型定义</title>
+		<para>导入数据类型</para>
 		<programlisting>
 		<![CDATA[
-name = Column(String(20), default=None, nullable=False, comment="姓名")		
+from sqlalchemy import Column, Integer, String, Float, DECIMAL, Boolean, Enum, Date, DateTime, Time
+from sqlalchemy.dialects.mysql import LONGTEXT		
 		]]>
 		</programlisting>
 		<section>
+			<title>定义字段</title>
+			<para>主键</para>
+			<programlisting>
+				<![CDATA[
+id = Column(Integer, primary_key=True, autoincrement=True)				
+				]]>
+			</programlisting>
+			<programlisting>
+			<![CDATA[
+price = Column(Float)
+# 总共有 20 位,  保留 5 位小说
+price = Column(DECIMAL(20, 5))
+is_delete = Column(Boolean)
+create_time = Column(DateTime)
+content = Column(LONGTEXT)
+			]]>
+			</programlisting>
+			<para>指定字段名</para>
+			<programlisting>
+				<![CDATA[
+name = Column('fullname', String(60))				
+				]]>
+			</programlisting>
+			<para>枚举字段</para>
+			<programlisting>
+				<![CDATA[
+gender = Column(Enum('男', '女'))				
+				]]>
+			</programlisting>
+			<para>默认值</para>
+			<programlisting>
+				<![CDATA[
+name = Column(String(20), default=None, nullable=False, comment="姓名")
+				]]>
+			</programlisting>
+			<section>
+				<title>server_default</title>
+				<para>default 默认是是 sqlalchemy 产生的，我们需要让数据库完成默认值的填充，就需要使用
+					server_default</para>
+				<programlisting>
+				<![CDATA[
+class PictureBookHasPicture(Base):
+    __tablename__ = "picture_book_has_picture"
+    id = Column(BIGINT, autoincrement=True, primary_key=True, comment="主键")
+    picture_book_id = Column(
+        Integer,
+        ForeignKey("picture_book.id", ondelete="CASCADE", onupdate="CASCADE"),
+        nullable=False,
+        comment="绘本ID",
+    )
+    picture_id = Column(
+        BIGINT, ForeignKey("picture.id"), nullable=False, comment="图片ID"
+    )
+    ctime = Column(DateTime, server_default=text("now()"), comment="创建时间")
+				]]>
+				</programlisting>
+				<para>ON UPDATE</para>
+				<programlisting>
+				<![CDATA[
+class PictureBookHasPicture(Base):
+    __tablename__ = "picture_book_has_picture"
+    id = Column(BIGINT, autoincrement=True, primary_key=True, comment="主键")
+    picture_book_id = Column(
+        Integer,
+        ForeignKey("picture_book.id", ondelete="CASCADE", onupdate="CASCADE"),
+        nullable=False,
+        comment="绘本ID",
+    )
+    picture_id = Column(
+        BIGINT, ForeignKey("picture.id"), nullable=False, comment="图片ID"
+    )
+    ctime = Column(DateTime, server_default=text("now()"), comment="创建时间")
+    mtime = Column(
+        DateTime,
+        server_default=text("NULL ON UPDATE CURRENT_TIMESTAMP"),
+        comment="更新时间",
+    )				
+				]]>
+				</programlisting>
+				<para>输出结果</para>
+				<programlisting>
+				<![CDATA[
+CREATE TABLE `picture_book_has_picture` (
+  `id` bigint NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `picture_book_id` int NOT NULL COMMENT '绘本ID',
+  `picture_id` bigint NOT NULL COMMENT '图片ID',
+  `ctime` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `mtime` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+  PRIMARY KEY (`id`),
+  KEY `picture_book_id` (`picture_book_id`),
+  KEY `picture_id` (`picture_id`),
+  CONSTRAINT `picture_book_has_picture_ibfk_1` FOREIGN KEY (`picture_book_id`) REFERENCES `picture_book` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `picture_book_has_picture_ibfk_2` FOREIGN KEY (`picture_id`) REFERENCES `picture` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci				
+				]]>
+				</programlisting>
+			</section>
+			<section>
+				<title>给表加注释</title>
+				<para>给表增加注释 __table_args__ = {"comment": "安卓设备表"}</para>
+				<programlisting>
+				<![CDATA[
+class Android(Base):
+    __tablename__ = "android"
+    __table_args__ = {"comment": "安卓设备表"}
+    android_id = Column(String(16), primary_key=True, comment="安卓设备ID")
+    sn = Column(String(18), nullable=False, unique=True, comment="序列号")
+    version = Column(String(16), nullable=False, unique=False, comment="软件版本")
+    model = Column(String(16), nullable=False, unique=False, comment="产品型号")
+    mac = Column(String(48), nullable=True, unique=True, comment="MAC地址")				
+				]]>
+				</programlisting>
+			</section>
+			
+			<section id="sqlalchemy.models.onupdate">
+				<title>修改记录的时候触发更新</title>
+				<para>onupdate 修改记录的时候触发更新</para>
+				<programlisting>
+			<![CDATA[
+update_time = Column(DateTime, onupdate=datetime.now())
+			]]>
+				</programlisting>
+			</section>
+		</section>
+		<section id="sqlalchemy.models.ForeignKey">
 			<title>外键</title>
 			<programlisting>
 			<![CDATA[
@@ -95,9 +222,109 @@ class PictureLike(Base):
     ctime = Column(DateTime, default=datetime.now(), comment="创建时间")			
 			]]>
 			</programlisting>
+			<section>
+				<title>ON DELETE 删除外键约束</title>
+				<screen>
+				<![CDATA[
+RESTRICT：	若子表中有父表对应的关联数据，删除父表对应数据，会阻止删除。默认项
+NO ACTION：	在MySQL中，同RESTRICT。
+CASCADE：	级联删除。
+SET NULL：	父表对应数据被删除，子表对应数据项会设置为NULL。
+				]]>
+				</screen>
+				<programlisting>
+				<![CDATA[
+class PictureBook(Base):
+    __tablename__ = "picture_book"
+    id = Column(Integer, autoincrement=True, primary_key=True, comment="主键")
+    title = Column(String(50), nullable=False, comment="绘本名称")
+    author = Column(String(50), nullable=False, comment="作者")
+    cover = Column(String(50), nullable=False, comment="封面")
+    description = Column(String(250), nullable=False, comment="描述")
+    copyright = Column(String(250), nullable=False, comment="版权")
+    isbn = Column(String(13), nullable=True, comment="ISBN")
+    publisher = Column(String(13), nullable=True, comment="出版社")
+    editon = Column(String(13), nullable=True, comment="编辑")
+    ctime = Column(DateTime, default=datetime.now(), comment="创建时间")
+    mtime = Column(
+        DateTime, default=datetime.now(), onupdate=datetime.now(), comment="修改时间"
+    )
+
+
+class PictureBookHasPicture(Base):
+    __tablename__ = "picture_book_has_picture"
+    id = Column(BIGINT, autoincrement=True, primary_key=True, comment="主键")
+    picture_book_id = Column(
+        Integer, ForeignKey("picture_book.id", ondelete='CASCADE'), nullable=False, comment="绘本ID"
+    )
+    picture_id = Column(
+        BIGINT, ForeignKey("picture.id"), nullable=False, comment="图片ID"
+    )
+    ctime = Column(DateTime, default=datetime.now(), comment="创建时间")
+    mtime = Column(DateTime, default=datetime.now(), comment="修改时间")
+				]]>
+				</programlisting>
+				<para>输出结果</para>
+				<programlisting>
+				<![CDATA[
+CREATE TABLE `picture_book_has_picture` (
+  `id` bigint NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `picture_book_id` int NOT NULL COMMENT '绘本ID',
+  `picture_id` bigint NOT NULL COMMENT '图片ID',
+  `ctime` datetime DEFAULT NULL COMMENT '创建时间',
+  `mtime` datetime DEFAULT NULL COMMENT '修改时间',
+  PRIMARY KEY (`id`),
+  KEY `picture_book_id` (`picture_book_id`),
+  KEY `picture_id` (`picture_id`),
+  CONSTRAINT `picture_book_has_picture_ibfk_1` FOREIGN KEY (`picture_book_id`) REFERENCES `picture_book` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `picture_book_has_picture_ibfk_2` FOREIGN KEY (`picture_id`) REFERENCES `picture` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci
+				]]>
+				</programlisting>
+			</section>
+			<section>
+				<title>ON UPDATE 更新外键约束</title>
+				<programlisting>
+				<![CDATA[
+class PictureBookHasPicture(Base):
+    __tablename__ = "picture_book_has_picture"
+    id = Column(BIGINT, autoincrement=True, primary_key=True, comment="主键")
+    picture_book_id = Column(
+        Integer,
+        ForeignKey("picture_book.id", ondelete="CASCADE", onupdate="CASCADE"),
+        nullable=False,
+        comment="绘本ID",
+    )
+    picture_id = Column(
+        BIGINT, ForeignKey("picture.id"), nullable=False, comment="图片ID"
+    )
+    ctime = Column(DateTime, server_default=text("now()"), comment="创建时间")
+    mtime = Column(
+        DateTime, server_default=None, server_onupdate=text("now()"), comment="更新时间"
+    )				
+				]]>
+				</programlisting>
+				<para></para>
+				<programlisting>
+				<![CDATA[
+CREATE TABLE `picture_book_has_picture` (
+  `id` bigint NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `picture_book_id` int NOT NULL COMMENT '绘本ID',
+  `picture_id` bigint NOT NULL COMMENT '图片ID',
+  `ctime` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `mtime` datetime DEFAULT NULL COMMENT '更新时间',
+  PRIMARY KEY (`id`),
+  KEY `picture_book_id` (`picture_book_id`),
+  KEY `picture_id` (`picture_id`),
+  CONSTRAINT `picture_book_has_picture_ibfk_1` FOREIGN KEY (`picture_book_id`) REFERENCES `picture_book` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `picture_book_has_picture_ibfk_2` FOREIGN KEY (`picture_id`) REFERENCES `picture` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci				
+				]]>
+				</programlisting>
+			</section>
 		</section>
 	</section>
-	<section>
+	<section id="sqlalchemy.增删改操作">
 		<title>增删改</title>
 		<para>插入数据</para>
 		<programlisting>
@@ -152,7 +379,7 @@ session.close()
 		]]>
 		</programlisting>
 	</section>
-	<section>
+	<section id="sqlalchemy.query">
 		<title>查询</title>
 		<para>打印SQL</para>
 		<programlisting>
@@ -228,6 +455,15 @@ print(results)
 results = session.query(Arctire)[90:100]
 		]]>
 		</programlisting>
+		<para>其他操作</para>
+		<screen>
+		<![CDATA[
+avg：求平均值。
+max：求最大值。
+min：求最小值。
+sum：求和。		
+		]]>
+		</screen>
 	</section>
 	<section id="models.label">
 		<title>标签</title>
@@ -274,15 +510,15 @@ results = session.query(Students).order_by(Students.id.desc()).all()
             .exists()
         )		
 		]]>
-		</programlisting>
-		<para>输出结果</para>
-		<screen>
+			</programlisting>
+			<para>输出结果</para>
+			<screen>
 		<![CDATA[
 EXISTS (SELECT 1 
 FROM picture_like 
 WHERE picture_like.android_id = :android_id_1 AND picture_like.picture_id = :picture_id_1)		
 		]]>
-		</screen>
+			</screen>
 		</section>
 		<section>
 			<title>exists()</title>
@@ -315,7 +551,7 @@ it_exists = Session.query(
 		<title></title>
 		<programlisting>
 		<![CDATA[
-from sqlalchemy import func		
+from sqlalchemy import func
 		]]>
 		</programlisting>
 		<section>
@@ -338,6 +574,21 @@ from sqlalchemy import func
 		<section>
 			<title>min/max</title>
 			<programlisting>
+				<![CDATA[
+
+# 最大值
+result = session.query(func.max(Article.price)).first()
+print(result)
+
+# 最小值
+result = session.query(func.min(Article.price)).first()
+print(result)
+
+
+				
+				]]>
+			</programlisting>
+			<programlisting>
 			<![CDATA[
         data = session.query(
             func.min(Picture.id).label("min"), func.max(Picture.id).label("max")
@@ -351,5 +602,24 @@ from sqlalchemy import func
 			]]>
 			</programlisting>
 		</section>
+		<section>
+			<title>平均值/求和</title>
+			<programlisting>
+				<![CDATA[
+# 平均值
+result = session.query(func.avg(Article.price)).first()
+print(result)
+# 求和
+result = session.query(func.sum(Article.price)).first()
+print(result)				
+				]]>
+			</programlisting>
+		</section>
+
+		<section>
+			<title></title>
+
+		</section>
+
 	</section>
 </chapter>	
