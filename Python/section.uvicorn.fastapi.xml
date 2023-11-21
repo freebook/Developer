@@ -379,6 +379,85 @@ if __name__ == "__main__":
 		</programlisting>
 		
 	</section>
+	<section id="jsonable_encoder">
+		<title>解决 Sqlalchemy 返回模型无法打印的问题</title>
+		<para>直接打印返回结果</para>
+		<screen>
+		<![CDATA[
+<models.model.Picture object at 0x1063e9910>		
+		]]>
+		</screen>
+		<para>倒入依赖，然后使用 jsonable_encoder 编码</para>
+		<programlisting>
+		<![CDATA[
+from fastapi.responses import JSONResponse
+from fastapi.encoders import jsonable_encoder		
+		]]>
+		</programlisting>
+		<programlisting>
+		<![CDATA[
+@router.get(
+    "/{android_id}/open/{id}",
+    summary="打开绘本",
+    description="开始阅读绘本作品",
+)
+async def open(id: int):
+    session = database.session()
+    book = {}
+    try:
+        from sqlalchemy.orm import load_only
+
+        book["book"] = session.query(PictureBook).filter(PictureBook.id == id).first()
+        book["story"] = (
+            session.query(Picture)
+            .join(PictureBookHasPicture, Picture.id == PictureBookHasPicture.picture_id)
+            .filter(PictureBookHasPicture.picture_book_id == id)
+            .options(load_only(Picture.image, Picture.story))
+            .all()
+        )
+        if book["book"]:
+            response = Response(True, "打开绘本", jsonable_encoder(book))
+        else:
+            response = Response(False, "打开绘本没有数据", None)
+    except Exception as e:
+        response = Response(False, e, None)
+        logger.error(response)
+    finally:
+        session.close()
+    logger.info(response)
+    return JSONResponse(content=response)		
+		]]>
+		</programlisting>
+	</section>
+	<section id="media_type">
+		<title>返回图片</title>
+		<programlisting>
+		<![CDATA[
+import qrcode, logging, io
+		
+@router.get("/{android_id}/qrcode")
+async def device_bind_qrcode(android_id: str):
+    try:
+        data = f"{android_id}"
+        qr = qrcode.QRCode(
+            version=1,
+            error_correction=qrcode.constants.ERROR_CORRECT_L,
+            box_size=20,
+            border=2,
+        )
+        qr.add_data(data)
+        qr.make(fit=True)
+        img = qr.make_image(fill_color="black", back_color="white")
+        out = io.BytesIO()
+        img.save(out, "PNG")
+        logger.info(f"QR Code: {data}")
+        return Response(content=out.getvalue(), media_type="image/png")
+    except Exception as e:
+        logger.error(e)
+        return None		
+		]]>
+		</programlisting>
+	</section>
 	<section>
 		<title>Fief 认证框架</title>
 		<ulink url="https://docs.fief.dev/integrate/python/fastapi/" />

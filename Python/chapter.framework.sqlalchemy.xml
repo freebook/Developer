@@ -547,6 +547,36 @@ it_exists = Session.query(
 			</programlisting>
 		</section>
 	</section>
+	<section id="query.options">
+		<title>返回指定列</title>
+		<programlisting>
+		<![CDATA[
+async def open(picture_book_id: int):
+    session = database.session()
+    try:
+        from sqlalchemy.orm import load_only
+
+        data = (
+            session.query(Picture)
+            .join(PictureBookHasPicture, Picture.id == PictureBookHasPicture.picture_id)
+            .filter(PictureBookHasPicture.picture_book_id == picture_book_id)
+            .options(load_only(Picture.image, Picture.story))
+            .all()
+        )
+        if data:
+            response = Response(True, "打开绘本", data)
+        else:
+            response = Response(False, "打开绘本没有数据", data)
+    except Exception as e:
+        response = Response(False, e, None)
+        logger.error(response)
+    finally:
+        session.close()
+    logger.info(response)
+    return response		
+		]]>
+		</programlisting>
+	</section>
 	<section id="sqlalchemy.func">
 		<title></title>
 		<programlisting>
