@@ -3,6 +3,7 @@
 <chapter id="index">
 	<?dbhtml dir="library"?>
 	<title>Library</title>
+	&section.library.path.xml;
 	<section>
 		<title>序列化</title>
 		<programlisting>

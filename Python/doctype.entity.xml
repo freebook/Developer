@@ -7,6 +7,7 @@
 <!ENTITY section.python.pipe.xml			SYSTEM "section.python.pipe.xml">
 
 <!ENTITY chapter.library.xml				SYSTEM "chapter.library.xml">
+<!ENTITY section.library.path.xml			SYSTEM "section.library.path.xml">
 <!ENTITY section.library.syslog.xml			SYSTEM "section.library.syslog.xml">
 <!ENTITY section.library.threading.xml		SYSTEM "section.library.threading.xml">
 <!ENTITY section.library.socket.xml			SYSTEM "section.library.socket.xml">
