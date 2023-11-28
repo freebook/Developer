@@ -192,6 +192,39 @@ update_time = Column(DateTime, onupdate=datetime.now())
 				</programlisting>
 			</section>
 		</section>
+		<section>
+			<title>主键 Primary Key</title>
+			<section>
+				<title>复合主键 Composite Primary Key(也有叫 Compound Primary Key)</title>
+				<programlisting>
+				<![CDATA[
+class MemberHasAndroid(Base):
+    __tablename__ = "member_has_android"
+    __table_args__ = (
+        PrimaryKeyConstraint("member_id", "android_id"),
+        {"comment": "会员设备"},
+    )
+    member_id = Column(Integer, ForeignKey("member.id"), nullable=False, comment="安卓ID")
+    android_id = Column(
+        String(16), ForeignKey("android.android_id"), nullable=False, comment="安卓ID"
+    )				
+				]]>
+				</programlisting>
+				<programlisting>
+				<![CDATA[
+CREATE TABLE `member_has_android` (
+  `member_id` int NOT NULL COMMENT '安卓ID',
+  `android_id` varchar(16) COLLATE utf8mb4_general_ci NOT NULL COMMENT '安卓ID',
+  PRIMARY KEY (`member_id`,`android_id`),
+  KEY `android_id` (`android_id`),
+  CONSTRAINT `member_has_android_ibfk_1` FOREIGN KEY (`member_id`) REFERENCES `member` (`id`),
+  CONSTRAINT `member_has_android_ibfk_2` FOREIGN KEY (`android_id`) REFERENCES `android` (`android_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='会员设备'				
+				]]>
+				</programlisting>
+			</section>
+		</section>
+		
 		<section id="sqlalchemy.models.ForeignKey">
 			<title>外键</title>
 			<programlisting>
