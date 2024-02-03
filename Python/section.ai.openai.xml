@@ -4,6 +4,46 @@
 	<section>
 		<title>ChatGPT</title>
 		<section>
+			<title>openai api 1.0</title>
+			<programlisting>
+			<![CDATA[
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+##############################################
+# Home	: https://www.netkiller.cn
+# Author: Neo <netkiller@msn.com>
+# Upgrade: 2024-01-30
+##############################################
+import os
+from openai import OpenAI
+
+# from openai import request
+# from requests import request
+
+api_key = os.getenv("OPENAI_API_KEY","sk-UB5SdJmT3BlbkFJnPC9GjYuEHzyuotulWBFgY0sAQ70vTnKr")
+
+question = "netkiller 陈景峰是谁？他写了那些电子书？"
+
+client = OpenAI(api_key=api_key)
+response = client.chat.completions.create(
+    # model="gpt-3.5-turbo",
+    model="gpt-4",
+    messages=[{"role": "user", "content": question}],
+    temperature=1,
+    stream=True,
+)
+
+print(f"问题：{question}")
+
+for chunk in response:
+    #print(chunk)
+    content = chunk.choices[0].delta.content
+    if content is not None:
+        print(content, end="")
+			]]>
+			</programlisting>
+		</section>
+		<section>
 			<title>gpt-3.5-turbo</title>
 			<programlisting>
 			<![CDATA[
