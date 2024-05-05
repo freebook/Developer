@@ -1,0 +1,53 @@
+= 环境安装和配置
+
+
+
+brew install sdl2
+
+git clone --recursive https://github.com/lvgl/lv_port_pc_vscode
+
+== 编辑 Makefile
+
+注释 # LV_DRIVER          := X11 开启 LV_DRIVER          := SDL2
+
+INC 加入 -I/opt/homebrew/opt/sdl2/include/
+
+LDLIBS 加入 -L/opt/homebrew/opt/sdl2/lib/
+
+
+
+[source,c]
+----
+# select underlaying LCGL display driver (SDL2 || X11)
+# LV_DRIVER          := X11
+LV_DRIVER          := SDL2
+
+# Include simulator inc folder first so lv_conf.h from custom UI can be used instead
+INC 				:= -I./ui/simulator/inc/ -I./ -I./lvgl/ -I/opt/homebrew/opt/sdl2/include/ #-I/usr/include/freetype2 -L/usr/local/lib
+LDLIBS	 			:= -l$(LV_DRIVER) -lpthread -lm -L/opt/homebrew/opt/sdl2/lib/ #-lfreetype -lavformat -lavcodec -lavutil -lswscale -lm -lz
+----
+
+== 编辑 launch.json
+
+增加 "MIMode":"lldb" 配置项
+
+[source,json]
+----
+// launch.json section
+	"launch": {
+		"version": "0.2.0",
+		"configurations": [
+			{
+				"name": "Debug LVGL demo with gdb",
+				"type": "cppdbg",
+				"request": "launch",
+			        "program": "${workspaceFolder}/build/bin/demo",
+				"args": [],
+				"cwd": "${workspaceFolder}",
+				"preLaunchTask": "Build",
+				"stopAtEntry": false,
+				"MIMode":"lldb"
+			},
+		],
+	},
+----

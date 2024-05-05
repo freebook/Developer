@@ -1,0 +1,12 @@
+
+brew install arm-none-eabi-gcc
+
+brew install scons
+scons --menuconfig
+
+
+source ~/.env/env.sh
+packages --update
+
+
+git clone https://gitee.com/rtthread/rt-thread.git
