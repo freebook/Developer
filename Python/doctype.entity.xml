@@ -84,5 +84,7 @@
 <!ENTITY section.graphics.xml				SYSTEM "section.graphics.xml">
 <!ENTITY chapter.opencv.xml					SYSTEM "chapter.opencv.xml">
 
+<!ENTITY chapter.movie.xml					SYSTEM "chapter.movie.xml">
+
 <!ENTITY chapter.python.debug.xml			SYSTEM "chapter.python.debug.xml">
 <!ENTITY chapter.faq.xml					SYSTEM "chapter.faq.xml">

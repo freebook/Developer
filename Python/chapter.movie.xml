@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<chapter id="index">	<?dbhtml dir="moviepy"?>
+	<title>MoviePy</title>
+	<section>
+		<title>安装 MoviePy</title>
+		<programlisting>
+		<![CDATA[
+pip install moviepy		
+		]]>
+		</programlisting>
+	</section>
+	<section id="image">
+		<title>图片处理</title>
+		<programlisting>
+		<![CDATA[
+# 加载产品图片
+product_image = ImageClip("product_image.png", duration=10)		
+		]]>
+		</programlisting>
+		<section>
+			<title>图片转视频</title>
+
+			<programlisting>
+		<![CDATA[
+import os
+import moviepy.video.io.ImageSequenceClip
+
+def merge_image_to_video_moviepy(folder_name):
+    fps = 25
+    image_files = []
+    for f1 in os.listdir(folder_name):
+        filename = os.path.join(folder_name, f1)
+        for index in range(fps):
+            image_files.append(filename)
+    clip1 = moviepy.video.io.ImageSequenceClip.ImageSequenceClip(image_files, fps=fps)
+    clip1.write_videofile("output.mp4", fps=fps)
+    return clip1
+
+
+if __name__ == '__main__':
+    # 图片文件尺寸必须一致
+    folder_name = r"test/images"
+    clip1 = merge_image_to_video_moviepy(folder_name)		
+		]]>
+			</programlisting>
+		</section>
+		<section>
+			<title>图片生成视频</title>
+			<programlisting>
+			<![CDATA[
+from moviepy.editor import *
+
+
+image = ImageClip("image.png")
+image = image.set_duration(5)
+image = image.set_position(('center', 'top'))
+# image = image.resize(height=200)
+image.write_videofile("movie.mp4",fps=30)
+			
+			]]>
+			</programlisting>
+		</section>
+
+
+	</section>
+	<section id="audio">
+		<title>音频处理</title>
+		<section>
+			<title>合并音频文件</title>
+			<programlisting>
+			<![CDATA[
+audioFileClip1 = AudioFileClip("1.mp3")
+audioFileClip2 = AudioFileClip("2.mp3")
+audioFileClip3 = AudioFileClip("2.mp3")
+clips = [audioFileClip1,audioFileClip2,audioFileClip3]
+
+concat = concatenate_audioclips(clips)
+concat.write_audiofile("netkiller.mp3")			
+			]]>
+			</programlisting>
+		</section>
+	</section>
+	<section id="video">
+		<title>视频处理</title>
+		<section>
+			<title>从视频中提取音频</title>
+			<programlisting>
+			<![CDATA[
+from moviepy.editor import *
+video_path = 'my_video.avi'   #视频地址
+audio_path = 'my_audio.mp3'   #提取音频保存位置
+video = VideoFileClip(video_path)
+video.audio.write_audiofile(audio_path)
+			
+			]]>
+			</programlisting>
+		</section>
+		<section>
+			<title>去除视频中的音频</title>
+			<programlisting>
+			<![CDATA[
+old_video = '有声音.avi'
+new_video = '无声音.avi'
+ 
+video = VideoFileClip(old_video)
+video = video.without_audio()  #删除声音，返回新的视频对象，原有对象不更改
+video.write_videofile(new_video)
+			
+			]]>
+			</programlisting>
+		</section>
+		<section>
+			<title>对视频添加音频</title>
+			<programlisting>
+			<![CDATA[
+old_video = '无声音.avi'
+audio = 'audio.mp3'
+new_video = '有声音.avi'
+ 
+video = VideoFileClip(video_path)
+audio_clip = AudioFileClip(audio)
+video = video.set_audio(audio_clip)
+video.write_videofile(new_video)
+			
+			]]>
+			</programlisting>
+		</section>
+	</section>
+	<section>
+		<title>效果处理</title>
+		<section>
+			<title>淡入淡出</title>
+			<programlisting>
+			<![CDATA[
+from moviepy.video.fx import fadein, fadeout			
+
+imageClip = ImageClip(image).set_duration(duration).set_audio(audioFileClip)
+
+# 添加淡入和淡出效果
+imageClip = fadein.fadein(imageClip, 1)  # 从开始处淡入2秒
+imageClip = fadeout.fadeout(imageClip, 1)  # 从结束处淡出2秒			
+			]]>
+			</programlisting>
+		</section>
+	</section>
+	<section>
+		<title>字幕</title>
+		<programlisting>
+		<![CDATA[
+from moviepy.video.io.VideoFileClip import VideoFileClip
+from moviepy.video.fx import fadein, fadeout
+from moviepy.video.tools import subtitles
+ 
+# 加载视频剪辑
+clip = VideoFileClip("input.mp4")
+ 
+# 添加淡入和淡出效果
+clip = fadein.fadein(clip, 2)  # 从开始处淡入2秒
+clip = fadeout.fadeout(clip, 2)  # 从结束处淡出2秒
+ 
+# 添加字幕
+subtitles_txt = [
+    ("Hello, World!", 1),  # 在1秒时显示 "Hello, World!"
+    ("Welcome to MoviePy", 3),  # 在3秒时显示 "Welcome to MoviePy"
+]
+clip = subtitles.subtitles(clip, subtitles_txt)
+ 
+# 保存视频
+clip.write_videofile("output.mp4")		
+		]]>
+		</programlisting>
+		<section>
+			<title>字体</title>
+			<para>查看系统自带字体</para>
+			<programlisting>
+			<![CDATA[
+from moviepy.editor import TextClip
+print (TextClip.list("font") )		
+			]]>
+			</programlisting>
+			
+		</section>
+		<section>
+			<title>制作字幕</title>
+			<programlisting>
+			<![CDATA[
+import pysrt
+
+# 创建一个新的字幕对象
+subs = pysrt.SubRipFile(0)
+
+# 添加自定义字幕
+subs.append(pysrt.SubRipItem(1, 100, 200, '自定义字幕内容'))
+
+# 保存字幕
+subs.save('custom_subtitle.srt')			
+			]]>
+			</programlisting>
+		</section>
+	</section>
+
+
+	<section>
+		<title>FAQ 常见问题</title>
+		<section>
+			<title>视频输出没有声音的</title>
+			<para>解决方案，增加 audio_codec 参数</para>
+			<programlisting>
+			<![CDATA[
+finalclip = concatenate_videoclips(clips)
+finalclip.write_videofile("output.mp4",fps=5,audio_codec="aac")
+			]]>
+			</programlisting>
+		</section>
+	</section>
+</chapter>

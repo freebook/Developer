@@ -85,6 +85,7 @@
 	&chapter.office.xml;
 	&chapter.opencv.xml;
 	&chapter.graphics.xml;
+	&chapter.movie.xml;
 	&chapter.3rdparty.xml;
 	&section.python.example.xml;
 <!-- =========================================================================== -->
