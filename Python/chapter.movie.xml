@@ -60,14 +60,31 @@ image.write_videofile("movie.mp4",fps=30)
 			]]>
 			</programlisting>
 		</section>
-
-
-	</section>
-	<section id="audio">
-		<title>音频处理</title>
 		<section>
-			<title>合并音频文件</title>
+			<title>图片裁剪</title>
 			<programlisting>
+			<![CDATA[
+resized = resize(coverImageClip, 1.2).set_duration(3)
+clip = crop(resized, x_center=-480, y_center=-320, width=960, height=640)	
+			]]>
+			</programlisting>
+
+			<section>
+				<title>图片裁剪</title>
+				<programlisting>
+			<![CDATA[
+clip = coverImageClip.resize((1024,768))
+clip = crop(clip, x_center=-480, y_center=-320, width=960, height=640)		
+			]]>
+				</programlisting>
+			</section>
+
+		</section>
+		<section id="audio">
+			<title>音频处理</title>
+			<section>
+				<title>合并音频文件</title>
+				<programlisting>
 			<![CDATA[
 audioFileClip1 = AudioFileClip("1.mp3")
 audioFileClip2 = AudioFileClip("2.mp3")
@@ -77,14 +94,14 @@ clips = [audioFileClip1,audioFileClip2,audioFileClip3]
 concat = concatenate_audioclips(clips)
 concat.write_audiofile("netkiller.mp3")			
 			]]>
-			</programlisting>
+				</programlisting>
+			</section>
 		</section>
-	</section>
-	<section id="video">
-		<title>视频处理</title>
-		<section>
-			<title>从视频中提取音频</title>
-			<programlisting>
+		<section id="video">
+			<title>视频处理</title>
+			<section>
+				<title>从视频中提取音频</title>
+				<programlisting>
 			<![CDATA[
 from moviepy.editor import *
 video_path = 'my_video.avi'   #视频地址
@@ -93,11 +110,11 @@ video = VideoFileClip(video_path)
 video.audio.write_audiofile(audio_path)
 			
 			]]>
-			</programlisting>
-		</section>
-		<section>
-			<title>去除视频中的音频</title>
-			<programlisting>
+				</programlisting>
+			</section>
+			<section>
+				<title>去除视频中的音频</title>
+				<programlisting>
 			<![CDATA[
 old_video = '有声音.avi'
 new_video = '无声音.avi'
@@ -107,11 +124,11 @@ video = video.without_audio()  #删除声音，返回新的视频对象，原有
 video.write_videofile(new_video)
 			
 			]]>
-			</programlisting>
-		</section>
-		<section>
-			<title>对视频添加音频</title>
-			<programlisting>
+				</programlisting>
+			</section>
+			<section>
+				<title>对视频添加音频</title>
+				<programlisting>
 			<![CDATA[
 old_video = '无声音.avi'
 audio = 'audio.mp3'
@@ -123,14 +140,14 @@ video = video.set_audio(audio_clip)
 video.write_videofile(new_video)
 			
 			]]>
-			</programlisting>
+				</programlisting>
+			</section>
 		</section>
-	</section>
-	<section>
-		<title>效果处理</title>
 		<section>
-			<title>淡入淡出</title>
-			<programlisting>
+			<title>效果处理</title>
+			<section>
+				<title>淡入淡出</title>
+				<programlisting>
 			<![CDATA[
 from moviepy.video.fx import fadein, fadeout			
 
@@ -140,12 +157,12 @@ imageClip = ImageClip(image).set_duration(duration).set_audio(audioFileClip)
 imageClip = fadein.fadein(imageClip, 1)  # 从开始处淡入2秒
 imageClip = fadeout.fadeout(imageClip, 1)  # 从结束处淡出2秒			
 			]]>
-			</programlisting>
+				</programlisting>
+			</section>
 		</section>
-	</section>
-	<section>
-		<title>字幕</title>
-		<programlisting>
+		<section>
+			<title>字幕</title>
+			<programlisting>
 		<![CDATA[
 from moviepy.video.io.VideoFileClip import VideoFileClip
 from moviepy.video.fx import fadein, fadeout
@@ -168,21 +185,21 @@ clip = subtitles.subtitles(clip, subtitles_txt)
 # 保存视频
 clip.write_videofile("output.mp4")		
 		]]>
-		</programlisting>
-		<section>
-			<title>字体</title>
-			<para>查看系统自带字体</para>
-			<programlisting>
+			</programlisting>
+			<section>
+				<title>字体</title>
+				<para>查看系统自带字体</para>
+				<programlisting>
 			<![CDATA[
 from moviepy.editor import TextClip
 print (TextClip.list("font") )		
 			]]>
-			</programlisting>
-			
-		</section>
-		<section>
-			<title>制作字幕</title>
-			<programlisting>
+				</programlisting>
+
+			</section>
+			<section>
+				<title>制作字幕</title>
+				<programlisting>
 			<![CDATA[
 import pysrt
 
@@ -195,22 +212,22 @@ subs.append(pysrt.SubRipItem(1, 100, 200, '自定义字幕内容'))
 # 保存字幕
 subs.save('custom_subtitle.srt')			
 			]]>
-			</programlisting>
+				</programlisting>
+			</section>
 		</section>
-	</section>
 
 
-	<section>
-		<title>FAQ 常见问题</title>
 		<section>
-			<title>视频输出没有声音的</title>
-			<para>解决方案，增加 audio_codec 参数</para>
-			<programlisting>
+			<title>FAQ 常见问题</title>
+			<section>
+				<title>视频输出没有声音的</title>
+				<para>解决方案，增加 audio_codec 参数</para>
+				<programlisting>
 			<![CDATA[
 finalclip = concatenate_videoclips(clips)
 finalclip.write_videofile("output.mp4",fps=5,audio_codec="aac")
 			]]>
-			</programlisting>
+				</programlisting>
+			</section>
 		</section>
-	</section>
 </chapter>
