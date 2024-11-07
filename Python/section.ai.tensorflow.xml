@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section id="tensorflow">
+	<title>tensorflow</title>
+	<section>
+		<title>加载模型</title>
+		<programlisting>
+			<![CDATA[
+import tensorflow as tf
+
+model = tf.keras.models.load_model('test/seg.h5')  # 加载完整模型
+print(model.summary())  #展示模型的架构
+			]]>
+		</programlisting>
+	</section>
+	<section>
+		<title>FAQ</title>
+		<section>
+			<title>This TensorFlow binary is optimized to use available CPU
+				instructions in performance-critical operations.
+				To enable the following instructions: AVX2 AVX_VNNI FMA, in other
+				operations, rebuild TensorFlow with the appropriate compiler flags.
+			</title>
+			<programlisting>
+			<![CDATA[
+import os
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
+			]]>
+			</programlisting>
+		</section>
+	</section>
+</section>

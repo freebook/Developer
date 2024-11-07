@@ -8,6 +8,13 @@
 pip3 install opencv-python		
 		]]>
 		</screen>
+		<para>显示版本</para>
+		<programlisting>
+		<![CDATA[
+import cv2
+print(cv2.__version__)		
+		]]>
+		</programlisting>
 	</section>
 	<section>
 		<title>显示图片</title>
@@ -21,6 +28,46 @@ cv.imshow("Picture", src)
 cv.waitKey(0)
 # 关闭所有窗口
 cv.destroyAllWindows()		
+		]]>
+		</programlisting>
+	</section>
+	<section>
+		<title>将BGR图像转为RGB</title>
+		<programlisting>
+		<![CDATA[
+import cv2
+import matplotlib.pyplot as plt
+
+# 读取图像
+# img = cv2.imread('path_to_image.jpg')
+img = cv2.imread('test/test.png')
+
+# 将BGR图像转为RGB
+img_rgb = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+
+# 使用matplotlib显示图像
+plt.imshow(img_rgb)
+plt.axis('off')  # 不显示坐标轴
+plt.show()	
+		]]>
+		</programlisting>
+	</section>
+	<section>
+		<title>应用Canny边缘检测</title>
+		<programlisting>
+		<![CDATA[
+import cv2
+
+# 加载图像
+img = cv2.imread('path_to_image.jpg', 0)  # 0表示以灰度模式读取
+
+# 应用Canny边缘检测
+edges = cv2.Canny(img, 100, 200)
+
+# 显示结果
+cv2.imshow('Edges', edges)
+cv2.waitKey(0)
+cv2.destroyAllWindows()		
 		]]>
 		</programlisting>
 	</section>
