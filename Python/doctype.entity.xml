@@ -57,6 +57,8 @@
 <!ENTITY section.ai.openai.xml				SYSTEM "section.ai.openai.xml">
 <!ENTITY section.ai.face.xml				SYSTEM "section.ai.face.xml">
 <!ENTITY section.ai.langchain.xml			SYSTEM "section.ai.langchain.xml">
+<!ENTITY section.ai.tensorflow.xml			SYSTEM "section.ai.tensorflow.xml">
+<!ENTITY section.ai.pytorch.xml				SYSTEM "section.ai.pytorch.xml">
 
 <!ENTITY chapter.chart.xml					SYSTEM "chapter.chart.xml">
 <!ENTITY section.chart.matplotlib.xml		SYSTEM "section.chart.matplotlib.xml">

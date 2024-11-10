@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE subject SYSTEM "/usr/local/Cellar/docbook/5.1_1/docbook/xml/5.0/dtd/docbook.dtd"
+<!DOCTYPE subject SYSTEM "/opt/homebrew/Cellar/docbook/5.1_1/docbook/xml/5.0/dtd/docbook.dtd"
 	[
 	<!ENTITY homepage "http://www.netkiller.cn/">
 	<!ENTITY mirror "http://netkiller.sf.net">
