@@ -40,10 +40,10 @@ img = Image.open('example.jpg')
 img_transformed = transform(img)		
 		]]>
 		</programlisting>
-		
-	</section>
-	<section>
-		<title>Compose 流程编排/组装</title>
+		<section>
+			<title>Compose 流程编排/组装</title>
+
+		</section>
 		<section>
 			<title>ToTensor 矩阵转换</title>
 			<para>将 PIL Image 或 numpy.ndarray 转为 tensor</para>
@@ -92,9 +92,15 @@ tensor([[[  0,   5,  10,  20,   0],
 			</section>
 		</section>
 		<section>
-			<title></title>
+			<title>Normalize</title>
+			<programlisting>
+			<![CDATA[
+			
+			]]>
+			</programlisting>
 		</section>
 	</section>
+
 	<section id="models">
 		<title>models 加载模型</title>
 		<literallayout>
@@ -126,9 +132,9 @@ dataset = datasets.FashionMNIST('data/', download=True, train=False, transform=N
 			]]>
 			</programlisting>
 		</section>
-		
+
 	</section>
-	
+
 	<section id="datasets">
 		<title>datasets 数据加载</title>
 		<section>
@@ -151,6 +157,124 @@ testset = datasets.CIFAR10(root='./data', train=False, download=True, transform=
 datasets.ImageFolder方法可以实现数据导入。
 
 ImageFolder(root,transform=None,target_transform=None,loader=default_loader)			
+			]]>
+			</programlisting>
+		</section>
+		<section>
+			<title>查看 Dataset</title>
+			<programlisting>
+			<![CDATA[
+from torchvision import datasets
+
+train_datasets = datasets.CIFAR10(root='data',train=False,download=True)
+print(train_datasets)			
+			]]>
+			</programlisting>
+			<screen>
+			<![CDATA[
+/Users/neo/PycharmProjects/netkiller/venv/bin/python /Users/neo/PycharmProjects/netkiller/test.py 
+Downloading https://www.cs.toronto.edu/~kriz/cifar-10-python.tar.gz to data/cifar-10-python.tar.gz
+100.0%
+Extracting data/cifar-10-python.tar.gz to data
+Dataset CIFAR10
+    Number of datapoints: 10000
+    Root location: data
+    Split: Test			
+			]]>
+			</screen>
+		</section>
+		<section>
+			<title>查看数据</title>
+			<programlisting>
+			<![CDATA[
+from torchvision import datasets
+
+train_datasets = datasets.CIFAR10(root='data',train=False,download=True)
+print(train_datasets.data)			
+			]]>
+			</programlisting>
+			<section>
+				<title>查看矩阵维度</title>
+				<programlisting>
+				<![CDATA[
+from torchvision import datasets
+
+train_datasets = datasets.CIFAR10(root='data',train=False,download=True)
+print(train_datasets.data.shape)
+				]]>
+				</programlisting>
+				<screen>
+				<![CDATA[
+Files already downloaded and verified
+(10000, 32, 32, 3)				
+				]]>
+				</screen>
+				<para>(图片数量, 高度, 宽度, 通道数)	</para>
+			</section>
+			<section>
+				<title>最小值/最大值</title>
+				<programlisting>
+				<![CDATA[
+from torchvision import datasets
+
+train_datasets = datasets.CIFAR10(root='data',train=False,download=True)
+print(train_datasets.data.min())
+print(train_datasets.data.max())				
+				]]>
+				</programlisting>
+				<screen>
+				<![CDATA[
+Files already downloaded and verified
+0
+255				
+				]]>
+				</screen>
+			</section>
+			
+		</section>
+		<section>
+			<title>查看标签</title>
+			<programlisting>
+			<![CDATA[
+from torchvision import datasets
+
+train_datasets = datasets.CIFAR10(root='data',train=False,download=True)
+print(train_datasets.classes)
+print(train_datasets.class_to_idx)			
+			]]>
+			</programlisting>
+			<screen>
+			<![CDATA[
+Files already downloaded and verified
+['airplane', 'automobile', 'bird', 'cat', 'deer', 'dog', 'frog', 'horse', 'ship', 'truck']
+{'airplane': 0, 'automobile': 1, 'bird': 2, 'cat': 3, 'deer': 4, 'dog': 5, 'frog': 6, 'horse': 7, 'ship': 8, 'truck': 9}			
+			]]>
+			</screen>
+		</section>
+		<section>
+			<title>查看数据集中的图像</title>
+			<programlisting>
+			<![CDATA[
+from torchvision import datasets
+from matplotlib import pyplot as plt
+
+train_datasets = datasets.CIFAR10(root='data',train=False,download=True)
+plt.imshow(train_datasets.data[0])			
+			]]>
+			</programlisting>
+			<para>3x3 显示九张图片</para>
+			<programlisting>
+	 		<![CDATA[
+from torchvision import datasets
+from matplotlib import pyplot as plt
+
+test_datasets = datasets.CIFAR10(root='data',train=False,download=True)
+fig,axes=plt.subplots(3,3,figsize=(4,4))
+
+for i,ax in enumerate(axes.flat):
+    ax.imshow(test_datasets.data[i])
+    ax.axis("off")
+    ax.set_title(test_datasets.classes[test_datasets.targets[i]])	 		
 			]]>
 			</programlisting>
 		</section>

@@ -8,7 +8,7 @@
 			<screen>
 			<![CDATA[
 pip install --upgrade pip
-pip install pytorch torchvision numpy
+pip install torch torchvision numpy
 	
 			]]>
 			</screen>

@@ -44,5 +44,17 @@ plt.show()
 		]]>
 		</programlisting>
 	</section>
-	
+	<section>
+		<title>修改图像尺寸</title>
+		<programlisting>
+		<![CDATA[
+from torchvision import datasets
+from matplotlib import pyplot as plt
+
+train_datasets = datasets.CIFAR10(root='data',train=False,download=True)
+plt.figure(figsize=(2,2))
+plt.imshow(train_datasets.data[0])		
+		]]>
+		</programlisting>
+	</section>
 </section>

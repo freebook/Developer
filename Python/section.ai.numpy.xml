@@ -1,12 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<section>
+<section id="NumPy">
 	<title>NumPy</title>
-	<para>NumPy is the fundamental package for scientific computing with
-		Python.
-	</para>
-	<section>
+	<para>NumPy is the fundamental package for scientific computing with Python.</para>
+	<section id="numpy.random">
 		<title>随机数</title>
-
 		<section>
 			<title>随机种子</title>
 			<para>np.random.seed(1) 两次产生的随机数相同</para>
@@ -116,7 +113,7 @@ print(x)
 			</screen>
 		</section>
 	</section>
-	<section>
+	<section id="numpy.linspace">
 		<title>生成数列</title>
 		<para>从0 到 100，间隔为10的数值序列</para>
 		<programlisting>
@@ -124,6 +121,83 @@ print(x)
 n = np.linspace(start = 0, stop = 100, num = 11)
 		
 x = np.linspace(-3, 3, 50)		
+		]]>
+		</programlisting>
+	</section>
+	<section id="numpy.shape">
+		<title>查看矩阵或者数组的维度</title>
+		<programlisting>
+		<![CDATA[
+import numpy as np
+
+np.random.seed(1)
+matrix = np.random.randint(0,255,(5,6,3))
+print(matrix.shape)		
+		]]>
+		</programlisting>
+		<screen>
+		<![CDATA[
+(5, 6, 3)		
+		]]>
+		</screen>
+		<section>
+			<title>数组维度</title>
+			<programlisting>
+			<![CDATA[
+from numpy import array
+a = array([[1,1],[1,2],[1,3],[1,4]])
+print(a.shape)			
+			]]>
+			</programlisting>
+			
+			<screen>
+			<![CDATA[
+(4, 2)
+			]]>
+			</screen>
+		</section>
+	</section>
+	<section id="numpy.dtype">
+		<title>数据类型</title>
+		<section>
+			<title>显示数据类型</title>
+			<programlisting>
+			<![CDATA[
+import numpy
+
+numpy.random.seed(1)
+matrix = numpy.random.randint(0,255,(5,6,3))
+print(matrix.dtype)		
+			]]>
+			</programlisting>			
+		</section>
+		<section>
+			<title>转换数据类型</title>
+			<programlisting>
+			<![CDATA[
+import numpy
+
+numpy.random.seed(1)
+matrix = numpy.random.randint(0,255,(5,6,3))
+print(matrix.dtype)
+
+matrix1 = matrix.astype(np.int8)
+print(matrix1.dtype)			
+			]]>
+			</programlisting>
+		</section>
+	</section>
+	<section id="numpy.imshow">
+		<title>显示矩阵</title>
+		<programlisting>
+		<![CDATA[
+import numpy
+from matplotlib import pyplot as plt
+
+numpy.random.seed(1)
+matrix = numpy.random.randint(0,255,(5,6,3))
+print(matrix.shape)
+plt.imshow(matrix)		
 		]]>
 		</programlisting>
 	</section>
