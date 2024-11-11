@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<chapter id="index"><?dbhtml dir="ai" ?>
+<chapter id="ai">
 	<title>AI 相关</title>
 	&section.ai.xml;
+	&section.ai.numpy.xml;
+	&section.ai.pytorch.xml;
+	&section.ai.tensorflow.xml;
 </chapter>

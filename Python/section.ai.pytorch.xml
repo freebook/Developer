@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<section id="pytorch">
+<section id="index"><?dbhtml dir="pytorch" ?>
 	<title>PyTorch</title>
 	<section>
 		<title>Cifar10</title>
@@ -57,6 +57,7 @@ print(outputs)
 			]]>
 		</programlisting>
 	</section>
+	&section.ai.torchvision.xml;
 	<section>
 		<title>FAQ</title>
 		<section>

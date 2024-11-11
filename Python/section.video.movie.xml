@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<chapter id="index"><?dbhtml dir="moviepy"?>
+<section id="index"><?dbhtml dir="moviepy"?>
 	<title>MoviePy</title>
 	<section>
 		<title>安装 MoviePy</title>
@@ -97,9 +97,61 @@ concat.write_audiofile("netkiller.mp3")
 			]]>
 			</programlisting>
 		</section>
+		<section>
+			<title>提取视频中的音频</title>
+
+			<programlisting>
+			<![CDATA[
+#coding=utf-8
+import moviepy.editor as mov
+
+video = mov.VideoFileClip('test.mp4')
+audio = video.audio
+audio.write_audiofile('test.wav')		
+			]]>
+			</programlisting>
+
+			<screen>
+			<![CDATA[
+neo@MacBook-Pro-Neo ~/workspace/python/video % python3 audio.py 
+MoviePy - Writing audio in test.wav
+MoviePy - Done.           
+                                                                                                                                   
+neo@MacBook-Pro-Neo ~/workspace/python/video % ls *.wav
+test.wav
+			]]>
+			</screen>
+		</section>
 	</section>
 	<section id="video">
 		<title>视频处理</title>
+		<section>
+			<title>合成视频</title>
+			<programlisting>
+			<![CDATA[
+clip1 = VideoFileClip("test1.mp4")
+clip2 = VideoFileClip("test2.mp4")
+clip3 = VideoFileClip("test3.mp4")
+
+video = CompositeVideoClip([clip1,clip2,clip3],size=(1920, 1080))
+video.write_videofile("video.mp4")				
+			]]>
+			</programlisting>
+			<programlisting>
+			<![CDATA[
+from moviepy.editor import VideoFileClip, concatenate_videoclips
+# 重新设置视频大小
+clip1 = VideoFileClip("chip1.mp4").resize((1920, 1080)) 
+# 剪切指定时间片段（单位秒）
+clip2 = VideoFileClip("chip2.mp4").subclip(50,60) 
+# 剪切持续时间（单位秒）
+clip3 = VideoFileClip("chip3.mp4").set_duration(5) 
+# 按顺序拼接视频
+final_clip = concatenate_videoclips([clip1,clip2,clip3])
+final_clip.write_videofile("video.mp4")			
+			]]>
+			</programlisting>
+		</section>
 		<section>
 			<title>从视频中提取音频</title>
 			<programlisting>
@@ -140,6 +192,21 @@ audio_clip = AudioFileClip(audio)
 video = video.set_audio(audio_clip)
 video.write_videofile(new_video)
 			
+			]]>
+			</programlisting>
+		</section>
+		<section>
+			<title>音频合成剪辑实现对白</title>
+			<programlisting>
+			<![CDATA[
+# 对白
+dialogue1 = AudioFileClip("voice/tom.mp3")
+dialogue2 = AudioFileClip("voice/jerry.mp3")
+
+# 制作混合音轨
+concat = concatenate_audioclips([dialogue1, dialogue2])
+compo = CompositeAudioClip([dialogue1.volumex(1.2), # 音量设置大小
+                            dialogue2.set_start(5)])# 音频起始时间				
 			]]>
 			</programlisting>
 		</section>
@@ -188,6 +255,58 @@ clip.write_videofile("output.mp4")
 		]]>
 		</programlisting>
 		<section>
+			<title>苹果电脑的字体</title>
+			<screen>
+			<![CDATA[
+brew install ImageMagick			
+			]]>
+			</screen>
+			<programlisting>
+			<![CDATA[
+			
+			]]>
+			</programlisting>
+			<para>查看可用字体</para>
+			<programlisting>
+			<![CDATA[
+from moviepy.editor import TextClip
+print ( TextClip.list("font") )		
+			]]>
+			</programlisting>
+			<para>运行结果</para>
+			<screen>
+			<![CDATA[
+neo@MacBook-Pro-Neo ~/workspace/python/video % /usr/bin/python3 /Users/neo/workspace/python/video/font.py
+['AvantGarde-Book', 'AvantGarde-BookOblique', 'AvantGarde-Demi', 'AvantGarde-DemiOblique', 'Bookman-Demi', 'Bookman-DemiItalic', 'Bookman-Light', 'Bookman-LightItalic', 'Courier', 'Courier-Bold', 'Courier-BoldOblique', 'Courier-Oblique', 'fixed', 'Helvetica', 'Helvetica-Bold', 'Helvetica-BoldOblique', 'Helvetica-Narrow', 'Helvetica-Narrow-Bold', 'Helvetica-Narrow-BoldOblique', 'Helvetica-Narrow-Oblique', 'Helvetica-Oblique', 'NewCenturySchlbk-Bold', 'NewCenturySchlbk-BoldItalic', 'NewCenturySchlbk-Italic', 'NewCenturySchlbk-Roman', 'Palatino-Bold', 'Palatino-BoldItalic', 'Palatino-Italic', 'Palatino-Roman', 'Symbol', 'Times-Bold', 'Times-BoldItalic', 'Times-Italic', 'Times-Roman']			
+			]]>
+			</screen>
+			<para>指定字体路径</para>
+			<programlisting>
+			<![CDATA[
+from moviepy.editor import TextClip
+font_path = './font/heimi.ttf'
+txtClip = TextClip('《Netkiller Python 手札》',color='white', font=font_path,kerning = 5, fontsize=100)			
+			]]>
+			</programlisting>
+			<para>苹果电脑的字体安装在 /System/Library/Fonts/ 目录中。</para>
+			<programlisting>
+			<![CDATA[
+from moviepy.editor import *
+
+video = VideoFileClip("test.mp4").subclip(50,60)
+
+# Make the text. Many more options are available.
+txt_clip = ( TextClip("《Netkiller Python 手札》",font="/System/Library/Fonts/PingFang.ttc", fontsize=70,color='white')
+             .set_position('center')
+             .set_duration(10) )
+
+result = CompositeVideoClip([video, txt_clip]) # Overlay text on video
+result.write_videofile("test.webm",fps=25) # Many options...
+			
+			]]>
+			</programlisting>
+		</section>
+		<section>
 			<title>字体</title>
 			<para>查看系统自带字体</para>
 			<programlisting>
@@ -216,8 +335,36 @@ subs.save('custom_subtitle.srt')
 			</programlisting>
 		</section>
 	</section>
+	<section>
+		<title>音量大小调节</title>
+		<programlisting>
+			<![CDATA[
+VolumeMultiple = 0.8
+clip = clip.volumex(VolumeMultiple)			
+			]]>
+		</programlisting>
+	</section>
+	<section>
+		<title>视频中设置背景音乐</title>
+		<programlisting>
+			<![CDATA[
+bgm = AudioFileClip("music/paino.mp3")			
+videoclip = videoclip.set_audio(bgm)			
+			]]>
+		</programlisting>
+	</section>
+	<section>
+		<title>画面截图</title>
+		<programlisting>
+			<![CDATA[
+# 保存视频第一帧的画面
+clip.save_frame("Screenshot.jpeg") 
 
-
+# 保存视频第10秒的画面
+clip.save_frame("Screenshot.png", t=10) 
+			]]>
+		</programlisting>
+	</section>
 	<section>
 		<title>FAQ 常见问题</title>
 		<section>
@@ -231,4 +378,4 @@ finalclip.write_videofile("output.mp4",fps=5,audio_codec="aac")
 			</programlisting>
 		</section>
 	</section>
-</chapter>
+</section>

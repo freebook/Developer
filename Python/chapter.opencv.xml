@@ -53,6 +53,30 @@ plt.show()
 		</programlisting>
 	</section>
 	<section>
+		<title>uint8 格式</title>
+		<programlisting>
+		<![CDATA[
+import cv2
+
+filePath="Dataset/FFHQ/00000.png"
+img=cv2.imread(filePath)
+print(f"img.shape = {img.shape}")     	# img.shape = (128, 128, 3)
+print(f"img = {img}")     				# img.dtype = uint8
+
+"""
+img = [[[146 130   0]
+  [144 128   0]
+  [141 125   0]
+  ...
+  [164 162 133]
+  [159 157 133]
+  [163 157 134]]]
+"""
+		]]>
+		</programlisting>
+	</section>
+	
+	<section>
 		<title>应用Canny边缘检测</title>
 		<programlisting>
 		<![CDATA[

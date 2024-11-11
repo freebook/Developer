@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section id="torchvision">
+	<title>torchvision</title>
+	<section>
+		<title>安装 torchvision</title>
+		<programlisting>
+		<![CDATA[
+pip install torchvision		
+		]]>
+		</programlisting>
+	</section>
+	<section id="transforms">
+		<title>transforms 数据转换</title>
+		<literallayout>
+		<![CDATA[
+Compose()：				用来管理所有的transforms操作。
+ToTensor()：				把图片数据转换成张量并转化范围在[0,1]区间内。
+Normalize(mean, std)：	归一化。
+Resize(size)：			输入的PIL图像调整为指定的大小，参数可以为int或int元组。
+CenterCrop(size)：		将给定的PIL Image进行中心切割，得到指定size的tuple。
+RandomCrop(size, padding=0)：随机中心点切割。
+RandomHorizontalFlip(size, interpolation=2)：将给定的PIL Image随机切割，再resize。
+RandomHorizontalFlip()：随机水平翻转给定的PIL Image。
+RandomVerticalFlip()：	随机垂直翻转给定的PIL Image。
+ToPILImage()：			将Tensor或numpy.ndarray转换为PIL Image。
+FiveCrop(size)：			将给定的PIL图像裁剪成4个角落区域和中心区域。
+Pad(padding, fill=0, padding_mode=‘constant’)：对PIL边缘进行填充。
+RandomAffine(degrees, translate=None, scale=None)：保持中心不变的图片进行随机仿射变化。
+RandomApply(transforms, p=0.5)：随机选取变换。		
+		]]>
+		</literallayout>
+		<programlisting>
+		<![CDATA[
+from torchvision import transforms
+# 数据预处理
+transform = transforms.Compose([transforms.RandomCrop(32), transforms.Resize(256)])
+
+# 对图像进行转换
+img = Image.open('example.jpg')
+img_transformed = transform(img)		
+		]]>
+		</programlisting>
+		
+	</section>
+	<section>
+		<title>Compose 流程编排/组装</title>
+		<section>
+			<title>ToTensor 矩阵转换</title>
+			<para>将 PIL Image 或 numpy.ndarray 转为 tensor</para>
+			<section>
+				<title> np.uint8 类型转为 tensor</title>
+				<programlisting>
+				<![CDATA[
+import numpy as np
+from torchvision import transforms
+
+data = np.array([
+    [0, 5, 10, 20, 0],
+    [255, 125, 180, 255, 196]
+], dtype=np.uint8)
+
+tensor = transforms.ToTensor()(data)
+print(tensor)
+"""
+tensor([[[0.0000, 0.0196, 0.0392, 0.0784, 0.0000],
+         [1.0000, 0.4902, 0.7059, 1.0000, 0.7686]]])
+"""
+				
+				]]>
+				</programlisting>
+			</section>
+			<section>
+				<title>非 np.uint8 类型转为 tensor</title>
+				<programlisting>
+				<![CDATA[
+import numpy as np
+from torchvision import transforms
+
+data = np.array([
+    [0, 5, 10, 20, 0],
+    [255, 125, 180, 255, 196]
+])      # data.dtype = int32
+
+tensor = transforms.ToTensor()(data)
+print(tensor)
+"""
+tensor([[[  0,   5,  10,  20,   0],
+         [255, 125, 180, 255, 196]]], dtype=torch.int32)
+"""				
+				]]>
+				</programlisting>
+			</section>
+		</section>
+		<section>
+			<title></title>
+		</section>
+	</section>
+	<section id="models">
+		<title>models 加载模型</title>
+		<literallayout>
+		<![CDATA[
+import torchvision.models as models
+resnet18 = models.resnet18(pretrained=True)
+vgg16 = models.vgg16(pretrained=True)
+alexnet = models.alexnet(pretrained=True)
+squeezenet = models.squeezenet1_0(pretrained=True)
+densenet = models.densenet_161()		
+		]]>
+		</literallayout>
+		<section>
+			<title>加载ResNet-50模型</title>
+			<programlisting>
+			<![CDATA[
+from torchvision import models
+# 加载预训练的ResNet-50模型
+model = models.resnet50(pretrained=True)		
+			]]>
+			</programlisting>
+		</section>
+		<section>
+			<title>加载Fashion-MNIST</title>
+			<programlisting>
+			<![CDATA[
+from torchvision import datasets
+dataset = datasets.FashionMNIST('data/', download=True, train=False, transform=None)			
+			]]>
+			</programlisting>
+		</section>
+		
+	</section>
+	
+	<section id="datasets">
+		<title>datasets 数据加载</title>
+		<section>
+			<title>CIFAR10</title>
+			<programlisting>
+			<![CDATA[
+# 数据预处理
+transform = transforms.Compose([transforms.ToTensor(), transforms.Normalize((0.5,), (0.5,)])
+
+# 加载数据集
+trainset = datasets.CIFAR10(root='./data', train=True, download=True, transform=transform)
+testset = datasets.CIFAR10(root='./data', train=False, download=True, transform=transform)		
+			]]>
+			</programlisting>
+		</section>
+		<section>
+			<title>ImageFolder 数据导入</title>
+			<programlisting>
+			<![CDATA[
+datasets.ImageFolder方法可以实现数据导入。
+
+ImageFolder(root,transform=None,target_transform=None,loader=default_loader)			
+			]]>
+			</programlisting>
+		</section>
+	</section>
+
+</section>
