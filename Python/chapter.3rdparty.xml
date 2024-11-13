@@ -22,14 +22,102 @@ print(result)<br/># 'Python is :thumbs_up:&#x27;
 	&chapter.graphics.xml;
 	<section>
 		<title>Markdown</title>
-		<section>
-			<title>安装</title>
-			<screen>
+	</section>
+	<section>
+		<title>验证码</title>
+		<para>GitHub: https://github.com/lepture/captcha</para>
+		<para>Docs: https://captcha.lepture.com/</para>
+		<para>https://pypi.org/project/captcha/</para>
+		<screen>
 			<![CDATA[
-			
+pip install captcha
 			]]>
-			</screen>
+		</screen>
+		<section>
+			<title>基本用法</title>
+			<programlisting>
+			<![CDATA[
+from captcha.audio import AudioCaptcha
+from captcha.image import ImageCaptcha
+
+audio = AudioCaptcha(voicedir='/path/to/voices')
+image = ImageCaptcha(fonts=['/path/A.ttf', '/path/B.ttf'])
+
+data = audio.generate('1234')
+audio.write('1234', 'out.wav')
+
+data = image.generate('1234')
+image.write('1234', 'out.png')			
+			]]>
+			</programlisting>
+		</section>
+		<section>
+			<title>Image CAPTCHAs</title>
+			<section>
+				<title>生成验证码文件</title>
+
+				<para>随机生成10张二维码图片</para>
+				<programlisting>
+		<![CDATA[
+import os
+import random
+import time
+from captcha.image import ImageCaptcha
+
+captcha_character = list("0123456789abcdefghijklmnopqrstuvwxyz")
+captcha_length = 6
+
+if __name__ == "__main__":
+    # print(captcha_array)
+    image = ImageCaptcha()
+    for i in range(10):
+        code = "".join(random.sample(captcha_character, captcha_length))
+
+        path = "./data/test/{}_{}.png".format(code, int(time.time()))
+        print(code)
+        image.write(code, path)		
+		]]>
+				</programlisting>
+				<para>查看输出结果</para>
+				<screen>
+		<![CDATA[
+neo@Neo-Mac-mini-M4 ~/P/captcha (main)> ls data/test/
+8du4ar_1731408230.png  pwia23_1731408230.png  ryfxk1_1731408230.png  zqhpnx_1731408230.png
+nqr7g6_1731408230.png  py475s_1731408230.png  udwl1r_1731408230.png
+p9g5z6_1731408230.png  q02f31_1731408230.png  ysjdqb_1731408230.png		
+		]]>
+				</screen>
+			</section>
+			<section>
+				<title>生成 base64 验证码</title>
+				<programlisting>
+			<![CDATA[
+import base64
+import random
+from io import BytesIO
+
+from captcha.image import ImageCaptcha
+
+seed = '123456789abcdefghijkmnpqrstuvwxyzABCDEFGHIJKLMNPQRSTUVWXYZ'
+
+
+def generate_captcha():
+    """
+    生成 4 位验证码，返回图片的 base64
+    """
+
+    captcha_str = ''.join(random.choice(seed) for _ in range(4))
+    image = ImageCaptcha().generate_image(captcha_str)
+    buffer = BytesIO()
+    image.save(buffer, format='PNG')
+    data = buffer.getvalue()
+    return 'data:image/png;base64,' + base64.b64encode(data).decode()
+
+if __name__ == '__main__':
+    print(generate_captcha())
+			]]>
+				</programlisting>
+			</section>
 		</section>
 	</section>
-	
 </chapter>

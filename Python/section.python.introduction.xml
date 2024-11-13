@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <section id="">
 	<title>如何快速学习 Python 语言</title>
+<!-- 	<section>
+		<title>为什么 Python 运行速度慢却如此受欢迎？</title>
+		
+	</section> -->
+	
 	<section>
 		<title>学习编程的目的是什么？</title>
 		<para>学习编程的目的要明确，解决工作中遇到的痛点</para>

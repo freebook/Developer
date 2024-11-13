@@ -230,7 +230,22 @@ Files already downloaded and verified
 				]]>
 				</screen>
 			</section>
-			
+			<section>
+				<title>显示训练图片</title>
+				<programlisting>
+				<![CDATA[
+from torchvision import datasets
+from matplotlib import pyplot as plt
+
+if __name__ == '__main__':
+    train_datasets = datasets.CIFAR10(root='data', train=False, download=True)
+    
+    plt.figure(figsize=(4, 4))
+    plt.imshow(train_datasets.data[0])
+    plt.show()				
+				]]>
+				</programlisting>
+			</section>
 		</section>
 		<section>
 			<title>查看标签</title>
@@ -253,16 +268,18 @@ Files already downloaded and verified
 		</section>
 		<section>
 			<title>查看数据集中的图像</title>
+			<para>单张图片</para>
 			<programlisting>
 			<![CDATA[
 from torchvision import datasets
 from matplotlib import pyplot as plt
 
 train_datasets = datasets.CIFAR10(root='data',train=False,download=True)
-plt.imshow(train_datasets.data[0])			
+plt.imshow(train_datasets.data[0])	
+plt.show()
 			]]>
 			</programlisting>
-			<para>3x3 显示九张图片</para>
+			<para>显示3x3九张图片</para>
 			<programlisting>
 	 		<![CDATA[
 from torchvision import datasets
@@ -274,7 +291,9 @@ fig,axes=plt.subplots(3,3,figsize=(4,4))
 for i,ax in enumerate(axes.flat):
     ax.imshow(test_datasets.data[i])
     ax.axis("off")
-    ax.set_title(test_datasets.classes[test_datasets.targets[i]])	 		
+    ax.set_title(test_datasets.classes[test_datasets.targets[i]])
+
+plt.show()
 			]]>
 			</programlisting>
 		</section>

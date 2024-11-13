@@ -3,6 +3,6 @@
 	<title>AI 相关</title>
 	&section.ai.xml;
 	&section.ai.numpy.xml;
-	&section.ai.pytorch.xml;
 	&section.ai.tensorflow.xml;
 </chapter>
+	&section.ai.pytorch.xml;

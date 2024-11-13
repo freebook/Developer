@@ -1,6 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <section id="tensorflow">
 	<title>tensorflow</title>
+	<section id="tensorboard">
+		<title>tensorboard</title>
+		<para></para>
+		<screen>
+		<![CDATA[
+pip inmstall tensorboard		
+		]]>
+		</screen>
+		<screen>
+		<![CDATA[
+(.venv) neo@Neo-Mac-mini captcha % .venv/bin/tensorboard --logdir logs 
+TensorFlow installation not found - running with reduced feature set.
+Serving TensorBoard on localhost; to expose to the network, use a proxy or pass --bind_all
+TensorBoard 2.18.0 at http://localhost:6006/ (Press CTRL+C to quit)		
+		]]>
+		</screen>
+	</section>
 	<section>
 		<title>加载模型</title>
 		<programlisting>
