@@ -99,6 +99,31 @@ tensor([[[  0,   5,  10,  20,   0],
 			]]>
 			</programlisting>
 		</section>
+		<section>
+			<title>tensor转换为PIL Image</title>
+			<programlisting>
+			<![CDATA[
+from torchvision.transforms 
+PIL_img = transforms.ToPILImage()(tensor_img) 
+			
+			]]>
+			</programlisting>
+		</section>
+		<section>
+			<title>彩色图像转灰度图像</title>
+			<programlisting>
+			<![CDATA[
+from torchvision import transforms
+  
+transform = transforms.Compose([
+    transforms.Grayscale(num_output_channels=1), # 彩色图像转灰度图像num_output_channels默认1
+    transforms.ToTensor()
+])
+			
+			]]>
+			</programlisting>
+		</section>
+
 	</section>
 
 	<section id="models">
@@ -298,5 +323,13 @@ plt.show()
 			</programlisting>
 		</section>
 	</section>
-
+	<section>
+		<title>打开图片</title>
+		<programlisting>
+		<![CDATA[
+    image = torchvision.io.read_image('test.png')
+    image = image.resize(28, 28)		
+		]]>
+		</programlisting>
+	</section>
 </section>

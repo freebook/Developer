@@ -57,9 +57,10 @@
 <!ENTITY section.ai.openai.xml				SYSTEM "section.ai.openai.xml">
 <!ENTITY section.ai.face.xml				SYSTEM "section.ai.face.xml">
 <!ENTITY section.ai.langchain.xml			SYSTEM "section.ai.langchain.xml">
-<!ENTITY section.ai.tensorflow.xml			SYSTEM "section.ai.tensorflow.xml">
-<!ENTITY section.ai.pytorch.xml				SYSTEM "section.ai.pytorch.xml">
-<!ENTITY section.ai.torchvision.xml			SYSTEM "section.ai.torchvision.xml">
+<!ENTITY section.ai.tensorflow.xml			SYSTEM "ai/section.ai.tensorflow.xml">
+<!ENTITY section.ai.pytorch.xml				SYSTEM "ai/section.ai.pytorch.xml">
+<!ENTITY section.ai.torchvision.xml			SYSTEM "ai/section.ai.torchvision.xml">
+<!ENTITY section.ai.pytorch.example.xml		SYSTEM "ai/section.ai.pytorch.example.xml">
 <!ENTITY section.ai.numpy.xml				SYSTEM "section.ai.numpy.xml">
 
 <!ENTITY chapter.chart.xml					SYSTEM "chapter.chart.xml">
@@ -87,6 +88,7 @@
 <!ENTITY chapter.graphics.xml				SYSTEM "chapter.graphics.xml">
 <!ENTITY section.graphics.xml				SYSTEM "section.graphics.xml">
 <!ENTITY chapter.opencv.xml					SYSTEM "chapter.opencv.xml">
+<!ENTITY section.graphics.image.xml			SYSTEM "section.graphics.image.xml">
 
 <!ENTITY section.video.movie.xml			SYSTEM "section.video.movie.xml">
 

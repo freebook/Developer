@@ -76,29 +76,4 @@ lines = draw.Lines(
 		</screen>
 	</section>
 </section>
-<section>
-	<title>PIL</title>
-	<programlisting>
-	<![CDATA[
-from PIL import Image
-from PIL import ImageChops 
-def compare_images(one, two, diff):
-  image_one = Image.open(one)
-  image_two = Image.open(two)
-  try: 
-    diff = ImageChops.difference(image_one, image_two)
-    if diff.getbbox() is None:
-      print("【+】We are the same!")
-    else:
-      diff.save(diff)
-  except ValueError as e:
-    text = ("Pastes another image into this image."
-        "The box argument is either a 2-tuple giving the upper left corner, a 4-tuple defining the left, upper, "
-        "right, and lower pixel coordinate, or None (same as (0, 0)). If a 4-tuple is given, the size of the pasted "
-        "image must match the size of the region.")
-    print("【{0}】{1}".format(e,text))
-if __name__ == '__main__':
-  compare_images('1.png', '2.png', '我们不一样.png')	
-	]]>
-	</programlisting>
-</section>
+
