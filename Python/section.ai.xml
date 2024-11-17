@@ -1,5 +1,222 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <section>
+	<title>GPU</title>
+	<section>
+		<title>检测显卡</title>
+		<programlisting>
+			<![CDATA[
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+print(device)			
+			]]>
+		</programlisting>
+		<para>输出结果是 cpu 表示当前环境使用的的是 cpu 而不是 GPU</para>
+		<screen>
+		<![CDATA[
+D:\workspace\netkiller\.venv\Scripts\python.exe D:\workspace\netkiller\test\duda.py 
+cpu
+		]]>
+		</screen>
+	</section>
+	<section>
+		<title>检测硬件</title>
+		<para>使用 nvidia-smi 命令检测显卡，是否支持 CUDA</para>
+		<screen>
+		<![CDATA[
+PS C:\Users\neo> nvidia-smi
+Sun Nov 17 12:29:15 2024
++---------------------------------------------------------------------------------------+
+| NVIDIA-SMI 546.67                 Driver Version: 546.67       CUDA Version: 12.3     |
+|-----------------------------------------+----------------------+----------------------+
+| GPU  Name                     TCC/WDDM  | Bus-Id        Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp   Perf          Pwr:Usage/Cap |         Memory-Usage | GPU-Util  Compute M. |
+|                                         |                      |               MIG M. |
+|=========================================+======================+======================|
+|   0  NVIDIA GeForce RTX 3050 ...  WDDM  | 00000000:02:00.0 Off |                  N/A |
+| N/A   54C    P0               8W /  50W |      0MiB /  6144MiB |      0%      Default |
+|                                         |                      |                  N/A |
++-----------------------------------------+----------------------+----------------------+
+
++---------------------------------------------------------------------------------------+
+| Processes:                                                                            |
+|  GPU   GI   CI        PID   Type   Process name                            GPU Memory |
+|        ID   ID                                                             Usage      |
+|=======================================================================================|
+|  No running processes found                                                           |
++---------------------------------------------------------------------------------------+
+PS C:\Users\neo>	
+		]]>
+		</screen>
+		<para>这里可以看到当前显卡是支持 CUDA Version: 12.3</para>
+	</section>
+	<section>
+		<title>安装CUDA开发包</title>
+		<para>下载 cuda 开发包 <ulink url="https://developer.nvidia.com/" /></para>
+		<para>release-notes <ulink url="https://docs.nvidia.com/cuda/cuda-toolkit-release-notes/index.html" /></para>
+		<para>历史版本 <ulink url="https://developer.nvidia.com/cuda-toolkit-archive"/></para>
+	</section>
+	<section>
+		<title>检验安装</title>
+		<para>检查 CUDA 版本</para>
+		<screen>
+		<![CDATA[
+PS C:\Users\neo> nvcc -V
+nvcc: NVIDIA (R) Cuda compiler driver
+Copyright (c) 2005-2024 NVIDIA Corporation
+Built on Thu_Sep_12_02:55:00_Pacific_Daylight_Time_2024
+Cuda compilation tools, release 12.6, V12.6.77
+Build cuda_12.6.r12.6/compiler.34841621_0
+		]]>
+		</screen>
+		<para>查询设备</para>
+		<screen>
+		<![CDATA[
+PS C:\Users\neo> & 'C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v12.6\extras\demo_suite\deviceQuery.exe'
+C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v12.6\extras\demo_suite\deviceQuery.exe Starting...
+
+ CUDA Device Query (Runtime API) version (CUDART static linking)
+
+Detected 1 CUDA Capable device(s)
+
+Device 0: "NVIDIA GeForce RTX 3050 6GB Laptop GPU"
+  CUDA Driver Version / Runtime Version          12.6 / 12.6
+  CUDA Capability Major/Minor version number:    8.6
+  Total amount of global memory:                 6144 MBytes (6441926656 bytes)
+  (20) Multiprocessors, (128) CUDA Cores/MP:     2560 CUDA Cores
+  GPU Max Clock rate:                            990 MHz (0.99 GHz)
+  Memory Clock rate:                             5501 Mhz
+  Memory Bus Width:                              96-bit
+  L2 Cache Size:                                 1572864 bytes
+  Maximum Texture Dimension Size (x,y,z)         1D=(131072), 2D=(131072, 65536), 3D=(16384, 16384, 16384)
+  Maximum Layered 1D Texture Size, (num) layers  1D=(32768), 2048 layers
+  Maximum Layered 2D Texture Size, (num) layers  2D=(32768, 32768), 2048 layers
+  Total amount of constant memory:               zu bytes
+  Total amount of shared memory per block:       zu bytes
+  Total number of registers available per block: 65536
+  Warp size:                                     32
+  Maximum number of threads per multiprocessor:  1536
+  Maximum number of threads per block:           1024
+  Max dimension size of a thread block (x,y,z): (1024, 1024, 64)
+  Max dimension size of a grid size    (x,y,z): (2147483647, 65535, 65535)
+  Maximum memory pitch:                          zu bytes
+  Texture alignment:                             zu bytes
+  Concurrent copy and kernel execution:          Yes with 1 copy engine(s)
+  Run time limit on kernels:                     Yes
+  Integrated GPU sharing Host Memory:            No
+  Support host page-locked memory mapping:       Yes
+  Alignment requirement for Surfaces:            Yes
+  Device has ECC support:                        Disabled
+  CUDA Device Driver Mode (TCC or WDDM):         WDDM (Windows Display Driver Model)
+  Device supports Unified Addressing (UVA):      Yes
+  Device supports Compute Preemption:            Yes
+  Supports Cooperative Kernel Launch:            Yes
+  Supports MultiDevice Co-op Kernel Launch:      No
+  Device PCI Domain ID / Bus ID / location ID:   0 / 2 / 0
+  Compute Mode:
+     < Default (multiple host threads can use ::cudaSetDevice() with device simultaneously) >
+
+deviceQuery, CUDA Driver = CUDART, CUDA Driver Version = 12.6, CUDA Runtime Version = 12.6, NumDevs = 1, Device0 = NVIDIA GeForce RTX 3050 6GB Laptop GPU
+Result = PASS
+PS C:\Users\neo>		
+		]]>
+		</screen>
+		<para>带宽测试</para>
+		<screen>
+		<![CDATA[
+PS C:\Users\neo> & 'C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v12.6\extras\demo_suite\bandwidthTest.exe'
+[CUDA Bandwidth Test] - Starting...
+Running on...
+
+ Device 0: NVIDIA GeForce RTX 3050 6GB Laptop GPU
+ Quick Mode
+
+ Host to Device Bandwidth, 1 Device(s)
+ PINNED Memory Transfers
+   Transfer Size (Bytes)        Bandwidth(MB/s)
+   33554432                     5971.0
+
+ Device to Host Bandwidth, 1 Device(s)
+ PINNED Memory Transfers
+   Transfer Size (Bytes)        Bandwidth(MB/s)
+   33554432                     6413.3
+
+ Device to Device Bandwidth, 1 Device(s)
+ PINNED Memory Transfers
+   Transfer Size (Bytes)        Bandwidth(MB/s)
+   33554432                     101343.0
+
+Result = PASS
+
+NOTE: The CUDA Samples are not meant for performance measurements. Results may vary when GPU Boost is enabled.
+PS C:\Users\neo>		
+		]]>
+		</screen>
+	</section>
+	<section>
+		<title>pytorch 安装</title>
+		<para>CUDA 开发包安装正确，但是 pytorch 代码 torch.cuda.is_available() 始终返回 False 无法使用 CUDA</para>
+		<programlisting>
+		<![CDATA[
+import torch
+print(torch.__version__)
+print(torch.cuda.is_available())		
+		]]>
+		</programlisting>
+		<para>输出结果</para>
+		<screen>
+		<![CDATA[
+D:\workspace\netkiller\.venv\Scripts\python.exe D:\workspace\netkiller\test\duda.py 
+2.5.1+cpu
+False
+		]]>
+		</screen>
+		<para>问出出在，你安装 pytorch 的时候没有检测到 cuda 系统便默认给你安装 cpu 版本，解决方法是重新安装 cuda 版本的 pytorch</para>
+		<para>进入这个页面 https://pytorch.org/get-started/locally/ 选择你 CUDA 版本的 pytorch</para>
+		<screen>
+		<![CDATA[
+(.venv) PS D:\workspace\netkiller> pip3 install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu124
+Looking in indexes: https://download.pytorch.org/whl/cu124
+Requirement already satisfied: torch in d:\workspace\netkiller\.venv\lib\site-packages (2.5.1)
+Requirement already satisfied: torchvision in d:\workspace\netkiller\.venv\lib\site-packages (0.20.1)
+Collecting torchaudio
+  Downloading https://download.pytorch.org/whl/cu124/torchaudio-2.5.1%2Bcu124-cp312-cp312-win_amd64.whl (4.1 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 4.1/4.1 MB 7.3 MB/s eta 0:00:00
+Requirement already satisfied: filelock in d:\workspace\netkiller\.venv\lib\site-packages (from torch) (3.16.1)
+Requirement already satisfied: typing-extensions>=4.8.0 in d:\workspace\netkiller\.venv\lib\site-packages (from torch) (4.12.2)
+Requirement already satisfied: networkx in d:\workspace\netkiller\.venv\lib\site-packages (from torch) (3.4.2)
+Requirement already satisfied: jinja2 in d:\workspace\netkiller\.venv\lib\site-packages (from torch) (3.1.4)
+Requirement already satisfied: fsspec in d:\workspace\netkiller\.venv\lib\site-packages (from torch) (2024.10.0)
+Requirement already satisfied: setuptools in d:\workspace\netkiller\.venv\lib\site-packages (from torch) (75.3.0)
+Requirement already satisfied: sympy==1.13.1 in d:\workspace\netkiller\.venv\lib\site-packages (from torch) (1.13.1)
+Requirement already satisfied: mpmath<1.4,>=1.1.0 in d:\workspace\netkiller\.venv\lib\site-packages (from sympy==1.13.1->torch) (1.3.0)
+Requirement already satisfied: numpy in d:\workspace\netkiller\.venv\lib\site-packages (from torchvision) (2.0.2)
+Requirement already satisfied: pillow!=8.3.*,>=5.3.0 in d:\workspace\netkiller\.venv\lib\site-packages (from torchvision) (11.0.0)
+Collecting torch
+  Downloading https://download.pytorch.org/whl/cu124/torch-2.5.1%2Bcu124-cp312-cp312-win_amd64.whl (2510.7 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 2.5/2.5 GB 13.6 MB/s eta 0:00:00
+Requirement already satisfied: MarkupSafe>=2.0 in d:\workspace\netkiller\.venv\lib\site-packages (from jinja2->torch) (3.0.2)
+Installing collected packages: torch, torchaudio
+  Attempting uninstall: torch
+    Found existing installation: torch 2.5.1
+    Uninstalling torch-2.5.1:
+      Successfully uninstalled torch-2.5.1
+Successfully installed torch-2.5.1+cu124 torchaudio-2.5.1+cu124
+		]]>
+		</screen>
+		<para>再次验证</para>
+		<programlisting>
+		<![CDATA[
+import torch
+print(torch.__version__)
+print(torch.cuda.is_available())
+
+D:\workspace\netkiller\.venv\Scripts\python.exe D:\workspace\netkiller\test\duda.py 
+2.5.1+cu124
+True
+		]]>
+		</programlisting>
+	</section>
+</section>
+<section>
 	<title>向量数据处理</title>
 <section id="tokenizers">
 	<title>tokenizers</title>
