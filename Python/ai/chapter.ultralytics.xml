@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<chapter id="ultralytics">
+	<title>ultralytics</title>
+	
+	
+	
+pip install labelme labelme2yolo
+
+	
+(.venv) PS D:\workspace\netkiller> labelme2yolo --json_dir .\captcha\dataset
+[2024-11-17T11:46:35Z INFO  labelme2yolo] Starting the conversion process...
+[2024-11-17T11:46:35Z INFO  labelme2yolo] Read and parsed 3 JSON files.
+  [Train] [00:00:00] [########################################] 2/2 (0s)                                                                                                                                                                            
+  [Val] [00:00:00] [########################################] 1/1 (0s)                                                                                                                                                                              
+[2024-11-17T11:46:35Z INFO  labelme2yolo] Creating dataset.yaml file...
+[2024-11-17T11:46:35Z INFO  labelme2yolo] Conversion process completed successfully.
+
+	
+	
+ ONNX，即开放神经网络交换格式（Open Neural Network Exchange），是一个可以让不同深度学习框架之间互相转换和
+使用模型的开放标准。它由 Facebook 和 Microsoft 共同开发，旨在为深度学习模型的部署和迁移提供更加方便和灵活的解决方案。
+ONNX 支持包括 PyTorch、TensorFlow、CNTK 和 MXNet 等在内的多个深度学习框架，可以将这些框架训练出的模型转换成
+ONNX 格式，从而可以被其他框架或应用所使用。
+
+ONNX 的主要优点包括：
+
+互操作性好：ONNX 支持多个深度学习框架之间的模型转换，使得它们可以互相使用和部署，从而减少了开发和部署的难度和成本；
+
+高效性能：ONNX 可以在多种硬件和软件平台上运行，并提供了 C++和 Python 接口，可以大幅提高模型执行的效率和速度；
+
+易于扩展：ONNX 的架构简单清晰，可以轻松地添加新的层次和类型，方便应对不断升级变化的深度学习技术和需求。
+
+总之，ONNX 是一个方便快捷的深度学习模型转换和交换标准，可以帮助开发者更加轻松地将深度学习模型进行部署和迁移。	
+
+
+
+(.venv) PS D:\workspace\netkiller\captcha> labelme2yolo --json_dir datasets\train   
+
+(.venv) PS D:\workspace\netkiller\captcha> yolo task=detect mode=train model=yolov8n.pt data=.\YOLODataset\dataset.yaml epochs=30 workers=1 batch=16
+
+
+
+	
+</chapter>

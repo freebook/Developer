@@ -215,6 +215,17 @@ True
 		]]>
 		</programlisting>
 	</section>
+	<section>
+		<title>NVIDIA cuDNN</title>
+		<para><ulink url="https://developer.nvidia.cn/cudnn" /></para>
+		<para>下载解压</para>
+		<screen>
+		<![CDATA[
+将 C:\Users\neo\Downloads\cudnn-windows-x86_64-9.5.1.17_cuda12-archive.zip\cudnn-windows-x86_64-9.5.1.17_cuda12-archive 下面的三个目录，复制到
+C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v12.6
+		]]>
+		</screen>
+	</section>
 </section>
 <section>
 	<title>向量数据处理</title>
