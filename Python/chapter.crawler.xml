@@ -17,8 +17,8 @@ print(r.json())
 		]]>
 		</screen>
 	</section>
-</chapter>
-<chapter id="index"><?dbhtml dir="scrapy" ?>
+
+<section id="scrapy">
 	<title>Scrapy - Python web scraping and crawling framework</title>
 	<para>https://scrapy.org</para>
 	<section id="setup">
@@ -1105,4 +1105,5 @@ class JiandanSpider(scrapy.Spider):
 			</section>
 		</section>
 	</section>
-</chapter>		
+</section>		
+</chapter>

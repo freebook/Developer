@@ -91,6 +91,30 @@ print(tensor)
 			</programlisting>
 		</section>
 		<section>
+			<title>Tensor 尺寸</title>
+			<programlisting>
+			<![CDATA[
+import torch
+
+tensor = torch.eye(2, 3)
+print(tensor)
+print(tensor.size())
+print(tensor.size(0))
+print(tensor.size(1))			
+			]]>	
+			</programlisting>
+			<screen>
+			<![CDATA[
+tensor([[1., 0., 0.],
+        [0., 1., 0.]])
+torch.Size([2, 3])
+2
+3			
+			]]>
+			</screen>
+		</section>
+		
+		<section>
 			<title>创建连续数列的 Tensor</title>
 			<programlisting>
 			<![CDATA[
@@ -589,6 +613,36 @@ print('c:',c)
 			]]>
 			</programlisting>
 		</section>
+		<section>
+			<title>view</title>
+			<programlisting>
+			<![CDATA[
+import torch
+
+tensor = torch.arange(9)
+print(tensor)
+print(tensor.size())
+tmp = tensor.view(3, 3)
+print(tmp)
+print(tmp.size())			
+			]]>
+			</programlisting>
+			<para>tensor 转为 3x3 矩阵</para>
+			<screen>
+			<![CDATA[
+tensor([0, 1, 2, 3, 4, 5, 6, 7, 8])
+torch.Size([9])
+tensor([[0, 1, 2],
+        [3, 4, 5],
+        [6, 7, 8]])
+torch.Size([3, 3])			
+			]]>
+			</screen>
+			<programlisting>
+			<![CDATA[
+			]]>
+			</programlisting>
+		</section>
 	</section>
 
 
@@ -928,7 +982,7 @@ if __name__ == '__main__':
 		<para>将模型文件复制到生产环境，使用 model.load_state_dict(torch.load('mnist_cnn.pt', weights_only=False)) 加载到内存。之后便可以随时使用。</para>
 	</section>
 	
-	&section.ai.torchvision.xml;
+	&section.pytorch.torchvision.xml;
 	<section id="tensorboard">
 		<title>tensorboard</title>
 		<programlisting>
@@ -979,5 +1033,5 @@ if __name__ == '__main__':
 		]]>
 		</programlisting>
 	</section>
-	&section.ai.pytorch.example.xml;
+	&section.pytorch.example.xml;
 </chapter>

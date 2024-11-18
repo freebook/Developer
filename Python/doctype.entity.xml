@@ -58,10 +58,12 @@
 <!ENTITY section.ai.face.xml				SYSTEM "section.ai.face.xml">
 <!ENTITY section.ai.langchain.xml			SYSTEM "section.ai.langchain.xml">
 <!ENTITY section.ai.tensorflow.xml			SYSTEM "ai/section.ai.tensorflow.xml">
-<!ENTITY section.ai.pytorch.xml				SYSTEM "ai/section.ai.pytorch.xml">
-<!ENTITY section.ai.torchvision.xml			SYSTEM "ai/section.ai.torchvision.xml">
-<!ENTITY section.ai.pytorch.example.xml		SYSTEM "ai/section.ai.pytorch.example.xml">
 <!ENTITY section.ai.numpy.xml				SYSTEM "section.ai.numpy.xml">
+<!ENTITY chapter.pytorch.xml				SYSTEM "ai/chapter.pytorch.xml">
+<!ENTITY section.pytorch.torchvision.xml	SYSTEM "ai/section.pytorch.torchvision.xml">
+<!ENTITY section.pytorch.example.xml		SYSTEM "ai/section.pytorch.example.xml">
+<!ENTITY chapter.ultralytics.xml			SYSTEM "ai/chapter.ultralytics.xml">
+<!ENTITY section.ultralytics.yolo.xml		SYSTEM "ai/section.ultralytics.yolo.xml">
 
 <!ENTITY chapter.chart.xml					SYSTEM "chapter.chart.xml">
 <!ENTITY section.chart.matplotlib.xml		SYSTEM "section.chart.matplotlib.xml">

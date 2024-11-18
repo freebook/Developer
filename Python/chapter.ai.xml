@@ -5,4 +5,5 @@
 	&section.ai.numpy.xml;
 	&section.ai.tensorflow.xml;
 </chapter>
-	&section.ai.pytorch.xml;
+	&chapter.pytorch.xml;
+	&chapter.ultralytics.xml;

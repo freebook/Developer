@@ -93,7 +93,8 @@ for n in range(5):
 		print(i)		
 		]]>
 		</programlisting>
-	</section> &section.library.random.xml; &section.library.threading.xml; &section.library.syslog.xml; &section.library.socket.xml; &section.library.process.xml; &section.library.yaml.xml; &section.library.daemon.xml; <section id="python-memcached">
+	</section> &section.library.random.xml; &section.library.threading.xml; &section.library.syslog.xml; &section.library.socket.xml; &section.library.process.xml; &section.library.yaml.xml; &section.library.daemon.xml;
+	<section id="python-memcached">
 		<title>python-memcached</title>
 		<link linkend="python">参考Python安装</link>
 		<screen>
@@ -171,13 +172,14 @@ cd Imaging-1.1.6/
 	</section>
 	<section id="getopt">
 		<title>getopt – Command line option parsing</title>
-	</section> &section.library.syslog.xml; <section id="python-subversion">
+	</section> &section.library.syslog.xml;
+	<section id="python-subversion">
 		<title>python-subversion</title>
 		<screen>
 	<![CDATA[
 $ sudo apt-get install python-subversion
 	]]>
-	</screen>
+		</screen>
 		<screen>
 	<![CDATA[
 $ dpkg -L python-subversion
@@ -244,7 +246,7 @@ $ dpkg -L python-subversion
 /usr/lib/pyshared/python2.6/libsvn/_ra.so
 /usr/lib/libsvn_swig_py2.6-1.so.1
 	]]>
-	</screen>
+		</screen>
 	</section>
 	<section id="simplehttpserver">
 		<title>SimpleHTTPServer</title>
@@ -262,26 +264,27 @@ curl http://localhost:8000/
 			</screen>
 		</example>
 	</section>
-<section id="fuse-python">
-		<title>fuse-python.x86_64 : Python bindings for FUSE - filesystem in userspace</title>
+	<section id="fuse-python">
+		<title>fuse-python.x86_64 : Python bindings for FUSE - filesystem in
+			userspace</title>
 
 	</section>
 
-<section id="python.network">
+	<section id="python.network">
 		<title>Network</title>
 		<section id="gevent">
 			<title>gevent - A coroutine-based network library for Python</title>
 			<para>http://www.gevent.org/</para>
 		</section>
 	</section>
-	
-<section id="python-spdylay">
+
+	<section id="python-spdylay">
 		<title>Python-spdylay - Spdylay Python Extension Module</title>
 		<para>
 			<ulink url="http://spdylay.sourceforge.net/" />
 		</para>
-	</section>	
-<section id="mechanize">
+	</section>
+	<section id="mechanize">
 		<title>mechanize</title>
 		<para>
 			<ulink url="http://wwwsearch.sourceforge.net/mechanize/" />
@@ -291,13 +294,13 @@ curl http://localhost:8000/
 	<![CDATA[
 $ sudo apt-get install python-mechanize
 	]]>
-	</screen>
+		</screen>
 		<para>Pip</para>
 		<screen>
 	<![CDATA[
 $ sudo pip install mechanize	
 	]]>
-	</screen>
+		</screen>
 		<para>Python 3</para>
 		<screen>
 	<![CDATA[
@@ -305,22 +308,22 @@ git clone https://github.com/adevore/mechanize.git
 cd mechanize/
 git checkout python3
 	]]>
-	</screen>
+		</screen>
 	</section>
 	<section id="Dominate">
 		<title>Dominate</title>
-		<para>Dominate is a Python library for creating and manipulating HTML documents using an elegant DOM API. It allows you to write HTML pages in pure Python very concisely, which eliminates the need to learn another template language, and lets you take advantage of the more powerful features of Python.</para>
+		<para>Dominate is a Python library for creating and manipulating HTML
+			documents using an elegant DOM API. It allows you to write HTML pages
+			in pure Python very concisely, which eliminates the need to learn
+			another template language, and lets you take advantage of the more
+			powerful features of Python.</para>
 		<para>https://pypi.org/project/dominate/</para>
 		<screen>
 	<![CDATA[
 pip install dominate
 	]]>
-	</screen>
-		<programlisting>
-	<![CDATA[
-	
-	]]>
-	</programlisting>
+		</screen>
+		
 	</section>
 	&section.library.other.xml;
 </chapter>
