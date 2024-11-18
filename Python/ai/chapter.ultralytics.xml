@@ -1,17 +1,52 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <chapter id="index"><?dbhtml dir="ultralytics" ?>
 	<title>ultralytics</title>
-	&section.ultralytics.yolo.xml;
 	<section>
-		<title>labelme2yolo</title>
-		<para>安装</para>
+		<title>安装</title>
 		<screen>
+		<![CDATA[
+pip install ultralytics		
+		]]>
+		</screen>
+		<para>从 Github 安装 https://github.com/ultralytics/ultralytics</para>
+		<screen>
+		<![CDATA[
+# Install the ultralytics package from GitHub
+pip install git+https://github.com/ultralytics/ultralytics.git@main		
+		]]>
+		</screen>
+		<section>
+			<title>标注工具</title>
+			<para>标注工具</para>
+			<screen>
+			<![CDATA[
+pip install labelimg		
+			]]>
+			</screen>
+			<para></para>
+			<screen>
+			<![CDATA[
+(venv) neo@Neo-Mac-mini medical % labelimg
+2024-11-15 23:41:11.174 Python[19314:31301137] +[IMKClient subclass]: chose IMKClient_Modern		
+			]]>
+			</screen>
+		</section>
+		<section id="labelme">
+			<title>labelme</title>
+			<para>安装</para>
+			<screen>
 		<![CDATA[
 pip install labelme labelme2yolo		
 		]]>
-		</screen>
-		<para>使用方法</para>
-		<screen>
+			</screen>
+			<para>使用方法</para>
+			<screen>
+			<![CDATA[
+(.venv) neo@Neo-Mac-mini netkiller % labelme
+			]]>
+			</screen>
+			<para>labelme2yolo 标注格式转换工具</para>
+			<screen>
 		<![CDATA[
 (.venv) PS D:\workspace\netkiller> labelme2yolo --json_dir .\captcha\dataset
 [2024-11-17T11:46:35Z INFO  labelme2yolo] Starting the conversion process...
@@ -22,35 +57,70 @@ pip install labelme labelme2yolo
 [2024-11-17T11:46:35Z INFO  labelme2yolo] Conversion process completed successfully.
 		
 		]]>
-		</screen>
-		<para></para>
-		<screen>
+			</screen>
+			<para>labelme2yolo 转换后的数据保存在 YOLODataset 文件夹中</para>
+			<screen>
 		<![CDATA[
 (.venv) PS D:\workspace\netkiller\captcha> labelme2yolo --json_dir datasets\train
 (.venv) PS D:\workspace\netkiller\captcha> yolo task=detect mode=train model=yolov8n.pt data=.\YOLODataset\dataset.yaml epochs=30 workers=1 batch=16
 		]]>
-		</screen>
+			</screen>
+		</section>
 	</section>
 	<section>
+		<title>YOLO 命令行</title>
+		<para>命令行演示</para>
+		<section>
+			<title>预测</title>
+			<programlisting>
+			<![CDATA[
+(venv) neo@Neo-Mac-mini netkiller % yolo predict model=yolov8n.pt source='https://ultralytics.com/images/bus.jpg'
+Creating new Ultralytics Settings v0.0.6 file ✅ 
+View Ultralytics Settings with 'yolo settings' or at '/Users/neo/Library/Application Support/Ultralytics/settings.json'
+Update Settings with 'yolo settings key=value', i.e. 'yolo settings runs_dir=path/to/dir'. For help see https://docs.ultralytics.com/quickstart/#ultralytics-settings.
+Downloading https://github.com/ultralytics/assets/releases/download/v8.3.0/yolov8n.pt to 'yolov8n.pt'...
+100%|████████████████████████████████████████████████████████████████████████████████████████████████████████| 6.25M/6.25M [00:02<00:00, 2.53MB/s]
+Ultralytics 8.3.31 🚀 Python-3.12.7 torch-2.5.1 CPU (Apple M4)
+YOLOv8n summary (fused): 168 layers, 3,151,904 parameters, 0 gradients, 8.7 GFLOPs
+
+Downloading https://ultralytics.com/images/bus.jpg to 'bus.jpg'...
+100%|███████████████████████████████████████████████████████████████████████████████████████████████████████████| 134k/134k [00:00<00:00, 364kB/s]
+image 1/1 /Users/neo/PycharmProjects/netkiller/bus.jpg: 640x480 4 persons, 1 bus, 1 stop sign, 43.4ms
+Speed: 3.3ms preprocess, 43.4ms inference, 6.7ms postprocess per image at shape (1, 3, 640, 480)
+Results saved to /Users/neo/PycharmProjects/netkiller/runs/detect/predict
+💡 Learn more at https://docs.ultralytics.com/modes/predict
+
+			]]>
+			</programlisting>
+		</section>
+	</section>
+	&section.ultralytics.yolo.xml;
+
+	<section>
 		<title>ONNX(Open Neural Network Exchange) 开放神经网络交换格式</title>
-		<para>ONNX，即开放神经网络交换格式（Open Neural Network Exchange），是一个可以让不同深度学习框架之间互相转换和使用模型的开放标准。它由 Facebook 和 Microsoft 共同开发，旨在为深度学习模型的部署和迁移提供更加方便和灵活的解决方案。</para>
-		<para>ONNX 支持包括 PyTorch、TensorFlow、CNTK 和 MXNet 等在内的多个深度学习框架，可以将这些框架训练出的模型转换成 ONNX 格式，从而可以被其他框架或应用所使用。</para>
-		
+		<para>ONNX，即开放神经网络交换格式（Open Neural Network
+			Exchange），是一个可以让不同深度学习框架之间互相转换和使用模型的开放标准。它由 Facebook 和 Microsoft
+			共同开发，旨在为深度学习模型的部署和迁移提供更加方便和灵活的解决方案。
+		</para>
+		<para>ONNX 支持包括 PyTorch、TensorFlow、CNTK 和 MXNet
+			等在内的多个深度学习框架，可以将这些框架训练出的模型转换成 ONNX 格式，从而可以被其他框架或应用所使用。
+		</para>
 
-ONNX 的主要优点包括：
 
-互操作性好：ONNX 支持多个深度学习框架之间的模型转换，使得它们可以互相使用和部署，从而减少了开发和部署的难度和成本；
+		ONNX 的主要优点包括：
 
-高效性能：ONNX 可以在多种硬件和软件平台上运行，并提供了 C++和 Python 接口，可以大幅提高模型执行的效率和速度；
+		互操作性好：ONNX
+		支持多个深度学习框架之间的模型转换，使得它们可以互相使用和部署，从而减少了开发和部署的难度和成本；
 
-易于扩展：ONNX 的架构简单清晰，可以轻松地添加新的层次和类型，方便应对不断升级变化的深度学习技术和需求。
+		高效性能：ONNX
+		可以在多种硬件和软件平台上运行，并提供了 C++和 Python 接口，可以大幅提高模型执行的效率和速度；
 
-总之，ONNX 是一个方便快捷的深度学习模型转换和交换标准，可以帮助开发者更加轻松地将深度学习模型进行部署和迁移。	
+		易于扩展：ONNX
+		的架构简单清晰，可以轻松地添加新的层次和类型，方便应对不断升级变化的深度学习技术和需求。
 
-		<programlisting>
-		<![CDATA[
-		
-		]]>
-		</programlisting>
-	</section>	
+		总之，ONNX
+		是一个方便快捷的深度学习模型转换和交换标准，可以帮助开发者更加轻松地将深度学习模型进行部署和迁移。
+
+
+	</section>
 </chapter>
