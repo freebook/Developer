@@ -66,6 +66,44 @@ pip install labelme labelme2yolo
 		]]>
 			</screen>
 		</section>
+		<section>
+			<title>环境配置</title>
+			<screen>
+			<![CDATA[
+(.venv) neo@Neo-Mac-mini captcha % cat /Users/neo/Library/Application\ Support/Ultralytics/settings.json
+{
+  "settings_version": "0.0.6",
+  "datasets_dir": "/Users/neo/PycharmProjects/netkiller/datasets",
+  "weights_dir": "/Users/neo/PycharmProjects/netkiller/weights",
+  "runs_dir": "/Users/neo/PycharmProjects/netkiller/runs",
+  "uuid": "091024e8315e531396653f2ae1aa5f270aa3ead574e0f5ec04ed515ab8b85931",
+  "sync": true,
+  "api_key": "",
+  "openai_api_key": "",
+  "clearml": true,
+  "comet": true,
+  "dvc": true,
+  "hub": true,
+  "mlflow": true,
+  "neptune": true,
+  "raytune": true,
+  "tensorboard": true,
+  "wandb": false,
+  "vscode_msg": true
+}			
+			]]>
+			</screen>
+			<para></para>
+			<screen>
+			<![CDATA[
+(.venv) neo@Neo-Mac-mini captcha % vim /Users/neo/Library/Application\ Support/Ultralytics/settings.json 			
+			]]>
+			</screen>
+		</section>
+		<section>
+			<title>JSON2YOLO</title>
+			<para><ulink url="https://github.com/ultralytics/JSON2YOLO" /></para>
+		</section>
 	</section>
 	<section>
 		<title>YOLO 命令行</title>
@@ -94,6 +132,7 @@ Results saved to /Users/neo/PycharmProjects/netkiller/runs/detect/predict
 			</programlisting>
 		</section>
 	</section>
+	&section.ultralytics.task.xml;
 	&section.ultralytics.yolo.xml;
 
 	<section>

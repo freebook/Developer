@@ -2,13 +2,48 @@
 <section id="yolo">
 	<title>YOLO</title>
 	<orderedlist>
-		<title>普通列表</title>
+		<title>目标检测任务</title>
 		<listitem>YOLO11：用于经典的目标检测任务。</listitem>
 		<listitem>YOLO11-seg：用于实例分割，识别和分割图像中的对象。</listitem>
 		<listitem>YOLO11-pose：用于关键点姿态估计，即确定人体的关键点（如关节位置）。</listitem>
 		<listitem>YOLO11-obb：用于定向检测，可以识别并确定具有方向性物体的边界框（例如倾斜的目标物体）。</listitem>
 		<listitem>YOLO11-cls：用于分类，负责对图像中的对象进行类别识别。</listitem>
 	</orderedlist>
+	<orderedlist>
+		<title>模型规格</title>
+		<listitem>YOLOv8 Nano	非常小	YOLOv8n</listitem>
+		<listitem>YOLOv8 Small	小	YOLOv8s</listitem>
+		<listitem>YOLOv8 Medium	中	YOLOv8m</listitem>
+		<listitem>YOLOv8 Large	大	YOLOv8l</listitem>
+		<listitem>YOLOv8 X（Extra Large）	非常大	YOLOv8x</listitem>
+	</orderedlist>
+	<section>
+		<title>训练</title>
+		<programlisting>
+		<![CDATA[
+from ultralytics import YOLO
+# 指定模型
+mode = YOLO('yolo11n-seg.pt')
+# 让模型开始训练
+mode.train(data='dataset.yaml',workers=0,epochs=10,batch=10)
+# 验证模型
+mode.val()		
+		]]>
+		</programlisting>
+	</section>
+	<section>
+		<title>模型评估</title>
+		<programlisting>
+		<![CDATA[
+from ultralytics import YOLO
+# ---------- 加载模型 ----------
+model = YOLO('runs/detect/train/weights/best.pt')
+# ---------- 模型评估 ----------
+model.val(data='captcha/images/YOLODataset/dataset.yaml')
+		
+		]]>
+		</programlisting>
+	</section>
 	<section>
 		<title>预测</title>
 		<programlisting>
@@ -47,6 +82,75 @@ for result in results:
     result.show()  # 显示结果型的架构		
 		]]>
 		</programlisting>
+		<section>
+			<title>提取标签</title>
+			<programlisting>
+			<![CDATA[
+from ultralytics import YOLO
+
+# 加载模型
+# model = YOLO("yolo11n.pt")
+# model = YOLO('weights/last.pt')
+model = YOLO('weights/best.pt')
+
+# 模型预测，save=True 的时候表示直接保存yolov8的预测结果
+results = model('images/0_5902.png')
+
+# View results
+for result in results:
+    # 处理结果
+    boxes = result.boxes  # 边界框结果
+    masks = result.masks  # 分割掩码结果
+    names = result.names
+    keypoints = result.keypoints  # 关键点检测结果
+    probs = result.probs  # 分类概率结果
+    obb = result.obb  # 方向边界框结果（OBB）
+    print(boxes)
+    for box in boxes:
+        print(names[int(box.cls)])
+    result.show()  # 显示结果			
+			]]>
+			</programlisting>
+		</section>
+		<section>
+			<title>predict 参数</title>
+			<programlisting>
+			<![CDATA[
+from yolov8 import YOLO
+ 
+# 加载预训练模型
+model = YOLO('yolov8.pt')
+ 
+# 执行预测
+results = model.predict(
+    source='path/to/image.jpg',  # 输入源，可以是图像路径、视频路径、摄像头索引等
+    conf=0.5,                    # 置信度阈值，滤除低于该置信度的检测结果。
+    iou=0.45,                    # NMS的交并比阈值，用于消除重叠的检测框。
+    device='cuda',               # 使用GPU
+    imgsz=(640, 640),            # 输入图像的尺寸，可以是单个整数（长宽相等）或元组（长和宽）。
+    half=False,                  # 不使用半精度浮点数
+    save_txt=True,               # 保存预测结果为文本文件
+    save_conf=True,              # 在保存的文本文件中包含置信度
+    save_crop=False,             # 不保存裁剪后的检测结果
+    save_img=True,               # 保存带有检测框的图像
+    classes=[0, 1, 2],           # 仅检测指定的类
+    agnostic_nms=False,          # 不使用类别无关的NMS
+    augment=False,               # 不使用数据增强
+    visualize=False,             # 不可视化特征图
+    project='runs/detect',       # 保存预测结果的项目目录
+    name='exp',                  # 保存预测结果的子目录名称
+    exist_ok=False,              # 不允许项目目录存在
+    line_thickness=3,            # 绘制检测框的线条粗细
+    hide_labels=False,           # 显示检测框的标签
+    hide_conf=False              # 显示检测框的置信度
+)
+ 
+# 输出预测结果
+print(results)
+			
+			]]>
+			</programlisting>
+		</section>
 	</section>
 	<section>
 		<title>导出</title>
@@ -85,6 +189,6 @@ results[0].show()
 			]]>
 			</programlisting>
 		</section>
-		
+
 	</section>
 </section>

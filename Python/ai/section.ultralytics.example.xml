@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section id="yolo.example">
+	<title>案例</title>
+	<section>
+		<title>识别验证码</title>
+		<screen>
+		<![CDATA[
+(.venv) neo@Neo-Mac-mini netkiller % labelme2yolo --json_dir captcha/images
+[2024-11-19T07:06:52Z INFO  labelme2yolo] Starting the conversion process...
+[2024-11-19T07:06:52Z INFO  labelme2yolo] Read and parsed 20 JSON files.
+  [Train] [00:00:00] [########################################] 16/16 (0s)
+  [Val] [00:00:00] [########################################] 4/4 (0s)
+[2024-11-19T07:06:52Z INFO  labelme2yolo] Creating dataset.yaml file...
+[2024-11-19T07:06:52Z INFO  labelme2yolo] Conversion process completed successfully.
+
+(.venv) neo@Neo-Mac-mini netkiller % ls captcha/images/YOLODataset 
+dataset.yaml    images          labels		
+		]]>
+		</screen>
+		<screen>
+		<![CDATA[
+yolo task=detect mode=train model=yolo11n.pt data=captcha/images/YOLODataset/dataset.yaml epochs=50 workers=1 batch=10
+
+yolo predict model=runs/detect/train/weights/best.pt source=captcha/test/0_5902.png		
+		]]>
+		</screen>
+	</section>
+<!-- 	https://docs.ultralytics.com/datasets/segment/crack-seg/ -->
+</section>
