@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <chapter id="index"><?dbhtml dir="ultralytics" ?>
-	<title>ultralytics</title>
+	<title>Ultralytics</title>
 	<section>
 		<title>安装</title>
 		<screen>
@@ -162,4 +162,5 @@ Results saved to /Users/neo/PycharmProjects/netkiller/runs/detect/predict
 
 
 	</section>
+	&section.ultralytics.example.xml;
 </chapter>

@@ -1,20 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <section id="python.install">
 	<title>install</title>
-	<section id="venv">
-		<title>venv</title>
-		<screen>
-		<![CDATA[
-python3 -m venv /srv/python		
-		]]>
-		</screen>
-		<para></para>
-		<screen>
-		<![CDATA[
-root@debian:~# update-alternatives --install /usr/bin/python python /srv/python/bin/python 1
-		]]>
-		</screen>
-	</section>
 	<section id="python.install.docker">
 		<title>Docker 安装</title>
 		<screen>
@@ -100,14 +86,14 @@ Type "help", "copyright", "credits" or "license" for more information.
 		</screen>
 	</section>
 	<section>
-			<title>编译安装 Python3.x</title>
-			<screen>
+		<title>编译安装 Python3.x</title>
+		<screen>
 			<![CDATA[
 ./configure --prefix=/usr/local/python-3.1.2
 make && make install
 			]]>
-			</screen>
-		</section>
+		</screen>
+	</section>
 	<section>
 		<title>Ubunut 13.04 环境安装python3</title>
 		<screen><![CDATA[
@@ -205,5 +191,73 @@ sudo apt-get install python
 sudo apt-get install python-setuptools
 			]]></screen>
 		</section>
+	</section>
+</section>
+<section id="venv">
+	<title>venv - Python 虚拟环境</title>
+	<section>
+		<title>Linux 建立虚拟环境</title>
+		<screen>
+		<![CDATA[
+python3 -m venv /srv/python		
+		]]>
+		</screen>
+		<para>设置 python 版本</para>
+		<screen>
+		<![CDATA[
+root@debian:~# update-alternatives --install /usr/bin/python python /srv/python/bin/python 1
+		]]>
+		</screen>
+	</section>
+	<section>
+		<title>苹果电脑 Z Shell 建立虚拟环境</title>
+		<para>初始化环境</para>
+		<screen>
+		<![CDATA[
+neo@Netkiller-Mac-mini-M4 netkiller % python3 -m venv .venv
+		]]>
+		</screen>
+	</section>
+	<section>
+		<title>苹果电脑 fish Shell 建立虚拟环境</title>
+		<para>我使用的是 fish shell</para>
+		<screen>
+			<![CDATA[
+neo@Netkiller-Mac-mini-M4 netkiller % fish
+Welcome to fish, the friendly interactive shell
+Type help for instructions on how to use fish		
+			]]>
+		</screen>
+		<para>切换到 venv 环境</para>
+		<screen>
+			<![CDATA[
+neo@Netkiller-Mac-mini-M4 ~/P/netkiller (yolo)> python3 -m venv .venv	
+neo@Netkiller-Mac-mini-M4 ~/P/netkiller (yolo)> source .venv/bin/activate.fish 
+(.venv) neo@Neo-Mac-mini-M4 ~/P/netkiller (yolo)> 		
+			]]>
+		</screen>
+		<para>推出 venv 环境</para>
+		<screen>
+		<![CDATA[
+(.venv) neo@Netkiller-Mac-mini-M4 ~/P/netkiller (yolo)> deactivate
+neo@Netkiller-Mac-mini-M4 ~/P/netkiller (yolo)> 		
+		]]>
+		</screen>
+	</section>
+	<section>
+		<title>进入虚拟环境</title>
+		<screen>
+		<![CDATA[
+source .venv/bin/activate		
+		]]>
+		</screen>
+	</section>
+	<section>
+		<title>退出虚拟环境</title>
+		<programlisting>
+		<![CDATA[
+root@debian:~# deactivate
+		]]>
+		</programlisting>
 	</section>
 </section>
