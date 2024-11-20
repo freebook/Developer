@@ -2,7 +2,7 @@
 <chapter id="index"><?dbhtml dir="ultralytics" ?>
 	<title>Ultralytics</title>
 	<section>
-		<title>安装</title>
+		<title>安装 ultralytics</title>
 		<screen>
 		<![CDATA[
 pip install ultralytics		
@@ -15,8 +15,8 @@ pip install ultralytics
 pip install git+https://github.com/ultralytics/ultralytics.git@main		
 		]]>
 		</screen>
-		<section>
-			<title>标注工具</title>
+		<section id="labelimg">
+			<title>标注工具 labelimg</title>
 			<para>标注工具</para>
 			<screen>
 			<![CDATA[
@@ -47,7 +47,7 @@ pip install labelme labelme2yolo
 			</screen>
 			<para>labelme2yolo 标注格式转换工具</para>
 			<screen>
-		<![CDATA[
+			<![CDATA[
 (.venv) PS D:\workspace\netkiller> labelme2yolo --json_dir .\captcha\dataset
 [2024-11-17T11:46:35Z INFO  labelme2yolo] Starting the conversion process...
 [2024-11-17T11:46:35Z INFO  labelme2yolo] Read and parsed 3 JSON files.
@@ -55,8 +55,7 @@ pip install labelme labelme2yolo
   [Val] [00:00:00] [########################################] 1/1 (0s)                                                                                                                                                                              
 [2024-11-17T11:46:35Z INFO  labelme2yolo] Creating dataset.yaml file...
 [2024-11-17T11:46:35Z INFO  labelme2yolo] Conversion process completed successfully.
-		
-		]]>
+			]]>
 			</screen>
 			<para>labelme2yolo 转换后的数据保存在 YOLODataset 文件夹中</para>
 			<screen>
@@ -64,6 +63,21 @@ pip install labelme labelme2yolo
 (.venv) PS D:\workspace\netkiller\captcha> labelme2yolo --json_dir datasets\train
 (.venv) PS D:\workspace\netkiller\captcha> yolo task=detect mode=train model=yolov8n.pt data=.\YOLODataset\dataset.yaml epochs=30 workers=1 batch=16
 		]]>
+			</screen>
+		</section>
+		<section id="anylabeling">
+			<title>anylabeling</title>
+			<para>安装 anylabeling</para>
+			<screen>
+			<![CDATA[
+pip install anylabeling			
+			]]>
+			</screen>
+			<para>运行 anylabeling</para>
+			<screen>
+			<![CDATA[
+anylabeling			
+			]]>
 			</screen>
 		</section>
 		<section>
