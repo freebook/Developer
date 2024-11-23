@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<section>
+<section id="drawsvg">
 	<title>SVG 图形库</title>
 	<section>
 		<title>安装</title>
@@ -76,4 +76,266 @@ lines = draw.Lines(
 		</screen>
 	</section>
 </section>
+<section id="qrcode">
+		<title>二维码</title>
+		<section>
+			<title>qrcode</title>
+			<para>安装</para>
+			<para>pip install qrcode</para>
+			<screen>
+		<![CDATA[
+neo@MacBook-Pro-Neo ~ % pip install qrcode
+Collecting qrcode
+  Downloading qrcode-6.1-py2.py3-none-any.whl (31 kB)
+Requirement already satisfied: six in /usr/local/lib/python3.9/site-packages (from qrcode) (1.15.0)
+Installing collected packages: qrcode
+Successfully installed qrcode-6.1		
+		]]>
+			</screen>
+			<para>常规二维码</para>
+			<programlisting>
+		<![CDATA[
+import qrcode
 
+img = qrcode.make('《Netkiller Python 手札》')
+img.save("text.png")
+
+img = qrcode.make('http://www.netkiller.cn')
+img.save("url.png")		
+		]]>
+			</programlisting>
+
+			<section>
+				<title>设置颜色</title>
+				<para>颜色设置背景为白色，前景为绿色</para>
+				<programlisting>
+		<![CDATA[
+import qrcode as qrcode
+qr = qrcode.QRCode(version=1, box_size=10, border=2)
+# 向二维码添加数据
+qr.add_data("http://www.netkiller.cn")
+qr.make(fit=True)
+
+# 更改QR的背景为白色和绘画颜色为绿色
+img = qr.make_image(fill_color="green", back_color="white")
+img.save('green.png')
+img.show()  # 显示二维码		
+		]]>
+				</programlisting>
+				<para>QRCode 参数</para>
+				<literallayout>
+		<![CDATA[
+version: 范围为1到40整数（最小值是1，表示12×12的矩阵），如果想让程序自动生成，将值设置为 None 并使用 fit=True 参数即可。
+error_correction: 二维码的纠错范围，可以选择4个常量：
+	1. ERROR_CORRECT_L 	7%以下的错误会被纠正
+	2. ERROR_CORRECT_M 	(default) 15%以下的错误会被纠正
+	3. ERROR_CORRECT_Q 	25 %以下的错误会被纠正
+	4. ERROR_CORRECT_H. 30%以下的错误会被纠正
+boxsize: 每个点（方块）中的像素个数
+border: 二维码图像外围边框宽度，默认为4
+		]]>
+				</literallayout>
+			</section>
+
+			<section>
+				<title>qr - script to create QR codes at the command line</title>
+				<screen>
+			<![CDATA[
+NAME
+       qr - script to create QR codes at the command line
+
+SYNOPSIS
+       qr  [--help]  [--factory=FACTORY]  [--optimize=OPTIMIZE] [--error-correction=LEVEL]
+       [data]
+
+DESCRIPTION
+       This script uses the python qrcode module. It can take data from stdin or from  the
+       commandline  and  generate a QR code.  Normally it will output the QR code as ascii
+       art to the terminal. If the output is piped to a file, it  will  output  the  image
+       (default type of PNG).
+
+OPTIONS
+        -h, --help
+           Show a help message.
+
+
+        --factory=FACTORY
+           Full  python  path to the image factory class to create the image with. You can
+           use the  following  shortcuts  to  the  built-in  image  factory  classes:  pil
+           (default), pymaging, svg, svg-fragment, svg-path.
+
+
+        --optimize=OPTIMIZE
+           Optimize  the  data by looking for chunks of at least this many characters that
+           could use a more efficient encoding method. Use 0 to turn off  chunk  optimiza-
+           tion.
+
+
+        --error-correction=LEVEL
+           The  error  correction  level  to  use. Choices are L (7%), M (15%, default), Q
+           (25%), and H (30%).
+
+
+        data
+           The data from which the QR code will be generated.
+
+
+SEE ALSO
+       https://github.com/lincolnloop/python-qrcode/			
+			]]>
+				</screen>
+				<para>使用方法</para>
+				<screen>
+			<![CDATA[
+neo@MacBook-Pro-Neo ~ % qr "Some text" > test.png			
+			]]>
+				</screen>
+			</section>
+		</section>
+		<section id="MyQR">
+			<title>MyQR</title>
+			<para>安装依赖包</para>
+			<screen>
+		<![CDATA[
+pip install myqr		
+		]]>
+			</screen>
+			<programlisting>
+		<![CDATA[
+from MyQR import myqr
+# myqr.run 参数:
+# words：文本/链接，或者你想说的话(不支持中文，很不友好)
+# picture：背景图
+# colorsize：True 表示生成彩图
+# save_name：生成的二维码文件名
+myqr.run(words="http://www.netkiller.com",
+         picture="db.png", colorized=True,
+         save_name="netkiller.png")		
+		]]>
+			</programlisting>
+		</section>
+		<section>
+			<title>从图片识别二维码</title>
+			<para>安装依赖包</para>
+			<screen>
+		<![CDATA[
+pip install pyzbar		
+		]]>
+			</screen>
+			<para>pyzbar 是调用 zbar 共享库，所以还需要安装 zbar</para>
+			<screen>
+		<![CDATA[
+brew install zbar		
+		]]>
+			</screen>
+			<programlisting>
+		<![CDATA[
+import numpy as np
+from PIL import Image
+import pyzbar.pyzbar as pyzbar
+
+# 读取文件，转成数组
+im = np.array(Image.open("netkiller.png"))
+print(pyzbar.decode(im))
+# 返回的信息
+print('-' * 50)
+# 读取内容
+print(pyzbar.decode(im)[0].data.decode("utf-8"))		
+		]]>
+			</programlisting>
+			<para>输出信息</para>
+			<screen>
+		<![CDATA[
+[Decoded(data=b'http://www.netkiller.com', type='QRCODE', rect=Rect(left=36, top=36, width=297, height=297), polygon=[Point(x=36, y=36), Point(x=36, y=332), Point(x=333, y=333), Point(x=332, y=36)])]
+--------------------------------------------------
+http://www.netkiller.com		
+		]]>
+			</screen>
+		</section>
+		<section>
+			<title>从摄像头识别二维码</title>
+			<programlisting>
+		<![CDATA[
+import cv2
+import pyzbar.pyzbar as pyzbar
+
+
+def decodeQrcode(image):
+    barcodes = pyzbar.decode(image)
+    for barcode in barcodes:
+        # 提取二维码数据
+        barcodeData = barcode.data.decode("utf-8")
+        barcodeType = barcode.type
+        # 打印调试信息
+        print("[INFO] Found {}: {}".format(barcodeType, barcodeData))
+
+        # 取出二维码在图像中的位置
+        (x, y, w, h) = barcode.rect
+        cv2.rectangle(image, (x, y), (x + w, y + h),
+                      (255, 255, 255), cv2.BORDER_DEFAULT)
+
+        # 框出图像中的二维码
+        text = "{} ({})".format(barcodeData, barcodeType)
+        cv2.putText(image, text, (x, y - 10), cv2.FONT_HERSHEY_SIMPLEX,
+                    .5, (225, 225, 225), 2)
+    return image
+
+
+if __name__ == '__main__':
+    # 默认摄像头是0，如果读取不到，改为1试试
+    camera = cv2.VideoCapture(1)
+    while True:
+        # 从摄像头读取当前帧
+        ret, frame = camera.read()
+        # 转为灰度图像，转递给解码函数
+        gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+        im = decodeQrcode(gray)
+        cv2.waitKey(5)
+        cv2.imshow("camera", im)
+        # 设置退出按键，按下q跳出本次循环
+        if cv2.waitKey(5) & 0xFF == ord('q'):
+            break
+    camera.release()
+    cv2.destroyAllWindows()		
+		]]>
+			</programlisting>
+		</section>
+	</section>
+	<section id="graphviz">
+		<title>graphviz</title>
+		<section>
+			<title>安装 graphviz 环境</title>
+			<para>安装 graphviz 命令</para>
+			<screen>
+		<![CDATA[ 
+brew install graphviz
+		]]>
+			</screen>
+			<para>安装 graphviz 包</para>
+			<screen>
+		<![CDATA[ 
+pip install graphviz	
+		]]>
+			</screen>
+		</section>
+		<section>
+			<title>例子</title>
+			<screen>
+		<![CDATA[ 
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+from graphviz import Digraph
+
+A = [('Yellow', 'ink'), ('blue', 'ink'), ('pink', 'ink')]
+
+e = Digraph()
+e.attr(rankdir='LR')
+for a in A:
+	e.node(a[0])
+	e.edge(a[0], a[1])
+
+e.view()		
+		]]>
+			</screen>
+		</section>
+	</section>

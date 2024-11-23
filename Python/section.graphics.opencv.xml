@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<chapter id="index"><?dbhtml dir="opencv" ?>
+<section id="index"><?dbhtml dir="opencv" ?>
 	<title>OpenCV</title>
 	<section>
 		<title>安装 OpenCV</title>
@@ -128,4 +128,4 @@ print(image.dtype)
 		]]>
 		</programlisting>
 	</section>				
-</chapter>
+</section>

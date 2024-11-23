@@ -79,12 +79,11 @@
 	&book.preface.xml;
 	&part.python.xml;
 	&part.framework.xml;
-	&part.bigdata.xml;
 	&part.ai.xml;
+	&part.bigdata.xml;
+	&chapter.graphics.xml;
 	&chapter.ops.xml;
 	&chapter.office.xml;
-	&chapter.opencv.xml;
-	&chapter.graphics.xml;
 	&chapter.3rdparty.xml;
 	&section.python.example.xml;
 <!-- =========================================================================== -->

@@ -91,8 +91,8 @@
 
 <!ENTITY chapter.graphics.xml				SYSTEM "chapter.graphics.xml">
 <!ENTITY section.graphics.xml				SYSTEM "section.graphics.xml">
-<!ENTITY chapter.opencv.xml					SYSTEM "chapter.opencv.xml">
-<!ENTITY section.graphics.image.xml			SYSTEM "section.graphics.image.xml">
+<!ENTITY section.graphics.opencv.xml		SYSTEM "section.graphics.opencv.xml">
+<!ENTITY section.graphics.pillow.xml		SYSTEM "section.graphics.pillow.xml">
 
 <!ENTITY section.video.movie.xml			SYSTEM "section.video.movie.xml">
 

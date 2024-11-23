@@ -2,14 +2,14 @@
 <section id="fastapi">
 	<title>FastAPI</title>
 	<section id="app.post">
-		<title>Post Request</title>
+		<title>Post 请求</title>
+		<screen>
+		<![CDATA[
+pip install python-multipart
+		]]>
+		</screen>
 		<section>
 			<title>From 数据</title>
-			<screen>
-			<![CDATA[
-pip install python-multipart
-			]]>
-			</screen>
 			<programlisting>
             	<![CDATA[
 from fastapi import FastAPI, Form
@@ -103,6 +103,33 @@ async def notification(request: Request):
 			]]>
 			</programlisting>
 		</section>
+		<section id="fastapi.post.upload">
+			<title>上传文件</title>
+			<programlisting>
+			<![CDATA[
+@app.post("/file/")
+async def create_file(file: bytes = File()):
+    filename = f"tmp/{uuid.uuid4()}.png"
+    print(filename)
+    # filename = uuid.uuid4()
+    with open(filename, "wb") as f:
+        f.write(file)
+    return {"file": filename,"size": len(file)}
+
+@app.post("/uploadfile")
+async def create_upload_file(file: UploadFile):
+    # uuid5 = uuid.uuid5(uuid.NAMESPACE_DNS, 'netkiller.cn')
+    # filename, extension = os.path.splitext(file.filename)
+    filename = f"tmp/{file.filename}"
+    file_content = await file.read()  # 读取文件
+    with open(filename, "wb") as f:
+        f.write(file_content)
+
+    return {"filename": file.filename,"content_type": file.content_type}
+			
+			]]>
+			</programlisting>
+		</section>
 	</section>
 	<section id="app.api_route">
 		<title>api_route</title>
@@ -114,7 +141,7 @@ async def handler():
 		]]>
 		</programlisting>
 	</section>
-	
+
 	<section id="fastapi.slowapi">
 		<title>slowapi 流向控制</title>
 		<programlisting>
@@ -377,7 +404,7 @@ if __name__ == "__main__":
     test()		
 		]]>
 		</programlisting>
-		
+
 	</section>
 	<section id="jsonable_encoder">
 		<title>解决 Sqlalchemy 返回模型无法打印的问题</title>

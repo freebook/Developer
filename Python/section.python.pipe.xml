@@ -1,23 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <section id="stdio">
-		<title>Input/Output</title>
-		<section id="sys">
-			<title>Standard</title>
-			<section>
-				<title>Standard Input</title>
-				<screen><![CDATA[
+	<title>Input/Output 输出/输出</title>
+	<section id="sys">
+		<title>标准输入/输出</title>
+		<section>
+			<title>Standard Input 标准输入</title>
+			<screen><![CDATA[
 sys.stdin.readline().strip()
 			]]></screen>
-			</section>
-			<section>
-				<title>Standard Output</title>
-				<screen><![CDATA[
+		</section>
+		<section>
+			<title>Standard Output 标准输出</title>
+			<screen><![CDATA[
 sys.stdout.write("输出的字串")
 			]]></screen>
-			</section>
 		</section>
-		<section id="io.file">
-			<title>File</title>
+	</section>
+	<section id="io.file">
+		<title>File 文件输出/输出</title>
+		<section>
+			<title>读取文件</title>
 			<programlisting role="python">
 		<![CDATA[
 f = open('/tmp/workfile', 'r+')
@@ -30,46 +32,126 @@ f.readline()
 f.close()
 		]]>
 			</programlisting>
-			<screen><![CDATA[
+			<screen>
+			<![CDATA[
 for line in open("myfile.txt"):
     print line
 
 with open("myfile.txt") as f:
     for line in f:
         print line
-		]]></screen>
+			]]>
+			</screen>
+
+		</section>
+		<section>
+			<title>读取二进制文件</title>
 			<para></para>
 			<programlisting>
-		<![CDATA[
+			<![CDATA[
 with open('beak', 'rb+') as f:
     content = f.read()
     f.seek(0)
     f.write(content.replace(b'\r', b''))
     f.truncate()
-		]]>
+			]]>
+			</programlisting>
+		</section>
+		<section>
+			<title>获取文件名</title>
+			<para>使用os.path.basename()获取文件名</para>
+			<screen>
+			<![CDATA[
+import os
+
+# 定义一个文件路径
+file_path = "/home/user/documents/example.txt"
+
+# 使用os.path.basename()获取文件名
+file_name = os.path.basename(file_path)
+
+print(file_name)  # 输出: example.txt			
+			]]>
+			</screen>
+		</section>
+		<section>
+			<title>获取扩展名</title>
+			<programlisting>
+			<![CDATA[
+import os
+
+# 定义一个文件路径
+file_path = "/home/user/documents/example.txt"
+
+# 使用os.path.splitext()获取文件名和扩展名
+file_name, file_extension = os.path.splitext(file_path)
+
+print("文件名:", file_name)  # 输出: 文件名: /home/user/documents/example
+print("扩展名:", file_extension)  # 输出: 扩展名: .txt	
+
+file_extension = file_extension[1:]  # 去掉点号
+print("去掉点号的扩展名:", file_extension)  # 输出: 去掉点号的扩展名: txt		
+			]]>
+			</programlisting>
+			<programlisting>
+			<![CDATA[
+import os
+ext = os.path.splitext("path/to/file.ext")[-1][1:]
+print(ext)
+			]]>
+			</programlisting>
+			<para></para>
+			<programlisting>
+			<![CDATA[
+path = "path/to/file.ext"
+suffix = path.split(".")[1]
+print("suffix: {}".format(suffix))			
+			]]>
+			</programlisting>
+			<programlisting>
+			<![CDATA[
+import re
+
+filename = "example.txt"
+extension = re.findall(r"\.[^.]*$", filename)[0]
+print(extension)			
+			]]>
+			</programlisting>
+			<programlisting>
+			<![CDATA[
+filename = "myfile.txt"
+
+extension = filename.rsplit(".", 1)[1]
+
+print(extension)  # 输出：".txt"			
+			]]>
 			</programlisting>
 		</section>
 	</section>
+</section>
 <section id="pipe">
 	<title>Pipe</title>
 	<section id="stdin">
 		<title>stdin</title>
 		<screen>
+		<![CDATA[		
 #!/usr/bin/python
 #filename:demo.py
 
 import sys
 
-for line in sys.stdin:
-    print line,
-
+for line in
+sys.stdin:
+print line,
 
 #ls -lh | python demo.py
+		]]>
 		</screen>
 	</section>
 	<section id="forkpty">
 		<title>forkpty</title>
 		<screen>
+		<![CDATA[
 #!/usr/bin/env python
 
 import os
@@ -78,34 +160,37 @@ import sys
 pid, fd = os.forkpty()
 
 if pid == 0:
-    # child
-    os.execlp("ssh","ssh","hostname","uname")
+	# child
+	os.execlp("ssh","ssh","hostname","uname")
 else:
-    # parent
-    print os.read(fd, 1000)
-    os.write(fd,"password\n")
+	# parent
+	print os.read(fd, 1000)
+	os.write(fd,"password\n")
 
-    c = os.read(fd, 1)
-    while c:
-        c = os.read(fd, 1)
-        sys.stdout.write(c)
+c = os.read(fd,1)
+while c:
+	c = os.read(fd, 1)
+	sys.stdout.write(c)		
+		]]>
 		</screen>
 	</section>
 	<section id="popen">
 		<title>Popen</title>
 		<screen>
+		<![CDATA[
 #!/usr/bin/python
 
-from  subprocess import *
-p = Popen(["cat", "-n"], bufsize=1024,stdin=PIPE,
-                    stdout=PIPE, close_fds=True)
+from subprocess import *
+p = Popen(["cat","-n"], bufsize=1024,stdin=PIPE,stdout=PIPE, close_fds=True)
 
-(fin, fout) =  (p.stdin, p.stdout)
+(fin,fout) = (p.stdin, p.stdout)
 for i in range(10):
-   fin.write("line" + str(i))
-   fin.write('\n')
-   fin.flush()
-   print fout.readline(),
+	fin.write("line" + str(i))
+	fin.write('\n')
+	fin.flush()
+
+print fout.readline(),		
+		]]>
 		</screen>
 	</section>
 	<section id="socketpair">

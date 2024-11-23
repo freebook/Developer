@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section id="index"><?dbhtml dir="pillow" ?>
+	<title>Pillow 图形库</title>
+	<section>
+		<title>获取图片信息</title>
+		<programlisting>
+		<![CDATA[
+from PIL import Image
+import numpy as np
+ 
+img = Image.open('netkiller.jpg')
+ 
+# 宽度，高度
+width, height = img.size
+# 通道
+channel_mode = img.mode
+# 平均值
+mean_value = np.mean(img)
+ 
+print(width)
+print(height)
+print(channel_mode)
+print(mean_value)
+		
+		]]>
+		</programlisting>
+	</section>
+	<section>
+		<title>创建空图像</title>
+		<programlisting>
+		<![CDATA[
+from PIL import Image
+ 
+width = 200
+height = 100
+ 
+img_white = Image.new('RGB', (width,height), (255,255,255))
+img_black = Image.new('RGB', (width,height), (0,0,0))
+img_L = Image.new('L', (width, height), (255))
+ 
+img_white.show()
+img_black.show()
+img_L.show()
+		
+		]]>
+		</programlisting>
+	</section>
+	<section>
+		<title>裁剪</title>
+		<programlisting>
+		<![CDATA[
+from PIL import Image
+ 
+img = Image.open('netkiller.jpg') 
+width, height = img.size
+ 
+# 前两个坐标点是左上角坐标，后两个坐标点是右下角坐标（width，height）
+box = (100, 100, 600, 800)
+ 
+region = img.crop(box) 
+region.save('neo.jpg')		
+		]]>
+		</programlisting>
+	</section>
+	<section>
+		<title>画布调整</title>
+		<programlisting>
+		<![CDATA[
+from PIL import Image
+ 
+img = Image.open('netkiller.png')
+ 
+width, height = img.size
+channel_mode = img.mode
+ 
+img_full = Image.new(channel_mode, (width*2, height))
+img_part = Image.new(channel_mode, (width+100, height))
+ 
+# 图像水平扩展整个图像
+img_full.paste(img, (0, 0, width, height))
+img_full.paste(img, (width, 0, width*2, height))
+ 
+# left, top, width, height
+box = (width-100, 0, width, height)
+region = img.crop(box)
+ 
+# 图像水平右侧扩展一个ROI
+img_part.paste(img, (0, 0, width, height))
+img_part.paste(region, (width, 0, width+100, height))
+img_part.show()
+img_full.show()
+		
+		]]>
+		</programlisting>
+	</section>
+	<section>
+		<title>彩色转灰度</title>
+		<programlisting>
+		<![CDATA[
+from PIL import Image
+ 
+img = Image.open('netkiller.jpg')
+imgGrey = img.convert('L')
+ 
+img.show()
+imgGrey.show()
+ 
+img.save('neo.jpg')
+imgGrey.save('gray.jpg')
+		
+		]]>
+		</programlisting>
+	</section>
+	<section>
+		<title>缩放图像</title>
+		<programlisting>
+		<![CDATA[
+from PIL import Image
+ 
+img = Image.open('netkiller.jpg')
+ 
+width, height = img.size
+ 
+# 默认模式是NEARESET(最近邻插值)
+img_NEARESET = img.resize((width//2, height//2))  
+# BILINEAR 2x2区域的双线性插值
+img_BILINEAR = img.resize((width//2, height//2), Image.BILINEAR)
+# BICUBIC 4x4区域的双三次插值 
+img_BICUBIC = img.resize((width//2, height//2), Image.BICUBIC)  
+# ANTIALIAS 高质量下采样滤波
+img_ANTIALIAS = img.resize((width//2, height//2), Image.ANTIALIAS)  
+
+		]]>
+		</programlisting>
+	</section>
+	<section>
+		<title>RGB 通道操作</title>
+		<programlisting>
+		<![CDATA[
+from PIL import Image
+ 
+img = Image.open('netkiller.jpg')
+ 
+# 分离通道
+R, G, B = img.split()
+ 
+R.show)
+G.show()
+B.show()
+ 
+# 合并通道
+img_RGB = Image.merge('RGB', (R, G, B))
+img_BGR = Image.merge('RGB', (B, G, R))
+
+# 显示图像
+img_RGB.show()
+img_BGR.show()
+		
+		]]>
+		</programlisting>
+	</section>
+	<section>
+		<title>像素操作</title>
+		<programlisting>
+		<![CDATA[
+from PIL import Image
+ 
+img = Image.open('netkiller.jpg')
+ 
+width, height = img.size
+ 
+# 获取指定坐标位置像素值
+pixel_value = img.getpixel((width/2, height/2))
+print(pixel_value)
+ 
+# 使用load方法获取指定坐标位置像素值
+pim = img.load()
+pixel_value1 = pim[width/2, height/2]
+print(pixel_value1)
+ 
+# 设置指定坐标位置像素的值
+pim[width/2, height/2] = (0, 0, 0)
+ 
+# 使用putpixel方法设置指定坐标位置像素的值
+img.putpixel((w//2, h//2), (255,255,255))
+ 
+# 设置指定区域像素的值
+for w in range(int(width/2) - 50, int(width/2) + 50):
+    for h in range(int(height/2) - 50, int(height/2) + 50):
+        pim[w, h] = (255, 0, 0)
+        # img.putpixel((w, h), (255,255,255))
+img.show()
+		
+		]]>
+		</programlisting>
+	</section>
+	<section>
+		<title>图像商加文字</title>
+		<programlisting>
+		<![CDATA[
+from PIL import Image, ImageDraw, ImageFont
+ 
+img = Image.open('netkiller.jpg')
+ 
+# 创建Draw对象:
+draw = ImageDraw.Draw(img)
+# 字体颜色
+fillColor = (255, 0, 0)
+ 
+text = 'https://www.netkiller.cn'
+position = (100,100)
+ 
+draw.text(position, text, fill=fillColor)
+img.show()
+		
+		]]>
+		</programlisting>
+	</section>
+	<section>
+		<title></title>
+		<programlisting>
+		<![CDATA[
+from PIL import Image
+import numpy as np
+ 
+img = Image.open('netkiller.jpg')
+ 
+# PIL.Image 转 numpy
+array = np.array(img)  
+ 
+# numpy转 PIL.Image
+img1 = Image.fromarray(array)  
+img1 = Image.fromarray(array.astype('uint8'))
+ 
+img1.save('from_array.jpg')		
+		]]>
+		</programlisting>
+	</section>
+	
+	
+</section>

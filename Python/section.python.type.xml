@@ -230,7 +230,32 @@ re.sub("[0-9]", " ", line)
 			]]>
 			</programlisting>
 		</section>
-		
+		<section>
+			<title>uuid</title>
+			<programlisting>
+			<![CDATA[
+import uuid
+
+# 生成一个基于时间和主机地址的UUID
+uuid1 = uuid.uuid1()
+
+# 生成一个基于命名空间和名字的MD5散列的UUID
+uuid3 = uuid.uuid3(uuid.NAMESPACE_DNS, 'python.org')
+
+# 生成一个随机UUID
+uuid4 = uuid.uuid4()
+
+# 生成一个基于命名空间和名字的SHA-1散列的UUID
+uuid5 = uuid.uuid5(uuid.NAMESPACE_DNS, 'python.org')
+
+# 打印UUID的字符串表示形式
+print(str(uuid1))
+print(str(uuid3))
+print(str(uuid4))
+print(str(uuid5))			
+			]]>
+			</programlisting>
+		</section>
 	</section>
 	<section id="float">
 		<title>float 浮点数值</title>

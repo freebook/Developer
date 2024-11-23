@@ -172,7 +172,7 @@ cd Imaging-1.1.6/
 	</section>
 	<section id="getopt">
 		<title>getopt – Command line option parsing</title>
-	</section> &section.library.syslog.xml;
+	</section>
 	<section id="python-subversion">
 		<title>python-subversion</title>
 		<screen>
