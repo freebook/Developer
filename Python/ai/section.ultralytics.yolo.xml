@@ -18,7 +18,7 @@
 		<listitem>YOLOv8 X（Extra Large）	非常大	YOLOv8x</listitem>
 	</orderedlist>
 	<section>
-		<title>训练</title>
+		<title>模型训练</title>
 		<programlisting>
 		<![CDATA[
 from ultralytics import YOLO
@@ -45,7 +45,7 @@ model.val(data='captcha/images/YOLODataset/dataset.yaml')
 		</programlisting>
 	</section>
 	<section>
-		<title>预测</title>
+		<title>模型预测</title>
 		<programlisting>
 		<![CDATA[
 from ultralytics import YOLO
@@ -82,36 +82,7 @@ for result in results:
     result.show()  # 显示结果型的架构		
 		]]>
 		</programlisting>
-		<section>
-			<title>提取标签</title>
-			<programlisting>
-			<![CDATA[
-from ultralytics import YOLO
-
-# 加载模型
-# model = YOLO("yolo11n.pt")
-# model = YOLO('weights/last.pt')
-model = YOLO('weights/best.pt')
-
-# 模型预测，save=True 的时候表示直接保存yolov8的预测结果
-results = model('images/0_5902.png')
-
-# View results
-for result in results:
-    # 处理结果
-    boxes = result.boxes  # 边界框结果
-    masks = result.masks  # 分割掩码结果
-    names = result.names
-    keypoints = result.keypoints  # 关键点检测结果
-    probs = result.probs  # 分类概率结果
-    obb = result.obb  # 方向边界框结果（OBB）
-    print(boxes)
-    for box in boxes:
-        print(names[int(box.cls)])
-    result.show()  # 显示结果			
-			]]>
-			</programlisting>
-		</section>
+		
 		<section>
 			<title>predict 参数</title>
 			<programlisting>
@@ -151,9 +122,107 @@ print(results)
 			]]>
 			</programlisting>
 		</section>
+		<section>
+			<title>返回结果</title>
+			<para>返回结果通常包含以下主要属性和方法：</para>
+			<literallayout>
+			<![CDATA[
+1.boxes: 包含检测到的边界框信息的对象。
+2.scores: 包含每个检测目标的置信度分数。
+3.classes: 包含每个检测目标的类别索引。
+4.masks: 如果使用实例分割模型，包含分割掩码。
+5.keypoints: 如果使用关键点检测模型，包含关键点信息。
+6.orig_img: 原始输入图像。
+7.plot(): 用于可视化检测结果的方法。			
+			]]>
+			</literallayout>
+			<para>boxes: </para>
+			<literallayout>
+			<![CDATA[
+1.boxes.xyxy: 返回每个检测目标的边界框坐标，格式为 [x_min, y_min, x_max, y_max]。
+2.boxes.conf: 返回每个检测目标的置信度分数。
+3.boxes.cls: 返回每个检测目标的类别索引。			
+			]]>
+			</literallayout>
+		</section>
+		<section>
+			<title>提取标签</title>
+			<programlisting>
+			<![CDATA[
+from ultralytics import YOLO
+
+# 加载模型
+# model = YOLO("yolo11n.pt")
+# model = YOLO('weights/last.pt')
+model = YOLO('weights/best.pt')
+
+# 模型预测，save=True 的时候表示直接保存yolov8的预测结果
+results = model('images/0_5902.png')
+
+# View results
+for result in results:
+    # 处理结果
+    boxes = result.boxes  # 边界框结果
+    masks = result.masks  # 分割掩码结果
+    names = result.names
+    keypoints = result.keypoints  # 关键点检测结果
+    probs = result.probs  # 分类概率结果
+    obb = result.obb  # 方向边界框结果（OBB）
+    print(boxes)
+    for box in boxes:
+        print(names[int(box.cls)])
+    result.show()  # 显示结果			
+			]]>
+			</programlisting>
+		</section>
+		<section>
+			<title>保存识别图像</title>
+			<programlisting>
+			<![CDATA[
+@app.post("/netkiller")
+async def netkiller(file: bytes = File()):
+    try:
+        filename = f"tmp/{uuid.uuid4()}.png"
+        print(filename)
+        with open(filename, "wb") as f:
+            f.write(file)
+
+        results = model(filename) # , conf=0.45
+
+        for result in results:
+            boxes = result.boxes  # 获取边界框信息
+            # probs = result.probs  # 获取分类概率
+            names = result.names
+            data = result.boxes.data
+            print(boxes)
+            # print(probs)
+            if names is not None:
+                labels = []
+                for box in boxes:
+                    label = names[int(box.cls)]
+                    labels.append(label)
+                    print(label)
+                # result.show()  # 显示结果型的架构
+                result.save(filename="tmp/test.png")
+
+            if boxes is not None:
+                image = Image.open(filename)
+                # x0, y0, x1, y1 = map(int, boxes.xyxy[0])
+                crop = tuple(map(int, boxes.xyxy[0]))
+
+                region = image.crop(crop)
+                region.save('tmp/neo.jpg')
+
+            return {"label": labels}
+    except Exception as e:
+        log.error(e)
+    return {"label": None}			
+			]]>
+			</programlisting>
+		</section>
 	</section>
 	<section>
-		<title>导出</title>
+		<title>模型导出</title>
 		<section>
 			<title>onnx 格式</title>
 			<screen>

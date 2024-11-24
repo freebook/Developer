@@ -30,6 +30,7 @@
 <!ENTITY section.python.container.xml 		SYSTEM "section.python.container.xml">
 <!ENTITY section.python.module.xml	 		SYSTEM "section.python.module.xml">
 <!ENTITY section.python.type.xml			SYSTEM "section.python.type.xml">
+<!ENTITY section.python.debug.xml			SYSTEM "section.python.debug.xml">
 
 <!ENTITY part.bigdata.xml					SYSTEM "part.bigdata.xml">
 <!ENTITY chapter.crawler.xml				SYSTEM "chapter.crawler.xml">
@@ -53,12 +54,12 @@
 <!ENTITY chapter.stock.xml					SYSTEM "chapter.stock.xml">
 <!ENTITY chapter.video.xml					SYSTEM "chapter.video.xml">
 
-<!ENTITY section.ai.xml						SYSTEM "section.ai.xml">
-<!ENTITY section.ai.openai.xml				SYSTEM "section.ai.openai.xml">
-<!ENTITY section.ai.face.xml				SYSTEM "section.ai.face.xml">
-<!ENTITY section.ai.langchain.xml			SYSTEM "section.ai.langchain.xml">
+<!ENTITY section.ai.xml						SYSTEM "ai/section.ai.xml">
+<!ENTITY section.ai.openai.xml				SYSTEM "ai/section.ai.openai.xml">
+<!ENTITY section.ai.face.xml				SYSTEM "ai/section.ai.face.xml">
+<!ENTITY section.ai.langchain.xml			SYSTEM "ai/section.ai.langchain.xml">
 <!ENTITY section.ai.tensorflow.xml			SYSTEM "ai/section.ai.tensorflow.xml">
-<!ENTITY section.ai.numpy.xml				SYSTEM "section.ai.numpy.xml">
+<!ENTITY section.ai.numpy.xml				SYSTEM "ai/section.ai.numpy.xml">
 <!ENTITY chapter.pytorch.xml				SYSTEM "ai/chapter.pytorch.xml">
 <!ENTITY section.pytorch.torchvision.xml	SYSTEM "ai/section.pytorch.torchvision.xml">
 <!ENTITY section.pytorch.example.xml		SYSTEM "ai/section.pytorch.example.xml">
@@ -66,6 +67,11 @@
 <!ENTITY section.ultralytics.yolo.xml		SYSTEM "ai/section.ultralytics.yolo.xml">
 <!ENTITY section.ultralytics.task.xml		SYSTEM "ai/section.ultralytics.task.xml">
 <!ENTITY section.ultralytics.example.xml	SYSTEM "ai/section.ultralytics.example.xml">
+
+<!ENTITY chapter.ai.nlp.xml					SYSTEM "chapter.ai.nlp.xml">
+<!ENTITY section.nlp.jieba.xml				SYSTEM "section.nlp.jieba.xml">
+<!ENTITY section.nlp.wordcloud.xml			SYSTEM "section.nlp.wordcloud.xml">
+<!ENTITY section.nlp.transformers.xml		SYSTEM "section.nlp.transformers.xml">
 
 <!ENTITY chapter.chart.xml					SYSTEM "chapter.chart.xml">
 <!ENTITY section.chart.matplotlib.xml		SYSTEM "section.chart.matplotlib.xml">
@@ -84,11 +90,6 @@
 <!ENTITY chapter.terminal.xml				SYSTEM "chapter.terminal.xml">
 <!ENTITY section.terminal.prompt_toolkit.xml	SYSTEM "section.terminal.prompt_toolkit.xml">
 
-<!ENTITY chapter.ai.nlp.xml					SYSTEM "chapter.ai.nlp.xml">
-<!ENTITY section.nlp.jieba.xml				SYSTEM "section.nlp.jieba.xml">
-<!ENTITY section.nlp.wordcloud.xml			SYSTEM "section.nlp.wordcloud.xml">
-<!ENTITY section.nlp.transformers.xml		SYSTEM "section.nlp.transformers.xml">
-
 <!ENTITY chapter.graphics.xml				SYSTEM "chapter.graphics.xml">
 <!ENTITY section.graphics.xml				SYSTEM "section.graphics.xml">
 <!ENTITY section.graphics.opencv.xml		SYSTEM "section.graphics.opencv.xml">
@@ -96,5 +97,4 @@
 
 <!ENTITY section.video.movie.xml			SYSTEM "section.video.movie.xml">
 
-<!ENTITY chapter.python.debug.xml			SYSTEM "chapter.python.debug.xml">
 <!ENTITY chapter.faq.xml					SYSTEM "chapter.faq.xml">

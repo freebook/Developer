@@ -1,9 +1,48 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<section id="threading">
-	<title>Python 多线程</title>
-	<section>
-		<title>创建线程</title>
-		<programlisting>
+<section id="process">
+	<title>进程与线程</title>
+	<section id="subprocess">
+		<title>subprocess</title>
+		<section>
+			<title>check_output</title>
+			<programlisting>
+			<![CDATA[
+sp = subprocess.check_output(cmd)
+text = sp.decode('UTF8')
+print(text)
+		]]>
+			</programlisting>
+			<para>获取IP地址</para>
+			<programlisting>
+		<![CDATA[ 
+import subprocess
+
+command = "/usr/bin/ip addr show eth0 | grep 'inet ' | awk '{print $2}' | cut -d/ -f1"
+screen = subprocess.check_output(command, shell=True)
+print(screen.decode().replace("\n", ""))		
+		]]>
+			</programlisting>
+			<para>制定运行目录</para>
+			<programlisting>
+		<![CDATA[ 
+#!/usr/bin/python
+# -*-coding：utf-8-*-
+import subprocess
+
+output = subprocess.check_output("ls", cwd="/")
+print(output.decode())
+
+output = subprocess.check_output("/usr/bin/git pull", cwd="/opt/netkiller", shell=True)
+print(output.decode())		
+		]]>
+			</programlisting>
+		</section>
+	</section>
+	<section id="threading">
+		<title>Python 多线程</title>
+		<section>
+			<title>创建线程</title>
+			<programlisting>
 		<![CDATA[
 from threading import Thread
 import time
@@ -32,36 +71,38 @@ if __name__ == "__main__":
         t.start()
     print("Done")		
 		]]>
-		</programlisting>
-	</section>
-	
-	<section>
-		<title>threading 高级线程接口</title>
-		<subtitle>threading — Higher-level threading interface</subtitle>
-		<screen>
-        
-import threading  
-class MyThread(threading.Thread):  
-    def __init__(self, name=None):  
-        threading.Thread.__init__(self)  
-        self.name = name  
-      
-    def run(self):  
-        print self.name  
-  
-def test():  
-    for i in range(0, 100):  
-        t = MyThread("thread_" + str(i))  
-        t.start()  
-  
-if __name__=='__main__':  
-    test()  	
-		</screen>	
-	</section>
-	<section>
-		<title>Lock 线程锁</title>
-		<para>这里实现了一个计数器 count 这个全局变量会被多个线程同时操作，使其能够被顺序相加，需要靠线程锁的帮助。</para>
-		<programlisting>
+			</programlisting>
+		</section>
+
+		<section>
+			<title>threading 高级线程接口</title>
+			<subtitle>threading — Higher-level threading interface</subtitle>
+			<screen>
+
+				import threading
+				class MyThread(threading.Thread):
+				def
+				__init__(self, name=None):
+				threading.Thread.__init__(self)
+				self.name =
+				name
+
+				def run(self):
+				print self.name
+
+				def test():
+				for i in range(0, 100):
+				t = MyThread("thread_" + str(i))
+				t.start()
+
+				if __name__=='__main__':
+				test()
+			</screen>
+		</section>
+		<section>
+			<title>Lock 线程锁</title>
+			<para>这里实现了一个计数器 count 这个全局变量会被多个线程同时操作，使其能够被顺序相加，需要靠线程锁的帮助。</para>
+			<programlisting>
 		<![CDATA[
 #-*- encoding: utf-8 -*-
 import threading
@@ -100,12 +141,14 @@ if __name__ == '__main__':
     for t in threads:
         t.join()
         ]]>
-		</programlisting>
-	</section>
-	<section>
-		<title>Queue 队列</title>
-		<para>ref: http://www.ibm.com/developerworks/aix/library/au-threadingpython/</para>
-		<programlisting>
+			</programlisting>
+		</section>
+		<section>
+			<title>Queue 队列</title>
+			<para>ref:
+				http://www.ibm.com/developerworks/aix/library/au-threadingpython/
+			</para>
+			<programlisting>
 		<![CDATA[
  #!/usr/bin/env python
 import Queue
@@ -155,6 +198,86 @@ queue.join()
 main()
 print "Elapsed Time: %s" % (time.time() - start)
 		]]>
+			</programlisting>
+		</section>
+	</section>
+	<section id="daemon">
+		<title>守护进程（Daemon）</title>
+		<para>http://www.myelin.co.nz/post/2003/3/13/#200303135</para>
+		<programlisting language="python">
+	<![CDATA[
+#!/usr/bin/env python
+
+import os, sys
+
+print "I'm going to fork now - the child will write something to a pipe, and the parent will read it back"
+
+r, w = os.pipe()           # r,w是文件描述符, 不是文件对象
+
+pid = os.fork()
+if pid:
+    # 父进程
+    os.close(w)           # 关闭一个文件描述符
+    r = os.fdopen(r)      # 将r转化为文件对象
+    print "parent: reading"
+    txt = r.read()
+    os.waitpid(pid, 0)   # 确保子进程被撤销
+else:
+    # 子进程
+    os.close(r)
+    w = os.fdopen(w, 'w')
+    print "child: writing"
+    w.write("here's some text from the child")
+    w.close()
+    print "child: closing"
+    sys.exit(0)
+
+print "parent: got it; text =", txt
+	]]>
+		</programlisting>
+		<programlisting language="python">
+	<![CDATA[
+import sys, os
+
+if __name__ == "__main__":
+    # do the UNIX double-fork magic, see Stevens' "Advanced
+    # Programming in the UNIX Environment" for details (ISBN 0201563177)
+    try:
+        pid = os.fork()
+        if pid > 0:
+            # exit first parent
+            sys.exit(0)
+    except OSError, e:
+        print >>sys.stderr, "fork #1 failed: %d (%s)" % (e.errno, e.strerror)
+        sys.exit(1)
+
+    # decouple from parent environment
+    os.chdir("/")
+    os.setsid()
+    os.umask(0)
+
+    # do second fork
+    try:
+        pid = os.fork()
+        if pid > 0:
+            # exit from second parent, print eventual PID before
+            print "Daemon PID %d" % pid
+            sys.exit(0)
+    except OSError, e:
+        print >>sys.stderr, "fork #2 failed: %d (%s)" % (e.errno, e.strerror)
+        sys.exit(1)
+
+    # start the daemon main loop
+	]]>
+		</programlisting>
+		<para></para>
+		<programlisting language="python">
+	<![CDATA[
+# Redirect standard file descriptors
+sys.stdin = open('/dev/null', 'r')
+sys.stdout = open('/dev/null', 'w')
+sys.stderr = open('/dev/null', 'w')
+	]]>
 		</programlisting>
 	</section>
 </section>

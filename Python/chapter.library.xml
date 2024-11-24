@@ -93,7 +93,7 @@ for n in range(5):
 		print(i)		
 		]]>
 		</programlisting>
-	</section> &section.library.random.xml; &section.library.threading.xml; &section.library.syslog.xml; &section.library.socket.xml; &section.library.process.xml; &section.library.yaml.xml; &section.library.daemon.xml;
+	</section> &section.library.random.xml; &section.library.threading.xml; &section.library.syslog.xml; &section.library.socket.xml;  &section.library.yaml.xml; 
 	<section id="python-memcached">
 		<title>python-memcached</title>
 		<link linkend="python">参考Python安装</link>
@@ -139,37 +139,7 @@ mc.decr("key")
 			</screen>
 		</example>
 	</section>
-	<section id="pyro">
-		<title>Pyro - Pyro is short for PYthon Remote Objects</title>
-		<para>http://pyro.sourceforge.net/</para>
-	</section>
-	<section id="python-imaging">
-		<title>Python Imaging Library</title>
-		<para>Debian/Ubuntu</para>
-		<screen>
-		<![CDATA[
-sudo apt-get install libjpeg62-dev
-sudo apt-get install python-imaging
-		]]>
-		</screen>
-		<para>采用源码安装</para>
-		<screen>
-		<![CDATA[
-tar zxvf Imaging-1.1.6.tar.gz
-cd Imaging-1.1.6/
-		]]>
-		</screen>
-		<command>sudo python setup.py install</command>
-		<note>
-			<title>decoder jpeg not available</title>
-			<para>首先确认jpeg库是否安装</para>
-			<para>find / -name jpeglib.h</para>
-			<para>然后修改头文件</para>
-			<para>Imaging-1.1.6/libImaging</para>
-			<para>修改Jpeg.h, #include "jpeglib.h" 改为</para>
-			<para>#include "/usr/include/jpeglib.h"</para>
-		</note>
-	</section>
+	
 	<section id="getopt">
 		<title>getopt – Command line option parsing</title>
 	</section>
@@ -248,35 +218,14 @@ $ dpkg -L python-subversion
 	]]>
 		</screen>
 	</section>
-	<section id="simplehttpserver">
-		<title>SimpleHTTPServer</title>
-		<example>
-			<title>SimpleHTTPServer</title>
-			<screen>
-			<![CDATA[
-python -m SimpleHTTPServer &
-			]]>
-			</screen>
-			<screen>
-			<![CDATA[
-curl http://localhost:8000/
-			]]>
-			</screen>
-		</example>
-	</section>
+
 	<section id="fuse-python">
 		<title>fuse-python.x86_64 : Python bindings for FUSE - filesystem in
 			userspace</title>
 
 	</section>
 
-	<section id="python.network">
-		<title>Network</title>
-		<section id="gevent">
-			<title>gevent - A coroutine-based network library for Python</title>
-			<para>http://www.gevent.org/</para>
-		</section>
-	</section>
+
 
 	<section id="python-spdylay">
 		<title>Python-spdylay - Spdylay Python Extension Module</title>

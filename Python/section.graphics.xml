@@ -77,12 +77,12 @@ lines = draw.Lines(
 	</section>
 </section>
 <section id="qrcode">
-		<title>二维码</title>
-		<section>
-			<title>qrcode</title>
-			<para>安装</para>
-			<para>pip install qrcode</para>
-			<screen>
+	<title>二维码</title>
+	<section>
+		<title>qrcode</title>
+		<para>安装</para>
+		<para>pip install qrcode</para>
+		<screen>
 		<![CDATA[
 neo@MacBook-Pro-Neo ~ % pip install qrcode
 Collecting qrcode
@@ -91,9 +91,9 @@ Requirement already satisfied: six in /usr/local/lib/python3.9/site-packages (fr
 Installing collected packages: qrcode
 Successfully installed qrcode-6.1		
 		]]>
-			</screen>
-			<para>常规二维码</para>
-			<programlisting>
+		</screen>
+		<para>常规二维码</para>
+		<programlisting>
 		<![CDATA[
 import qrcode
 
@@ -103,12 +103,12 @@ img.save("text.png")
 img = qrcode.make('http://www.netkiller.cn')
 img.save("url.png")		
 		]]>
-			</programlisting>
+		</programlisting>
 
-			<section>
-				<title>设置颜色</title>
-				<para>颜色设置背景为白色，前景为绿色</para>
-				<programlisting>
+		<section>
+			<title>设置颜色</title>
+			<para>颜色设置背景为白色，前景为绿色</para>
+			<programlisting>
 		<![CDATA[
 import qrcode as qrcode
 qr = qrcode.QRCode(version=1, box_size=10, border=2)
@@ -121,9 +121,9 @@ img = qr.make_image(fill_color="green", back_color="white")
 img.save('green.png')
 img.show()  # 显示二维码		
 		]]>
-				</programlisting>
-				<para>QRCode 参数</para>
-				<literallayout>
+			</programlisting>
+			<para>QRCode 参数</para>
+			<literallayout>
 		<![CDATA[
 version: 范围为1到40整数（最小值是1，表示12×12的矩阵），如果想让程序自动生成，将值设置为 None 并使用 fit=True 参数即可。
 error_correction: 二维码的纠错范围，可以选择4个常量：
@@ -134,12 +134,12 @@ error_correction: 二维码的纠错范围，可以选择4个常量：
 boxsize: 每个点（方块）中的像素个数
 border: 二维码图像外围边框宽度，默认为4
 		]]>
-				</literallayout>
-			</section>
+			</literallayout>
+		</section>
 
-			<section>
-				<title>qr - script to create QR codes at the command line</title>
-				<screen>
+		<section>
+			<title>qr - script to create QR codes at the command line</title>
+			<screen>
 			<![CDATA[
 NAME
        qr - script to create QR codes at the command line
@@ -183,24 +183,24 @@ OPTIONS
 SEE ALSO
        https://github.com/lincolnloop/python-qrcode/			
 			]]>
-				</screen>
-				<para>使用方法</para>
-				<screen>
+			</screen>
+			<para>使用方法</para>
+			<screen>
 			<![CDATA[
 neo@MacBook-Pro-Neo ~ % qr "Some text" > test.png			
 			]]>
-				</screen>
-			</section>
+			</screen>
 		</section>
-		<section id="MyQR">
-			<title>MyQR</title>
-			<para>安装依赖包</para>
-			<screen>
+	</section>
+	<section id="MyQR">
+		<title>MyQR</title>
+		<para>安装依赖包</para>
+		<screen>
 		<![CDATA[
 pip install myqr		
 		]]>
-			</screen>
-			<programlisting>
+		</screen>
+		<programlisting>
 		<![CDATA[
 from MyQR import myqr
 # myqr.run 参数:
@@ -212,23 +212,23 @@ myqr.run(words="http://www.netkiller.com",
          picture="db.png", colorized=True,
          save_name="netkiller.png")		
 		]]>
-			</programlisting>
-		</section>
-		<section>
-			<title>从图片识别二维码</title>
-			<para>安装依赖包</para>
-			<screen>
+		</programlisting>
+	</section>
+	<section>
+		<title>从图片识别二维码</title>
+		<para>安装依赖包</para>
+		<screen>
 		<![CDATA[
 pip install pyzbar		
 		]]>
-			</screen>
-			<para>pyzbar 是调用 zbar 共享库，所以还需要安装 zbar</para>
-			<screen>
+		</screen>
+		<para>pyzbar 是调用 zbar 共享库，所以还需要安装 zbar</para>
+		<screen>
 		<![CDATA[
 brew install zbar		
 		]]>
-			</screen>
-			<programlisting>
+		</screen>
+		<programlisting>
 		<![CDATA[
 import numpy as np
 from PIL import Image
@@ -242,19 +242,19 @@ print('-' * 50)
 # 读取内容
 print(pyzbar.decode(im)[0].data.decode("utf-8"))		
 		]]>
-			</programlisting>
-			<para>输出信息</para>
-			<screen>
+		</programlisting>
+		<para>输出信息</para>
+		<screen>
 		<![CDATA[
 [Decoded(data=b'http://www.netkiller.com', type='QRCODE', rect=Rect(left=36, top=36, width=297, height=297), polygon=[Point(x=36, y=36), Point(x=36, y=332), Point(x=333, y=333), Point(x=332, y=36)])]
 --------------------------------------------------
 http://www.netkiller.com		
 		]]>
-			</screen>
-		</section>
-		<section>
-			<title>从摄像头识别二维码</title>
-			<programlisting>
+		</screen>
+	</section>
+	<section>
+		<title>从摄像头识别二维码</title>
+		<programlisting>
 		<![CDATA[
 import cv2
 import pyzbar.pyzbar as pyzbar
@@ -298,29 +298,29 @@ if __name__ == '__main__':
     camera.release()
     cv2.destroyAllWindows()		
 		]]>
-			</programlisting>
-		</section>
+		</programlisting>
 	</section>
-	<section id="graphviz">
-		<title>graphviz</title>
-		<section>
-			<title>安装 graphviz 环境</title>
-			<para>安装 graphviz 命令</para>
-			<screen>
+</section>
+<section id="graphviz">
+	<title>graphviz</title>
+	<section>
+		<title>安装 graphviz 环境</title>
+		<para>安装 graphviz 命令</para>
+		<screen>
 		<![CDATA[ 
 brew install graphviz
 		]]>
-			</screen>
-			<para>安装 graphviz 包</para>
-			<screen>
+		</screen>
+		<para>安装 graphviz 包</para>
+		<screen>
 		<![CDATA[ 
 pip install graphviz	
 		]]>
-			</screen>
-		</section>
-		<section>
-			<title>例子</title>
-			<screen>
+		</screen>
+	</section>
+	<section>
+		<title>例子</title>
+		<screen>
 		<![CDATA[ 
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
@@ -336,6 +336,38 @@ for a in A:
 
 e.view()		
 		]]>
-			</screen>
-		</section>
+		</screen>
 	</section>
+</section>
+
+<section id="pyro">
+	<title>Pyro - Pyro is short for PYthon Remote Objects</title>
+	<para>http://pyro.sourceforge.net/</para>
+</section>
+<section id="python-imaging">
+	<title>Python Imaging Library</title>
+	<para>Debian/Ubuntu</para>
+	<screen>
+		<![CDATA[
+sudo apt-get install libjpeg62-dev
+sudo apt-get install python-imaging
+		]]>
+	</screen>
+	<para>采用源码安装</para>
+	<screen>
+		<![CDATA[
+tar zxvf Imaging-1.1.6.tar.gz
+cd Imaging-1.1.6/
+		]]>
+	</screen>
+	<command>sudo python setup.py install</command>
+	<note>
+		<title>decoder jpeg not available</title>
+		<para>首先确认jpeg库是否安装</para>
+		<para>find / -name jpeglib.h</para>
+		<para>然后修改头文件</para>
+		<para>Imaging-1.1.6/libImaging</para>
+		<para>修改Jpeg.h, #include "jpeglib.h" 改为</para>
+		<para>#include "/usr/include/jpeglib.h"</para>
+	</note>
+</section>

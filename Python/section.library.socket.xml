@@ -1,6 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <section>
-	<title>Socket</title>
+	<title>网络开发（Socket）</title>
+	<section id="simplehttpserver">
+		<title>SimpleHTTPServer</title>
+		<example>
+			<title>SimpleHTTPServer</title>
+			<screen>
+			<![CDATA[
+python -m SimpleHTTPServer &
+			]]>
+			</screen>
+			<screen>
+			<![CDATA[
+curl http://localhost:8000/
+			]]>
+			</screen>
+		</example>
+	</section>
 	<section>
 		<title>UDP</title>
 		<section>
@@ -81,6 +97,13 @@ while 1:
    connection.buffer += raw_input(" Chat > ") # raw_input (this is a blocking call)
 			]]>
 			</programlisting>
-		</section>		
+		</section>
+	</section>
+	<section id="python.network">
+		<title>Network</title>
+		<section id="gevent">
+			<title>gevent - A coroutine-based network library for Python</title>
+			<para>http://www.gevent.org/</para>
+		</section>
 	</section>
 </section>

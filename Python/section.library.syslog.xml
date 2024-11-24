@@ -2,14 +2,14 @@
 <section id="syslog">
 	<title>syslog</title>
 	<screen>
-import syslog
+		import syslog
 
-syslog.syslog('Processing started')
-if error:
-    syslog.syslog(syslog.LOG_ERR, 'Processing started')
+		syslog.syslog('Processing started')
+		if error:
+		syslog.syslog(syslog.LOG_ERR, 'Processing started')
 
-syslog.openlog(logopt=syslog.LOG_PID, facility=syslog.LOG_MAIL)
-syslog.syslog('E-mail processing initiated...')
+		syslog.openlog(logopt=syslog.LOG_PID, facility=syslog.LOG_MAIL)
+		syslog.syslog('E-mail processing initiated...')
 	</screen>
 	<section id="syslog.udp">
 		<title>udp client</title>
@@ -66,11 +66,11 @@ def syslog(message, level=LEVEL['notice'], facility=FACILITY['daemon'],
 		</screen>
 		<para>Example usage:</para>
 		<screen>
-from syslog import syslog
-message = 'There were zwei peanuts walking down der strasse...'
-syslog(message, level=5, facility=3, host='localhost', port=514)
+			from syslog import syslog
+			message = 'There were zwei peanuts walking down der strasse...'
+			syslog(message, level=5, facility=3, host='localhost', port=514)
 		</screen>
-		
+
 		<para></para>
 		<screen>
 		<![CDATA[
@@ -356,5 +356,27 @@ except KeyboardInterrupt:
 #f.close		
 		]]>
 		</screen>
+	</section>
+
+	<section>
+		<title>日志彩色输出</title>
+		<programlisting>
+		<![CDATA[
+# Create a logger object.
+import logging
+logger = logging.getLogger('your-module')
+
+# Initialize coloredlogs.
+import coloredlogs
+coloredlogs.install(level='DEBUG')
+
+# Some examples.
+logger.debug("this is a debugging message")
+logger.info("this is an informational message")
+logger.warn("this is a warning message")
+logger.error("this is an error message")
+logger.critical("this is a critical message")		
+		]]>
+		</programlisting>
 	</section>
 </section>
