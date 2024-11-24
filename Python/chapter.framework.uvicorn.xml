@@ -103,5 +103,5 @@ INFO:     Application startup complete.
 		]]>
 		</screen>
 	</section>
-	&section.uvicorn.fastapi.xml;
 </chapter>
+	&section.uvicorn.fastapi.xml;

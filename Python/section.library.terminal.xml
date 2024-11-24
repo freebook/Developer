@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<chapter id="terminal">
+<section id="terminal">
 	<title>终端环境开发</title>
 	<section>
 		<title>ANSI Color</title>
@@ -69,8 +69,10 @@ if __name__ == "__main__":
 				<para>Fore是针对字体颜色，Back是针对字体背景颜色，Style是针对字体格式</para>
 				<itemizedlist>
 					<title></title>
-					<listitem>Fore: BLACK, RED, GREEN, YELLOW, BLUE, MAGENTA, CYAN, WHITE, RESET.</listitem>
-					<listitem>Back: BLACK, RED, GREEN, YELLOW, BLUE, MAGENTA, CYAN, WHITE, RESET.</listitem>
+					<listitem>Fore: BLACK, RED, GREEN, YELLOW, BLUE, MAGENTA, CYAN,
+						WHITE, RESET.</listitem>
+					<listitem>Back: BLACK, RED, GREEN, YELLOW, BLUE, MAGENTA, CYAN,
+						WHITE, RESET.</listitem>
 					<listitem>Style: DIM, NORMAL, BRIGHT, RESET_ALL</listitem>
 				</itemizedlist>
 			</section>
@@ -817,7 +819,8 @@ opqrstu    0.023   5.000e+78    92   1.280e+22
 		</section>
 		<section>
 			<title>彩色表格</title>
-			<para>texttable 本身不支持 ANSI 彩色文本输出，我以修复了该 Bug，已经想修复代码pull request 给作者。</para>
+			<para>texttable 本身不支持 ANSI 彩色文本输出，我以修复了该 Bug，已经想修复代码pull request 给作者。
+			</para>
 			<para>
 				Pull Request:
 				<ulink url="https://github.com/foutaise/texttable/pull/75" />
@@ -842,7 +845,47 @@ print(table.draw())
 			</programlisting>
 		</section>
 	</section>
-	&section.terminal.prompt_toolkit.xml;
+
+	<section id="prompt_toolkit">
+		<title>prompt_toolkit</title>
+		<subtitle>prompt_toolkit is a library for building powerful
+			interactive command line applications in Python.</subtitle>
+		<para>
+			<ulink
+				url="https://github.com/prompt-toolkit/python-prompt-toolkit" />
+		</para>
+		<para>
+			<ulink url="https://github.com/prompt-toolkit/pymux" />
+		</para>
+		<para>
+			<ulink url="https://github.com/prompt-toolkit/pyvim" />
+		</para>
+		<section>
+			<title>安装</title>
+			<screen>
+		<![CDATA[
+pip install prompt-toolkit		
+		]]>
+			</screen>
+		</section>
+	</section>
+	<section>
+		<title>Simple Terminal Menu</title>
+		<screen>
+	<![CDATA[
+pip install simple-term-menu	
+	]]>
+		</screen>
+	</section>
+	<section id="picotui">
+		<title>picotui</title>
+		<screen>
+	<![CDATA[
+pip install picotui	
+	]]>
+		</screen>
+	</section>
+
 	<section id="tui">
 		<title>TUI</title>
 		<title>Widget toolkit</title>
@@ -866,4 +909,4 @@ print(table.draw())
 			</screen>
 		</section>
 	</section>
-</chapter>
+</section>

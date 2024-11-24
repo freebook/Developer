@@ -15,6 +15,9 @@
 <!ENTITY section.library.process.xml		SYSTEM "section.library.process.xml">
 <!ENTITY section.library.yaml.xml			SYSTEM "section.library.yaml.xml">
 <!ENTITY section.library.daemon.xml			SYSTEM "section.library.daemon.xml">
+<!ENTITY section.library.captcha.xml		SYSTEM "section.library.captcha.xml">
+<!ENTITY section.library.terminal.xml		SYSTEM "section.library.terminal.xml">
+<!ENTITY section.library.network.xml		SYSTEM "section.library.network.xml">
 <!ENTITY chapter.exe.xml					SYSTEM "chapter.exe.xml">
 <!ENTITY chapter.3rdparty.xml				SYSTEM "chapter.3rdparty.xml">
 
@@ -86,9 +89,6 @@
 <!ENTITY section.ops.logging.xml			SYSTEM "section.ops.logging.xml">
 <!ENTITY section.ops.firewall.xml			SYSTEM "section.ops.firewall.xml">
 <!ENTITY section.ops.watchdog.xml			SYSTEM "section.ops.watchdog.xml">
-
-<!ENTITY chapter.terminal.xml				SYSTEM "chapter.terminal.xml">
-<!ENTITY section.terminal.prompt_toolkit.xml	SYSTEM "section.terminal.prompt_toolkit.xml">
 
 <!ENTITY chapter.graphics.xml				SYSTEM "chapter.graphics.xml">
 <!ENTITY section.graphics.xml				SYSTEM "section.graphics.xml">

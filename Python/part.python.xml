@@ -3,5 +3,4 @@
 	<title>Python 入门</title>
 	&chapter.python.xml;
 	&chapter.library.xml;
-	&chapter.terminal.xml;
 </part>

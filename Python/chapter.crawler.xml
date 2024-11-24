@@ -1,46 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <chapter id="index"><?dbhtml dir="crawler" ?>
 	<title>Crawler</title>
-	<section>
-		<title>Requests</title>
-		<screen>
-		<![CDATA[
-import requests
-
-r = requests.get('https://api.github.com/user', auth=('netkiller', '******'))
-print(r.status_code)
-print(r.headers['content-type'])
-print(r.encoding)
-print(r.text)
-print(r.json())
-		
-		]]>
-		</screen>
-	</section>
-
-<section id="scrapy">
-	<title>Scrapy - Python web scraping and crawling framework</title>
-	<para>https://scrapy.org</para>
-	<section id="setup">
-		<title>安装 scrapy 开发环境</title>
-		<section>
-			<title>Mac</title>
-			<screen><![CDATA[
+	<section id="scrapy">
+		<title>Scrapy - Python web scraping and crawling framework</title>
+		<para>https://scrapy.org</para>
+		<section id="setup">
+			<title>安装 scrapy 开发环境</title>
+			<section>
+				<title>Mac</title>
+				<screen><![CDATA[
 neo@MacBook-Pro ~ % brew install python3
 neo@MacBook-Pro ~ % pip3 install scrapy
 			]]></screen>
-		</section>
-		<section>
-			<title>Ubuntu</title>
-			<para>搜索 scrapy 包，scrapy 支持 Python2.7 和 Python3 我们只需要 python3 版本</para>
-			<screen><![CDATA[
+			</section>
+			<section>
+				<title>Ubuntu</title>
+				<para>搜索 scrapy 包，scrapy 支持 Python2.7 和 Python3 我们只需要 python3 版本
+				</para>
+				<screen><![CDATA[
 neo@netkiller ~ % apt-cache search scrapy | grep python3
 python3-scrapy - Python web scraping and crawling framework (Python 3)
 python3-scrapy-djangoitem - Scrapy extension to write scraped items using Django models (Python3 version)
 python3-w3lib - Collection of web-related functions (Python 3)			
 			]]></screen>
-			<para>Ubuntu 17.04 默认 scrapy 版本为 1.3.0-1 如果需要最新的 1.4.0 请使用 pip 命令安装</para>
-			<screen><![CDATA[
+				<para>Ubuntu 17.04 默认 scrapy 版本为 1.3.0-1 如果需要最新的 1.4.0 请使用 pip 命令安装
+				</para>
+				<screen><![CDATA[
 neo@netkiller ~ % apt search python3-scrapy
 Sorting... Done
 Full Text Search... Done
@@ -50,8 +35,8 @@ python3-scrapy/zesty,zesty 1.3.0-1~exp2 all
 python3-scrapy-djangoitem/zesty,zesty 1.1.1-1 all
   Scrapy extension to write scraped items using Django models (Python3 version)
 			]]></screen>
-			<para>安装 scrapy</para>
-			<screen><![CDATA[
+				<para>安装 scrapy</para>
+				<screen><![CDATA[
 neo@netkiller ~ % sudo apt install python3-scrapy
 [sudo] password for neo: 
 Reading package lists... Done
@@ -78,19 +63,19 @@ Need to get 7,152 kB of archives.
 After this operation, 40.8 MB of additional disk space will be used.
 Do you want to continue? [Y/n]
 			]]></screen>
-			<para>输入大写 “Y” 然后回车</para>
-		</section>
-		<section>
-			<title>使用 pip 安装 scrapy</title>
-			<screen><![CDATA[
+				<para>输入大写 “Y” 然后回车</para>
+			</section>
+			<section>
+				<title>使用 pip 安装 scrapy</title>
+				<screen><![CDATA[
 neo@netkiller ~ % sudo apt install python3-pip
 neo@netkiller ~ % pip3 install scrapy
 			]]></screen>
-		</section>
-		<section>
-			<title>测试 scrapy</title>
-			<para>创建测试程序，用于验证 scrapy 安装是否存在问题。</para>
-			<screen>
+			</section>
+			<section>
+				<title>测试 scrapy</title>
+				<para>创建测试程序，用于验证 scrapy 安装是否存在问题。</para>
+				<screen>
 			<![CDATA[
 $ cat > myspider.py <<EOF
 import scrapy
@@ -107,16 +92,16 @@ class BlogSpider(scrapy.Spider):
             yield response.follow(next_page, self.parse)
 EOF
 			]]>
-			</screen>
-			<para>运行爬虫</para>
-			<screen><![CDATA[
+				</screen>
+				<para>运行爬虫</para>
+				<screen><![CDATA[
 $ scrapy runspider myspider.py
 			]]></screen>
+			</section>
 		</section>
-	</section>
-	<section id="scrapy">
-		<title>scrapy 命令</title>
-		<screen>
+		<section id="scrapy">
+			<title>scrapy 命令</title>
+			<screen>
 		<![CDATA[
 neo@MacBook-Pro ~/Documents/crawler % scrapy     
 Scrapy 1.4.0 - project: crawler
@@ -142,10 +127,10 @@ Available commands:
 
 Use "scrapy <command> -h" to see more info about a command
 		]]>
-		</screen>
-		<section id="scrapy.startproject">
-			<title></title>
-			<screen>
+			</screen>
+			<section id="scrapy.startproject">
+				<title></title>
+				<screen>
 			<![CDATA[
 neo@MacBook-Pro ~/Documents % scrapy startproject crawler 
 New Scrapy project 'crawler', using template directory '/usr/local/lib/python3.6/site-packages/scrapy/templates/project', created in:
@@ -155,21 +140,21 @@ You can start your first spider with:
     cd crawler
     scrapy genspider example example.com
 			]]>
-			</screen>
-		</section>
-		<section id="scrapy.genspider">
-			<title>新建 spider</title>
-			<screen>
+				</screen>
+			</section>
+			<section id="scrapy.genspider">
+				<title>新建 spider</title>
+				<screen>
 			<![CDATA[
 neo@MacBook-Pro ~/Documents/crawler % scrapy genspider netkiller netkiller.cn
 Created spider 'netkiller' using template 'basic' in module:
   crawler.spiders.netkiller
 			]]>
-			</screen>
-		</section>
-		<section id='scrapy.list'>
-			<title>列出可用的 spiders</title>
-			<screen>
+				</screen>
+			</section>
+			<section id='scrapy.list'>
+				<title>列出可用的 spiders</title>
+				<screen>
 			<![CDATA[
 neo@MacBook-Pro ~/Documents/crawler % scrapy list
 bing
@@ -177,27 +162,27 @@ book
 example
 netkiller			
 			]]>
-			</screen>
-		</section>
-		<section id="scrapy.crawl">
-			<title>运行 spider</title>
-			<screen>
+				</screen>
+			</section>
+			<section id="scrapy.crawl">
+				<title>运行 spider</title>
+				<screen>
 			<![CDATA[
 neo@MacBook-Pro ~/Documents/crawler % scrapy crawl netkiller
 			]]>
-			</screen>
-			<para>运行结果输出到 json 文件中</para>
-			<screen>
+				</screen>
+				<para>运行结果输出到 json 文件中</para>
+				<screen>
 			<![CDATA[
 neo@MacBook-Pro ~/Documents/crawler % scrapy crawl netkiller -o output.json					
 			]]>
-			</screen>
+				</screen>
+			</section>
 		</section>
-	</section>
-	<section id="shell">
-		<title>Scrapy Shell</title>
-		<para>Scrapy Shell 是一个爬虫命令行交互界面调试工具，可以使用它分析被爬的页面</para>
-		<screen>
+		<section id="shell">
+			<title>Scrapy Shell</title>
+			<para>Scrapy Shell 是一个爬虫命令行交互界面调试工具，可以使用它分析被爬的页面</para>
+			<screen>
 		<![CDATA[
 neo@MacBook-Pro /tmp % scrapy shell http://www.netkiller.cn
 2017-09-01 15:23:05 [scrapy.utils.log] INFO: Scrapy 1.4.0 started (bot: scrapybot)
@@ -244,40 +229,40 @@ neo@MacBook-Pro /tmp % scrapy shell http://www.netkiller.cn
 [s]   view(response)    View response in a browser
 >>> 
 		]]>
-		</screen>
-		<section id="response">
-			<title>response</title>
-			<para>response 是爬虫返回的页面，可以通过 css(), xpath() 等方法取出你需要的内容。</para>
+			</screen>
+			<section id="response">
+				<title>response</title>
+				<para>response 是爬虫返回的页面，可以通过 css(), xpath() 等方法取出你需要的内容。</para>
 
-			<section id="response.url">
-				<title>当前URL地址</title>
-				<screen>
+				<section id="response.url">
+					<title>当前URL地址</title>
+					<screen>
 				<![CDATA[
 >>> response.url
 'https://netkiller.cn/linux/index.html'
 				]]>
-				</screen>
-			</section>
-			<section id="status">
-				<title>status HTTP 状态</title>
-				<screen>
+					</screen>
+				</section>
+				<section id="status">
+					<title>status HTTP 状态</title>
+					<screen>
 				<![CDATA[
 >>> response.status
 200
 				]]>
-				</screen>
-			</section>
-			<section id="text">
-				<title>text 正文</title>
-				<para>返回 HTML 页面正文</para>
-				<screen><![CDATA[
+					</screen>
+				</section>
+				<section id="text">
+					<title>text 正文</title>
+					<para>返回 HTML 页面正文</para>
+					<screen><![CDATA[
 response.text
 				]]></screen>
-			</section>
-			<section id="response.css">
-				<title>css</title>
-				<para>css() 这个方法可以用来选择html和css</para>
-				<screen>
+				</section>
+				<section id="response.css">
+					<title>css</title>
+					<para>css() 这个方法可以用来选择html和css</para>
+					<screen>
 				<![CDATA[
 >>> response.css('title')
 [<Selector xpath='descendant-or-self::title' data='<title>Netkiller ebook - Linux ebook</ti'>]
@@ -288,9 +273,9 @@ response.text
 >>> response.css('title::text').extract()
 ['Netkiller ebook - Linux ebook']
 				]]>
-				</screen>
-				<para>基于 class 选择</para>
-				<screen>
+					</screen>
+					<para>基于 class 选择</para>
+					<screen>
 				<![CDATA[
 >>> response.css('a.ulink')[1].extract()
 '<a class="ulink" href="http://netkiller.github.io/" target="_top">http://netkiller.github.io</a>'	
@@ -298,9 +283,9 @@ response.text
 >>> response.css('a.ulink::text')[3].extract()
 'http://netkiller.sourceforge.net'
 				]]>
-				</screen>
-				<para>数组的处理</para>
-				<screen>
+					</screen>
+					<para>数组的处理</para>
+					<screen>
 				<![CDATA[
 >>> response.css('a::text').extract_first()
 '简体中文'
@@ -311,9 +296,9 @@ response.text
 >>> response.css('div.blockquote')[1].css('a.ulink::text').extract()
 ['Netkiller Architect 手札', 'Netkiller Developer 手札', 'Netkiller PHP 手札', 'Netkiller Python 手札', 'Netkiller Testing 手札', 'Netkiller Java 手札', 'Netkiller Cryptography 手札', 'Netkiller Linux 手札', 'Netkiller FreeBSD 手札', 'Netkiller Shell 手札', 'Netkiller Security 手札', 'Netkiller Web 手札', 'Netkiller Monitoring 手札', 'Netkiller Storage 手札', 'Netkiller Mail 手札', 'Netkiller Docbook 手札', 'Netkiller Project 手札', 'Netkiller Database 手札', 'Netkiller PostgreSQL 手札', 'Netkiller MySQL 手札', 'Netkiller NoSQL 手札', 'Netkiller LDAP 手札', 'Netkiller Network 手札', 'Netkiller Cisco IOS 手札', 'Netkiller H3C 手札', 'Netkiller Multimedia 手札', 'Netkiller Perl 手札', 'Netkiller Amateur Radio 手札']
 				]]>
-				</screen>
-				<para>正则表达式</para>
-				<screen>
+					</screen>
+					<para>正则表达式</para>
+					<screen>
 				<![CDATA[
 >>> response.css('title::text').re(r'Netkiller.*')
 ['Netkiller ebook - Linux ebook']
@@ -324,21 +309,21 @@ response.text
 >>> response.css('title::text').re(r'(\w+) (\w+)')
 ['Netkiller', 'ebook', 'Linux', 'ebook']
 				]]>
-				</screen>
-				<section>
-					<title>获取 html 属性</title>
-					<para>通过 a::attr() 可以获取 html 标记的属性值</para>
-					<screen>
+					</screen>
+					<section>
+						<title>获取 html 属性</title>
+						<para>通过 a::attr() 可以获取 html 标记的属性值</para>
+						<screen>
 					<![CDATA[
 >>> response.css('td a::attr(href)').extract_first()
 'http://netkiller.github.io/'					
 					]]>
-					</screen>
+						</screen>
+					</section>
 				</section>
-			</section>
-			<section id="response.xpath">
-				<title>xpath</title>
-				<screen>
+				<section id="response.xpath">
+					<title>xpath</title>
+					<screen>
 				<![CDATA[
 >>> response.xpath('//title')
 [<Selector xpath='//title' data='<title>Netkiller ebook - Linux ebook</ti'>]
@@ -346,9 +331,9 @@ response.text
 >>> response.xpath('//title/text()').extract_first()
 'Netkiller ebook - Linux ebook'				
 				]]>
-				</screen>
-				<para>xpath 也可以使用 re() 方法做正则处理</para>
-				<screen>
+					</screen>
+					<para>xpath 也可以使用 re() 方法做正则处理</para>
+					<screen>
 				<![CDATA[
 >>> response.xpath('//title/text()').re(r'(\w+)')
 ['Netkiller', 'ebook', 'Linux', 'ebook']	
@@ -356,16 +341,16 @@ response.text
 >>> response.xpath('//div[@class="time"]/text()').re('[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2}')
 ['2017-09-21 02:01:38']	
 				]]>
-				</screen>
-				<para>抽取HTML属性值，如图片URL。</para>
-				<screen>
+					</screen>
+					<para>抽取HTML属性值，如图片URL。</para>
+					<screen>
 				<![CDATA[
 >>> response.xpath('//img/@src').extract()
 ['graphics/spacer.gif', 'graphics/note.gif', 'graphics/by-nc-sa.png', '/images/weixin.jpg', 'images/neo.jpg', '/images/weixin.jpg']
 				]]>
-				</screen>
-				<para>筛选 class</para>
-				<screen>
+					</screen>
+					<para>筛选 class</para>
+					<screen>
 				<![CDATA[
 >>> response.xpath('//a/@href')[0].extract()
 'http://netkiller.github.io/'
@@ -377,34 +362,34 @@ response.text
 ['Netkiller Architect 手札', 'Netkiller Developer 手札', 'Netkiller PHP 手札', 'Netkiller Python 手札', 'Netkiller Testing 手札', 'Netkiller Java 手札', 'Netkiller Cryptography 手札', 'Netkiller Linux 手札', 'Netkiller FreeBSD 手札', 'Netkiller Shell 手札', 'Netkiller Security 手札', 'Netkiller Web 手札', 'Netkiller Monitoring 手札', 'Netkiller Storage 手札', 'Netkiller Mail 手札', 'Netkiller Docbook 手札', 'Netkiller Project 手札', 'Netkiller Database 手札', 'Netkiller PostgreSQL 手札', 'Netkiller MySQL 手札', 'Netkiller NoSQL 手札', 'Netkiller LDAP 手札', 'Netkiller Network 手札', 'Netkiller Cisco IOS 手札', 'Netkiller H3C 手札', 'Netkiller Multimedia 手札', 'Netkiller Perl 手札', 'Netkiller Amateur Radio 手札']
 
 				]]>
-				</screen>
-				<para>使用 | 匹配多组规则</para>
-				<screen>
+					</screen>
+					<para>使用 | 匹配多组规则</para>
+					<screen>
 				<![CDATA[
 >>> response.xpath('//ul[@class="topnews_nlist"]/li/h2/a/@href|//ul[@class="topnews_nlist"]/li/a/@href').extract()
 				]]>
-				</screen>
+					</screen>
 
-			</section>
-			<section id="headers">
-				<title>headers</title>
-				<screen><![CDATA[
+				</section>
+				<section id="headers">
+					<title>headers</title>
+					<screen><![CDATA[
 response.headers.getlist('Set-Cookie')
 				]]></screen>
-			</section>
+				</section>
 
+			</section>
 		</section>
-	</section>
-	<section id="tutorial">
-		<title>爬虫项目</title>
-		<section id="startproject">
-			<title>创建项目</title>
-			<para>创建爬虫项目</para>
-			<screen><![CDATA[
+		<section id="tutorial">
+			<title>爬虫项目</title>
+			<section id="startproject">
+				<title>创建项目</title>
+				<para>创建爬虫项目</para>
+				<screen><![CDATA[
 scrapy startproject project
 			]]></screen>
-			<para>在抓取之前，你需要新建一个Scrapy工程</para>
-			<screen>
+				<para>在抓取之前，你需要新建一个Scrapy工程</para>
+				<screen>
 			<![CDATA[
 neo@MacBook-Pro ~/Documents % scrapy startproject crawler 
 New Scrapy project 'crawler', using template directory '/usr/local/lib/python3.6/site-packages/scrapy/templates/project', created in:
@@ -430,9 +415,9 @@ neo@MacBook-Pro ~/Documents/crawler % find .
 ./scrapy.cfg
 
 			]]>
-			</screen>
-			<para>Scrapy 工程目录主要有以下文件组成：</para>
-			<screen><![CDATA[
+				</screen>
+				<para>Scrapy 工程目录主要有以下文件组成：</para>
+				<screen><![CDATA[
 scrapy.cfg: 项目配置文件
 middlewares.py : 项目 middlewares 文件
 items.py: 项目items文件
@@ -440,11 +425,11 @@ pipelines.py: 项目管道文件
 settings.py: 项目配置文件
 spiders: 放置spider的目录
 			]]></screen>
-		</section>
-		<section id="spider">
-			<title>Spider</title>
-			<para>创建爬虫，名字是 netkiller, 爬行的地址是 netkiller.cn</para>
-			<screen>
+			</section>
+			<section id="spider">
+				<title>Spider</title>
+				<para>创建爬虫，名字是 netkiller, 爬行的地址是 netkiller.cn</para>
+				<screen>
 			<![CDATA[
 neo@MacBook-Pro ~/Documents/crawler % scrapy genspider netkiller netkiller.cn
 Created spider 'netkiller' using template 'basic' in module:
@@ -468,9 +453,9 @@ neo@MacBook-Pro ~/Documents/crawler % find .
 ./scrapy.cfg
 
 			]]>
-			</screen>
-			<para>打开 crawler/spiders/netkiller.py 文件，修改内容如下</para>
-			<screen>
+				</screen>
+				<para>打开 crawler/spiders/netkiller.py 文件，修改内容如下</para>
+				<screen>
 			<![CDATA[
 # -*- coding: utf-8 -*-
 import scrapy
@@ -491,9 +476,9 @@ class NetkillerSpider(scrapy.Spider):
             
         pass
 			]]>
-			</screen>
-			<para>运行爬虫</para>
-			<screen>
+				</screen>
+				<para>运行爬虫</para>
+				<screen>
 			<![CDATA[
 neo@MacBook-Pro ~/Documents/crawler % scrapy crawl netkiller -o output.json
 2017-09-08 11:42:30 [scrapy.utils.log] INFO: Scrapy 1.4.0 started (bot: crawler)
@@ -610,25 +595,26 @@ neo@MacBook-Pro ~/Documents/crawler % scrapy crawl netkiller -o output.json
  'start_time': datetime.datetime(2017, 9, 8, 3, 42, 30, 931267)}
 2017-09-08 11:42:31 [scrapy.core.engine] INFO: Spider closed (finished)
 			]]>
-			</screen>
-			<para>你会看到返回结果</para>
-			<screen>
+				</screen>
+				<para>你会看到返回结果</para>
+				<screen>
 			<![CDATA[
 {'name': ['Netkiller Architect 手札'], 'url': ['../architect/index.html']}			
 			]]>
-			</screen>
-			<section id="response.follow">
-				<title>翻页操作</title>
-				<para>下面我们演示爬虫翻页，例如我们需要遍历这部电子书《Netkiller Linux 手札》 https://netkiller.cn/linux/index.html，首先创建一个爬虫任务</para>
-				<screen>
+				</screen>
+				<section id="response.follow">
+					<title>翻页操作</title>
+					<para>下面我们演示爬虫翻页，例如我们需要遍历这部电子书《Netkiller Linux 手札》
+						https://netkiller.cn/linux/index.html，首先创建一个爬虫任务</para>
+					<screen>
 				<![CDATA[
 neo@MacBook-Pro ~/Documents/crawler % scrapy genspider book netkiller.cn
 Created spider 'book' using template 'basic' in module:
   crawler.spiders.book
 				]]>
-				</screen>
-				<para>编辑爬虫任务</para>
-				<screen>
+					</screen>
+					<para>编辑爬虫任务</para>
+					<screen>
 				<![CDATA[
 # -*- coding: utf-8 -*-
 import scrapy
@@ -650,13 +636,13 @@ class BookSpider(scrapy.Spider):
 
         pass
 				]]>
-				</screen>
+					</screen>
 
-			</section>
-			<section id="response.body">
-				<title>采集内容保存到文件</title>
-				<para>下面的例子是将 response.body 返回采集内容保存到文件中</para>
-				<screen>
+				</section>
+				<section id="response.body">
+					<title>采集内容保存到文件</title>
+					<para>下面的例子是将 response.body 返回采集内容保存到文件中</para>
+					<screen>
 				<![CDATA[
 # -*- coding: utf-8 -*-
 import scrapy
@@ -684,9 +670,9 @@ class BookSpider(scrapy.Spider):
         pass
 				
 				]]>
-				</screen>
-				<para>任务运维结束后查看采集出来的文件</para>
-				<screen>
+					</screen>
+					<para>任务运维结束后查看采集出来的文件</para>
+					<screen>
 				<![CDATA[
 neo@MacBook-Pro ~/Documents/crawler % ls /tmp/*.html
 /tmp/apt-get.html            /tmp/disc.html               /tmp/infomation.html         /tmp/lspci.html              /tmp/svgatextmode.html
@@ -702,27 +688,29 @@ neo@MacBook-Pro ~/Documents/crawler % ls /tmp/*.html
 /tmp/device.cpu.html         /tmp/hwinfo.html             /tmp/lsblk.html              /tmp/rpmbuild.html           /tmp/yum.html
 /tmp/device.hba.html         /tmp/index.html              /tmp/lshw.html               /tmp/smartctl.html				
 				]]>
-				</screen>
-				<para>这里只是做演示，生产环境请不要在 parse(self, response) 中处理，后面会讲到 Pipeline。</para>
+					</screen>
+					<para>这里只是做演示，生产环境请不要在 parse(self, response) 中处理，后面会讲到 Pipeline。
+					</para>
+				</section>
 			</section>
-		</section>
-		<section id="settings">
-			<title>settings.py 爬虫配置文件</title>
-			<section>
-				<title>忽略 robots.txt 规则</title>
-				<screen>
+			<section id="settings">
+				<title>settings.py 爬虫配置文件</title>
+				<section>
+					<title>忽略 robots.txt 规则</title>
+					<screen>
 				<![CDATA[
 # Obey robots.txt rules
 ROBOTSTXT_OBEY = False
 				]]>
-				</screen>
+					</screen>
+				</section>
 			</section>
-		</section>
-		<section id="items">
-			<title>Item</title>
-			<para>Item 在 scrapy 中的类似“实体”或者“POJO”的概念，是一个数据结构类。爬虫通过ItemLoader将数据放到Item中</para>
-			<para>下面是 items.py 文件</para>
-			<screen>
+			<section id="items">
+				<title>Item</title>
+				<para>Item 在 scrapy
+					中的类似“实体”或者“POJO”的概念，是一个数据结构类。爬虫通过ItemLoader将数据放到Item中</para>
+				<para>下面是 items.py 文件</para>
+				<screen>
 			<![CDATA[
 # -*- coding: utf-8 -*-
 
@@ -744,9 +732,9 @@ class CrawlerItem(scrapy.Item):
     pass
 
 			]]>
-			</screen>
-			<para>下面是爬虫文件</para>
-			<screen>
+				</screen>
+				<para>下面是爬虫文件</para>
+				<screen>
 			<![CDATA[
 # -*- coding: utf-8 -*-
 import scrapy
@@ -778,14 +766,17 @@ class ExampleSpider(scrapy.Spider):
         l.add_value('content', response.body)
         return l.load_item()
 			]]>
-			</screen>
-			<para>yield response.follow( url, callback=self.parse_item) 会回调 parse_item(self, response) 将爬到的数据放置到 Item 中</para>
-		</section>
-		<section id="pipeline">
-			<title>Pipeline</title>
-			<para>Pipeline 管道线，主要的功能是对 Item 的数据处理，例如计算、合并等等。通常我们在这里做数据保存。下面的例子是将爬到的数据保存到 json 文件中。</para>
-			<para>默认情况 Pipeline 是禁用的，首先我们需要开启 Pipeline 支持，修改 settings.py 文件，找到下面配置项，去掉注释。</para>
-			<screen>
+				</screen>
+				<para>yield response.follow( url, callback=self.parse_item) 会回调
+					parse_item(self, response) 将爬到的数据放置到 Item 中</para>
+			</section>
+			<section id="pipeline">
+				<title>Pipeline</title>
+				<para>Pipeline 管道线，主要的功能是对 Item
+					的数据处理，例如计算、合并等等。通常我们在这里做数据保存。下面的例子是将爬到的数据保存到 json 文件中。</para>
+				<para>默认情况 Pipeline 是禁用的，首先我们需要开启 Pipeline 支持，修改 settings.py
+					文件，找到下面配置项，去掉注释。</para>
+				<screen>
 			<![CDATA[
 # Configure item pipelines
 # See http://scrapy.readthedocs.org/en/latest/topics/item-pipeline.html
@@ -793,9 +784,9 @@ ITEM_PIPELINES = {
     'crawler.pipelines.CrawlerPipeline': 300,
 }
 			]]>
-			</screen>
-			<para>修改 pipelines.py 文件。</para>
-			<screen>
+				</screen>
+				<para>修改 pipelines.py 文件。</para>
+				<screen>
 			<![CDATA[
 # -*- coding: utf-8 -*-
 
@@ -819,9 +810,9 @@ class CrawlerPipeline(object):
         return item
 
 			]]>
-			</screen>
-			<para>下面是 items.py 文件</para>
-			<screen>
+				</screen>
+				<para>下面是 items.py 文件</para>
+				<screen>
 			<![CDATA[
 # -*- coding: utf-8 -*-
 
@@ -843,9 +834,9 @@ class CrawlerItem(scrapy.Item):
     pass
 
 			]]>
-			</screen>
-			<para>下面是爬虫文件</para>
-			<screen>
+				</screen>
+				<para>下面是爬虫文件</para>
+				<screen>
 			<![CDATA[
 # -*- coding: utf-8 -*-
 import scrapy
@@ -877,9 +868,9 @@ class ExampleSpider(scrapy.Spider):
         l.add_value('content', response.body)
         return l.load_item()
 			]]>
-			</screen>
-			<para>items.json 文件如下</para>
-			<screen>
+				</screen>
+				<para>items.json 文件如下</para>
+				<screen>
 			<![CDATA[
 {"title": ["5.31.\u00a0Spring boot with Data restful"], "ctime": ["2017-09-11 11:57:53"]}
 {"title": ["5.30.\u00a0Spring boot with Phoenix"], "ctime": ["2017-09-11 11:57:53"]}
@@ -904,47 +895,47 @@ class ExampleSpider(scrapy.Spider):
 {"title": ["5.10.\u00a0Spring boot with Logging"], "ctime": ["2017-09-11 11:57:53"]}
 {"title": ["5.9.\u00a0String boot with RestTemplate"], "ctime": ["2017-09-11 11:57:53"]}			
 			]]>
-			</screen>
+				</screen>
+			</section>
+
+
 		</section>
-
-
-	</section>
-	<section id="images">
-		<title>下载图片</title>
-		<para>创建项目</para>
-		<screen>
+		<section id="images">
+			<title>下载图片</title>
+			<para>创建项目</para>
+			<screen>
 		<![CDATA[
 neo@MacBook-Pro ~/Documents % scrapy startproject photo			
 		]]>
-		</screen>
-		<screen>
+			</screen>
+			<screen>
 		<![CDATA[
 neo@MacBook-Pro ~/Documents % cd photo
 		]]>
-		</screen>
-		<para>安装依赖库</para>
-		<screen>
+			</screen>
+			<para>安装依赖库</para>
+			<screen>
 		<![CDATA[
 neo@MacBook-Pro ~/Documents/photo % pip3 install image		
 		]]>
-		</screen>
-		<para>创建爬虫</para>
-		<screen>
+			</screen>
+			<para>创建爬虫</para>
+			<screen>
 		<![CDATA[
 neo@MacBook-Pro ~/Documents/photo % scrapy genspider jiandan jandan.net			
 		]]>
-		</screen>
-		<section>
-			<title>配置 settings.py</title>
-			<para>忽略 robots.txt 规则</para>
-			<screen>
+			</screen>
+			<section>
+				<title>配置 settings.py</title>
+				<para>忽略 robots.txt 规则</para>
+				<screen>
 			<![CDATA[
 # Obey robots.txt rules
 ROBOTSTXT_OBEY = False
 			]]>
-			</screen>
-			<para>配置图片保存路径与缩图</para>
-			<screen>
+				</screen>
+				<para>配置图片保存路径与缩图</para>
+				<screen>
 			<![CDATA[
 #图片保存路径
 IMAGES_STORE='/tmp/photo'
@@ -955,13 +946,13 @@ IMAGES_THUMBS = {
     'big': (200, 200),
 }				
 			]]>
-			</screen>
-		</section>
-		<section>
-			<title>修改 pipelines.py 文件</title>
-			<para>加入 process_item（）与 item_completed（） 方法</para>
-			<para>注意：PhotoPipeline(ImagesPipeline) 需要继承 ImagesPipeline</para>
-			<screen>
+				</screen>
+			</section>
+			<section>
+				<title>修改 pipelines.py 文件</title>
+				<para>加入 process_item（）与 item_completed（） 方法</para>
+				<para>注意：PhotoPipeline(ImagesPipeline) 需要继承 ImagesPipeline</para>
+				<screen>
 			<![CDATA[
 # -*- coding: utf-8 -*-
 
@@ -988,12 +979,12 @@ class PhotoPipeline(ImagesPipeline):
         item['image_paths'] = image_paths
         return item
 			]]>
-			</screen>
-		</section>
-		<section>
-			<title>编辑 items.py</title>
-			<para>忽略 robots.txt 规则</para>
-			<screen>
+				</screen>
+			</section>
+			<section>
+				<title>编辑 items.py</title>
+				<para>忽略 robots.txt 规则</para>
+				<screen>
 			<![CDATA[
 # -*- coding: utf-8 -*-
 
@@ -1014,11 +1005,11 @@ class PhotoItem(scrapy.Item):
     image_paths = scrapy.Field()
     pass
 			]]>
-			</screen>
-		</section>
-		<section>
-			<title>Spider 爬虫文件</title>
-			<screen>
+				</screen>
+			</section>
+			<section>
+				<title>Spider 爬虫文件</title>
+				<screen>
 			<![CDATA[
 # -*- coding: utf-8 -*-
 import scrapy
@@ -1046,64 +1037,64 @@ class JiandanSpider(scrapy.Spider):
         l.add_xpath('image_urls','//img//@src' )
         return l.load_item()				
 			]]>
-			</screen>
+				</screen>
+			</section>
 		</section>
-	</section>
-	<section id="xpath">
-		<title>xpath</title>
-		<section>
-			<title>逻辑运算符</title>
+		<section id="xpath">
+			<title>xpath</title>
 			<section>
-				<title>and</title>
-				<screen>
+				<title>逻辑运算符</title>
+				<section>
+					<title>and</title>
+					<screen>
 				<![CDATA[
 >>> response.xpath('//span[@class="time" and @id="news-time"]/text()').extract()
 ['2017-10-09 09:46']				
 				]]>
-				</screen>
-			</section>
-			<section>
-				<title>or</title>
-				<screen>
+					</screen>
+				</section>
+				<section>
+					<title>or</title>
+					<screen>
 				<![CDATA[
 //*[@class='foo' or contains(@class,' foo ') or starts-with(@class,'foo ') or substring(@class,string-length(@class)-3)=' foo']				
 				]]>
-				</screen>
+					</screen>
+				</section>
 			</section>
-		</section>
-		<section id="fun">
-			<title>function</title>
-			<section id="text()">
-				<title>text()</title>
-				<screen>
+			<section id="fun">
+				<title>function</title>
+				<section id="text()">
+					<title>text()</title>
+					<screen>
 				<![CDATA[
 >>> response.xpath('//title/text()').extract_first()
 'Netkiller ebook - Linux ebook'				
 				]]>
-				</screen>
-			</section>
-			<section id="contains()">
-				<title>contains()</title>
-				<para>contains() 匹配含有特定字符串的 class</para>
-				<screen>
+					</screen>
+				</section>
+				<section id="contains()">
+					<title>contains()</title>
+					<para>contains() 匹配含有特定字符串的 class</para>
+					<screen>
 				<![CDATA[
 //*[contains(@class,'foo')]
 				]]>
-				</screen>
-				<screen>
+					</screen>
+					<screen>
 				<![CDATA[
 >>> response.xpath('//ul[contains(@class, "topnews_nlist")]/li/h2/a/@href|//ul[contains(@class, "topnews_nlist")]/li/a/@href').extract()	
 				]]>
-				</screen>
-				<para>内容匹配</para>
-				<screen>
+					</screen>
+					<para>内容匹配</para>
+					<screen>
 				<![CDATA[
 >>> response.xpath('//div[@id="epContentLeft"]/h1[contains(text(),"10")]/text()').extract()
 ['美联储10月起启动渐进式缩表 维持基准利率不变']					
 				]]>
-				</screen>
+					</screen>
+				</section>
 			</section>
 		</section>
 	</section>
-</section>		
 </chapter>

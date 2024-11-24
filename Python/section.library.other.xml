@@ -78,134 +78,25 @@ keyboard.wait()
 		</programlisting>
 	</section>
 </section>
-<section id="httpx">
-	<title>httpx</title>
-	<section>
-		<title>安装 https</title>
-
-		<screen>
-	<![CDATA[
-python3 -m pip install httpx
-
-# HTTP/2 支持，我们需要额外安装一个库
-
-python3 -m pip install httpx[http2]
-	
-	]]>
-		</screen>
-
-	</section>
-	<section>
-		<title>操作演示</title>
-		<programlisting>
+<section id="ZeroRPC">
+	<title>ZeroRPC</title>
+	<para>http://zerorpc.dotcloud.com/</para>
+	<para>Zeromq 是基于zeromq、gevent和 msgpack开发的分布式RPC框架.</para>
+</section>
+<section>
+	<title>表情符号 emoji</title>
+	<screen>
 		<![CDATA[
-import httpx
-r = httpx.get('https://www.example.org/')
-r.text
-r.content
-r.json()
-r.status_code		
+import emoji
+result = emoji.emojize('Python is :thumbs_up:')
+print(result)
+# 'Python is  &#x27;
+<br/># You can also reverse this:
+result = emoji.demojize('Python is  ')
+print(result)<br/># 'Python is :thumbs_up:&#x27;		
 		]]>
-		</programlisting>
-	</section>
-	<section>
-		<title>Restful CRUD 操作</title>
-		<programlisting>
-		<![CDATA[
-r = httpx.get('https://netkiller.cn/get')
-r = httpx.post('https://netkiller.cn/post', data={'key': 'value'})
-r = httpx.put('https://netkiller.cn/put', data={'key': 'value'})
-r = httpx.delete('https://netkiller.cn/delete')
-r = httpx.head('https://netkiller.cn/head')
-r = httpx.options('https://netkiller.cn/options')
-		]]>
-		</programlisting>
-	</section>
-	<section>
-		<title>HTTP 2</title>
-		<programlisting>
-		<![CDATA[
-import httpx
-client = httpx.Client(http2=True, verify=False)
-headers = {
-    'Host': 'netkiller.com',
-    'upgrade-insecure-requests': '1',
-    'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.121 Safari/537.36',
-    'accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9',
-    'sec-fetch-site': 'none',
-    'sec-fetch-mode': 'navigate',
-    'sec-fetch-dest': 'document',
-    'accept-language': 'zh-CN,zh;q=0.9'
-}
-
-response = client.get('https://www.netkiller.cn/linux/', headers=headers)
-print(response.text)
-		]]>
-		</programlisting>
-	</section>
-	<section>
-		<title>异步请求</title>
-		<programlisting>
-		<![CDATA[
-async with httpx.AsyncClient() as client:
-    resp = await client.get('https://www.netkiller.cn/index.html')
-    assert resp.status_code == 200
-    html = resp.text
-		]]>
-		</programlisting>
-		<para>asyncio</para>
-		<programlisting>
-		<![CDATA[
-import httpx
-import asyncio
-
-async def main():
-    async with httpx.AsyncClient() as client:
-        resp = await client.get("https://www.netkiller.cn")
-        result = resp.text
-        print(result)
-
-asyncio.run(main())		
-		]]>
-		</programlisting>
-	</section>
-	<section>
-		<title>日志输出</title>
-		<programlisting>
-		<![CDATA[
-import logging.config
-import httpx
-
-LOGGING_CONFIG = {
-    "version": 1,
-    "handlers": {
-        "default": {
-            "class": "logging.StreamHandler",
-            "formatter": "http",
-            "stream": "ext://sys.stderr"
-        }
-    },
-    "formatters": {
-        "http": {
-            "format": "%(levelname)s [%(asctime)s] %(name)s - %(message)s",
-            "datefmt": "%Y-%m-%d %H:%M:%S",
-        }
-    },
-    'loggers': {
-        'httpx': {
-            'handlers': ['default'],
-            'level': 'DEBUG',
-        },
-        'httpcore': {
-            'handlers': ['default'],
-            'level': 'DEBUG',
-        },
-    }
-}
-
-logging.config.dictConfig(LOGGING_CONFIG)
-httpx.get('https://www.example.com')		
-		]]>
-		</programlisting>
-	</section>
+	</screen>
+</section>
+<section>
+	<title>Markdown</title>
 </section>

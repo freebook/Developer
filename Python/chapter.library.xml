@@ -93,7 +93,15 @@ for n in range(5):
 		print(i)		
 		]]>
 		</programlisting>
-	</section> &section.library.random.xml; &section.library.threading.xml; &section.library.syslog.xml; &section.library.socket.xml;  &section.library.yaml.xml; 
+	</section> 
+	
+	&section.library.random.xml; 
+	&section.library.threading.xml;
+	&section.library.syslog.xml; 
+	&section.library.socket.xml; 
+	&section.library.yaml.xml; 
+	&section.library.network.xml;
+	
 	<section id="python-memcached">
 		<title>python-memcached</title>
 		<link linkend="python">参考Python安装</link>
@@ -274,5 +282,7 @@ pip install dominate
 		</screen>
 		
 	</section>
+	&section.library.terminal.xml;
+	&section.library.captcha.xml;
 	&section.library.other.xml;
 </chapter>
