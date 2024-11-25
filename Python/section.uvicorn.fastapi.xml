@@ -1,6 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <chapter id="fastapi">
 	<title>FastAPI</title>
+	<section>
+		<title>GET 请求</title>
+		<section>
+			<title>返回图片</title>
+			<programlisting>
+			<![CDATA[
+from fastapi import FastAPI, File, Response
+
+app = FastAPI()
+
+
+@app.get("/image")
+async def show_image():
+    with open("image.jpg", "rb") as image_file:
+        image_data = image_file.read()
+    return Response(content=image_data, media_type="image/jpeg")			
+			]]>
+			</programlisting>
+		</section>
+	</section>
 	<section id="app.post">
 		<title>Post 请求</title>
 		<screen>
