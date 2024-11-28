@@ -114,20 +114,40 @@ print(extension)  # 输出：".txt"
 		</section>
 	</section>
 	<section>
-		<title></title>
+		<title>创建目录</title>
 		<programlisting>
 		<![CDATA[
-crop_dir_name = "ultralytics_crop"
-if not os.path.exists(crop_dir_name):
-    os.mkdir(crop_dir_name)		
+dir_name = "neo"
+if not os.path.exists(dir_name):
+    os.mkdir(dir_name)
+		]]>
+		</programlisting>
+	</section>
+	<section id="os.access">
+		<title>权限判断</title>
+		<programlisting>
+		<![CDATA[
+	# 判断文件写权限
+    ret = os.access(filename, os.W_OK)
+    print('文件的写权限：',ret)
+
+	# 判断文件读权限
+	ret = os.access(filename,os.R_OK)
+    print('文件的读权限：',ret)		
+    
+	# 判断文件执行权限
+	ret = os.access(filename, os.X_OK)
+	print('文件的执行权限：',ret)
+    
 		]]>
 		</programlisting>
 	</section>
 	<section>
-		<title>文件列表</title>
-
-		<programlisting language="python">
-	<![CDATA[
+		<title>目录和文件列表</title>
+		<section>
+			<title>遍历当前目录</title>
+			<programlisting language="python">
+			<![CDATA[
 import os
 
 path = "/etc"
@@ -137,11 +157,11 @@ for name in os.listdir("/etc/"):
         files.append(name)
 
 print(files)	
-	]]>
-		</programlisting>
-		<para>随机抽取一个文件</para>
-		<programlisting>
-		<![CDATA[
+			]]>
+			</programlisting>
+			<para>随机抽取一个文件</para>
+			<programlisting>
+			<![CDATA[
 import os
 from random import choice
 
@@ -153,6 +173,97 @@ for name in os.listdir("/etc/"):
 
 file = choice(files)
 print(file)
+			]]>
+			</programlisting>
+		</section>
+		<section>
+			<title>递归遍历目录</title>
+			<para>os.walk() 的基本用法</para>
+			<literallayout>
+			<![CDATA[
+os.walk(top, topdown=True, onerror=None, followlinks=False) 是 os 模块中的一个函数，用于生成遍历目录树的文件名。这个函数返回一个三元组 (dirpath, dirnames, filenames)。
+
+参数详解
+
+top：要遍历的顶级目录的路径。
+topdown (可选)：如果为 True（默认值），则从顶级开始向下遍历。如果为 False，则从底部的子目录开始向上遍历。
+onerror (可选)：是一个函数，用于错误处理。如果指定，则应该是一个接受单个参数（异常实例）的函数。如果未指定或为 None，错误将被忽略。
+followlinks (可选)：如果为 True，则会遍历符号链接指向的目录。
+
+返回值
+
+dirpath 是一个字符串，表示正在遍历的目录的路径。
+dirnames 是一个列表，包含了 dirpath 下所有子目录的名字，不包含孙子目录。
+filenames 是一个列表，包含了非目录文件的名字。
+			]]>
+			</literallayout>
+			<programlisting>
+			<![CDATA[
+    def walkdir(self):
+        for dirpath, dirnames, filenames in os.walk('/etc'):
+            print(f"dirpath={dirpath}, dirnames={dirnames}, filenames={filenames}")
+            # print(filenames)			
+			]]>
+			</programlisting>
+			<para>使用 os.listdir 手工实现递归列目录</para>
+			<programlisting>
+			<![CDATA[
+    def scandir(self, path):
+        try:
+
+            for name in os.listdir(path):
+                current_path = os.path.join(path, name)
+                access = os.access(current_path, os.R_OK)
+                if access:
+                    # print(access)
+                    if os.path.isfile(current_path):
+                        print(current_path)
+
+                    if os.path.isdir(current_path):
+                        self.scandir(current_path)
+    
+        except Exception as e:
+            print(e)
+            
+    # 是否允许递归
+    def scandir(self, path, recursion=False):
+        try:
+
+            for name in os.listdir(path):
+                current_path = os.path.join(path, name)
+                access = os.access(current_path, os.R_OK)
+                if access:
+                    # print(access)
+                    if os.path.isfile(current_path):
+                        print(current_path)
+
+                    if recursion and os.path.isdir(current_path):
+                        self.scandir(current_path)
+        except Exception as e:
+            print(e)            
+	        ]]>
+			</programlisting>
+			<para>glob</para>
+			<programlisting>
+			<![CDATA[
+    def glob(self):
+    	# 当前目录
+        for file in glob.glob('*.conf', root_dir='/etc'):
+            print(file)			
+
+		# 递归遍历目录
+        for file in glob.glob('**/*.conf', root_dir='/etc'):
+            print(file)			
+			]]>
+			</programlisting>
+		</section>
+
+	</section>
+	<section>
+		<title>删除文件或目录</title>
+		<programlisting>
+		<![CDATA[
+os.removedirs("/path/to/your")		
 		]]>
 		</programlisting>
 	</section>
