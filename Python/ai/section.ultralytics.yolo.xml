@@ -17,25 +17,7 @@
 		<listitem>YOLOv8 Large	大	YOLOv8l</listitem>
 		<listitem>YOLOv8 X（Extra Large）	非常大	YOLOv8x</listitem>
 	</orderedlist>
-	<section>
-		<title>检查 Yolo 能否使用 GPU</title>
-		<programlisting>
-		<![CDATA[
-import torch
-
-# 检查torch是否有支持CUDA，即GPU能否使用
-if torch.cuda.is_available():
-    print(torch.cuda.get_device_name(0))
-    print(torch.version.cuda)
-else:
-    print("No gpu")
-
-# 如果CUDA可用，它还会打印出当前默认的CUDA设备（通常是第一个GPU）
-device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
-print(device)		
-		]]>
-		</programlisting>
-	</section>
+	
 	<section>
 		<title>labels 文件格式</title>
 		<para>x,y是目标的中心坐标，width,height是目标的宽和高。</para>
