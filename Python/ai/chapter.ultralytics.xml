@@ -423,22 +423,48 @@ PS D:\workspace\netkiller>
 		<para>ONNX 支持包括 PyTorch、TensorFlow、CNTK 和 MXNet
 			等在内的多个深度学习框架，可以将这些框架训练出的模型转换成 ONNX 格式，从而可以被其他框架或应用所使用。
 		</para>
+		<orderedlist>
+			<title>ONNX 的主要优点包括</title>
+			<listitem>
+				<para>互操作性好：ONNX 支持多个深度学习框架之间的模型转换，使得它们可以互相使用和部署，从而减少了开发和部署的难度和成本；
+				</para>
+			</listitem>
+			<listitem>
+				<para>高效性能：ONNX 可以在多种硬件和软件平台上运行，并提供了 C++和 Python
+					接口，可以大幅提高模型执行的效率和速度；</para>
+			</listitem>
+			<listitem>
+				<para>易于扩展：ONNX 的架构简单清晰，可以轻松地添加新的层次和类型，方便应对不断升级变化的深度学习技术和需求。</para>
+			</listitem>
+		</orderedlist>
+		<para>总之，ONNX 是一个方便快捷的深度学习模型转换和交换标准，可以帮助开发者更加轻松地将深度学习模型进行部署和迁移。</para>
+		<programlisting>
+		<![CDATA[
+from ultralytics import YOLO
 
+# Load the YOLO11 model
+model = YOLO("yolo11n.pt")
 
-		ONNX 的主要优点包括：
+# Export the model to ONNX format
+model.export(format="onnx")  # creates 'yolo11n.onnx'
 
-		互操作性好：ONNX
-		支持多个深度学习框架之间的模型转换，使得它们可以互相使用和部署，从而减少了开发和部署的难度和成本；
+# Load the exported ONNX model
+onnx_model = YOLO("yolo11n.onnx")
 
-		高效性能：ONNX
-		可以在多种硬件和软件平台上运行，并提供了 C++和 Python 接口，可以大幅提高模型执行的效率和速度；
+# Run inference
+results = onnx_model("https://ultralytics.com/images/bus.jpg")		
+		]]>
+		</programlisting>
+		<para></para>
+		<screen>
+		<![CDATA[
+# Export a YOLO11n PyTorch model to ONNX format
+yolo export model=yolo11n.pt format=onnx  # creates 'yolo11n.onnx'
 
-		易于扩展：ONNX
-		的架构简单清晰，可以轻松地添加新的层次和类型，方便应对不断升级变化的深度学习技术和需求。
-
-		总之，ONNX
-		是一个方便快捷的深度学习模型转换和交换标准，可以帮助开发者更加轻松地将深度学习模型进行部署和迁移。
-
+# Run inference with the exported model
+yolo predict model=yolo11n.onnx source='https://ultralytics.com/images/bus.jpg'		
+		]]>
+		</screen>
 
 	</section>
 	&section.ultralytics.example.xml;
