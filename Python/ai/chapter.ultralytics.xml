@@ -455,16 +455,7 @@ onnx_model = YOLO("yolo11n.onnx")
 results = onnx_model("https://ultralytics.com/images/bus.jpg")		
 		]]>
 		</programlisting>
-		<para></para>
-		<screen>
-		<![CDATA[
-# Export a YOLO11n PyTorch model to ONNX format
-yolo export model=yolo11n.pt format=onnx  # creates 'yolo11n.onnx'
 
-# Run inference with the exported model
-yolo predict model=yolo11n.onnx source='https://ultralytics.com/images/bus.jpg'		
-		]]>
-		</screen>
 
 	</section>
 	&section.ultralytics.example.xml;
