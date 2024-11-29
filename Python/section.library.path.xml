@@ -267,4 +267,80 @@ os.removedirs("/path/to/your")
 		]]>
 		</programlisting>
 	</section>
+	<section>
+		<title>路径操作</title>
+		<section>
+			<title>获取父目录</title>
+			<programlisting>
+			<![CDATA[
+from pathlib import Path
+
+path1 = Path(r"C:\folder\subfolder\file.txt")
+path2 = Path(r"C:\file.txt")
+path3 = Path(r"/home/neo/file.txt")
+print(path1.parent)
+print(path2.parent)
+print(path3.parent)
+print(path3.parent.parent)	
+			]]>
+			</programlisting>
+			<para>输出结果</para>
+			<screen>
+			<![CDATA[
+C:\folder\subfolder
+C:\
+\home\neo
+\home			
+			]]>
+			</screen>
+			<programlisting>
+			<![CDATA[
+from pathlib import Path
+p1 = Path("/Users/neo/files/neo.txt")
+print(p1.parent.absolute())
+print(p1.parents[2])
+			]]>
+			</programlisting>
+			<para>输出结果</para>
+			<screen>
+			<![CDATA[
+D:\Users\neo\files
+\Users		
+			]]>
+			</screen>
+			<programlisting>
+			<![CDATA[
+import os
+from pathlib import Path
+
+path1 = Path(r"C:\folder\subfolder\file.txt")
+path2 = Path(r"/home/neo/file.txt")
+
+print(os.path.abspath(os.path.join(path1, os.pardir)))
+print(os.path.abspath(os.path.join(path2, os.pardir)))
+
+print(os.path.abspath(os.path.join(path1, '..')))
+print(os.path.abspath(os.path.join(path2, '..')))
+
+print(os.path.dirname(path1))
+print(os.path.dirname(path2))
+
+print(os.path.dirname(os.path.dirname(path1)))
+			]]>
+			</programlisting>
+			<para>输出结果</para>
+			<screen>
+			<![CDATA[
+C:\folder\subfolder
+D:\home\neo
+C:\folder\subfolder
+D:\home\neo
+C:\folder\subfolder
+\home\neo	
+			]]>
+			</screen>
+			
+		</section>
+	</section>	
+	
 </section>
