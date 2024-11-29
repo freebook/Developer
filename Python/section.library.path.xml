@@ -259,11 +259,28 @@ filenames 是一个列表，包含了非目录文件的名字。
 		</section>
 
 	</section>
-	<section>
+	<section id="os.">
 		<title>删除文件或目录</title>
+		<para>删除文件</para>
 		<programlisting>
 		<![CDATA[
+import os
+
+os.remove(path) 
+		]]>
+		</programlisting>
+		<para>删除空文件夹 os.removedirs(path)</para>
+		<programlisting>
+		<![CDATA[
+import os	
 os.removedirs("/path/to/your")		
+		]]>
+		</programlisting>		
+		<para>递归删除文件夹</para>
+		<programlisting>
+		<![CDATA[
+import shutil
+shutil.rmtree(path)		
 		]]>
 		</programlisting>
 	</section>
