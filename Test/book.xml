@@ -5,7 +5,7 @@
 	"http://www.oasis-open.org/docbook/xml/5.0b5/dtd/docbook.dtd" [
 	/usr/share/xml/docbook/schema/dtd/5.0/docbook.dtd
 -->
-<!DOCTYPE subject SYSTEM "/usr/local/Cellar/docbook/5.1_1/docbook/xml/5.0/dtd/docbook.dtd" [
+<!DOCTYPE subject SYSTEM "/opt/homebrew/Cellar/docbook/5.1_1/docbook/xml/5.0/dtd/docbook.dtd" [
 	
  	<!ENTITY % common.doctype.entity.xml            SYSTEM "../common/doctype.entity.xml">
         %common.doctype.entity.xml;
