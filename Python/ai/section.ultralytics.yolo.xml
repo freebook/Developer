@@ -11,13 +11,13 @@
 	</orderedlist>
 	<orderedlist>
 		<title>模型规格</title>
-		<listitem>YOLOv8 Nano	非常小	YOLOv8n</listitem>
-		<listitem>YOLOv8 Small	小	YOLOv8s</listitem>
-		<listitem>YOLOv8 Medium	中	YOLOv8m</listitem>
-		<listitem>YOLOv8 Large	大	YOLOv8l</listitem>
-		<listitem>YOLOv8 X（Extra Large）	非常大	YOLOv8x</listitem>
+		<listitem>YOLOv8 Nano 非常小 YOLOv8n</listitem>
+		<listitem>YOLOv8 Small 小 YOLOv8s</listitem>
+		<listitem>YOLOv8 Medium 中 YOLOv8m</listitem>
+		<listitem>YOLOv8 Large 大 YOLOv8l</listitem>
+		<listitem>YOLOv8 X（Extra Large） 非常大 YOLOv8x</listitem>
 	</orderedlist>
-	
+
 	<section>
 		<title>labels 文件格式</title>
 		<para>x,y是目标的中心坐标，width,height是目标的宽和高。</para>
@@ -58,7 +58,7 @@ def yolo_to_voc(size, box):
 		]]>
 		</programlisting>
 	</section>
-	
+
 	<section>
 		<title>模型训练</title>
 		<programlisting>
@@ -72,6 +72,280 @@ mode.train(data='dataset.yaml',workers=0,epochs=10,batch=10)
 mode.val()		
 		]]>
 		</programlisting>
+
+		<section>
+			<title>输出结果</title>
+			<screen>
+			<![CDATA[
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+     64/100     0.679G     0.5564     0.5321      1.084          9        320: 100%|██████████| 231/231 [00:25<00:00,  8.97it/s]
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 100%|██████████| 34/34 [00:05<00:00,  6.49it/s]
+                   all       1068       1068      0.958      0.943      0.984      0.944			
+			]]>
+			</screen>
+			<para>Epoch GPU_mem box_loss cls_loss dfl_loss Instances Size</para>
+			<glosslist>
+				<glossentry>
+					<glossterm>Epoch</glossterm>
+					<glossdef>
+						<para>训练过程中的迭代次数，在机器学习和深度学习中，一个epoch是训练过程中的一个完整周期，包括了训练数据集中的所有样本，以逐渐优化其性能。
+						</para>
+					</glossdef>
+				</glossentry>
+				<glossentry>
+					<glossterm>GPU_mem</glossterm>
+					<glossdef>
+						<para>GPU显存的使用情况，也就是图形处理器在训练过程中所使用的显存量。</para>
+					</glossdef>
+				</glossentry>
+				<glossentry>
+					<glossterm>box_loss</glossterm>
+					<glossdef>边界框（bounding
+						box）的平均损失，也就是模型预测的边界框与真实边界框之间的差异。在目标检测任务中，模型需要预测目标的准确位置，这通常通过边界框来实现。box_loss用于衡量模型在预测边界框位置时的准确性，并在训练过程中通过反向传播进行优化。
+					</glossdef>
+				</glossentry>
+				<glossentry>
+					<glossterm>cls_loss</glossterm>
+					<glossdef>分类损失，也就是模型在预测目标类别时的错误程度。</glossdef>
+				</glossentry>
+				<glossentry>
+					<glossterm>dfl_loss</glossterm>
+					<glossdef>dfl_loss 代表某种特定于模型或实现方式的损失函数，这种损失函数与模型中的某个特定组件或功能相关。
+					</glossdef>
+				</glossentry>
+				<glossentry>
+					<glossterm>Instances</glossterm>
+					<glossdef>在训练批次中检测到的目标实例数量。</glossdef>
+				</glossentry>
+				<glossentry>
+					<glossterm>Size</glossterm>
+					<glossdef>图像尺寸</glossdef>
+				</glossentry>
+			</glosslist>
+			<para>Class Images Instances Box(P R mAP50 mAP50-95):</para>
+			<glosslist>
+				<title></title>
+				<glossentry>
+					<glossterm>Class</glossterm>
+					<glossdef>检测目标类别</glossdef>
+				</glossentry>
+				<glossentry>
+					<glossterm>Images</glossterm>
+					<glossdef>测试集中包含的图像数量</glossdef>
+				</glossentry>
+				<glossentry>
+					<glossterm>Instances</glossterm>
+					<glossdef></glossdef>
+				</glossentry>
+				<glossentry>
+					<glossterm>P</glossterm>
+					<glossdef>预测精准度，正确预测数量占比</glossdef>
+				</glossentry>
+				<glossentry>
+					<glossterm>R</glossterm>
+					<glossdef>召回率</glossdef>
+				</glossentry>
+				<glossentry>
+					<glossterm>mAP50</glossterm>
+					<glossdef>平均精度，阈值0.5</glossdef>
+				</glossentry>
+				<glossentry>
+					<glossterm>mAP50-95</glossterm>
+					<glossdef>法制从0.5~0.95范围之间的平均精度</glossdef>
+				</glossentry>
+			</glosslist>
+
+		</section>
+		<section>
+			<title>训练结果</title>
+			<section>
+				<title>weights 文件夹</title>
+				<para>打开 weights 文件夹里面有两个文件，分别是：best.pt和last.pt。</para>
+				<para>best.pt 是整个训练过程中，性能最好的模型权重文件。</para>
+				<para>last.pt 是最后一次训练的模型权重文件。</para>
+				<para>一般我们选择 best.pt 文件，用于生产环境。</para>
+			</section>
+			<section>
+				<title>args.yaml 文件</title>
+				<screen>
+				<![CDATA[
+task: detect
+mode: train
+model: tongue.yaml
+data: datasets/test/YOLODataset/dataset.yaml
+epochs: 100
+time: null
+patience: 100
+batch: 16
+imgsz: 320
+save: true
+save_period: -1
+cache: false
+device: 0
+workers: 8
+project: null
+name: train9
+exist_ok: false
+pretrained: true
+optimizer: auto
+verbose: true
+seed: 0
+deterministic: true
+single_cls: false
+rect: false
+cos_lr: false
+close_mosaic: 10
+resume: false
+amp: true
+fraction: 1.0
+profile: false
+freeze: null
+multi_scale: false
+overlap_mask: true
+mask_ratio: 4
+dropout: 0.0
+val: true
+split: val
+save_json: false
+save_hybrid: false
+conf: null
+iou: 0.7
+max_det: 300
+half: false
+dnn: false
+plots: true
+source: null
+vid_stride: 1
+stream_buffer: false
+visualize: false
+augment: false
+agnostic_nms: false
+classes: null
+retina_masks: false
+embed: null
+show: false
+save_frames: false
+save_txt: false
+save_conf: false
+save_crop: false
+show_labels: true
+show_conf: true
+show_boxes: true
+line_width: null
+format: torchscript
+keras: false
+optimize: false
+int8: false
+dynamic: false
+simplify: true
+opset: null
+workspace: null
+nms: false
+lr0: 0.01
+lrf: 0.01
+momentum: 0.937
+weight_decay: 0.0005
+warmup_epochs: 3.0
+warmup_momentum: 0.8
+warmup_bias_lr: 0.1
+box: 7.5
+cls: 0.5
+dfl: 1.5
+pose: 12.0
+kobj: 1.0
+nbs: 64
+hsv_h: 0.015
+hsv_s: 0.7
+hsv_v: 0.4
+degrees: 0.0
+translate: 0.1
+scale: 0.5
+shear: 0.0
+perspective: 0.0
+flipud: 0.0
+fliplr: 0.5
+bgr: 0.0
+mosaic: 1.0
+mixup: 0.0
+copy_paste: 0.0
+copy_paste_mode: flip
+auto_augment: randaugment
+erasing: 0.4
+crop_fraction: 1.0
+cfg: null
+tracker: botsort.yaml
+save_dir: D:\workspace\netkiller\runs\detect\train
+				]]>
+				</screen>
+			</section>
+			<section>
+				<title>confusion_matrix.png / confusion_matrix_normalized.png
+				</title>
+				<para>混淆矩阵的归一化版本</para>
+			</section>
+
+			<section>
+				<title>P_curve.png / R_curve.png/ PR_curve.png /F1_curve.png</title>
+				<orderedlist>
+					<listitem>P_curve.png 每个 label 的精度</listitem>
+					<listitem>R_curve.png 每个 label 的召回率</listitem>
+					<listitem>PR_curve.png 精度与召回互相妥协的曲线。范围 0.0 ~ 1.0 越接近 1.0 效果越好。
+					</listitem>
+				</orderedlist>
+			</section>
+
+			<section>
+				<title>labels.jpg / labels_correlogram.jpg</title>
+				<para>labels.jpg 分类标签的分布</para>
+				<para></para>
+			</section>
+
+			<section>
+				<title>results.png / results.csv</title>
+				<para>先看前三列是 loss
+					损失率图表，X轴表示训练轮次，Y轴表示损失值。推理结果和人工标注的答案之间的差异，称为“损失”。损失越小越好，损失为0则说明推理和正确答案之间没有差异，即预测100%命中。
+				</para>
+				<orderedlist>
+					<title>train 训练集，val 验证集</title>
+					<listitem>train/box_loss和val/box_loss</listitem>
+					<listitem>train/cls_loss和val/cls_loss</listitem>
+					<listitem>train/dfl_loss和val/dfl_loss</listitem>
+				</orderedlist>
+				<orderedlist>
+					<title>精度/召回率</title>
+					<listitem>metric/precision(B) 精度</listitem>
+					<listitem>metrics/recall(B) 召回率</listitem>
+				</orderedlist>
+				<para>mAP50是重合度以50%为界限的平均精度。而mAP50-95则是IoU阈值从50%到95%范围内的平均值</para>
+				<para>X轴是训练轮次，Y表示精度，取值0.0 ~ 1.0（100%）越接近1.0效果越好。</para>
+			</section>
+			<section>
+				<title>train_batch0.jpg</title>
+			</section>
+			<section>
+				<title>val_batch0_labels.jpg</title>
+			</section>
+			<section>
+				<title>val_batch0_pred.jpg</title>
+			</section>
+			<!-- 
+			<section>
+				<title></title>
+			</section>
+			<section>
+				<title></title>
+			</section>
+			<section>
+				<title></title>
+			</section>
+			<section>
+				<title></title>
+			</section>
+			<section>
+				<title></title>
+			</section>
+			 -->
+		</section>
 	</section>
 	<section>
 		<title>模型评估</title>
@@ -124,7 +398,7 @@ for result in results:
     result.show()  # 显示结果型的架构		
 		]]>
 		</programlisting>
-		
+
 		<section>
 			<title>predict 参数</title>
 			<programlisting>
