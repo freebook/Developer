@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<chapter id="index"><?dbhtml dir="video" ?>
+<chapter id="av">
 	<title>视频</title>
-	<section>
+	<section id="camera">
+	<!-- <?dbhtml dir="camera" ?> -->
 		<title>摄像头</title>
 		<screen>
 		<![CDATA[
@@ -51,5 +52,6 @@ cv2.destroyAllWindows()
 		]]>
 		</programlisting>
 	</section>
-	&section.video.movie.xml;
+	&section.av.audio.xml;
+	&section.av.video.xml;
 </chapter>

@@ -4,6 +4,28 @@
 	<section id="io.file">
 		<title>文件操作</title>
 		<section>
+			<title>创建文件</title>
+			<programlisting>
+			<![CDATA[
+import time
+
+logfile = time.strftime("netkiller-%Y-%m-%d.log",time.localtime());
+f = open(logfile,mode="a+")
+
+f.write(time.strftime("%Y-%m-%d %H:%M:%S",time.localtime()) + " DEBUG "+"== Begin ==\r\n")
+# 业务逻辑
+f.write(time.strftime("%Y-%m-%d %H:%M:%S",time.localtime()) + " INFO "+"Hello world!!!\r\n")
+# 业务逻辑
+f.write(time.strftime("%Y-%m-%d %H:%M:%S",time.localtime()) + " DEBUG "+"== End ==\r\n")
+
+# 任务完成
+f.flush()
+f.close()			
+			]]>
+			</programlisting>
+		</section>
+		
+		<section>
 			<title>读取文件</title>
 			<programlisting role="python">
 		<![CDATA[

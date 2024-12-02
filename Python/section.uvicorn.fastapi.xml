@@ -493,7 +493,7 @@ async def open(id: int):
 		</programlisting>
 	</section>
 	<section id="media_type">
-		<title>返回图片</title>
+		<title>返回二维码图片</title>
 		<programlisting>
 		<![CDATA[
 import qrcode, logging, io

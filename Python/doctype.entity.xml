@@ -55,7 +55,6 @@
 <!ENTITY chapter.speech.xml					SYSTEM "chapter.speech.xml">
 <!ENTITY section.speech.xml					SYSTEM "section.speech.xml">
 <!ENTITY chapter.stock.xml					SYSTEM "chapter.stock.xml">
-<!ENTITY chapter.video.xml					SYSTEM "chapter.video.xml">
 
 <!ENTITY section.ai.xml						SYSTEM "ai/section.ai.xml">
 <!ENTITY section.ai.openai.xml				SYSTEM "ai/section.ai.openai.xml">
@@ -95,6 +94,8 @@
 <!ENTITY section.graphics.opencv.xml		SYSTEM "section.graphics.opencv.xml">
 <!ENTITY section.graphics.pillow.xml		SYSTEM "section.graphics.pillow.xml">
 
-<!ENTITY section.video.movie.xml			SYSTEM "section.video.movie.xml">
+<!ENTITY chapter.av.xml						SYSTEM "chapter.av.xml">
+<!ENTITY section.av.audio.xml				SYSTEM "section.av.audio.xml">
+<!ENTITY section.av.video.xml				SYSTEM "section.av.video.xml">
 
 <!ENTITY chapter.faq.xml					SYSTEM "chapter.faq.xml">

@@ -80,8 +80,9 @@
 	&part.python.xml;
 	&part.framework.xml;
 	&part.ai.xml;
-	&part.bigdata.xml;
 	&chapter.graphics.xml;
+	&chapter.av.xml;
+	&part.bigdata.xml;
 	&chapter.ops.xml;
 	&chapter.office.xml;
 	&chapter.3rdparty.xml;

@@ -4,7 +4,6 @@
 	&chapter.ai.xml;
 	&chapter.ocr.xml;
 	&chapter.speech.xml;
-	&chapter.video.xml;
 	&section.ai.face.xml;
 	&chapter.ai.nlp.xml;
 	&section.ai.openai.xml;
