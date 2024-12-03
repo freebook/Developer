@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <section id="python.install">
-	<title>install</title>
+	<title>Python 安装</title>
 	<section id="python.install.docker">
 		<title>Docker 安装</title>
 		<screen>

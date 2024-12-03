@@ -45,6 +45,22 @@ r.status_code
 		]]>
 		</programlisting>
 	</section>
+	<section>
+		<title>上传文件</title>
+		<programlisting>
+		<![CDATA[
+import httpx
+
+auth = httpx.BasicAuth(username="neo", password="admin")
+client = httpx.Client(auth=auth, base_url="http://api.netkiller.cn:8080",timeout=60)
+
+files = {'file': open('../datasets/tongue/val/images/black tongue coating_1.jpg', 'rb')}
+response = client.post('/tongue/diagnosis', files=files)
+print(response.status_code, response.json())		
+		]]>
+		</programlisting>
+	</section>
+	
 	<section id="httpx.restful">
 		<title>Restful CRUD 操作</title>
 		<programlisting>

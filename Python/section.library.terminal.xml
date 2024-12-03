@@ -486,8 +486,27 @@ for step in bar:
 				]]>
 				</programlisting>
 			</section>
-
-
+			<section>
+				<title>设置进度条长度</title>
+				<programlisting>
+				<![CDATA[
+from tqdm import tqdm
+import time
+import random
+with tqdm(total=100, ncols=100) as progress:
+    progress.set_description("%s" % "netkiller")
+    for n in range(100):
+        time.sleep(random.randrange(1, 5) * 0.05)
+        progress.update(1)
+				]]>
+				</programlisting>
+				<screen>
+				<![CDATA[
+/Users/neo/PycharmProjects/netkiller/.venv/bin/python /Users/neo/PycharmProjects/netkiller/test/test.py 
+netkiller: 100%|██████████████████████████████████████████████████| 100/100 [00:13<00:00,  7.60it/s]				
+				]]>
+				</screen>
+			</section>
 			<section>
 				<title>多进程进度监控</title>
 				<programlisting>
