@@ -80,7 +80,7 @@ if __name__ == "__main__":
 	</section>
 	<section id="进度条">
 		<title>进度条</title>
-		<section>
+		<section id="progress">
 			<title>progress</title>
 			<para>CLI 和 TUI 开发中我们常常会用到进度条，用于展示下载或执行进度等等。</para>
 			<screen>
@@ -258,7 +258,7 @@ Memory |████████████████▋               | 52%
 			</section>
 		</section>
 
-		<section>
+		<section id="tqdm">
 			<title>tqdm</title>
 			<para>安装</para>
 			<screen>
@@ -528,7 +528,7 @@ if __name__ == '__main__':
 				</screen>
 			</section>
 		</section>
-		<section>
+		<section id="alive-progress">
 			<title>alive-progress</title>
 			<screen>
 			<![CDATA[
@@ -553,6 +553,32 @@ with alive_bar(len(items)) as bar:  # declare your expected total
 |████████████████                        | ▇▅▃ 4/10 [40%] in 3s (1.2/s, eta: 4s)		
 			]]>
 			</screen>
+		</section>
+		<section id="rich.progress">
+			<title></title>
+			<programlisting>
+			<![CDATA[
+import tempfile
+import httpx
+import rich.progress
+
+with tempfile.NamedTemporaryFile() as download_file:
+    url = "https://speed.hetzner.de/100MB.bin"
+    with httpx.stream("GET", url) as response:
+        total = int(response.headers["Content-Length"])
+
+        with rich.progress.Progress(
+            "[progress.percentage]{task.percentage:>3.0f}%",
+            rich.progress.BarColumn(bar_width=None),
+            rich.progress.DownloadColumn(),
+            rich.progress.TransferSpeedColumn(),
+        ) as progress:
+            download_task = progress.add_task("Download", total=total)
+            for chunk in response.iter_bytes():
+                download_file.write(chunk)
+                progress.update(download_task, completed=response.num_bytes_downloaded)			
+			]]>
+			</programlisting>
 		</section>
 	</section>
 	<section>
