@@ -46,6 +46,22 @@ r.status_code
 		</programlisting>
 	</section>
 	<section>
+		<title>上传文件</title>
+		<programlisting>
+		<![CDATA[
+import httpx
+
+auth = httpx.BasicAuth(username="neo", password="admin")
+client = httpx.Client(auth=auth, base_url="http://api.netkiller.cn:8080",timeout=60)
+
+files = {'file': open('../datasets/tongue/val/images/black tongue coating_1.jpg', 'rb')}
+response = client.post('/tongue/diagnosis', files=files)
+print(response.status_code, response.json())		
+		]]>
+		</programlisting>
+	</section>
+	
+	<section id="httpx.restful">
 		<title>Restful CRUD 操作</title>
 		<programlisting>
 		<![CDATA[
@@ -58,7 +74,7 @@ r = httpx.options('https://netkiller.cn/options')
 		]]>
 		</programlisting>
 	</section>
-	<section>
+	<section od="httpx.http2">
 		<title>HTTP 2</title>
 		<programlisting>
 		<![CDATA[
@@ -80,7 +96,20 @@ print(response.text)
 		]]>
 		</programlisting>
 	</section>
-	<section>
+	<section id="httpx.BasicAuth">
+		<title>BasicAuth</title>
+		<programlisting>
+		<![CDATA[
+import httpx
+
+auth = httpx.BasicAuth(username="admin", password="admin")
+client = httpx.Client(auth=auth, base_url="http://api.aigcsst.cn:8080")
+response = client.get("/")
+print(response.status_code, response.json())		
+		]]>
+		</programlisting>
+	</section>
+	<section id="httpx.async">
 		<title>异步请求</title>
 		<programlisting>
 		<![CDATA[
@@ -106,7 +135,7 @@ asyncio.run(main())
 		]]>
 		</programlisting>
 	</section>
-	<section>
+	<section id="httpx.log">
 		<title>日志输出</title>
 		<programlisting>
 		<![CDATA[
