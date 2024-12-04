@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<part id="index"><?dbhtml dir="ai" ?>
+<part id="index">
+<!-- <?dbhtml dir="ai" ?> -->
 	<title>人工智能 AI</title>
 	&chapter.ai.xml;
 	&chapter.ocr.xml;

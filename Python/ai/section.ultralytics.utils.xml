@@ -6,6 +6,7 @@
 		<para>做人工智能机器学习，给学习图片做标签是个体力活。动不动就需要标准上千张图片。</para>
 		<para>有没有更好的方法呢？</para>
 		<para>于是便想出了，用AI给学习素材打标签。</para>
+		<graphic format="png" fileref="../images/yolo/ipo.jpg" width="100%" srccredit="neo" />
 		<para>首先准备好学习数据，首批数据需要人工标注，可以使用 labelme 和 labelme2yoyo
 			工具标注，做第一轮学习，后面我们将用这个模型实现 AI 自动标注。</para>
 		<para>然后使用第一轮训练的bast.pt 模型，对这第二批数据进行处理，生成 yolo 所需的 dataset 数据，包括了
