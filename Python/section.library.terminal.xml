@@ -600,7 +600,7 @@ with tempfile.NamedTemporaryFile() as download_file:
 			</programlisting>
 		</section>
 	</section>
-	<section>
+	<section id="texttable">
 		<title>texttable - module for creating simple ASCII tables</title>
 		<para>
 			<ulink url="https://github.com/foutaise/texttable/" />
@@ -637,6 +637,17 @@ print(table.draw())
 +--------+-----+-----------+		
 		]]>
 		</screen>
+		<section id="texttable.max_width">
+			<title>设置表格总宽度</title>
+			<para>max_width 设置报格最大宽度</para>
+			<programlisting>
+			<![CDATA[
+    table = Texttable(max_width= 160)
+    table.add_rows(tables)
+    print(table.draw())			
+			]]>
+			</programlisting>
+		</section>
 		<section>
 			<title>对齐设置</title>
 			<itemizedlist>
@@ -914,11 +925,11 @@ pip install prompt-toolkit
 			</screen>
 		</section>
 	</section>
-	<section>
+	<section id="simple-term-menu">
 		<title>Simple Terminal Menu</title>
 		<screen>
 	<![CDATA[
-pip install simple-term-menu	
+pip install simple-term-menu
 	]]>
 		</screen>
 	</section>

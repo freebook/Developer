@@ -718,6 +718,14 @@ print(ret)
 			]]>
 			</programlisting>
 		</section>
+		<section>
+			<title>字典求和</title>
+			<programlisting>
+			<![CDATA[
+count = sum(dict.values())			
+			]]>
+			</programlisting>
+		</section>
 	</section>
 
 </section>
