@@ -750,6 +750,54 @@ def __init__(self):
         ]]></screen>
 	</section>
 	<section>
+		<title>print class</title>
+		<para>测试代码，当我们使用 print 打印一个 class</para>
+		<programlisting>
+		<![CDATA[
+class Test:
+    def __init__(self, a, b):
+        self.a = a
+        self.b = b
+
+t = Test(1234, 5678)
+print(t)
+		]]>
+		</programlisting>
+		<para>输出</para>
+		<screen>
+		<![CDATA[
+<__main__.Test object at 0x000002BA71D254F0>		
+		]]>
+		</screen>
+		<para>print 会调用 __str__() 和 __repr__() 方法，我们只需定义他们即可</para>
+		<programlisting>
+		<![CDATA[
+class Test:
+    def __init__(self, a, b):
+        self.a = a
+        self.b = b
+
+    def __repr__(self):
+        return "Test a:% s b:% s" % (self.a, self.b)
+
+    def __str__(self):
+        return "Test: a is % s, " \
+               "b is % s" % (self.a, self.b)
+
+    # Driver Code
+
+
+t = Test(1234, 5678)
+
+# This calls __str__()  
+print(t)
+
+# This calls __repr__()  
+print([t]) 		
+		]]>
+		</programlisting>
+	</section>
+	<section>
 		<title>inner class(内嵌类)</title>
 		<programlisting>
 		<![CDATA[
