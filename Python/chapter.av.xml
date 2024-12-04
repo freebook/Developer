@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <chapter id="av">
-	<title>视频</title>
+	<title>音频和视频</title>
 	<section id="camera">
-	<!-- <?dbhtml dir="camera" ?> -->
+	<?dbhtml dir="camera" ?>
 		<title>摄像头</title>
 		<screen>
 		<![CDATA[

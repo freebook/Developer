@@ -265,6 +265,35 @@ for i in [12.12300, 12.00, 200.12000, 200.0]:
     print('{:g}'.format(i))		
 		]]>
 		</programlisting>
+		<section>
+			<title>保留小数位数</title>
+			<programlisting>
+			<![CDATA[
+f = 3.1415926
+
+print('%.2f'%f)
+print('%.3f'%f)
+print('%.4f'%f)		
+
+print('{:.2f}'.format(f))
+print('{:.3f}'.format(f))
+print('{:.4f}'.format(f))
+			]]>
+			</programlisting>
+		</section>
+		<section>
+			<title>四舍五入</title>
+			<programlisting>
+			<![CDATA[
+f = 3.1415926
+
+print(round(f,1))
+print(round(f,2))
+print(round(f,3))
+print(round(f,4))		
+			]]>
+			</programlisting>
+		</section>
 	</section>
 	<section id="array">
 		<title>Array</title>

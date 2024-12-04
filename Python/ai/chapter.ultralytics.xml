@@ -458,5 +458,6 @@ results = onnx_model("https://ultralytics.com/images/bus.jpg")
 
 
 	</section>
+	&section.ultralytics.utils.xml;
 	&section.ultralytics.example.xml;
 </chapter>
