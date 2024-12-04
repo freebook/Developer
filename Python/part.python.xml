@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<part id="index"><?dbhtml dir="lang" ?>
-	<title>Python 入门</title>
+<part id="python">
+	<title>Python 语言</title>
 	&chapter.python.xml;
 	&chapter.library.xml;
 </part>

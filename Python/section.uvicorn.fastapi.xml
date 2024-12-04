@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<chapter id="fastapi">
+<chapter id="index"><?dbhtml dir="fastapi" ?>
 	<title>FastAPI</title>
 	<section id="app.get">
 		<title>GET 请求</title>

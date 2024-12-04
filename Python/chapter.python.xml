@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- $Id: chapter.python.xml 659 2013-08-09 10:01:31Z netkiller $ -->
-<chapter id="introduction">
+<chapter id="index"><?dbhtml dir="lang" ?>
 	<title>Python 入门</title> 
 	&section.python.introduction.xml; 
 	&section.python.setup.xml; 

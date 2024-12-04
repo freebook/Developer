@@ -1,4 +1,4 @@
-<chapter id="sqlalchemy">
+<chapter id="index"><?dbhtml dir="sqlalchemy" ?>
 	<title>Sqlalchemy</title>
 	<section>
 		<title>安装 Sqlalchemy</title>

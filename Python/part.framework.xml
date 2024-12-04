@@ -1,5 +1,5 @@
-<part id="index"><?dbhtml dir="framework" ?>
-	<title>Frameworks</title>
+<part id="framework">
+	<title>Python 框架</title>
 	&chapter.framework.uvicorn.xml;
 	<chapter id="robotframework">
 		<title>Robot Framework 测试框架</title>
