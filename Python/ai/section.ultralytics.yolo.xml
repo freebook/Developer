@@ -59,7 +59,7 @@ def yolo_to_voc(size, box):
 		</programlisting>
 	</section>
 
-	<section>
+	<section id="yolo.train">
 		<title>模型训练</title>
 		<programlisting>
 		<![CDATA[
@@ -330,7 +330,7 @@ save_dir: D:\workspace\netkiller\runs\detect\train
 			</section>
 		</section>
 	</section>
-	<section>
+	<section id="yolo.val">
 		<title>模型评估</title>
 		<programlisting>
 		<![CDATA[
@@ -342,6 +342,26 @@ model.val(data='captcha/images/YOLODataset/dataset.yaml')
 		
 		]]>
 		</programlisting>
+		<section>
+			<title>选择数据集</title>
+			<para>split='test' 可以选择数据集，默认是 val</para>
+			<programlisting>
+			<![CDATA[
+from ultralytics import YOLO
+ 
+# Load a model
+model = YOLO('yolov11n.pt')  # load an official model
+model = YOLO('runs/detect/train/weights/best.pt')  # load a custom model
+ 
+# Validate the model
+metrics = model.val(split='test')  # no arguments needed, dataset and settings remembered
+metrics.box.map    # map50-95
+metrics.box.map50  # map50
+metrics.box.map75  # map75
+metrics.box.maps   # a list contains map50-95 of each category			
+			]]>
+			</programlisting>
+		</section>
 	</section>
 	<section>
 		<title>模型预测</title>
