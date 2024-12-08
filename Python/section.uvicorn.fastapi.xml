@@ -1,6 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <chapter id="index"><?dbhtml dir="fastapi" ?>
 	<title>FastAPI</title>
+	<section>
+		<title>路径参数</title>
+		<programlisting>
+		<![CDATA[
+from fastapi import FastAPI
+
+app = FastAPI()
+
+
+@app.get("/items/{item_id}")
+async def read_item(item_id):
+    return {"item_id": item_id}		
+		]]>
+		</programlisting>
+	</section>
 	<section id="app.get">
 		<title>GET 请求</title>
 		<section>
