@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<chapter id="ai">
+	<title>AI 相关</title>
+	&section.ai.xml;
+	&section.ai.gpu.xml;
+	&section.ai.numpy.xml;
+	&section.ai.tensorflow.xml;
+</chapter>
+	&chapter.pytorch.xml;
+	&chapter.ultralytics.xml;

@@ -45,16 +45,16 @@
 <!ENTITY section.pandas.series.xml			SYSTEM "section.pandas.series.xml">
 <!ENTITY section.pandas.matplotlib.xml		SYSTEM "section.pandas.matplotlib.xml">
 <!ENTITY section.pandas.method.xml			SYSTEM "section.pandas.method.xml">
+<!ENTITY chapter.stock.xml					SYSTEM "chapter.stock.xml">
 
 <!ENTITY chapter.ocr.xml					SYSTEM "chapter.ocr.xml">
 <!ENTITY section.ocr.easyocr.xml			SYSTEM "section.ocr.easyocr.xml">
 <!ENTITY section.ocr.tesseract.xml			SYSTEM "section.ocr.tesseract.xml">
 
 <!ENTITY part.ai.xml						SYSTEM "part.ai.xml">
-<!ENTITY chapter.ai.xml						SYSTEM "chapter.ai.xml">
+<!ENTITY chapter.ai.xml						SYSTEM "ai/chapter.ai.xml">
 <!ENTITY chapter.speech.xml					SYSTEM "chapter.speech.xml">
 <!ENTITY section.speech.xml					SYSTEM "section.speech.xml">
-<!ENTITY chapter.stock.xml					SYSTEM "chapter.stock.xml">
 
 <!ENTITY section.ai.xml						SYSTEM "ai/section.ai.xml">
 <!ENTITY section.ai.openai.xml				SYSTEM "ai/section.ai.openai.xml">
@@ -62,6 +62,7 @@
 <!ENTITY section.ai.langchain.xml			SYSTEM "ai/section.ai.langchain.xml">
 <!ENTITY section.ai.tensorflow.xml			SYSTEM "ai/section.ai.tensorflow.xml">
 <!ENTITY section.ai.numpy.xml				SYSTEM "ai/section.ai.numpy.xml">
+<!ENTITY section.ai.gpu.xml					SYSTEM "ai/section.ai.gpu.xml">
 <!ENTITY chapter.pytorch.xml				SYSTEM "ai/chapter.pytorch.xml">
 <!ENTITY section.pytorch.torchvision.xml	SYSTEM "ai/section.pytorch.torchvision.xml">
 <!ENTITY section.pytorch.example.xml		SYSTEM "ai/section.pytorch.example.xml">
@@ -70,7 +71,6 @@
 <!ENTITY section.ultralytics.task.xml		SYSTEM "ai/section.ultralytics.task.xml">
 <!ENTITY section.ultralytics.utils.xml		SYSTEM "ai/section.ultralytics.utils.xml">
 <!ENTITY section.ultralytics.example.xml	SYSTEM "ai/section.ultralytics.example.xml">
-
 <!ENTITY chapter.ai.nlp.xml					SYSTEM "chapter.ai.nlp.xml">
 <!ENTITY section.nlp.jieba.xml				SYSTEM "section.nlp.jieba.xml">
 <!ENTITY section.nlp.wordcloud.xml			SYSTEM "section.nlp.wordcloud.xml">

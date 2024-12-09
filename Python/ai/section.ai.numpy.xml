@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<section id="NumPy">
+<section id="index"><?dbhtml dir="NumPy" ?>
 	<title>NumPy</title>
 	<para>NumPy is the fundamental package for scientific computing with Python.</para>
 	<section id="numpy.random">

@@ -1,240 +1,57 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <section>
-	<title>GPU</title>
+	<title>什么是归一化？</title>
+	<para>归一化是数据预处理中的一种常用技术，旨在将数据按比例缩放，使之落入一个小的特定区间，通常是[0, 1]或[-1, 1]。</para>
 	<section>
-		<title>检测显卡</title>
-		<programlisting>
-			<![CDATA[
-device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-print(device)			
-			]]>
-		</programlisting>
-		<para>输出结果是 cpu 表示当前环境使用的的是 cpu 而不是 GPU</para>
+		<title>最小-最大 归一化（Min-Max Scaling）</title>
+		<para>计算方法</para>
 		<screen>
 		<![CDATA[
-D:\workspace\netkiller\.venv\Scripts\python.exe D:\workspace\netkiller\test\duda.py 
-cpu
-		]]>
-		</screen>
-	</section>
-	<section>
-		<title>检测硬件</title>
-		<para>使用 nvidia-smi 命令检测显卡，是否支持 CUDA</para>
-		<screen>
-		<![CDATA[
-PS C:\Users\neo> nvidia-smi
-Sun Nov 17 12:29:15 2024
-+---------------------------------------------------------------------------------------+
-| NVIDIA-SMI 546.67                 Driver Version: 546.67       CUDA Version: 12.3     |
-|-----------------------------------------+----------------------+----------------------+
-| GPU  Name                     TCC/WDDM  | Bus-Id        Disp.A | Volatile Uncorr. ECC |
-| Fan  Temp   Perf          Pwr:Usage/Cap |         Memory-Usage | GPU-Util  Compute M. |
-|                                         |                      |               MIG M. |
-|=========================================+======================+======================|
-|   0  NVIDIA GeForce RTX 3050 ...  WDDM  | 00000000:02:00.0 Off |                  N/A |
-| N/A   54C    P0               8W /  50W |      0MiB /  6144MiB |      0%      Default |
-|                                         |                      |                  N/A |
-+-----------------------------------------+----------------------+----------------------+
+num = [2.5,3.5,0.5,1.5]
 
-+---------------------------------------------------------------------------------------+
-| Processes:                                                                            |
-|  GPU   GI   CI        PID   Type   Process name                            GPU Memory |
-|        ID   ID                                                             Usage      |
-|=======================================================================================|
-|  No running processes found                                                           |
-+---------------------------------------------------------------------------------------+
-PS C:\Users\neo>	
-		]]>
-		</screen>
-		<para>这里可以看到当前显卡是支持 CUDA Version: 12.3</para>
-	</section>
-	<section>
-		<title>安装CUDA开发包</title>
-		<para>下载 cuda 开发包 <ulink url="https://developer.nvidia.com/" /></para>
-		<para>release-notes <ulink url="https://docs.nvidia.com/cuda/cuda-toolkit-release-notes/index.html" /></para>
-		<para>历史版本 <ulink url="https://developer.nvidia.com/cuda-toolkit-archive"/></para>
-	</section>
-	<section>
-		<title>检验安装</title>
-		<para>检查 CUDA 版本</para>
-		<screen>
-		<![CDATA[
-PS C:\Users\neo> nvcc -V
-nvcc: NVIDIA (R) Cuda compiler driver
-Copyright (c) 2005-2024 NVIDIA Corporation
-Built on Thu_Sep_12_02:55:00_Pacific_Daylight_Time_2024
-Cuda compilation tools, release 12.6, V12.6.77
-Build cuda_12.6.r12.6/compiler.34841621_0
-		]]>
-		</screen>
-		<para>查询设备</para>
-		<screen>
-		<![CDATA[
-PS C:\Users\neo> & 'C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v12.6\extras\demo_suite\deviceQuery.exe'
-C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v12.6\extras\demo_suite\deviceQuery.exe Starting...
-
- CUDA Device Query (Runtime API) version (CUDART static linking)
-
-Detected 1 CUDA Capable device(s)
-
-Device 0: "NVIDIA GeForce RTX 3050 6GB Laptop GPU"
-  CUDA Driver Version / Runtime Version          12.6 / 12.6
-  CUDA Capability Major/Minor version number:    8.6
-  Total amount of global memory:                 6144 MBytes (6441926656 bytes)
-  (20) Multiprocessors, (128) CUDA Cores/MP:     2560 CUDA Cores
-  GPU Max Clock rate:                            990 MHz (0.99 GHz)
-  Memory Clock rate:                             5501 Mhz
-  Memory Bus Width:                              96-bit
-  L2 Cache Size:                                 1572864 bytes
-  Maximum Texture Dimension Size (x,y,z)         1D=(131072), 2D=(131072, 65536), 3D=(16384, 16384, 16384)
-  Maximum Layered 1D Texture Size, (num) layers  1D=(32768), 2048 layers
-  Maximum Layered 2D Texture Size, (num) layers  2D=(32768, 32768), 2048 layers
-  Total amount of constant memory:               zu bytes
-  Total amount of shared memory per block:       zu bytes
-  Total number of registers available per block: 65536
-  Warp size:                                     32
-  Maximum number of threads per multiprocessor:  1536
-  Maximum number of threads per block:           1024
-  Max dimension size of a thread block (x,y,z): (1024, 1024, 64)
-  Max dimension size of a grid size    (x,y,z): (2147483647, 65535, 65535)
-  Maximum memory pitch:                          zu bytes
-  Texture alignment:                             zu bytes
-  Concurrent copy and kernel execution:          Yes with 1 copy engine(s)
-  Run time limit on kernels:                     Yes
-  Integrated GPU sharing Host Memory:            No
-  Support host page-locked memory mapping:       Yes
-  Alignment requirement for Surfaces:            Yes
-  Device has ECC support:                        Disabled
-  CUDA Device Driver Mode (TCC or WDDM):         WDDM (Windows Display Driver Model)
-  Device supports Unified Addressing (UVA):      Yes
-  Device supports Compute Preemption:            Yes
-  Supports Cooperative Kernel Launch:            Yes
-  Supports MultiDevice Co-op Kernel Launch:      No
-  Device PCI Domain ID / Bus ID / location ID:   0 / 2 / 0
-  Compute Mode:
-     < Default (multiple host threads can use ::cudaSetDevice() with device simultaneously) >
-
-deviceQuery, CUDA Driver = CUDART, CUDA Driver Version = 12.6, CUDA Runtime Version = 12.6, NumDevs = 1, Device0 = NVIDIA GeForce RTX 3050 6GB Laptop GPU
-Result = PASS
-PS C:\Users\neo>		
-		]]>
-		</screen>
-		<para>带宽测试</para>
-		<screen>
-		<![CDATA[
-PS C:\Users\neo> & 'C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v12.6\extras\demo_suite\bandwidthTest.exe'
-[CUDA Bandwidth Test] - Starting...
-Running on...
-
- Device 0: NVIDIA GeForce RTX 3050 6GB Laptop GPU
- Quick Mode
-
- Host to Device Bandwidth, 1 Device(s)
- PINNED Memory Transfers
-   Transfer Size (Bytes)        Bandwidth(MB/s)
-   33554432                     5971.0
-
- Device to Host Bandwidth, 1 Device(s)
- PINNED Memory Transfers
-   Transfer Size (Bytes)        Bandwidth(MB/s)
-   33554432                     6413.3
-
- Device to Device Bandwidth, 1 Device(s)
- PINNED Memory Transfers
-   Transfer Size (Bytes)        Bandwidth(MB/s)
-   33554432                     101343.0
-
-Result = PASS
-
-NOTE: The CUDA Samples are not meant for performance measurements. Results may vary when GPU Boost is enabled.
-PS C:\Users\neo>		
-		]]>
-		</screen>
-	</section>
-	<section>
-		<title>pytorch 安装</title>
-		<para>CUDA 开发包安装正确，但是 pytorch 代码 torch.cuda.is_available() 始终返回 False 无法使用 CUDA</para>
-		<programlisting>
-		<![CDATA[
-import torch
-print(torch.__version__)
-print(torch.cuda.is_available())		
-		]]>
-		</programlisting>
-		<para>输出结果</para>
-		<screen>
-		<![CDATA[
-D:\workspace\netkiller\.venv\Scripts\python.exe D:\workspace\netkiller\test\duda.py 
-2.5.1+cpu
-False
-		]]>
-		</screen>
-		<para>问出出在，你安装 pytorch 的时候没有检测到 cuda 系统便默认给你安装 cpu 版本，解决方法是重新安装 cuda 版本的 pytorch</para>
-		<para>进入这个页面 https://pytorch.org/get-started/locally/ 选择你 CUDA 版本的 pytorch</para>
-		<screen>
-		<![CDATA[
-(.venv) PS D:\workspace\netkiller> pip3 install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu124
-Looking in indexes: https://download.pytorch.org/whl/cu124
-Requirement already satisfied: torch in d:\workspace\netkiller\.venv\lib\site-packages (2.5.1)
-Requirement already satisfied: torchvision in d:\workspace\netkiller\.venv\lib\site-packages (0.20.1)
-Collecting torchaudio
-  Downloading https://download.pytorch.org/whl/cu124/torchaudio-2.5.1%2Bcu124-cp312-cp312-win_amd64.whl (4.1 MB)
-     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 4.1/4.1 MB 7.3 MB/s eta 0:00:00
-Requirement already satisfied: filelock in d:\workspace\netkiller\.venv\lib\site-packages (from torch) (3.16.1)
-Requirement already satisfied: typing-extensions>=4.8.0 in d:\workspace\netkiller\.venv\lib\site-packages (from torch) (4.12.2)
-Requirement already satisfied: networkx in d:\workspace\netkiller\.venv\lib\site-packages (from torch) (3.4.2)
-Requirement already satisfied: jinja2 in d:\workspace\netkiller\.venv\lib\site-packages (from torch) (3.1.4)
-Requirement already satisfied: fsspec in d:\workspace\netkiller\.venv\lib\site-packages (from torch) (2024.10.0)
-Requirement already satisfied: setuptools in d:\workspace\netkiller\.venv\lib\site-packages (from torch) (75.3.0)
-Requirement already satisfied: sympy==1.13.1 in d:\workspace\netkiller\.venv\lib\site-packages (from torch) (1.13.1)
-Requirement already satisfied: mpmath<1.4,>=1.1.0 in d:\workspace\netkiller\.venv\lib\site-packages (from sympy==1.13.1->torch) (1.3.0)
-Requirement already satisfied: numpy in d:\workspace\netkiller\.venv\lib\site-packages (from torchvision) (2.0.2)
-Requirement already satisfied: pillow!=8.3.*,>=5.3.0 in d:\workspace\netkiller\.venv\lib\site-packages (from torchvision) (11.0.0)
-Collecting torch
-  Downloading https://download.pytorch.org/whl/cu124/torch-2.5.1%2Bcu124-cp312-cp312-win_amd64.whl (2510.7 MB)
-     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 2.5/2.5 GB 13.6 MB/s eta 0:00:00
-Requirement already satisfied: MarkupSafe>=2.0 in d:\workspace\netkiller\.venv\lib\site-packages (from jinja2->torch) (3.0.2)
-Installing collected packages: torch, torchaudio
-  Attempting uninstall: torch
-    Found existing installation: torch 2.5.1
-    Uninstalling torch-2.5.1:
-      Successfully uninstalled torch-2.5.1
-Successfully installed torch-2.5.1+cu124 torchaudio-2.5.1+cu124
-		]]>
-		</screen>
-		<para>再次验证</para>
-		<programlisting>
-		<![CDATA[
-import torch
-print(torch.__version__)
-print(torch.cuda.is_available())
-
-D:\workspace\netkiller\.venv\Scripts\python.exe D:\workspace\netkiller\test\duda.py 
-2.5.1+cu124
-True
-		]]>
-		</programlisting>
-	</section>
-	<section>
-		<title>NVIDIA cuDNN</title>
-		<para><ulink url="https://developer.nvidia.cn/cudnn" /></para>
-		<para>下载解压</para>
-		<screen>
-		<![CDATA[
-将 C:\Users\neo\Downloads\cudnn-windows-x86_64-9.5.1.17_cuda12-archive.zip\cudnn-windows-x86_64-9.5.1.17_cuda12-archive 下面的三个目录，复制到
-C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v12.6
+for n in num:
+    result = (n-min(num))/(max(num)-min(num))
+    print(round(result,4), end=' ')		
 		]]>
 		</screen>
 	</section>
 </section>
 <section>
+	<title>什么是残差</title>
+	<para>在数学和统计学领域，残差（Residual）是指观测值与预测值（或拟合值）之间的差异。设观测值为，预测值为，那么残差。例如，我们通过一个线性回归模型来预测房屋价格。对于某一套房子，实际价格（观测值）是 200 万元，而模型预测出来的价格（预测值）是 180 万元，那么残差就是万元。</para>
+	<screen>
+	<![CDATA[
+残差在回归分析中的应用
+评估模型拟合优度：残差可以帮助我们了解模型对数据的拟合程度。如果残差较小，说明模型能够较好地拟合数据。例如，在简单线性回归中，我们可以绘制残差图（以预测值为横坐标，残差为纵坐标）。如果残差在零点附近随机分布，没有明显的规律（如系统性的上升或下降趋势、聚集在某个区域等），这表明模型拟合得比较好。相反，如果残差呈现出某种规律性，比如残差随着预测值的增加而增大，那就意味着模型可能存在问题，比如遗漏了重要的变量或者模型的形式不适合数据。
+检测异常值：残差较大的观测点可能是异常值。继续以房屋价格预测为例，如果大部分房子的残差都在 - 10 万元到 10 万元之间，但是有一套房子的残差达到了 100 万元，这就需要我们进一步检查这个观测点。它可能是因为数据录入错误，或者这套房子有一些特殊的属性（如独特的地理位置、豪华的装修等）没有被模型考虑到。
+
+残差在时间序列分析中的应用
+在时间序列分析中，残差用于衡量模型对时间序列数据的预测准确性。例如，我们用一个 ARIMA 模型（自回归移动平均模型）来预测某产品的销售量。残差可以帮助我们判断模型是否能够很好地捕捉时间序列的波动特征。如果残差序列中存在明显的自相关性（即残差的当前值与过去值之间存在关联），这可能意味着模型没有充分利用数据中的信息，需要进一步调整模型的参数或者结构。
+
+残差在机器学习中的应用
+在机器学习模型评估中，残差也是一个重要的概念。以神经网络模型为例，训练集和测试集上的残差大小可以反映模型的泛化能力。如果模型在训练集上残差很小，但在测试集上残差很大，这可能是出现了过拟合现象。也就是说，模型过度学习了训练集中的细节，而不能很好地推广到新的数据上。我们可以通过一些技术，如正则化等，来减少过拟合，使得模型在测试集上的残差也能保持在一个合理的范围内。	
+	]]>
+	</screen>
+</section>
+
+<section>
+	<title>网络模型的选择</title>
+	<para>随着深度学习的火热，计算机视觉领域内的卷积神经网络模型也层出不穷。</para>
+	<para>所以模型不断推陈出新，有些模型已经很老，甚至已经淘汰，不会再被用在生产环境，我们也不必去学习。</para>
+	<graphic format="png" fileref="images/ai/timeline.webp"
+		width="100%" srccredit="neo" />
+	<para>例如做图像识别，建议直接使用 yolo11 不要再研究 VGG,LeNet,AlexNet
+		这种古董。新模型建立在新技术基础之上，伴随着性能提升等等</para>
+</section>
+<section>
 	<title>向量数据处理</title>
-<section id="tokenizers">
-	<title>tokenizers</title>
-	<section>
-		<title>Normalization</title>
-		<para>文本清洗，Normalization 对原始文本 sentence 执行一系列清洗操作，如：删除空格、去除重音字符、小写化</para>
-		<programlisting>
+	<section id="tokenizers">
+		<title>tokenizers</title>
+		<section>
+			<title>Normalization</title>
+			<para>文本清洗，Normalization 对原始文本 sentence 执行一系列清洗操作，如：删除空格、去除重音字符、小写化
+			</para>
+			<programlisting>
 		<![CDATA[
 from tokenizers import normalizers
 from tokenizers.normalizers import NFD, StripAccents
@@ -244,12 +61,12 @@ text = normalizer.normalize_str("Héllò hôw are ü?")
 print(text)
 # "Hello how are u?"		
 		]]>
-		</programlisting>
-	</section>
-	<section>
-		<title>Pre-Tokenization</title>
-		<para>拆分文本，并标记文本的位置</para>
-		<programlisting>
+			</programlisting>
+		</section>
+		<section>
+			<title>Pre-Tokenization</title>
+			<para>拆分文本，并标记文本的位置</para>
+			<programlisting>
 		<![CDATA[
 from tokenizers.pre_tokenizers import Whitespace
 from tokenizers import pre_tokenizers
@@ -264,30 +81,30 @@ pre_tokenizer = pre_tokenizers.Sequence([Whitespace(), Digits(individual_digits=
 data2 = pre_tokenizer.pre_tokenize_str("https://www.netkiller.cn")
 print(data2)		
 		]]>
-		</programlisting>
-		<para>输出结果</para>
-		<screen>
+			</programlisting>
+			<para>输出结果</para>
+			<screen>
 		<![CDATA[
 [('What', (0, 4)), ("'", (4, 5)), ('s', (5, 6)), ('your', (7, 11)), ('nickname', (12, 20)), ('?', (20, 21)), ('My', (22, 24)), ('nickname', (25, 33)), ('is', (34, 36)), ('netkiller', (37, 46)), ('.', (46, 47))]
 [('https', (0, 5)), ('://', (5, 8)), ('www', (8, 11)), ('.', (11, 12)), ('netkiller', (12, 21)), ('.', (21, 22)), ('cn', (22, 24))]		
 		]]>
-		</screen>
+			</screen>
+		</section>
 	</section>
-</section>
-<section id="transformers">
-	<title>transformers</title>
-	<section>
-		<title>安装 transformers</title>
-		<para>安装 transformers</para>
-		<programlisting>
+	<section id="transformers">
+		<title>transformers</title>
+		<section>
+			<title>安装 transformers</title>
+			<para>安装 transformers</para>
+			<programlisting>
 	<![CDATA[
 pip install transformers	
 	]]>
-		</programlisting>
-	</section>
-	<section>
-		<title>加载本地模型</title>
-		<programlisting>
+			</programlisting>
+		</section>
+		<section>
+			<title>加载本地模型</title>
+			<programlisting>
 		<![CDATA[
 #!/usr/bin/python
 # -*-coding：utf-8-*-
@@ -297,8 +114,8 @@ model = "./transformers/bert-base-chinese"
 tokenizer = BertTokenizer.from_pretrained(model)
 print(tokenizer.tokenize("I have a good time, thank you."))		
 		]]>
-		</programlisting>
-		<screen>
+			</programlisting>
+			<screen>
 		<![CDATA[
 neo@MacBook-Pro-M2 ~/w/test> ll transformers/bert-base-chinese/
 total 804576
@@ -308,18 +125,18 @@ total 804576
 -rw-r--r--  1 neo  staff    29B 10 23 17:05 tokenizer_config.json
 -rw-r--r--@ 1 neo  staff   107K 10 23 16:13 vocab.txt		
 		]]>
-		</screen>
-		<para>运行结果</para>
-		<screen>
+			</screen>
+			<para>运行结果</para>
+			<screen>
 		<![CDATA[
 neo@MacBook-Pro-M2 ~/w/test> python3 /Users/neo/workspace/test/test.py
 ['[UNK]', 'have', 'a', 'good', 'time', ',', 'than', '##k', 'you', '.']		
 		]]>
-		</screen>
-	</section>
-	<section>
-		<title>自动下载模型</title>
-		<programlisting>
+			</screen>
+		</section>
+		<section>
+			<title>自动下载模型</title>
+			<programlisting>
 		<![CDATA[
 #!/usr/bin/python
 # -*-coding：utf-8-*-
@@ -329,12 +146,12 @@ modelPath = "hfl/chinese-macbert-base"
 tokenizer = AutoTokenizer.from_pretrained(modelPath)
 print(tokenizer.tokenize("I have a good time, thank you."))		
 		]]>
-		</programlisting>
-		
-	</section>
-	<section>
-		<title>编码</title>
-		<programlisting>
+			</programlisting>
+
+		</section>
+		<section>
+			<title>编码</title>
+			<programlisting>
 		<![CDATA[
 #!/usr/bin/python
 # -*-coding：utf-8-*-
@@ -347,11 +164,11 @@ print(tokenizer.encode('你好世界'))
 print(tokenizer.encode_plus('我不喜欢这世界','你好中国'))
 print(tokenizer.convert_ids_to_tokens(tokenizer.encode('我爱你')))		
 		]]>
-		</programlisting>
-	</section>
-	<section>
-		<title>计算向量</title>
-		<programlisting>
+			</programlisting>
+		</section>
+		<section>
+			<title>计算向量</title>
+			<programlisting>
 		<![CDATA[
 from transformers import AutoTokenizer, AutoModel
 
@@ -369,20 +186,20 @@ outputs = model(**inputs)
 array = outputs.pooler_output.tolist()
 print(array)		
 		]]>
-		</programlisting>
-	</section>
-	<section>
-		<title>FAQ</title>
+			</programlisting>
+		</section>
 		<section>
-			<title>隐藏警告</title>
-			<screen>
+			<title>FAQ</title>
+			<section>
+				<title>隐藏警告</title>
+				<screen>
 			<![CDATA[
 - This IS expected if you are initializing BertModel from the checkpoint of a model trained on another task or with another architecture (e.g. initializing a BertForSequenceClassification model from a BertForPreTraining model).
 - This IS NOT expected if you are initializing BertModel from the checkpoint of a model that you expect to be exactly identical (initializing a BertForSequenceClassification model from a BertForSequenceClassification model).			
 			]]>
-			</screen>
-			<para>解决方案</para>
-			<screen>
+				</screen>
+				<para>解决方案</para>
+				<screen>
 			<![CDATA[
 from transformers import logging
 logging.set_verbosity_warning()
@@ -392,9 +209,10 @@ logging.set_verbosity_warning()
 from transformers import logging
 logging.set_verbosity_error()			
 			]]>
-			</screen>
-			<para>打开 config.json 文件，查看 architectures 配置项，讲 BertModel 更换为 BertForMaskedLM 即可</para>
-			<programlisting>
+				</screen>
+				<para>打开 config.json 文件，查看 architectures 配置项，讲 BertModel 更换为
+					BertForMaskedLM 即可</para>
+				<programlisting>
 			<![CDATA[
 {
   "architectures": [
@@ -422,16 +240,16 @@ logging.set_verbosity_error()
   "vocab_size": 21128
 }
 			]]>
-			</programlisting>
-			<screen>
+				</programlisting>
+				<screen>
 			<![CDATA[
 Some weights of the model checkpoint at ./transformers/bert-base-chinese were not used when initializing BertForMaskedLM: ['cls.seq_relationship.bias', 'cls.seq_relationship.weight']
 - This IS expected if you are initializing BertForMaskedLM from the checkpoint of a model trained on another task or with another architecture (e.g. initializing a BertForSequenceClassification model from a BertForPreTraining model).
 - This IS NOT expected if you are initializing BertForMaskedLM from the checkpoint of a model that you expect to be exactly identical (initializing a BertForSequenceClassification model from a BertForSequenceClassification model).			
 			]]>
-			</screen>
-			<para>添加 from_tf=True 参数</para>
-			<programlisting>
+				</screen>
+				<para>添加 from_tf=True 参数</para>
+				<programlisting>
 			<![CDATA[
 #!/usr/bin/python
 # -*-coding：utf-8-*-
@@ -440,16 +258,16 @@ pretrained_model_name_or_path = "./transformers/bert-base-chinese"
 tokenizer = BertTokenizer.from_pretrained(pretrained_model_name_or_path)
 model = BertForMaskedLM.from_pretrained(pretrained_model_name_or_path, from_tf=True)
 			]]>
-			</programlisting>
-			<screen>
+				</programlisting>
+				<screen>
 			<![CDATA[
 All TF 2.0 model weights were used when initializing BertForMaskedLM.
 
 All the weights of BertForMaskedLM were initialized from the TF 2.0 model.
 If your task is similar to the task the model of the checkpoint was trained on, you can already use BertForMaskedLM for predictions without further training.			
 			]]>
-			</screen>
+				</screen>
+			</section>
 		</section>
 	</section>
-</section>
 </section>
