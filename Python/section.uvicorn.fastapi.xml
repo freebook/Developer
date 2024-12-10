@@ -2,6 +2,56 @@
 <chapter id="index"><?dbhtml dir="fastapi" ?>
 	<title>FastAPI</title>
 	<section>
+		<title>HTML - FastAPI 加载 index.html</title>
+		<para>首先需要创建一个新的Python虚拟环境，然后通过pip安装FastAPI和uvicorn。</para>
+		<screen>
+		<![CDATA[
+$ mkdir netkiller
+$ cd netkiller
+$ python3 -m venv venv
+$ source venv/bin/activate
+$ pip install fastapi uvicorn		
+		]]>
+		</screen>
+		<para>在项目目录下创建一个名为 index.html 的HTML文件，内容如下：</para>
+		<programlisting>
+		<![CDATA[
+<!DOCTYPE html>
+<html>
+<head>
+    <title>FastAPI example by netkiller</title>
+</head>
+<body>
+    <h1>Hello, FastAPI!</h1>
+    <p>This is an example of loading an HTML file using FastAPI.</p>
+</body>
+</html>
+		]]>
+		</programlisting>
+		<para>创建一个名为 main.py 的Python文件，代码如下：</para>
+		<programlisting>
+		<![CDATA[
+from fastapi import FastAPI
+from fastapi.staticfiles import StaticFiles
+
+app = FastAPI()
+
+app.mount("/", StaticFiles(directory=".", html=True))
+
+if __name__ == "__main__":
+    import uvicorn
+    uvicorn.run(app, host="0.0.0.0", port=8000)
+		
+		]]>
+		</programlisting>
+		<para>启动服务</para>
+		<screen>
+		<![CDATA[
+$ uvicorn main:app --reload	
+		]]>
+		</screen>
+	</section>
+	<section>
 		<title>路径参数</title>
 		<programlisting>
 		<![CDATA[
@@ -178,6 +228,170 @@ async def create_upload_file(file: UploadFile):
 
     return {"filename": file.filename,"content_type": file.content_type}
 			
+			]]>
+			</programlisting>
+		</section>
+	</section>
+	<section id="fastapi.responses">
+		<title>响应返回</title>
+		<section>
+			<title>Response</title>
+			<programlisting>
+			<![CDATA[
+from fastapi import FastAPI, Response
+
+app = FastAPI()
+
+
+@app.get("/legacy/")
+def get_legacy_data():
+    data = """<?xml version="1.0"?>
+    <shampoo>
+    <Header>
+        Apply shampoo here.
+    </Header>
+    <Body>
+        You'll have to use soap here.
+    </Body>
+    </shampoo>
+    """
+    return Response(content=data, media_type="application/xml")
+			]]>
+			</programlisting>
+		</section>
+		<section>
+			<title>返回 HTMl</title>
+			<programlisting>
+			<![CDATA[
+from fastapi import FastAPI
+from fastapi.responses import HTMLResponse
+
+app = FastAPI()
+
+
+@app.get("/items/", response_class=HTMLResponse)
+async def read_items():
+    return """
+    <html>
+        <head>
+            <title>Some HTML in here</title>
+        </head>
+        <body>
+            <h1>Look ma! HTML!</h1>
+        </body>
+    </html>
+    """			
+			]]>
+			</programlisting>
+			<programlisting>
+			<![CDATA[
+from fastapi import FastAPI
+from fastapi.responses import HTMLResponse
+
+app = FastAPI()
+
+
+@app.get("/items/")
+async def read_items():
+    html_content = """
+    <html>
+        <head>
+            <title>Some HTML in here</title>
+        </head>
+        <body>
+            <h1>Look ma! HTML!</h1>
+        </body>
+    </html>
+    """
+    return HTMLResponse(content=html_content, status_code=200)			
+			]]>
+			</programlisting>
+		</section>
+		<section>
+			<title>PlainTextResponse</title>
+			<programlisting>
+			<![CDATA[
+from fastapi import FastAPI
+from fastapi.responses import PlainTextResponse
+
+app = FastAPI()
+
+
+@app.get("/", response_class=PlainTextResponse)
+async def main():
+    return "Hello World"
+			]]>
+			</programlisting>
+		</section>
+		<section>
+			<title>RedirectResponse</title>
+			<programlisting>
+			<![CDATA[
+from fastapi import FastAPI
+from fastapi.responses import RedirectResponse
+
+app = FastAPI()
+
+
+@app.get("/typer")
+async def redirect_typer():
+    return RedirectResponse("https://typer.tiangolo.com")
+			]]>
+			</programlisting>
+		</section>
+		<section>
+			<title>StreamingResponse</title>
+			<programlisting>
+			<![CDATA[
+from fastapi import FastAPI
+from fastapi.responses import StreamingResponse
+
+app = FastAPI()
+
+
+async def fake_video_streamer():
+    for i in range(10):
+        yield b"some fake video bytes"
+
+
+@app.get("/")
+async def main():
+    return StreamingResponse(fake_video_streamer())
+			]]>
+			</programlisting>
+			<programlisting>
+			<![CDATA[
+from fastapi import FastAPI
+from fastapi.responses import StreamingResponse
+
+some_file_path = "large-video-file.mp4"
+app = FastAPI()
+
+
+@app.get("/")
+def main():
+    def iterfile():  # (1)
+        with open(some_file_path, mode="rb") as file_like:  # (2)
+            yield from file_like  # (3)
+
+    return StreamingResponse(iterfile(), media_type="video/mp4")			
+			]]>
+			</programlisting>
+		</section>
+		<section>
+			<title>FileResponse</title>
+			<programlisting>
+			<![CDATA[
+from fastapi import FastAPI
+from fastapi.responses import FileResponse
+
+some_file_path = "large-video-file.mp4"
+app = FastAPI()
+
+
+@app.get("/")
+async def main():
+    return FileResponse(some_file_path)
 			]]>
 			</programlisting>
 		</section>
