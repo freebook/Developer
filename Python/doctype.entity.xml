@@ -48,8 +48,6 @@
 <!ENTITY chapter.stock.xml					SYSTEM "chapter.stock.xml">
 
 <!ENTITY chapter.ocr.xml					SYSTEM "chapter.ocr.xml">
-<!ENTITY section.ocr.easyocr.xml			SYSTEM "section.ocr.easyocr.xml">
-<!ENTITY section.ocr.tesseract.xml			SYSTEM "section.ocr.tesseract.xml">
 
 <!ENTITY part.ai.xml						SYSTEM "part.ai.xml">
 <!ENTITY chapter.ai.xml						SYSTEM "ai/chapter.ai.xml">
@@ -71,6 +69,8 @@
 <!ENTITY section.ultralytics.task.xml		SYSTEM "ai/section.ultralytics.task.xml">
 <!ENTITY section.ultralytics.utils.xml		SYSTEM "ai/section.ultralytics.utils.xml">
 <!ENTITY section.ultralytics.example.xml	SYSTEM "ai/section.ultralytics.example.xml">
+<!ENTITY chapter.ai.sklearn.xml				SYSTEM "ai/chapter.ai.sklearn.xml">
+<!ENTITY section.ai.transformer.xml			SYSTEM "ai/section.ai.transformer.xml">
 <!ENTITY chapter.ai.nlp.xml					SYSTEM "chapter.ai.nlp.xml">
 <!ENTITY section.nlp.jieba.xml				SYSTEM "section.nlp.jieba.xml">
 <!ENTITY section.nlp.wordcloud.xml			SYSTEM "section.nlp.wordcloud.xml">

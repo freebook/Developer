@@ -8,3 +8,5 @@
 </chapter>
 	&chapter.pytorch.xml;
 	&chapter.ultralytics.xml;
+	&chapter.ai.sklearn.xml;
+	&section.ai.transformer.xml;

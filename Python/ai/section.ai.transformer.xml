@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<chapter id="index"><?dbhtml dir="transformer" ?>
+	<title>Transformer</title>
+
+	<section>
+		<title>Vision Transformer</title>
+		<para>Transformer
+			最初提出是针对NLP领域的，并且在NLP领域大获成功。这篇论文也是受到其启发，尝试将Transformer应用到CV领域，研究发现Transformer应用于计算机视觉CV方面有着不输于卷积神经网络的强劲性能，一定程度上甚至比卷积神经网络更强。于是，初代Vision
+			Transformer诞生了， 简称Vit。
+		</para>
+	</section>
+	<section>
+		<title>Transformer 和 Vision Transformer 最大区别是什么？</title>
+		<para>Transformer 最早是应用与NLP领域，即自然语言处理，用最最最简单的理解方式，Transformer的工作方式就是把一句话从一种语言翻译成另一种语言。主要是通过把一句话拆分为多个单词或者多个模块，然后进行编码和解码训练，再评估那个单词对应的意思，最后通过得分高低得出最终翻译结果。		</para>
+		<para>而Vision ransformer则是将一个图片抽象地看做一个token，通过图像分割将其拆分为多个token，再进行编码和解码训练，最后评估中得分高低判断最终预测的结果。		</para>
+	</section>
+	<section>
+		<title>Transformer 和 Transforms 区别</title>
+		<para>学习人工智能避免不了会接触到 transformer 和 transforms
+			开始以为是一个东西，结果发现是两个完全不同的东西。
+		</para>
+		<para>Transformer 是一种基于自注意力机制（self - attention
+			mechanism）的神经网络架构。它主要用于处理序列数据，如自然语言处理中的句子。Transformer
+			架构摒弃了传统的循环神经网络（RNN）和卷积神经网络（CNN）在序列处理中的一些局限。例如在机器翻译任务中，Transformer
+			架构的模型（如著名的 BERT、GPT 系列）能够很好地理解句子中单词之间的语义关系，通过多头注意力机制（Multi - Head
+			Attention）并行地计算序列中每个位置与其他位置的关联程度。
+		</para>
+		<para>Transforms
+			是PyTorch类库中的一个模块，transforms通常是指一系列的数据转换操作。这些操作主要用于对图像数据进行预处理，例如调整图像的大小（Resize）、将图像转换为张量（ToTensor）、对图像进行归一化（Normalize）等。以图像分类任务为例，在将图像输入到卷积神经网络之前，需要通过transforms对图像进行预处理，使得图像数据符合网络的输入要求，提高模型的性能和训练效率。
+		</para>
+	</section>
+	<section>
+		<title>FAQ</title>
+		<section>
+			<title>AttributeError: '_MultiProcessingDataLoaderIter' object has no attribute 'next'</title>
+			<para>抛出异常如下</para>
+			<screen>
+			<![CDATA[
+Traceback (most recent call last):
+  File "/Users/neo/PycharmProjects/netkiller/test/cifar10.py", line 150, in <module>
+    main()
+  File "/Users/neo/PycharmProjects/netkiller/test/cifar10.py", line 47, in main
+    images, labels = dataiter.next()
+                     ^^^^^^^^^^^^^
+AttributeError: '_MultiProcessingDataLoaderIter' object has no attribute 'next'			
+			]]>
+			</screen>
+			<para>出现问题的代码行</para>
+			<programlisting>
+			<![CDATA[
+images, labels = dataiter.next()
+			]]>
+			</programlisting>
+			<para>解决方案，修改如下：</para>
+			<programlisting>
+			<![CDATA[
+# 将
+images, labels = dataiter.next()
+# 修改为
+images, labels = next(dataiter)	
+			]]>
+			</programlisting>
+		</section>
+	</section>
+</chapter>
