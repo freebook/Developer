@@ -82,6 +82,16 @@ print(file_name)  # 输出: example.txt
 			</screen>
 		</section>
 		<section>
+			<title>分割路径与文件名</title>
+			<programlisting>
+			<![CDATA[
+# 返回值为元组 ('/Users/netkiller/Desktop', 'neo.txt')
+path, name = os.path.split(file_path)			
+			]]>
+			</programlisting>
+		</section>
+		
+		<section>
 			<title>获取扩展名</title>
 			<programlisting>
 			<![CDATA[
@@ -137,11 +147,18 @@ print(extension)  # 输出：".txt"
 	</section>
 	<section>
 		<title>创建目录</title>
+		<para>创建一层目录</para>
 		<programlisting>
 		<![CDATA[
 dir_name = "neo"
 if not os.path.exists(dir_name):
     os.mkdir(dir_name)
+		]]>
+		</programlisting>
+		<para>递归创建目录</para>
+		<programlisting>
+		<![CDATA[
+os.makedirs('./path/path2/path3')		
 		]]>
 		</programlisting>
 	</section>
@@ -161,6 +178,41 @@ if not os.path.exists(dir_name):
 	ret = os.access(filename, os.X_OK)
 	print('文件的执行权限：',ret)
     
+		]]>
+		</programlisting>
+	</section>
+	<section>
+		<title>判断文件/路径是否存在</title>
+		<programlisting>
+		<![CDATA[
+# 判断是否为路径且存在
+os.path.isdir()
+# 判断是否为文件且存在
+os.path.isfile()
+# 判断是否存在 路径-文件
+os.path.exists()
+os.path.isabs()	
+		]]>
+		</programlisting>
+	</section>
+	<section>
+		<title>返回绝对路径</title>
+		<programlisting>
+		<![CDATA[
+file_path_1 = './test.txt'
+file_path_abs = os.path.abspath(file_path_1)		
+		]]>
+		</programlisting>
+	</section>
+	
+	<section>
+		<title>路径拼接</title>
+		<para>os.path.join()</para>
+		<programlisting>
+		<![CDATA[
+os.path.join('path1','path2')
+os.path.join('path1','path2','path3')
+os.path.join('path1','path2','path3','path4')
 		]]>
 		</programlisting>
 	</section>
@@ -281,7 +333,7 @@ filenames 是一个列表，包含了非目录文件的名字。
 		</section>
 
 	</section>
-	<section id="os.">
+	<section id="os.remove">
 		<title>删除文件或目录</title>
 		<para>删除文件</para>
 		<programlisting>
