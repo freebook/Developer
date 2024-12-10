@@ -18,18 +18,18 @@
 <!ENTITY section.library.captcha.xml		SYSTEM "lib/section.library.captcha.xml">
 <!ENTITY section.library.terminal.xml		SYSTEM "lib/section.library.terminal.xml">
 <!ENTITY section.library.network.xml		SYSTEM "lib/section.library.network.xml">
-<!ENTITY section.lib.html.xml				SYSTEM "lib/section.lib.html.xml">
+<!ENTITY section.library.other.xml	 		SYSTEM "section.library.other.xml">
 
 <!ENTITY chapter.exe.xml					SYSTEM "chapter.exe.xml">
 <!ENTITY chapter.3rdparty.xml				SYSTEM "chapter.3rdparty.xml">
 
 <!ENTITY part.framework.xml					SYSTEM "part.framework.xml">
-<!ENTITY chapter.framework.uvicorn.xml 		SYSTEM "chapter.framework.uvicorn.xml">
-<!ENTITY chapter.framework.sqlalchemy.xml	SYSTEM "chapter.framework.sqlalchemy.xml">
-<!ENTITY chapter.framework.django.xml 		SYSTEM "chapter.framework.django.xml">
-<!ENTITY section.library.other.xml	 		SYSTEM "section.library.other.xml">
-<!ENTITY chapter.framework.gevent.xml 		SYSTEM "chapter.framework.gevent.xml">
-<!ENTITY section.uvicorn.fastapi.xml 		SYSTEM "section.uvicorn.fastapi.xml">
+<!ENTITY section.framework.uvicorn.xml 		SYSTEM "section.framework.uvicorn.xml">
+<!ENTITY section.framework.sqlalchemy.xml	SYSTEM "section.framework.sqlalchemy.xml">
+<!ENTITY section.framework.django.xml 		SYSTEM "section.framework.django.xml">
+<!ENTITY section.framework.gevent.xml 		SYSTEM "section.framework.gevent.xml">
+<!ENTITY section.framework.fastapi.xml 		SYSTEM "section.framework.fastapi.xml">
+<!ENTITY section.framework.html.xml			SYSTEM "section.framework.html.xml">
 
 <!ENTITY section.python.example.xml 		SYSTEM "section.python.example.xml">
 <!ENTITY section.python.container.xml 		SYSTEM "section.python.container.xml">

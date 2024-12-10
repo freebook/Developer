@@ -1,6 +1,7 @@
 <part id="framework">
 	<title>Python 框架</title>
-	&chapter.framework.uvicorn.xml;
+	&section.framework.uvicorn.xml;
+	&section.framework.fastapi.xml;
 	<chapter id="robotframework">
 		<title>Robot Framework 测试框架</title>
 		<para>http://robotframework.org/</para>
@@ -8,8 +9,9 @@
 	<chapter>
 		<title>Web framework</title>
 		<para>http://wiki.secondlife.com/wiki/Mulib</para>
-		&chapter.framework.django.xml;
-		&chapter.framework.gevent.xml;
+		&section.framework.django.xml;
+		&section.framework.gevent.xml;
+		&section.framework.html.xml;
 	</chapter>
-	&chapter.framework.sqlalchemy.xml;
+	&section.framework.sqlalchemy.xml;
 </part>
