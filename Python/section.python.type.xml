@@ -256,6 +256,31 @@ print(str(uuid5))
 			]]>
 			</programlisting>
 		</section>
+		<section>
+			<title>字符串 \n 换行符转 list</title>
+			<programlisting>
+			<![CDATA[
+text = "Hello\nWorld\n"
+lines = text.splitlines()
+print(lines)  # 输出：['Hello', 'World']			
+			]]>
+			</programlisting>
+		</section>
+		<section>
+			<title>字符串清洗，去除换行符</title>
+			<programlisting>
+			<![CDATA[
+text = "\nHello, World!\n"
+new_text = text.strip("\n")
+print(new_text)  # 输出：Hello, World!
+
+text = "Hello, World!\n"
+new_text = text.rstrip("\n")
+print(new_text)  # 输出：Hello, World!
+			
+			]]>
+			</programlisting>
+		</section>
 	</section>
 	<section id="float">
 		<title>float 浮点数值</title>

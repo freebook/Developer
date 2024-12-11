@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<section>
+<?xml version="1.0" encoding="UTF-8"?>
+<section id="io.file">
 	<title>文件和目录</title>
-	<section id="io.file">
-		<title>文件操作</title>
-		<section>
-			<title>创建文件</title>
-			<programlisting>
+	<section>
+		<title>创建文件</title>
+		<programlisting>
 			<![CDATA[
 import time
 
@@ -22,12 +21,11 @@ f.write(time.strftime("%Y-%m-%d %H:%M:%S",time.localtime()) + " DEBUG "+"== End 
 f.flush()
 f.close()			
 			]]>
-			</programlisting>
-		</section>
-		
-		<section>
-			<title>读取文件</title>
-			<programlisting role="python">
+		</programlisting>
+	</section>
+	<section>
+		<title>读取文件</title>
+		<programlisting role="python">
 		<![CDATA[
 f = open('/tmp/workfile', 'r+')
 f.write('0123456789abcdef')
@@ -38,8 +36,8 @@ f.read(1)
 f.readline()
 f.close()
 		]]>
-			</programlisting>
-			<screen>
+		</programlisting>
+		<screen>
 			<![CDATA[
 for line in open("myfile.txt"):
     print line
@@ -48,13 +46,13 @@ with open("myfile.txt") as f:
     for line in f:
         print line
 			]]>
-			</screen>
+		</screen>
 
-		</section>
-		<section>
-			<title>读取二进制文件</title>
-			<para></para>
-			<programlisting>
+	</section>
+	<section>
+		<title>读取二进制文件</title>
+		<para></para>
+		<programlisting>
 			<![CDATA[
 with open('beak', 'rb+') as f:
     content = f.read()
@@ -62,12 +60,12 @@ with open('beak', 'rb+') as f:
     f.write(content.replace(b'\r', b''))
     f.truncate()
 			]]>
-			</programlisting>
-		</section>
-		<section>
-			<title>获取文件名</title>
-			<para>使用os.path.basename()获取文件名</para>
-			<screen>
+		</programlisting>
+	</section>
+	<section>
+		<title>获取文件名</title>
+		<para>使用os.path.basename()获取文件名</para>
+		<screen>
 			<![CDATA[
 import os
 
@@ -79,21 +77,20 @@ file_name = os.path.basename(file_path)
 
 print(file_name)  # 输出: example.txt			
 			]]>
-			</screen>
-		</section>
-		<section>
-			<title>分割路径与文件名</title>
-			<programlisting>
+		</screen>
+	</section>
+	<section>
+		<title>分割路径与文件名</title>
+		<programlisting>
 			<![CDATA[
 # 返回值为元组 ('/Users/netkiller/Desktop', 'neo.txt')
 path, name = os.path.split(file_path)			
 			]]>
-			</programlisting>
-		</section>
-		
-		<section>
-			<title>获取扩展名</title>
-			<programlisting>
+		</programlisting>
+	</section>
+	<section>
+		<title>获取扩展名</title>
+		<programlisting>
 			<![CDATA[
 import os
 
@@ -109,23 +106,23 @@ print("扩展名:", file_extension)  # 输出: 扩展名: .txt
 file_extension = file_extension[1:]  # 去掉点号
 print("去掉点号的扩展名:", file_extension)  # 输出: 去掉点号的扩展名: txt		
 			]]>
-			</programlisting>
-			<programlisting>
+		</programlisting>
+		<programlisting>
 			<![CDATA[
 import os
 ext = os.path.splitext("path/to/file.ext")[-1][1:]
 print(ext)
 			]]>
-			</programlisting>
-			<para></para>
-			<programlisting>
+		</programlisting>
+		<para></para>
+		<programlisting>
 			<![CDATA[
 path = "path/to/file.ext"
 suffix = path.split(".")[1]
 print("suffix: {}".format(suffix))			
 			]]>
-			</programlisting>
-			<programlisting>
+		</programlisting>
+		<programlisting>
 			<![CDATA[
 import re
 
@@ -133,8 +130,8 @@ filename = "example.txt"
 extension = re.findall(r"\.[^.]*$", filename)[0]
 print(extension)			
 			]]>
-			</programlisting>
-			<programlisting>
+		</programlisting>
+		<programlisting>
 			<![CDATA[
 filename = "myfile.txt"
 
@@ -142,9 +139,9 @@ extension = filename.rsplit(".", 1)[1]
 
 print(extension)  # 输出：".txt"			
 			]]>
-			</programlisting>
-		</section>
+		</programlisting>
 	</section>
+
 	<section>
 		<title>创建目录</title>
 		<para>创建一层目录</para>
@@ -158,7 +155,10 @@ if not os.path.exists(dir_name):
 		<para>递归创建目录</para>
 		<programlisting>
 		<![CDATA[
-os.makedirs('./path/path2/path3')		
+os.makedirs('./path/path2/path3')
+
+if not os.path.exists(saveDir):
+    os.makedirs(saveDir)
 		]]>
 		</programlisting>
 	</section>
@@ -433,5 +433,39 @@ C:\folder\subfolder
 			
 		</section>
 	</section>	
-	
+	<section>
+		<title>复制文件</title>
+		<programlisting>
+		<![CDATA[
+import shutil
+
+# 定义源文件和目标文件的路径
+src_path = "path/to/source/file.txt"
+dst_path = "path/to/destination/file.txt"
+
+# 复制文件
+shutil.copy(src_path, dst_path)
+		]]>
+		</programlisting>
+		<screen>
+		<![CDATA[
+from pathlib import Path
+
+# 定义源文件和目标文件的路径
+src_path = Path("path/to/source/file.txt")
+dst_path = Path("path/to/destination/file.txt")
+
+# 复制文件
+src_path.copy(dst_path)
+
+
+# 打开源文件和目标文件
+with open(src_file, "rb") as src, open(dst_file, "wb") as dst:
+    # 读取源文件内容并写入目标文件
+    data = src.read()
+    dst.write(data)
+		
+		]]>
+		</screen>
+	</section>
 </section>
