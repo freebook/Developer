@@ -72,7 +72,7 @@ print(doc)
 		</screen>
 	</section>
 	<section>
-		<title></title>
+		<title>dominate</title>
 		<programlisting>
 		<![CDATA[
 from dominate import document
