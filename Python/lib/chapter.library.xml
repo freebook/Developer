@@ -227,43 +227,7 @@ $ dpkg -L python-subversion
 		</screen>
 	</section>
 
-	<section id="fuse-python">
-		<title>fuse-python.x86_64 : Python bindings for FUSE - filesystem in
-			userspace</title>
-
-	</section>
-	<section id="python-spdylay">
-		<title>Python-spdylay - Spdylay Python Extension Module</title>
-		<para>
-			<ulink url="http://spdylay.sourceforge.net/" />
-		</para>
-	</section>
-	<section id="mechanize">
-		<title>mechanize</title>
-		<para>
-			<ulink url="http://wwwsearch.sourceforge.net/mechanize/" />
-		</para>
-		<para>Ubuntu</para>
-		<screen>
-	<![CDATA[
-$ sudo apt-get install python-mechanize
-	]]>
-		</screen>
-		<para>Pip</para>
-		<screen>
-	<![CDATA[
-$ sudo pip install mechanize	
-	]]>
-		</screen>
-		<para>Python 3</para>
-		<screen>
-	<![CDATA[
-git clone https://github.com/adevore/mechanize.git	
-cd mechanize/
-git checkout python3
-	]]>
-		</screen>
-	</section>
+	
 	&section.library.terminal.xml;
 	&section.library.captcha.xml;
 	&section.library.other.xml;

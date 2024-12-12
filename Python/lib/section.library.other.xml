@@ -224,30 +224,14 @@ if __name__ == "__main__":
 		]]>
 		</programlisting>
 	</section>
-	
+
 </section>
-<section id="ZeroRPC">
-	<title>ZeroRPC</title>
-	<para>http://zerorpc.dotcloud.com/</para>
-	<para>Zeromq 是基于zeromq、gevent和 msgpack开发的分布式RPC框架.</para>
-</section>
-<section>
-	<title>表情符号 emoji</title>
-	<screen>
-		<![CDATA[
-import emoji
-result = emoji.emojize('Python is :thumbs_up:')
-print(result)
-# 'Python is  &#x27;
-<br/># You can also reverse this:
-result = emoji.demojize('Python is  ')
-print(result)<br/># 'Python is :thumbs_up:&#x27;		
-		]]>
-	</screen>
-</section>
-<section>
+
+<section id="gps">
 	<title>GPS</title>
-	<programlisting>
+	<section>
+		<title>gpsdclient</title>
+		<programlisting>
 	<![CDATA[
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
@@ -583,7 +567,10 @@ if __name__ == "__main__":
         print("Crtl+C Pressed. Shutting down.")
 	
 	]]>
-	</programlisting>
+		</programlisting>
+
+
+	</section>
 	<section>
 		<title>Traccar</title>
 		<para>Traccar 是一个地图服务，把GPS坐标推送给 Traccar 之后，可以在 Traccar 上看到移动轨迹。</para>
@@ -744,7 +731,64 @@ if __name__ == "__main__":
 		
 		]]>
 		</programlisting>
-		
+
 	</section>
-	
+
+</section>
+<section id="ZeroRPC">
+	<title>ZeroRPC</title>
+	<para>http://zerorpc.dotcloud.com/</para>
+	<para>Zeromq 是基于zeromq、gevent和 msgpack开发的分布式RPC框架.</para>
+</section>
+<section>
+	<title>表情符号 emoji</title>
+	<screen>
+		<![CDATA[
+import emoji
+result = emoji.emojize('Python is :thumbs_up:')
+print(result)
+# 'Python is  &#x27;
+<br/># You can also reverse this:
+result = emoji.demojize('Python is  ')
+print(result)<br/># 'Python is :thumbs_up:&#x27;		
+		]]>
+	</screen>
+</section>
+<section id="fuse-python">
+	<title>fuse-python.x86_64 : Python bindings for FUSE - filesystem in
+		userspace
+	</title>
+
+</section>
+<section id="python-spdylay">
+	<title>Python-spdylay - Spdylay Python Extension Module</title>
+	<para>
+		<ulink url="http://spdylay.sourceforge.net/" />
+	</para>
+</section>
+<section id="mechanize">
+	<title>mechanize</title>
+	<para>
+		<ulink url="http://wwwsearch.sourceforge.net/mechanize/" />
+	</para>
+	<para>Ubuntu</para>
+	<screen>
+	<![CDATA[
+$ sudo apt-get install python-mechanize
+	]]>
+	</screen>
+	<para>Pip</para>
+	<screen>
+	<![CDATA[
+$ sudo pip install mechanize	
+	]]>
+	</screen>
+	<para>Python 3</para>
+	<screen>
+	<![CDATA[
+git clone https://github.com/adevore/mechanize.git	
+cd mechanize/
+git checkout python3
+	]]>
+	</screen>
 </section>

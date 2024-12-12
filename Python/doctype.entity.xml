@@ -18,7 +18,7 @@
 <!ENTITY section.library.captcha.xml		SYSTEM "lib/section.library.captcha.xml">
 <!ENTITY section.library.terminal.xml		SYSTEM "lib/section.library.terminal.xml">
 <!ENTITY section.library.network.xml		SYSTEM "lib/section.library.network.xml">
-<!ENTITY section.library.other.xml	 		SYSTEM "section.library.other.xml">
+<!ENTITY section.library.other.xml	 		SYSTEM "lib/section.library.other.xml">
 
 <!ENTITY chapter.exe.xml					SYSTEM "chapter.exe.xml">
 <!ENTITY chapter.3rdparty.xml				SYSTEM "chapter.3rdparty.xml">
