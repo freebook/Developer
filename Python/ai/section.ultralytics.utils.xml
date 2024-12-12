@@ -14,11 +14,225 @@
 		<para>最后输出 data.yaml 文件</para>
 	</section>
 	<section>
+		<title>尺寸裁剪工具</title>
+		<programlisting>
+		<![CDATA[
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+##############################################
+# Home	: https://www.netkiller.cn
+# Author: Neo <netkiller@msn.com>
+# Upgrade: 2024-12-12
+##############################################
+try:
+    import uuid
+    import shutil
+    import os,sys,random,argparse
+    import yaml
+    import json
+    from PIL import Image
+    from ultralytics import YOLO
+
+except ImportError as err:
+    print("Import Error: %s" % (err))
+    exit()
+
+class Tongue():
+    # background = (22, 255, 39) # 绿幕RGB模式（R22 - G255 - B39），CMYK模式（C62 - M0 - Y100 - K0）
+    background = (0, 0,0)
+    expand = 100
+    border = 10
+
+    def __init__(self):
+
+        self.basedir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+        sys.path.append(self.basedir)
+        # print(basedir)
+
+        self.parser = argparse.ArgumentParser(description='自动切割产学习数据')
+        self.parser.add_argument('--source', type=str, default=None, help='图片来源地址')
+        self.parser.add_argument('--target', default=None, type=str, help='图片目标地址')
+        self.parser.add_argument('--imgsz', type=int, default=800, help='长边尺寸',metavar=800)
+        self.parser.add_argument('--clean', action="store_true", default=False, help='清理之前的数据')
+        self.parser.add_argument('--md5sum', action="store_true", default=False, help='使用md5作为文件名')
+        self.parser.add_argument('--uuid', action="store_true", default=False, help='重命名图片为UUID')
+        self.args = self.parser.parse_args()
+
+    def mkdirs(self,path):
+        if not os.path.exists(path):
+            os.makedirs(path)
+
+    def scanfile(self,path):
+        files = []
+        for name in os.listdir(path):
+            if os.path.isfile(os.path.join(path, name)):
+                files.append(name)
+
+        return (files)
+    def scandir(self,path):
+        files = []
+        for name in os.listdir(path):
+            if os.path.isdir(os.path.join(path, name)):
+                files.append(name)
+
+        return (files)
+
+    def walkdir(self,path):
+        for dirpath, dirnames, filenames in os.walk(path):
+            print(f"dirpath={dirpath}, dirnames={dirnames}, filenames={filenames}")
+            # print(filenames)
+
+    def crop(self,original,target,xyxy):
+        # original = Image.open(source)
+        width, height = original.size
+        x0, y0, x1, y1 = map(int, xyxy)
+
+        if x0 - self.expand < 0:
+            x0 = 0
+        else:
+            x0 -= self.expand
+
+        if y0 - self.expand < 0:
+            y0 = 0
+        else:
+            y0 -= self.expand
+
+        if x1 + self.expand > width:
+            x1 = width
+        else:
+            x1 += self.expand
+
+        if y1 + self.expand > height:
+            y1 = height
+        else:
+            y1 += self.expand
+
+        # print(f"xyxy={xyxy}")
+        # print(x0, y0, x1, y1)
+        # crop = tuple(map(int, xyxy))
+        crop = tuple((x0, y0, x1, y1))
+        tongue = original.crop(crop)
+        tongue = self.resize(tongue)
+        # crop.save(output)
+        width, height = tongue.size
+        # width += self.border
+        # height += self.border
+        image = Image.new('RGB', (width, height), self.background)
+        image.paste(tongue, (
+            int(width / 2) - int(tongue.size[0] / 2), int(height / 2) - int(tongue.size[1] / 2)))
+        image.save(target)
+    def boxes(self, source:str):
+        boxes = self.annotation(source)
+        if boxes is not None:
+            xyxy = boxes.xyxy[0].tolist()
+            # xywh = boxes.xywh[0]
+            return xyxy
+        return None
+    def annotation(self,path):
+        if not os.path.exists(path):
+            return None
+
+        try:
+            results = self.model(path)
+            if len(results):
+                # print(results[0])
+                if len(results[0].boxes):
+                    return results[0].boxes[0]
+
+        except Exception as e:
+            # log.error(e)
+            print("annotation: ",e)
+            exit()
+        return None
+    def resize(self,image):
+        # from PIL import Image
+        # 加载图像
+        # image = Image.open('path_to_your_image.jpg')
+        # 计算缩放因子
+        width, height = image.size
+        # print(width, height)
+        if max(width,height)> self.args.imgsz:
+            if width > height :
+                ratio = width / self.args.imgsz
+                width = self.args.imgsz
+                height = int(height / ratio)
+            else:
+                ratio = height / self.args.imgsz
+                width = int(width / ratio)
+                height = self.args.imgsz
+
+            # print(ratio)
+            # print(width, height)
+
+            return image.resize((width, height))
+        return image
+    def input(self):
+        if self.args.clean:
+            if os.path.exists(self.args.target):
+                shutil.rmtree(self.args.target)
+
+        self.mkdirs(self.args.target)
+        self.files = self.scanfile(os.path.join(self.args.source))
+        # print(self.files)
+
+        self.model = YOLO(f"{self.basedir}/model/tongue/best.pt")
+        # YOLO(f"{self.basedir}/model/shebei/best.pt")
+    def process(self):
+        for file in self.files:
+            source = os.path.join(self.args.source, file)
+            target = os.path.join(self.args.target, file)
+            # print(file)
+            try:
+                original = Image.open(source)
+                width, height = original.size
+                # print(target)
+                if max(width,height) < self.args.imgsz :
+                    shutil.copyfile(source, target)
+                else:
+                    xyxy=self.boxes(source)
+                    self.crop(original, target,xyxy)
+                    # print(f"COPY train source={source}, target={target}")
+            except Exception as e:
+                # log.error(e)
+                print("process: ", e)
+                exit()
+
+    def output(self):
+        pass
+
+    def main(self):
+        # print(self.args)
+        if self.args.source and self.args.target:
+
+            self.input()
+            self.process()
+            self.output()
+
+        else:
+            self.parser.print_help()
+            exit()
+
+if __name__ == "__main__":
+    try:
+        tongue = Tongue()
+        tongue.main()
+    except KeyboardInterrupt as e:
+        print(e)
+		]]>
+		</programlisting>
+	</section>
+	<section>
 		<title>转换程序</title>
 		<para>代码讲训练数据转换为 YOLO 数据库集</para>
 		<programlisting>
 			<![CDATA[
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
+##############################################
+# Home	: https://www.netkiller.cn
+# Author: Neo <netkiller@msn.com>
+# Upgrade: 2024-12-11
+##############################################
 import uuid
 
 try:
