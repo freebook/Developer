@@ -47,7 +47,50 @@ img_ANTIALIAS = img.resize((width//2, height//2), Image.ANTIALIAS)
 		]]>
 			</programlisting>
 		</section>
+		<section>
+			<title>机遇长边放大</title>
+			<programlisting>
+			<![CDATA[
+width = 800
+height = 600
+print(width,height)
 
+w = 400
+ratio = width / w
+print(ratio)
+
+width = w
+height = height / ratio
+print(width,height)			
+			]]>
+			</programlisting>
+			<para>self.args.imgsz 是希望修改的长边</para>
+			<programlisting>
+			<![CDATA[
+from PIL import Image
+# 加载图像
+image = Image.open('path_to_your_image.jpg')
+# 计算缩放因子
+width, height = image.size
+# print(width, height)
+if max(width,height)> self.args.imgsz:
+    if width > height :
+        ratio = width / self.args.imgsz
+        width = self.args.imgsz
+        height = int(height / ratio)
+    else:
+        ratio = height / self.args.imgsz
+        width = int(width / ratio)
+        height = self.args.imgsz
+
+    # print(ratio)
+    # print(width, height)
+
+    image.resize((width, height))
+
+			]]>
+			</programlisting>
+		</section>
 	</section>
 	<section id="image.paste">
 		<title>叠加图像</title>

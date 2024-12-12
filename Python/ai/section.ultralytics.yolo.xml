@@ -363,7 +363,7 @@ metrics.box.maps   # a list contains map50-95 of each category
 			</programlisting>
 		</section>
 	</section>
-	<section>
+	<section id="model.predict">
 		<title>模型预测</title>
 		<programlisting>
 		<![CDATA[
@@ -539,8 +539,17 @@ async def netkiller(file: bytes = File()):
 			]]>
 			</programlisting>
 		</section>
+		<section>
+			<title>boxes</title>
+			<para>tensor([ 59.0264,  88.7340, 367.5180, 420.6993]) 转 list [ 59.0264,  88.7340, 367.5180, 420.6993]</para>
+			<programlisting>
+			<![CDATA[
+xyxy = boxes.xyxy[0].tolist()			
+			]]>
+			</programlisting>
+		</section>
 	</section>
-	<section>
+	<section id="model.export">
 		<title>模型导出</title>
 		<section>
 			<title>onnx 格式</title>
