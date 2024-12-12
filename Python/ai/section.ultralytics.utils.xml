@@ -442,6 +442,177 @@ if __name__ == "__main__":
         print(e)		
 		]]>
 		</programlisting>
+		<para>V2 版本</para>
+		<programlisting>
+		<![CDATA[
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+##############################################
+# Home	: https://www.netkiller.cn
+# Author: Neo <netkiller@msn.com>
+# Upgrade: 2024-12-12
+##############################################
+import glob
+import os,sys,argparse
+import random
+from texttable import Texttable
+from tqdm import tqdm
+import yaml,shutil
+import cv2
+import logging
+
+class LabelimgToYolo():
+    # background = (22, 255, 39) # 绿幕RGB模式（R22 - G255 - B39），CMYK模式（C62 - M0 - Y100 - K0）
+    background = (0, 0,0)
+
+    def __init__(self):
+
+        self.basedir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+        sys.path.append(self.basedir)
+
+        # 日志记录基本设置
+        logfile = os.path.splitext(__file__)[0]
+        logging.basicConfig(filename=f"{logfile}.log", level=logging.DEBUG, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+
+        self.parser = argparse.ArgumentParser(description='Yolo 工具 V2.0 - Design by netkiller - https://www.netkiller.cn')
+        self.parser.add_argument('--source', type=str, default=None, help='图片来源地址')
+        self.parser.add_argument('--target', default=None, type=str, help='图片目标地址')
+        # self.parser.add_argument('--diseases', type=str, default=None, help='疾病分类')
+        self.parser.add_argument('--val', type=int, default=10, help='检验数量',metavar=10)
+        self.parser.add_argument('--clean', action="store_true", default=False, help='清理之前的数据')
+        self.parser.add_argument('--crop', action="store_true", default=False, help='裁剪')
+        # self.parser.add_argument('--uuid', action="store_true", default=False, help='重命名图片为UUID')
+        self.parser.add_argument('--check', action="store_true", default=False, help='图片检查 corrupt JPEG restored and saved')
+        self.args = self.parser.parse_args()
+
+        self.classes = []
+        self.data = {}
+        self.missed = []
+
+        self.logger = logging.getLogger("LabelimgToYolo")
+    def mkdirs(self,path):
+        if not os.path.exists(path):
+            os.makedirs(path)
+    def input(self):
+        if self.args.clean:
+            if os.path.exists(self.args.target):
+                shutil.rmtree(self.args.target)
+
+        self.mkdirs(os.path.join(self.args.target))
+        directory = [
+            'train/labels', 'train/images', 'val/labels', 'val/images', 'test/labels', 'test/images'
+        ]
+
+        with tqdm(total=len(directory), ncols=100) as progress:
+            progress.set_description("init")
+            for dir in directory:
+                self.mkdirs(os.path.join(self.args.target, dir))
+                progress.update(1)
+
+        with open(os.path.join(self.args.source, 'classes.txt')) as file:
+            for line in file:
+                self.classes.append(line.strip())
+                self.data[line.strip()] = []
+        self.logger.info(f"classes={self.classes}")
+        # print(self.classes)
+
+    def process(self):
+        # images =  glob.glob('*.jpg', root_dir=self.args.source)
+        labels = glob.glob('*.txt', root_dir=self.args.source)
+
+        with tqdm(total=len(labels), ncols=100) as progress:
+            progress.set_description("%s" % 'train/labels')
+            for label in labels:
+                if label == 'classes.txt':
+                    continue
+                source = os.path.join(self.args.source,label)
+                target = os.path.join(self.args.target,'train/labels')
+                name, extension = os.path.splitext(label)
+                self.logger.debug(f"train/labels source={source} target={target} name={name}")
+                with open(source) as file:
+                    for line in file:
+                        index = line.strip().split(" ")[0]
+                        self.data[self.classes[int(index)]].append(name)
+                        self.logger.debug(f"line={line.strip()} index={index} label={self.classes[int(index)]}")
+                shutil.copy(source, target)
+                progress.update(1)
+
+        with tqdm(total=len(labels), ncols=100) as progress:
+            progress.set_description("%s" % 'train/images')
+            for label in labels:
+                if label == 'classes.txt':
+                    continue
+                name, extension = os.path.splitext(label)
+                filename = f"{name}.jpg"
+                if os.path.isfile(os.path.join(self.args.source,filename)):
+                    source = os.path.join(self.args.source, filename)
+                    target = os.path.join(self.args.target, 'train/images', filename)
+                    self.logger.debug(f"train/images source={source} target={target} name={name}")
+                    if self.args.check:
+                        img = cv2.imread(source)
+                        cv2.imwrite(target, img)
+                    else:
+                        shutil.copy(source, target)
+                else:
+                    self.missed.append(filename)
+                    self.logger.warning(f"missing {filename}")
+                progress.update(1)
+
+        for label, files in self.data.items():
+            if len(files) < self.args.val:
+                self.args.val = len(files)
+            vals = random.sample(files, self.args.val)
+            # self.logger.debug(f"val/images label={label} files={files}")
+            for name in vals:
+                # filename, extension = os.path.splitext(os.path.basename(image))
+                try:
+                    shutil.copy(os.path.join(self.args.source, f"{name}.jpg"),os.path.join(self.args.target, 'val/images'))
+                    shutil.copy(os.path.join(self.args.source,f"{name}.txt"), os.path.join(self.args.target, 'val/labels'))
+                except Exception as e:
+                    self.logger.error(f"val {repr(e)} name={name}")
+    def output(self):
+        names = {i: self.classes[i] for i in range(len(self.classes))}  # 标签类别
+        data = {
+            'path': os.path.join(os.getcwd(), self.args.target),
+            'train': "train/images",
+            'val': "val/images",
+            'test': "test/images",
+            'names': names
+            # 'nc': len(self.classes)
+        }
+        with open(os.path.join(self.args.target, 'data.yaml'), 'w', encoding="utf-8") as file:
+             yaml.dump(data, file, allow_unicode=True)
+    def report(self):
+        tables = [["标签", "数量"]]
+        for label,files in self.data.items():
+            tables.append([label,len(files)])
+        table = Texttable(max_width=160)
+        table.add_rows(tables)
+        print(table.draw())
+        for file in self.missed:
+            self.logger.warning(f"丢失文件 {file}")
+    def main(self):
+
+        if self.args.source and self.args.target:
+            self.logger.info("Start")
+            self.input()
+            self.process()
+            self.output()
+            self.report()
+            self.logger.info("Done")
+        else:
+            self.parser.print_help()
+            exit()
+
+
+if __name__ == "__main__":
+    try:
+        run = LabelimgToYolo()
+        run.main()
+    except KeyboardInterrupt as e:
+        print(e)		
+		]]>
+		</programlisting>
 	</section>
 	
 	
