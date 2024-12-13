@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<section>
+<section id="socket">
 	<title>网络开发（Socket）</title>
 	<section id="simplehttpserver">
 		<title>SimpleHTTPServer</title>

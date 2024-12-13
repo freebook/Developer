@@ -548,6 +548,22 @@ xyxy = boxes.xyxy[0].tolist()
 			]]>
 			</programlisting>
 		</section>
+		<section>
+			<title>verbose 打印详细输出</title>
+			<para>默认会输出</para>
+			<screen>
+			<![CDATA[
+image 1/1 /Users/neo/PycharmProjects/netkiller/tmp/test/20150917_082555.jpg: 320x192 1 shebei, 11.2ms
+Speed: 0.5ms preprocess, 11.2ms inference, 0.5ms postprocess per image at shape (1, 3, 320, 192)
+			]]>
+			</screen>
+			<para>关闭输出</para>
+			<programlisting>
+			<![CDATA[
+model(img, save=True, verbose=False)			
+			]]>
+			</programlisting>
+		</section>		
 	</section>
 	<section id="model.export">
 		<title>模型导出</title>

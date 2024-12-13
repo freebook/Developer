@@ -1,6 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <section id="terminal">
 	<title>终端环境开发</title>
+	<section id="argparse">
+		<title>命令行参数处理</title>
+		<subtitle>argparse — Parser for command-line options, arguments and subcommands</subtitle>
+		<programlisting>
+		<![CDATA[
+        self.parser = argparse.ArgumentParser(description='自动切割学习数据')
+        self.parser.add_argument('--source', type=str, default=None, help='图片来源地址')
+        self.parser.add_argument('--target', default=None, type=str, help='图片目标地址')
+        self.parser.add_argument('--imgsz', type=int, default=640, help='长边尺寸',metavar=640)
+        self.parser.add_argument('--clean', action="store_true", default=False, help='清理之前的数据')
+        self.parser.add_argument('--md5sum', action="store_true", default=False, help='使用md5作为文件名')
+        self.parser.add_argument('--uuid', action="store_true", default=False, help='重命名图片为UUID')
+        self.args = self.parser.parse_args()		
+		]]>
+		</programlisting>
+	</section>
+	<section id="getopt">
+		<title>getopt – Command line option parsing</title>
+	</section>
 	<section>
 		<title>ANSI Color</title>
 
@@ -70,9 +89,11 @@ if __name__ == "__main__":
 				<itemizedlist>
 					<title></title>
 					<listitem>Fore: BLACK, RED, GREEN, YELLOW, BLUE, MAGENTA, CYAN,
-						WHITE, RESET.</listitem>
+						WHITE, RESET.
+					</listitem>
 					<listitem>Back: BLACK, RED, GREEN, YELLOW, BLUE, MAGENTA, CYAN,
-						WHITE, RESET.</listitem>
+						WHITE, RESET.
+					</listitem>
 					<listitem>Style: DIM, NORMAL, BRIGHT, RESET_ALL</listitem>
 				</itemizedlist>
 			</section>
@@ -905,10 +926,10 @@ print(table.draw())
 	<section id="prompt_toolkit">
 		<title>prompt_toolkit</title>
 		<subtitle>prompt_toolkit is a library for building powerful
-			interactive command line applications in Python.</subtitle>
+			interactive command line applications in Python.
+		</subtitle>
 		<para>
-			<ulink
-				url="https://github.com/prompt-toolkit/python-prompt-toolkit" />
+			<ulink url="https://github.com/prompt-toolkit/python-prompt-toolkit" />
 		</para>
 		<para>
 			<ulink url="https://github.com/prompt-toolkit/pymux" />

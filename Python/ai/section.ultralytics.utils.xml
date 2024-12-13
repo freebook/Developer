@@ -527,6 +527,190 @@ options:
 			]]>
 		</screen>
 	</section>
+	<section>
+		<title>自动标注工具</title>
+		<programlisting>
+		<![CDATA[
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+##############################################
+# Home	: https://www.netkiller.cn
+# Author: Neo <netkiller@msn.com>
+# Upgrade: 2024-12-13
+##############################################
+try:
+    import uuid,hashlib
+    import glob
+    import shutil
+    import os,sys,random,argparse
+    import yaml
+    from tqdm import tqdm
+    from PIL import Image
+    from ultralytics import YOLO
+
+except ImportError as err:
+    print("Import Error: %s" % (err))
+    exit()
+
+class AutoLabel():
+    classes = []
+    labels = {}
+
+    def __init__(self):
+
+        self.basedir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+        sys.path.append(self.basedir)
+        # print(basedir)
+
+        self.parser = argparse.ArgumentParser(description='自动标注数据')
+        self.parser.add_argument('--source', type=str, default=None, help='图片来源地址')
+        self.parser.add_argument('--target', default=None, type=str, help='图片目标地址')
+        self.parser.add_argument('--model', type=str, default=None, help='模型',metavar="")
+        self.parser.add_argument('--output', type=str, default=None, help='输出识别图像', metavar="")
+        self.parser.add_argument('--clean', action="store_true", default=False, help='清理之前的数据')
+        self.parser.add_argument('--verbose', action="store_true", default=False, help='过程输出')
+        # self.parser.add_argument('--uuid', action="store_true", default=False, help='重命名图片为UUID')
+        self.args = self.parser.parse_args()
+
+    def mkdirs(self,path):
+        if not os.path.exists(path):
+            os.makedirs(path)
+
+    def scanfile(self,path):
+        files = []
+        for name in os.listdir(path):
+            if os.path.isfile(os.path.join(path, name)):
+                files.append(name)
+
+        return (files)
+    def scandir(self,path):
+        files = []
+        for name in os.listdir(path):
+            if os.path.isdir(os.path.join(path, name)):
+                files.append(name)
+
+        return (files)
+
+    def walkdir(self,path):
+        for dirpath, dirnames, filenames in os.walk(path):
+            print(f"dirpath={dirpath}, dirnames={dirnames}, filenames={filenames}")
+            # print(filenames)
+
+    def label(self, source:str):
+        # print(source)
+        if not os.path.exists(source):
+            return None
+
+        try:
+            results = self.model(source,verbose=self.args.verbose)
+            # print(results)
+            for result in results:
+                boxes = result.boxes  # 获取边界框信息
+                # probs = result.probs  # 获取分类概率
+                # names = result.names
+                # print(boxes)
+                # print(probs)
+                # print(names)
+                # if boxes is not None:
+                #     print(boxes.cls.tolist())
+                #     print(boxes.xywhn.tolist())
+                if not self.classes:
+                    for index,name in result.names.items():
+                        self.classes.append(name)
+                if self.args.output:
+                    result.save(filename=os.path.join(self.args.output,os.path.basename(source)))
+
+                lines = []
+                for n in range(len(boxes.cls)):
+                    index = int(boxes.cls[n])
+                    xywhn = boxes.xywhn[n]
+                    line = f"{index} {xywhn[0]} {xywhn[1]} {xywhn[2]} {xywhn[3]}"
+                    # print(line)
+                #     label = names[int(box.cls)]
+                    lines.append(line)
+            name, extension = os.path.splitext(os.path.basename(source))
+            self.labels[name] = "\r\n".join(lines)
+        except Exception as e:
+            # log.error(e)
+            print("annotation: ",e)
+            exit()
+        return None
+
+    def input(self):
+        try:
+            if self.args.clean:
+                shutil.rmtree(self.args.target)
+                shutil.rmtree(self.args.output)
+                # if os.path.exists(self.args.target):
+                #     files = glob.glob(os.path.join(self.args.target,'*.txt'))
+                #     for file in files:
+                #         os.remove(file)
+            self.mkdirs(self.args.target)
+            self.mkdirs(self.args.output)
+            # self.files = self.scanfile(os.path.join(self.args.source))
+            self.files =glob.glob(os.path.join(self.args.source, '*.jpg'))
+            # print(self.files)
+        except Exception as e:
+            # log.error(e)
+            print("input: ", e)
+            exit()
+
+    def process(self):
+        with tqdm(total=len(self.files), ncols=150) as progress:
+            for source in self.files:
+                progress.set_description(os.path.basename(source))
+                target = os.path.join(self.args.target, os.path.basename(source))
+                # print(f"copy source={source}, target={target}")
+                try:
+                    shutil.copyfile(source, target)
+                    self.label(source)
+                except Exception as e:
+                    # log.error(e)
+                    progress.close()
+                    print("process: ", e)
+                    exit()
+                progress.update(1)
+
+    def output(self):
+        # print(content)
+        for name, label in self.labels.items():
+            target = os.path.join(self.args.target, f"{name}.txt")
+            with open(target, "w") as file:
+                file.write(label)
+
+        with open(os.path.join(self.args.target,'classes.txt'), "w") as file:
+            # for line in self.classes:
+            #     file.write(line)
+            file.writelines([line+'\n' for line in self.classes])
+        pass
+
+    def main(self):
+
+        if self.args.model :
+            self.model = YOLO(self.args.model)
+        else:
+            self.model = YOLO(f"{self.basedir}/model/tongue/best.pt")
+        # print(self.args)
+
+        if self.args.source and self.args.target:
+
+            self.input()
+            self.process()
+            self.output()
+
+        else:
+            self.parser.print_help()
+            exit()
+
+if __name__ == "__main__":
+    try:
+        run = AutoLabel()
+        run.main()
+    except KeyboardInterrupt as e:
+        print(e)		
+		]]>
+		</programlisting>
+	</section>
 	<section id="LabelimgToYolo">
 		<title>LabelimgToYolo</title>
 		<programlisting>
