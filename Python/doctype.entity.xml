@@ -68,6 +68,7 @@
 <!ENTITY section.pytorch.example.xml		SYSTEM "ai/section.pytorch.example.xml">
 <!ENTITY chapter.ultralytics.xml			SYSTEM "ai/chapter.ultralytics.xml">
 <!ENTITY section.ultralytics.yolo.xml		SYSTEM "ai/section.ultralytics.yolo.xml">
+<!ENTITY section.ultralytics.cmd.xml		SYSTEM "ai/section.ultralytics.cmd.xml">
 <!ENTITY section.ultralytics.task.xml		SYSTEM "ai/section.ultralytics.task.xml">
 <!ENTITY section.ultralytics.utils.xml		SYSTEM "ai/section.ultralytics.utils.xml">
 <!ENTITY section.ultralytics.example.xml	SYSTEM "ai/section.ultralytics.example.xml">
