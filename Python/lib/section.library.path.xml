@@ -62,9 +62,12 @@ with open('beak', 'rb+') as f:
 		</programlisting>
 	</section>
 	<section>
-		<title>获取文件名</title>
-		<para>使用os.path.basename()获取文件名</para>
-		<screen>
+		<title>文件名/扩展名</title>
+
+		<section id="os.path.split">
+			<title>获取文件名</title>
+			<para>使用os.path.basename()获取文件名</para>
+			<screen>
 			<![CDATA[
 import os
 
@@ -76,20 +79,20 @@ file_name = os.path.basename(file_path)
 
 print(file_name)  # 输出: example.txt			
 			]]>
-		</screen>
-	</section>
-	<section>
-		<title>分割路径与文件名</title>
-		<programlisting>
+			</screen>
+		</section>
+		<section id="os.path.split">
+			<title>分割路径与文件名</title>
+			<programlisting>
 			<![CDATA[
 # 返回值为元组 ('/Users/netkiller/Desktop', 'neo.txt')
 path, name = os.path.split(file_path)			
 			]]>
-		</programlisting>
-	</section>
-	<section>
-		<title>获取扩展名</title>
-		<programlisting>
+			</programlisting>
+		</section>
+		<section id="os.path.splitext">
+			<title>获取扩展名</title>
+			<programlisting>
 			<![CDATA[
 import os
 
@@ -105,23 +108,23 @@ print("扩展名:", file_extension)  # 输出: 扩展名: .txt
 file_extension = file_extension[1:]  # 去掉点号
 print("去掉点号的扩展名:", file_extension)  # 输出: 去掉点号的扩展名: txt		
 			]]>
-		</programlisting>
-		<programlisting>
+			</programlisting>
+			<programlisting>
 			<![CDATA[
 import os
 ext = os.path.splitext("path/to/file.ext")[-1][1:]
 print(ext)
 			]]>
-		</programlisting>
-		<para></para>
-		<programlisting>
+			</programlisting>
+			<para></para>
+			<programlisting>
 			<![CDATA[
 path = "path/to/file.ext"
 suffix = path.split(".")[1]
 print("suffix: {}".format(suffix))			
 			]]>
-		</programlisting>
-		<programlisting>
+			</programlisting>
+			<programlisting>
 			<![CDATA[
 import re
 
@@ -129,8 +132,8 @@ filename = "example.txt"
 extension = re.findall(r"\.[^.]*$", filename)[0]
 print(extension)			
 			]]>
-		</programlisting>
-		<programlisting>
+			</programlisting>
+			<programlisting>
 			<![CDATA[
 filename = "myfile.txt"
 
@@ -138,10 +141,10 @@ extension = filename.rsplit(".", 1)[1]
 
 print(extension)  # 输出：".txt"			
 			]]>
-		</programlisting>
+			</programlisting>
+		</section>
 	</section>
-
-	<section>
+	<section id="os.makedirs">
 		<title>创建目录</title>
 		<para>创建一层目录</para>
 		<programlisting>
@@ -158,6 +161,12 @@ os.makedirs('./path/path2/path3')
 
 if not os.path.exists(saveDir):
     os.makedirs(saveDir)
+		]]>
+		</programlisting>
+		<para>使用默认权限创建目录，如果目录已存在，则不会引发异常</para>
+		<programlisting>
+		<![CDATA[
+os.makedirs(output_folder, exist_ok=True)		
 		]]>
 		</programlisting>
 	</section>
@@ -180,7 +189,7 @@ if not os.path.exists(saveDir):
 		]]>
 		</programlisting>
 	</section>
-	<section>
+	<section id="os.path.exists">
 		<title>判断文件/路径是否存在</title>
 		<programlisting>
 		<![CDATA[
@@ -194,17 +203,9 @@ os.path.isabs()
 		]]>
 		</programlisting>
 	</section>
-	<section>
-		<title>返回绝对路径</title>
-		<programlisting>
-		<![CDATA[
-file_path_1 = './test.txt'
-file_path_abs = os.path.abspath(file_path_1)		
-		]]>
-		</programlisting>
-	</section>
 	
-	<section>
+
+	<section id="os.path.join">
 		<title>路径拼接</title>
 		<para>os.path.join()</para>
 		<programlisting>
@@ -215,7 +216,7 @@ os.path.join('path1','path2','path3','path4')
 		]]>
 		</programlisting>
 	</section>
-	<section>
+	<section id="os.listdir">
 		<title>目录和文件列表</title>
 		<section>
 			<title>遍历当前目录</title>
@@ -348,7 +349,7 @@ os.remove(path)
 import os	
 os.removedirs("/path/to/your")		
 		]]>
-		</programlisting>		
+		</programlisting>
 		<para>递归删除文件夹</para>
 		<programlisting>
 		<![CDATA[
@@ -359,6 +360,15 @@ shutil.rmtree(path)
 	</section>
 	<section>
 		<title>路径操作</title>
+		<section>
+			<title>返回绝对路径</title>
+			<programlisting>
+			<![CDATA[
+	file_path_1 = './test.txt'
+	file_path_abs = os.path.abspath(file_path_1)		
+			]]>
+			</programlisting>
+		</section>
 		<section>
 			<title>获取父目录</title>
 			<programlisting>
@@ -429,10 +439,10 @@ C:\folder\subfolder
 \home\neo	
 			]]>
 			</screen>
-			
+
 		</section>
-	</section>	
-	<section>
+	</section>
+	<section id="file.copy">
 		<title>复制文件</title>
 		<programlisting>
 		<![CDATA[

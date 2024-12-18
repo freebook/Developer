@@ -657,6 +657,32 @@ test.append('c')
 print(test)	
 		]]>
 		</programlisting>
+		<section>
+			<title>返回索引序号</title>
+			<para>index()方法语法：</para>
+			<screen>
+			<![CDATA[
+list.index(x[, start[, end]])
+
+参数
+x-- 查找的对象。
+start-- 可选，查找的起始位置。
+end-- 可选，查找的结束位置。			
+			]]>
+			</screen>
+			<programlisting>
+			<![CDATA[
+fruits = ["apple", "banana", "cherry", "apple"]
+print(fruits.index("apple")) # 输出: 0
+
+animals = ["cat", "dog", "tiger"]
+print(animals.index("dog")) # 输出: 1
+
+numbers = [1, 2, 3, 4, 1, 1, 1, 4, 5]
+print(numbers.index(4, 4, 8)) # 输出: 7
+			]]>
+			</programlisting>
+		</section>
 	</section>
 	<section id="data.set">
 		<title>Set</title>
