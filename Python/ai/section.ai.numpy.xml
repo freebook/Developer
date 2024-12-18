@@ -187,6 +187,76 @@ print(matrix1.dtype)
 			</programlisting>
 		</section>
 	</section>
+	<section id="numpy.max">
+		<title>max</title>
+		<programlisting>
+		<![CDATA[
+# 创建一个包含学生成绩的二维数组
+data = np.array([
+    ['Alice', 85, 92, 78],
+    ['Bob', 89, 90, 95],
+    ['Charlie', 91, 85, 88],
+    ['David', 78, 80, 82]
+])
+
+# 提取成绩列（忽略姓名列）
+grades = data[:, 1:].astype(int)
+print(grades)
+
+# 计算每位学生的最高成绩
+max_grades = np.max(grades, axis=1)
+print(max_grades)
+
+# 打印结果
+for i, student in enumerate(data[:, 0]):
+    print(f"{student} 的最好成绩是: {max_grades[i]}")		
+		]]>
+		</programlisting>
+	</section>
+		<section id="numpy.amax">
+		<title>max</title>
+		<programlisting>
+		<![CDATA[
+import numpy as np
+
+help(np.amax)
+
+a = np.arange(9).reshape((3, 3))
+max_all = np.amax(a)
+max_dimension1 = np.amax(a, axis=0)
+max_dimension2 = np.amax(a, axis=1)
+
+print('a:\n', a)
+print('max_all:', max_all)
+print('max_dimension1:', max_dimension1)
+print('max_dimension2:', max_dimension2)	
+		]]>
+		</programlisting>
+		<screen>
+		<![CDATA[
+D:\workspace\netkiller\.venv\Scripts\python.exe D:\workspace\netkiller\test\test1.py 
+Help on _ArrayFunctionDispatcher in module numpy:
+
+amax(a, axis=None, out=None, keepdims=<no value>, initial=<no value>, where=<no value>)
+    Return the maximum of an array or maximum along an axis.
+
+    `amax` is an alias of `~numpy.max`.
+
+    See Also
+    --------
+    max : alias of this function
+    ndarray.max : equivalent method
+
+a:
+ [[0 1 2]
+ [3 4 5]
+ [6 7 8]]
+max_all: 8
+max_dimension1: [6 7 8]
+max_dimension2: [2 5 8]		
+		]]>
+		</screen>
+	</section>
 	<section id="numpy.imshow">
 		<title>显示矩阵</title>
 		<programlisting>

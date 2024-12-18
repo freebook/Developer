@@ -683,6 +683,34 @@ print(numbers.index(4, 4, 8)) # 输出: 7
 			]]>
 			</programlisting>
 		</section>
+		<section>
+			<title>二维列表，指定列，查找最大值</title>
+			<programlisting>
+			<![CDATA[
+matrix = [[1, 2, 3],
+          [4, 5, 6],
+          [7, 8, 9]]
+
+column = [row[1] for row in matrix]
+max_value = max(column)
+
+print("第二列最大值：", max_value)			
+			]]>
+			</programlisting>
+			<para>返回最大值</para>
+			<programlisting>
+			<![CDATA[
+matrix = [[1, 2, 3],
+          [4, 5, 6],
+          [7, 8, 9]]
+
+column = [row[1] for row in matrix]
+max_value = max(column)
+index = column.index(max_value)
+print(index, matrix[index])			
+			]]>
+			</programlisting>
+		</section>
 	</section>
 	<section id="data.set">
 		<title>Set</title>
