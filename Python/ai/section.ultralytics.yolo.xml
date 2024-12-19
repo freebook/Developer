@@ -475,6 +475,28 @@ metrics.box.maps   # a list contains map50-95 of each category
 			]]>
 			</programlisting>
 		</section>
+		<section>
+			<title>验证参数设置</title>
+			<screen>
+			<![CDATA[
+参数	类型	默认值	描述
+data		str		None	指定数据集配置文件的路径（例如，coco8.yaml）。这个文件包括验证数据的路径、类名和类的数量。
+imgsz		int		640		定义输入图像的大小。所有图像在处理前都调整到这个尺寸。
+batch		int		16		设置每个批次的图像数量。使用 -1 表示自动批量（AutoBatch），它会根据 GPU 内存可用性自动调整。
+save_json	bool	False	如果为 True，将结果保存到 JSON 文件中，以便进一步分析或与其他工具集成。
+save_hybrid	bool	False	如果为 True，保存标签的混合版本，将原始注释与额外的模型预测相结合。
+conf		float	0.001	设置检测的最小置信阈值。丢弃置信度低于这个阈值的检测。
+iou			float	0.6		设置非极大值抑制（NMS）的交并比（IoU）阈值。有助于减少重复检测。
+max_det		int		300		限制每张图像的最大检测数量。在密集场景中用于防止过度检测。
+half		bool	True	启用半精度（FP16）计算，减少内存使用，并可能在最小影响准确性的情况下提高速度。
+device		str		None	指定验证的设备（cpu, cuda:0 等）。允许灵活使用 CPU 或 GPU 资源。
+dnn			bool	False	如果为 True，使用 OpenCV DNN 模块进行 ONNX 模型推理，作为 PyTorch 推理方法的替代。
+plots		bool	False	当设置为 True 时，生成并保存预测与真实值的对比图，以便直观评估模型的性能。
+rect		bool	False	如果为 True，使用矩形推理进行批处理，减少填充，可能提高速度和效率。
+split		str		val		确定用于验证的数据集划分（val, test, 或 train）。允许灵活选择用于性能评估的数据段。			
+			]]>
+			</screen>
+		</section>
 	</section>
 	<section id="model.predict">
 		<title>模型预测</title>
@@ -517,6 +539,44 @@ for result in results:
 
 		<section>
 			<title>predict 参数</title>
+			<para>推理参数</para>
+			<screen>
+			<![CDATA[
+参数				类型			默认值	描述
+source			str			‘ultralytics/assets’	指定推理的数据源。可以是图像路径、视频文件、目录、URL 或实时流的设备 ID。支持多种格式和来源，使不同类型的输入都能灵活应用。
+conf			float		0.25	设置检测的最小置信度阈值。低于此阈值的检测对象将被忽略。调整此值有助于减少误报。
+iou				float		0.7		非极大值抑制（NMS）的交并比（IoU）阈值。较低的值会通过消除重叠的框来减少检测数量，对于减少重复检测很有用。
+imgsz			int/tuple	640		定义推理的图像大小。可以是一个整数 640，用于方形缩放，也可以是一个（高度，宽度）元组。适当的尺寸可以提高检测准确性和处理速度。
+half			bool		False	启用半精度（FP16）推理，可以在支持 GPU 上加速模型推理，同时对准确度的影响最小。
+device			str			None	指定推理的设备（例如，cpu, cuda:0 或 0）。允许用户在 CPU、特定 GPU 或其他计算设备之间选择模型执行。
+max_det			int			300		每张图像允许的最大检测数量。限制模型在单个推理中可以检测到的总对象数量，以防止在密集场景中产生过多的输出。
+vid_stride		int			1		视频输入的帧间跳过。允许在视频中跳过帧以提高处理速度，但代价是时间分辨率。值为 1 时处理每个帧，更高的值跳过帧。
+stream_buffer	bool		False	确定在处理视频流时是否应缓冲所有帧（True），或者模型是否应返回最新的帧（False）。对于实时应用很有用。
+visualize		bool		False	激活推理期间模型特征的可视化，提供模型“看到”的洞察。对于调试和模型解释非常有用。
+augment			bool		False	启用预测的测试时间增强（TTA），可能会提高检测的鲁棒性，但代价是推理速度。
+agnostic_nms	bool		False	启用类无关的非极大值抑制（NMS），合并不同类的重叠框。在多类检测场景中，当类之间经常有重叠时非常有用。
+classes			list [int]	None	过滤预测到一组类 ID。只有属于指定类的检测结果才会被返回。对于在多类检测任务中关注相关对象非常有用。
+retina_masks	bool		False	如果模型中可用，则使用高分辨率的分割掩码。这可以增强分割任务的掩码质量，提供更细的细节。
+embed			list [int]	None	指定要从哪些层提取特征向量或嵌入。对于下游任务，如聚类或相似度搜索非常有用。			
+			]]>
+			</screen>
+			<para>可视化参数</para>
+			<screen>
+			<![CDATA[
+参数			类型		默认值	描述
+show		bool	False	如果为 True，则在窗口中显示标注的图像或视频。在开发或测试期间，这对于立即获得视觉反馈非常有用。
+save		bool	False	启用将标注的图像或视频保存到文件。这对于文档、进一步分析或分享结果非常有用。
+save_frames	bool	False	在处理视频时，将单独的帧保存为图像。这对于提取特定帧或进行详细的逐帧分析非常有用。
+save_txt	bool	False	将检测结果保存为文本文件，格式为 [class] [x_center] [y_center] [width] [height] [confidence]。这对于与其他分析工具集成非常有用。
+save_conf	bool	False	在保存的文本文件中包含置信度分数。增强了可用于后处理和分析的详细信息。
+save_crop	bool	False	保存检测的裁剪图像。这对于数据增强、分析或创建特定对象的聚焦数据集非常有用。
+show_labels	bool	True	在视觉输出中显示每个检测的标签。提供了对检测到的对象立即的理解。
+show_conf	bool	True	在标签旁边显示每个检测的置信度分数。为每个检测提供了模型确定性的洞察。
+show_boxes	bool	True	在图像或视频帧中检测到的对象周围绘制边界框。这对于视觉识别和定位图像或视频帧中的对象至关重要。
+line_width	int		None	指定边界框的线条宽度。如果为 None，线条宽度将根据图像大小自动调整。为清晰度提供了视觉定制。
+			
+			]]>
+			</screen>
 			<programlisting>
 			<![CDATA[
 from yolov8 import YOLO
