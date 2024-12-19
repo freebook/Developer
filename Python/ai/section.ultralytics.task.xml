@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <section id="ultralytics.task">
 	<title>Task 任务</title>
-	<section>
-		<title>Detect 检测演示</title>
+	<section id="yolo.Detect">
+		<title>图像检测</title>
 		<section>
 			<title>训练</title>
 			<screen>
@@ -48,8 +48,8 @@ Results saved to /Users/neo/PycharmProjects/netkiller/runs/detect/predict
 			</programlisting>
 		</section>
 	</section>
-	<section>
-		<title>Segment 分割演示</title>
+	<section id="yolo.Segment">
+		<title>图像分割</title>
 		<para>训练模型</para>
 		<screen>
 		<![CDATA[
@@ -108,4 +108,39 @@ yolo segment predict model=runs/segment/train3/weights/best.pt source='https://u
 		]]>
 		</screen>
 	</section>
+	<section id="yolo.classify">
+		<title>图像分类</title>
+		<section>
+			<title>模型训练</title>
+			<programlisting>
+			<![CDATA[
+from ultralytics import YOLO
+
+if __name__ == '__main__':
+    model = YOLO("yolo11n-cls.pt")  # 加载预训练模型
+    model.train(data="data.yaml",  # 数据集配置文件
+                epochs=100,
+                imgsz=640,
+                batch=16,
+                device='0')  # 使用GPU训练
+			
+			]]>
+			</programlisting>
+		</section>
+		<section>
+			<title>模型预测</title>
+			<programlisting>
+			<![CDATA[
+from ultralytics import YOLO
+
+model = YOLO("runs/train/exp/weights/best.pt")  # 加载训练好的模型
+results = model.predict(source='path/to/image.jpg',  # 推理图像路径
+                        save=True,
+                        show=True)
+			
+			]]>
+			</programlisting>
+		</section>
+	</section>
+	
 </section>

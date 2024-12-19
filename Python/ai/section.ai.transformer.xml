@@ -30,6 +30,30 @@
 		</para>
 	</section>
 	<section>
+		<title>Swin Transformer</title>
+		<para>
+			<ulink url="https://github.com/microsoft/Swin-Transformer" />
+			<ulink url="https://github.com/ChristophReich1996/Swin-Transformer-V2" />
+			<ulink url="https://github.com/SwinTransformer/Swin-Transformer-Object-Detection" />
+		</para>
+		<!-- https://github.com/Fafa-DL/Awesome-Backbones -->
+		<section>
+			<title>配置权重</title>
+			<para>
+				<ulink url="https://pytorch.org/vision/master/models/swin_transformer.html" />
+			</para>
+			<programlisting>
+			<![CDATA[
+from torchvision.models.swin_transformer import swin_b, Swin_B_Weights  
+  
+model = swin_b(weights=Swin_B_Weights.DEFAULT)  
+			
+			]]>
+			</programlisting>
+		</section>
+	</section>
+
+	<section>
 		<title>FAQ</title>
 		<section>
 			<title>AttributeError: '_MultiProcessingDataLoaderIter' object has no attribute 'next'</title>
