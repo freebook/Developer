@@ -652,7 +652,7 @@ async def netkiller(file: bytes = File()):
 			]]>
 			</programlisting>
 		</section>
-		<section>
+		<section id="result.boxes">
 			<title>boxes</title>
 			<para>tensor([ 59.0264, 88.7340, 367.5180, 420.6993]) 转 list [ 59.0264, 88.7340, 367.5180, 420.6993]</para>
 			<programlisting>
@@ -660,6 +660,50 @@ async def netkiller(file: bytes = File()):
 xyxy = boxes.xyxy[0].tolist()			
 			]]>
 			</programlisting>
+			<para>boxes.data 数据，YOLO 边界框格式：[x1, y1, x2, y2, confidence, class]</para>
+			<programlisting>
+			<![CDATA[
+boxes = result.boxes.data.cpu().numpy()
+print(result.boxes.data.tolist())		
+			]]>
+			</programlisting>
+			<programlisting>
+			<![CDATA[
+    def boxes(self, source:str,target:str):
+        if not os.path.exists(source):
+            return None
+
+        try:
+
+            image = cv2.imread(source)
+            if image is None:
+                return None
+
+            results = self.model(source,verbose=False)
+
+            for result in results:
+                # 提取检测到的目标的边界框
+                boxes = result.boxes.data.cpu().numpy()  # YOLO 边界框格式：[x1, y1, x2, y2, confidence, class]
+                # print(result.boxes.data.tolist())
+                if self.args.output:
+                    result.save(filename=os.path.join(self.args.output, os.path.basename(source)))
+                    result.save_crop(save_dir=os.path.join(self.args.output,'crop'), file_name="detection")
+                # print(boxes)
+
+                for idx, box in enumerate(boxes):
+                    x1, y1, x2, y2, conf, cls = map(int, box[:6])
+                    cropped = image[y1:y2, x1:x2]
+                    output = os.path.join(self.args.target, f"{os.path.splitext(os.path.basename(source))[0]}_{idx}.jpg")
+                    cv2.imwrite(output, cropped)
+                    # print(f"Saved cropped image: {output}")
+        except Exception as e:
+            # log.error(e)
+            print("boxes: ",e)
+            exit()
+        return None		
+			]]>
+			</programlisting>
+						
 		</section>
 		<section>
 			<title>verbose 打印详细输出</title>
