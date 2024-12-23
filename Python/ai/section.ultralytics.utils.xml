@@ -8,9 +8,11 @@
 		<para>于是便想出了，用AI给学习素材打标签。</para>
 		<graphic format="png" fileref="../images/yolo/ipo.jpg" width="100%" srccredit="neo" />
 		<para>首先准备好学习数据，首批数据需要人工标注，可以使用 labelme 和 labelme2yoyo
-			工具标注，做第一轮学习，后面我们将用这个模型实现 AI 自动标注。</para>
+			工具标注，做第一轮学习，后面我们将用这个模型实现 AI 自动标注。
+		</para>
 		<para>然后使用第一轮训练的bast.pt 模型，对这第二批数据进行处理，生成 yolo 所需的 dataset 数据，包括了
-			train 训练集, val 验证集。</para>
+			train 训练集, val 验证集。
+		</para>
 		<para>最后输出 data.yaml 文件</para>
 	</section>
 	<section id="utils.resize">
@@ -1014,7 +1016,9 @@ if __name__ == "__main__":
 	</section>
 	<section id="utils.Classify">
 		<title>图像分类数据处理</title>
-		<programlisting>
+		<section>
+			<title>1.0</title>
+			<programlisting>
 		<![CDATA[
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
@@ -1235,7 +1239,361 @@ if __name__ == "__main__":
     except KeyboardInterrupt as e:
         print(e)
 		]]>
-		</programlisting>
+			</programlisting>
+		</section>
+		<section>
+			<title>2.0</title>
+			<programlisting>
+			<![CDATA[
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+##############################################
+# Home	: https://www.netkiller.cn
+# Author: Neo <netkiller@msn.com>
+# Upgrade: 2024-12-23
+##############################################
+try:
+    import os,sys,random,argparse,uuid
+    import shutil,yaml,json
+    import cv2
+    from tqdm import tqdm
+    from ultralytics import YOLO
+    from texttable import Texttable
+except ImportError as err:
+    print("Import Error: %s" % (err))
+    exit()
+
+class Dataset:
+
+    def __init__(self):
+        self.data = {}
+
+    def __str__(self):
+        return (f"classes={self.classes} data={len(self.data)} train={len(self.train)} val={len(self.val)} test={len(self.test)}")
+
+class Classify():
+    # background = (22, 255, 39) # 绿幕RGB模式（R22 - G255 - B39），CMYK模式（C62 - M0 - Y100 - K0）
+    background = (0, 0,0)
+    checklists = []
+
+    def __init__(self):
+
+        self.basedir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+        sys.path.append(self.basedir)
+        # print(basedir)
+        # exit()
+
+        self.parser = argparse.ArgumentParser(description='YOLO 图像分类数据处理')
+        self.parser.add_argument('--source', type=str, default=None, help='图片来源地址')
+        self.parser.add_argument('--target', default=None, type=str, help='图片目标地址')
+        self.parser.add_argument('--output', type=str, default=None, help='输出识别图像', metavar="")
+        self.parser.add_argument('--checklist', type=str, default=None, help='输出识别图像', metavar="")
+        self.parser.add_argument('--test', type=int, default=10, help='测试数量',metavar=100)
+        self.parser.add_argument('--clean', action="store_true", default=False, help='清理之前的数据')
+        self.parser.add_argument('--crop', action="store_true", default=False, help='裁剪')
+        self.parser.add_argument('--uuid', action="store_true", default=False, help='重命名图片为UUID')
+        self.parser.add_argument('--verbose', action="store_true", default=False, help='过程输出')
+        self.args = self.parser.parse_args()
+
+    def mkdirs(self,path):
+        if not os.path.exists(path):
+            os.makedirs(path)
+
+    def scanfile(self,path):
+        files = []
+        for name in os.listdir(path):
+            if os.path.isfile(os.path.join(path, name)):
+                files.append(name)
+
+        return (files)
+    def scandir(self,path):
+        files = []
+        for name in os.listdir(path):
+            if os.path.isdir(os.path.join(path, name)):
+                files.append(name)
+
+        return (files)
+
+    def walkdir(self,path):
+        for dirpath, dirnames, filenames in os.walk(path):
+            print(f"dirpath={dirpath}, dirnames={dirnames}, filenames={filenames}")
+            # print(filenames)
+
+    def boxes(self, source:str,target:str)->None:
+        if not os.path.exists(source):
+            return None
+        results = self.model(source, verbose=self.args.verbose)
+        image = cv2.imread(source)
+        filename, extension = os.path.splitext(os.path.basename(target))
+        for result in results:
+            # print(result)
+
+            if self.args.output:
+                result.save(filename=os.path.join(self.args.output, os.path.basename(source)))
+            try:
+                boxes = result.boxes.data.cpu().numpy()  # YOLO 边界框格式：[x1, y1, x2, y2, confidence, class]
+            #     # print(result.boxes.data.tolist())
+                for idx, box in enumerate(boxes):
+                    x1, y1, x2, y2, conf, cls = map(int, box[:6])
+                    cropped = image[y1:y2, x1:x2]
+                    output = os.path.join(os.path.dirname(target), f"{filename}_{idx}{extension}")
+                    cv2.imwrite(output, cropped)
+                    # print(f"Saved cropped image: {output}")
+                if len(boxes) > 1:
+                    self.checklists.append(target)
+                    if self.args.checklist:
+                        result.save_crop(save_dir=os.path.join(self.args.checklist, 'crop'), file_name=filename)
+                        result.save(filename=os.path.join(self.args.checklist, os.path.basename(source)))
+                    # print(boxes)
+            except Exception as e:
+                # log.error(e)
+                print("boxes: ",e)
+                exit()
+
+    def source(self,label,filename):
+        return os.path.join(self.args.source, label, filename)
+    def target(self,mode, label,filename):
+        if self.args.uuid:
+            extension = os.path.splitext(filename)[1]
+            path = os.path.join(self.args.target,f"{mode}", label,f"{uuid.uuid4()}{extension}")
+        else:
+            path = os.path.join(self.args.target,f"{mode}",label, filename)
+        return path
+    def train(self):
+
+        for label, files in self.dataset.data.items():
+            with tqdm(total=len(files), ncols=100) as progress:
+                progress.set_description(f"train/{label}")
+                for name in files:
+                    try:
+                        # print(name)
+                        source = self.source(label,name)
+                        # print(input)
+                        target = self.target('train',label,name)
+                        # print(target)
+                        if self.args.crop:
+                            # self.crop(source,target)
+                            self.boxes(source, target)
+                        else:
+                            # print(f"COPY train source={source}, target={target}")
+                            shutil.copyfile(source, target)
+                    except Exception as e:
+                        # log.error(e)
+                        print("train: ", e)
+                        exit()
+                    progress.update(1)
+    def test(self):
+
+        for label, files in self.dataset.data.items():
+            if len(files) < self.args.test:
+                self.args.test = len(files)
+            vals = random.sample(files, self.args.test)
+            with tqdm(total=len(vals), ncols=100) as progress:
+                progress.set_description(f"test/{label}")
+                for name in vals:
+                    try:
+                        source = self.source(label, name)
+                        # print(input)
+                        target = self.target('test',label,name)
+                        # print(target)
+                        if self.args.crop:
+                            self.boxes(source, target)
+                        else:
+                            # print(f"COPY val source={source}, target={target}")
+                            shutil.copyfile(source, target)
+                    except Exception as e:
+                        # log.error(e)
+                        print("test: ", e)
+                        exit()
+                    progress.update(1)
+    def val(self):
+
+        for label, files in self.dataset.data.items():
+            if len(files) < self.args.test:
+                self.args.test = len(files)
+            vals = random.sample(files, self.args.test)
+            with tqdm(total=len(vals), ncols=100) as progress:
+                progress.set_description(f"val/{label}")
+                for name in vals:
+                    try:
+                        source = self.source(label, name)
+                        # print(input)
+                        target = self.target('val',label,name)
+                        # print(target)
+                        if self.args.crop:
+                            self.boxes(source, target)
+                        else:
+                            # print(f"COPY val source={source}, target={target}")
+                            shutil.copyfile(source, target)
+                    except Exception as e:
+                        # log.error(e)
+                        print("test: ", e)
+                        exit()
+                    progress.update(1)
+    def input(self):
+
+        if self.args.clean:
+            if os.path.exists(self.args.target):
+                shutil.rmtree(self.args.target)
+            if os.path.exists(self.args.output):
+                shutil.rmtree(self.args.output)
+            if os.path.exists(self.args.checklist):
+                shutil.rmtree(self.args.checklist)
+
+        self.dataset = Dataset()
+        self.mkdirs(os.path.join(self.args.target))
+        self.mkdirs(os.path.join(self.args.output))
+        if self.args.checklist:
+            self.mkdirs(os.path.join(self.args.checklist))
+
+        directory = [
+            'train', 'test','val'
+        ]
+
+        self.dataset.data = {}
+        for cls in self.scandir(os.path.join(self.args.source)):
+            self.dataset.data[cls] = self.scanfile(os.path.join(self.args.source, cls))
+            for dir in directory:
+                self.mkdirs(os.path.join(self.args.target, dir,cls))
+        # print(self.dataset)
+        self.model = YOLO(f"{self.basedir}/model/Tongue/weights/best.pt")
+
+        pass
+    def process(self):
+        self.train()
+        self.test()
+        self.val()
+        pass
+    def output(self):
+        # for checklist in self.checklists:
+        #     print(checklist)
+
+        tables = [["检查列表"]]
+        for file in self.checklists:
+            tables.append([file])
+        table = Texttable(max_width=100)
+        table.add_rows(tables)
+        print(table.draw())
+
+        pass
+
+    def main(self):
+        if self.args.source and self.args.target:
+            self.input()
+            self.process()
+            self.output()
+        else:
+            self.parser.print_help()
+            exit()
+
+if __name__ == "__main__":
+    try:
+        run = Classify()
+        run.main()
+    except KeyboardInterrupt as e:
+        print(e)			
+			]]>
+			</programlisting>
+		</section>
+		<section>
+			<title>检验工具</title>
+			<programlisting>
+			<![CDATA[
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+##############################################
+# Home	: https://www.netkiller.cn
+# Author: Neo <netkiller@msn.com>
+# Upgrade: 2024-12-23
+##############################################
+import glob
+import os
+from tqdm import tqdm
+from texttable import Texttable
+from ultralytics import YOLO
+
+
+class ClassifyTest:
+    def __init__(self, input: str, output: str):
+        self.input = input
+        self.output = output
+
+        self.tables = [["分类", "数量", "正确", "正确率", "损失"]]
+        # model = YOLO('../model/Tongue/weights/best.pt')
+        self.model = YOLO("../model/Classify/weights/best.pt")
+        self.loss = []
+        pass
+
+    def scanfile(self, path):
+        files = []
+        for name in os.listdir(path):
+            if os.path.isfile(os.path.join(path, name)):
+                files.append(name)
+
+        return (files)
+
+    def scandir(self, path):
+        files = []
+        for name in os.listdir(path):
+            if os.path.isdir(os.path.join(path, name)):
+                files.append(name)
+
+        return (files)
+
+    def makedirs(self, path):
+        if not os.path.exists(path):
+            os.makedirs(path)
+
+    def predict(self, classification):
+        images = glob.glob('*.jpg', root_dir=os.path.join(self.input, classification))
+        total = len(images)
+        count = 0
+
+        with tqdm(total=total, ncols=100) as progress:
+            progress.set_description("%s" % classification)
+            for image in images:
+
+                # print(image)
+                source = os.path.join(self.input, classification, image)
+                results = self.model.predict(source, verbose=False)
+                for result in results:
+                    result.save(os.path.join(self.output, image))
+                    if len(result.probs.data) >= 1:
+                        count += 1
+                    else:
+                        self.loss.append(source)
+                progress.update(1)
+        self.tables.append([classification, total, count, f"{int(count / total * 100)}%", len(self.loss)])
+
+    def report(self):
+        table = Texttable(max_width=160)
+        table.add_rows(self.tables)
+        print(table.draw())
+
+        for f in self.loss:
+            print(f)
+
+    def main(self):
+
+        self.makedirs(self.output)
+        for dir in self.scandir(input):
+            self.predict(dir)
+        self.report()
+
+
+if __name__ == "__main__":
+    try:
+        input = r'E:/classify'
+        output = r'E:/tmp/classify'
+
+        classify = ClassifyTest(input, output)
+        classify.main()
+    except KeyboardInterrupt as e:
+        print(e)
+			
+			]]>
+			</programlisting>
+		</section>
 	</section>
-	
+
 </section>

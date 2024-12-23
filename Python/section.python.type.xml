@@ -714,7 +714,7 @@ print(index, matrix[index])
 		<section>
 			<title>获得list中最大/最小值元素的索引</title>
 			<programlisting>
-			<[CDATA[
+			<![CDATA[
 获得list中最大元素的索引
 
 nums = [1,2,3,4,5]
