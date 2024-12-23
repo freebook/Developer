@@ -111,7 +111,75 @@ yolo segment predict model=runs/segment/train3/weights/best.pt source='https://u
 	<section id="yolo.classify">
 		<title>图像分类</title>
 		<section>
+			<para>数据集</para>
+			<para>每个分类一个目录</para>
+			<screen>
+			<![CDATA[
+cifar-10-/
+|
+|-- train/
+|   |-- airplane/
+|   |   |-- 10008_airplane.png
+|   |   |-- 10009_airplane.png
+|   |   |-- ...
+|   |
+|   |-- automobile/
+|   |   |-- 1000_automobile.png
+|   |   |-- 1001_automobile.png
+|   |   |-- ...
+|   |
+|   |-- bird/
+|   |   |-- 10014_bird.png
+|   |   |-- 10015_bird.png
+|   |   |-- ...
+|   |
+|   |-- ...
+|
+|-- test/
+|   |-- airplane/
+|   |   |-- 10_airplane.png
+|   |   |-- 11_airplane.png
+|   |   |-- ...
+|   |
+|   |-- automobile/
+|   |   |-- 100_automobile.png
+|   |   |-- 101_automobile.png
+|   |   |-- ...
+|   |
+|   |-- bird/
+|   |   |-- 1000_bird.png
+|   |   |-- 1001_bird.png
+|   |   |-- ...
+|   |
+|   |-- ...
+|
+|-- val/ (optional)
+|   |-- airplane/
+|   |   |-- 105_airplane.png
+|   |   |-- 106_airplane.png
+|   |   |-- ...
+|   |
+|   |-- automobile/
+|   |   |-- 102_automobile.png
+|   |   |-- 103_automobile.png
+|   |   |-- ...
+|   |
+|   |-- bird/
+|   |   |-- 1045_bird.png
+|   |   |-- 1046_bird.png
+|   |   |-- ...
+|   |
+|   |-- ...			
+			]]>
+			</screen>
+		</section>
+		<section>
 			<title>模型训练</title>
+			<screen>
+			<![CDATA[
+yolo classify train data=mnist160 model=yolo11n-cls.yaml epochs=100 imgsz=64
+			]]>
+			</screen>
 			<programlisting>
 			<![CDATA[
 from ultralytics import YOLO
@@ -123,12 +191,17 @@ if __name__ == '__main__':
                 imgsz=640,
                 batch=16,
                 device='0')  # 使用GPU训练
-			
 			]]>
 			</programlisting>
+			<para>默认尺寸 imgsz=224</para>
 		</section>
 		<section>
 			<title>模型预测</title>
+			<screen>
+			<![CDATA[
+yolo classify predict model=path/to/best.pt source='https://ultralytics.com/images/bus.jpg'			
+			]]>
+			</screen>
 			<programlisting>
 			<![CDATA[
 from ultralytics import YOLO

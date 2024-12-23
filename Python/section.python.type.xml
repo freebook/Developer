@@ -711,6 +711,24 @@ print(index, matrix[index])
 			]]>
 			</programlisting>
 		</section>
+		<section>
+			<title>获得list中最大/最小值元素的索引</title>
+			<programlisting>
+			<[CDATA[
+获得list中最大元素的索引
+
+nums = [1,2,3,4,5]
+
+nums.index(max(nums))
+
+相应的最小值索引
+
+nums = [1,2,3,4,5]
+
+nums.index(min(nums))			
+			]]>
+			</programlisting>
+		</section>
 	</section>
 	<section id="data.set">
 		<title>Set</title>

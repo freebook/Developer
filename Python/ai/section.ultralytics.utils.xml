@@ -13,7 +13,7 @@
 			train 训练集, val 验证集。</para>
 		<para>最后输出 data.yaml 文件</para>
 	</section>
-	<section>
+	<section id="utils.resize">
 		<title>尺寸裁剪工具</title>
 		<programlisting>
 		<![CDATA[
@@ -221,7 +221,7 @@ if __name__ == "__main__":
 		]]>
 		</programlisting>
 	</section>
-	<section>
+	<section id="utils.converter">
 		<title>转换程序</title>
 		<para>代码讲训练数据转换为 YOLO 数据库集</para>
 		<programlisting>
@@ -527,7 +527,7 @@ options:
 			]]>
 		</screen>
 	</section>
-	<section>
+	<section id="utils.autilabel">
 		<title>自动标注工具</title>
 		<programlisting>
 		<![CDATA[
@@ -1012,6 +1012,230 @@ if __name__ == "__main__":
 		]]>
 		</programlisting>
 	</section>
-	
+	<section id="utils.Classify">
+		<title>图像分类数据处理</title>
+		<programlisting>
+		<![CDATA[
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+##############################################
+# Home	: https://www.netkiller.cn
+# Author: Neo <netkiller@msn.com>
+# Upgrade: 2024-11-00
+##############################################
+try:
+    import uuid
+    import shutil
+    import os,sys,random,argparse
+    import yaml
+    import json
+    from PIL import Image
+    from ultralytics import YOLO
+
+except ImportError as err:
+    print("Import Error: %s" % (err))
+    exit()
+
+class Dataset:
+
+    def __init__(self):
+        self.data = {}
+
+    def __str__(self):
+        return (f"classes={self.classes} data={len(self.data)} train={len(self.train)} val={len(self.val)} test={len(self.test)}")
+
+class Classify():
+    # background = (22, 255, 39) # 绿幕RGB模式（R22 - G255 - B39），CMYK模式（C62 - M0 - Y100 - K0）
+    background = (0, 0,0)
+
+    def __init__(self):
+
+        self.basedir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+        sys.path.append(self.basedir)
+        # print(basedir)
+        # exit()
+
+        self.parser = argparse.ArgumentParser(description='YOLO 图像分类数据处理')
+        self.parser.add_argument('--source', type=str, default=None, help='图片来源地址')
+        self.parser.add_argument('--target', default=None, type=str, help='图片目标地址')
+        self.parser.add_argument('--test', type=int, default=10, help='测试数量',metavar=100)
+        self.parser.add_argument('--clean', action="store_true", default=False, help='清理之前的数据')
+        self.parser.add_argument('--crop', action="store_true", default=False, help='裁剪')
+        self.parser.add_argument('--uuid', action="store_true", default=False, help='重命名图片为UUID')
+        self.args = self.parser.parse_args()
+
+    def mkdirs(self,path):
+        if not os.path.exists(path):
+            os.makedirs(path)
+
+    def scanfile(self,path):
+        files = []
+        for name in os.listdir(path):
+            if os.path.isfile(os.path.join(path, name)):
+                files.append(name)
+
+        return (files)
+    def scandir(self,path):
+        files = []
+        for name in os.listdir(path):
+            if os.path.isdir(os.path.join(path, name)):
+                files.append(name)
+
+        return (files)
+
+    def walkdir(self,path):
+        for dirpath, dirnames, filenames in os.walk(path):
+            print(f"dirpath={dirpath}, dirnames={dirnames}, filenames={filenames}")
+            # print(filenames)
+
+    def crop(self,source,target):
+        boxes = self.annotation(source)
+        if boxes is not None:
+            xyxy = boxes.xyxy[0]
+            xywh = boxes.xywh[0]
+
+            original = Image.open(source)
+            # width, height = original.size
+            # x0, y0, x1, y1 = map(int, results[0].boxes[0].xyxy[0])
+            tongue = original.crop(tuple(map(int, xyxy)))
+            # crop.save(output)
+            width, height = tongue.size
+            width += 50
+            height += 50
+            image = Image.new('RGB', (width, height), self.background)
+            image.paste(tongue, (
+                int(width / 2) - int(tongue.size[0] / 2), int(height / 2) - int(tongue.size[1] / 2)))
+            image.save(target)
+    def source(self,label,filename):
+        return os.path.join(self.args.source, label, filename)
+    def target(self,mode, label,filename):
+        if self.args.uuid:
+            extension = os.path.splitext(filename)[1]
+            path = os.path.join(self.args.target,f"{mode}", label,f"{uuid.uuid4()}{extension}")
+        else:
+            path = os.path.join(self.args.target,f"{mode}",label, filename)
+        return path
+    def images(self):
+
+        for label, files in self.dataset.data.items():
+
+            for name in files:
+                try:
+                    # print(name)
+                    source = self.source(label,name)
+                    # print(input)
+                    target = self.target('train',label,name)
+                    # print(target)
+                    # self.dataset.train[label].append(target)
+                    if self.args.crop:
+                        self.crop(source,target)
+                    else:
+                        # print(f"COPY train source={source}, target={target}")
+                        shutil.copyfile(source, target)
+                except Exception as e:
+                    # log.error(e)
+                    print("train: ", e)
+                    exit()
+    def test(self):
+        for label, files in self.dataset.data.items():
+            if len(files) < self.args.test:
+                self.args.test = len(files)
+
+            vals = random.sample(files, self.args.test)
+            # self.dataset.val[label] = []
+            for name in vals:
+                try:
+                    source = self.source(label, name)
+                    # print(input)
+                    target = self.target('test',label,name)
+                    # print(target)
+                    # self.dataset.val[label].append(target)
+                    if self.args.crop:
+                        self.crop(source, target)
+                    else:
+                        # print(f"COPY val source={source}, target={target}")
+                        shutil.copyfile(source, target)
+                    # shutil.copyfile(os.path.join(self.args.source, label,name), os.path.join(self.args.target, 'val/images',name))
+                except Exception as e:
+                    # log.error(e)
+                    print("test: ", e)
+                    exit()
+
+
+
+    def annotation(self,source):
+        if not os.path.exists(path):
+            return None
+
+        try:
+            results = self.model(source, verbose=False)
+            if len(results):
+                # print(results[0])
+                if len(results[0].boxes):
+                    # print(results[0].boxes)
+                    # if len(results[0].boxes[0].xyxy):
+                        # print(results[0].boxes[0].xyxy[0])
+                        #     # log.info(f"Image filename={filename}")
+                        # print(results[0].boxes[0].xywhn[0])
+                        # return results[0].boxes[0].xywhn[0]
+                    return results[0].boxes[0]
+
+        except Exception as e:
+            # log.error(e)
+            print("annotation: ",e)
+            exit()
+        return None
+
+    def input(self):
+        self.dataset = Dataset()
+        self.mkdirs(os.path.join(self.args.target))
+        directory = [
+            'train', 'test'
+        ]
+
+
+        self.dataset.data = {}
+        for cls in self.scandir(os.path.join(self.args.source)):
+            self.dataset.data[cls] = self.scanfile(os.path.join(self.args.source, cls))
+            for dir in directory:
+                self.mkdirs(os.path.join(self.args.target, dir,cls))
+        # print(self.dataset)
+        # exit()
+        pass
+    def process(self):
+        self.images()
+        self.test()
+        pass
+    def output(self):
+        pass
+
+    def main(self):
+
+        # print(self.args)
+        if self.args.clean:
+            if os.path.exists(self.args.target):
+                shutil.rmtree(self.args.target)
+
+        if self.args.source and self.args.target:
+
+            self.model= YOLO(f"{self.basedir}/model/Tongue/weights/best.pt"),
+
+            self.input()
+            self.process()
+            self.output()
+
+        else:
+            self.parser.print_help()
+            exit()
+
+if __name__ == "__main__":
+    try:
+        run = Classify()
+        run.main()
+    except KeyboardInterrupt as e:
+        print(e)
+		]]>
+		</programlisting>
+	</section>
 	
 </section>
