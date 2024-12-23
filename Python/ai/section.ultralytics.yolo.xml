@@ -157,19 +157,7 @@ crop_fraction	float	1.0	0.1 - 1.0	将分类图像裁剪为其大小的一部分�
 			</screen>
 			<para>用户可以根据自身的需求，设置数据集和任务的具体参数。通过不同值的调整，找到最佳的策略，从而达到最佳的模型训练效果。</para>
 		</section>
-		<section>
-			<title></title>
-			<screen>
-			<![CDATA[
-			
-			]]>
-			</screen>
-			<programlisting>
-			<![CDATA[
-			
-			]]>
-			</programlisting>
-		</section>
+
 		<section>
 			<title>输出结果</title>
 			<screen>
@@ -780,6 +768,41 @@ Speed: 0.5ms preprocess, 11.2ms inference, 0.5ms postprocess per image at shape 
 model(img, save=True, verbose=False)			
 			]]>
 			</programlisting>
+		</section>
+		<section>
+			<title>图像分类</title>
+			<programlisting>
+			<![CDATA[
+from ultralytics import YOLO
+
+model = YOLO("../model/Classify/weights/best.pt")  # 加载训练好的模型
+results = model.predict(source='../datasets/1206/20150924_100741.jpg',  # 推理图像路径
+                        save=True,
+                        show=True)
+
+# print(results)
+result = results.pop()
+names = model.names
+print("names:",names)
+# print(result.probs)
+print("data:",result.probs.data)
+print("top1:",result.probs.top1, " top1conf: ",result.probs.top1conf)
+print("class: %s, conf: %s" % (names[result.probs.top1], result.probs.top1conf.cpu()))
+			]]>
+			</programlisting>
+			<screen>
+			<![CDATA[
+D:\workspace\netkiller\.venv\Scripts\python.exe D:\workspace\netkiller\test\classify.py 
+
+image 1/1 D:\workspace\netkiller\test\..\datasets\1206\20150924_100741.jpg: 320x320 yiyuzheng 0.72, xinnaoxieguan 0.28, 6.0ms
+Speed: 21.1ms preprocess, 6.0ms inference, 0.0ms postprocess per image at shape (1, 3, 320, 320)
+Results saved to D:\workspace\netkiller\runs\classify\predict31
+names: {0: 'xinnaoxieguan', 1: 'yiyuzheng'}
+data: tensor([0.2792, 0.7208], device='cuda:0')
+top1: 1  top1conf:  tensor(0.7208, device='cuda:0')
+class: yiyuzheng, conf: tensor(0.7208)
+			]]>
+			</screen>
 		</section>
 	</section>
 	<section id="model.export">
