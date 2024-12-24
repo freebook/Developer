@@ -634,6 +634,48 @@ print(b)
 			</programlisting>
 		</section>
 	</section>
+	<section>
+		<title>百分数</title>
+		<section>
+			<title>float 转 百分数</title>
+			<programlisting>
+			<![CDATA[
+a = 0.50
+b = "%.f%%" % (a * 100)
+print(b) # 50%
+			]]>
+			</programlisting>
+		</section>
+		<section>
+			<title>float 转 int 转 str 百分数</title>
+			<programlisting>
+			<![CDATA[
+a = 0.5
+b = str(int(a * 100)) + '%\n'
+print(b) # 50%			
+			]]>
+			</programlisting>
+		</section>
+		<section>
+			<title>str.format() 处理百分数</title>
+			<programlisting>
+			<![CDATA[
+num = 0.123
+print("结果为：{:.2f}%".format(num * 100))			
+			]]>
+			</programlisting>
+		</section>
+		<section>
+			<title>f-string 处理百分数</title>
+			<programlisting>
+			<![CDATA[
+num = 0.123
+print(f"结果为：{num * 100:.2f}%")			
+			]]>
+			</programlisting>
+		</section>
+		
+	</section>
 
 </section>
 <section id="python.datastruct">
@@ -1093,6 +1135,128 @@ class Weekday(Flag):
     WEEKEND = SATURDAY | SUNDAY
 		]]>
 		</programlisting>
+		<section>
+			<title>name 和 value</title>
+			<programlisting>
+			<![CDATA[
+from enum import Enum
+class Weekday(Enum):
+    monday = 1
+    tuesday = 2
+    wednesday = 3
+    thirsday = 4
+    friday = 5
+    saturday = 6
+    sunday = 7
+ 
+print(Weekday.wednesday)         # Weekday.wednesday      
+print(type(Weekday.wednesday))   # <enum 'Weekday'>
+print(Weekday.wednesday.name)    # wednesday
+print(Weekday.wednesday.value)   # 3
+			
+			]]>
+			</programlisting>
+		</section>
+		<section>
+			<title>增加属性</title>
+			<programlisting>
+			<![CDATA[
+from enum import Enum
+class Weekday(Enum):
+    monday = 1
+    tuesday = 2
+    wednesday = 3
+    thirsday = 4
+    friday = 5
+    saturday = 6
+    sunday = 7
+ 
+Weekday.wednesday.label = "定时"
+Weekday.wednesday.time = 10
+ 
+print(Weekday.wednesday.label)   # 定时
+print(Weekday.wednesday.time)    # 10
+			
+			]]>
+			</programlisting>
+		</section>
+		<section>
+			<title>唯一约束</title>
+			<para>正常情况,枚举允许重复出现相同的值</para>
+			<programlisting>
+			<![CDATA[
+from enum import Enum
+class Weekday(Enum):
+    monday = 1
+    tuesday = 2
+    wednesday = 3
+    thirsday = 4
+    friday = 5
+    saturday = 6
+    sunday = 7
+    test = 3
+ 
+ 
+print(Weekday.test.value)    # 3
+			]]>
+			</programlisting>
+			<para>如果不希望出现重复,可以使用 @unique 注解</para>
+			<programlisting>
+			<![CDATA[
+from enum import Enum, unique
+
+@unique
+class Weekday(Enum):
+    monday = 1
+    tuesday = 2
+    wednesday = 3
+    thirsday = 4
+    friday = 5
+    saturday = 6
+    sunday = 7
+    test = 3
+
+try:
+    print(Weekday.test.value)
+except Exception as e:
+    print(e)
+			]]>
+			</programlisting>
+			<para>运行会抛出异常</para>
+			<screen>
+			<![CDATA[
+ValueError: duplicate values found in <enum 'Weekday'>: test -> wednesday			
+			]]>
+			</screen>
+		</section>
+		<section>
+			<title>枚举比较</title>
+			<programlisting>
+			<![CDATA[
+from enum import Enum
+class Weekday(Enum):
+    monday = 1
+    tuesday = 2
+    wednesday = 3
+    thirsday = 4
+    friday = 5
+    saturday = 6
+    sunday = 7
+ 
+obj1 = Weekday.wednesday
+ 
+obj2 = Weekday['wednesday']
+ 
+obj3 = Weekday(3)
+ 
+print(obj1==obj2==obj3)      # True
+ 
+print(obj1 is obj2 is obj3)  # True
+			
+			]]>
+			</programlisting>
+		</section>
+
 	</section>
 </section>
 <section id="python.regular">
