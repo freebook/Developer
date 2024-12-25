@@ -295,6 +295,33 @@ print(result)<br/># 'Python is :thumbs_up:&#x27;
 		]]>
 			</screen>
 		</section>
+		<section id="str.capitalize">
+			<title>首字母大写</title>
+			<programlisting>
+			<![CDATA[
+str = "hello world"
+print(str.capitalize()) # 输出: 'Hello world'			
+			]]>
+			</programlisting>
+		</section>
+		<section>
+			<title>每个单词开头字母大写</title>
+			<programlisting>
+			<![CDATA[
+str = "hello world"
+print(str.title()) # 输出: 'Hello World'			
+			]]>
+			</programlisting>
+			<para></para>
+			<programlisting>
+			<![CDATA[
+import string
+
+str = "hello world"
+print(string.capwords(str)) # 输出: 'Hello World'			
+			]]>
+			</programlisting>
+		</section>
 	</section>
 	<section id="float">
 		<title>float 浮点数值</title>
@@ -634,7 +661,7 @@ print(b)
 			</programlisting>
 		</section>
 	</section>
-	<section>
+	<section id="format.percentage">
 		<title>百分数</title>
 		<section>
 			<title>float 转 百分数</title>
@@ -674,7 +701,7 @@ print(f"结果为：{num * 100:.2f}%")
 			]]>
 			</programlisting>
 		</section>
-		
+
 	</section>
 
 </section>
@@ -1106,7 +1133,7 @@ L = g.Line()
 			</programlisting>
 		</section>
 	</section>
-	<section>
+	<section id="python.enum">
 		<title>Python 枚举 Enum</title>
 		<programlisting>
 		<![CDATA[
@@ -1121,7 +1148,10 @@ class Weekday(Enum):
     SUNDAY = 7
 		]]>
 		</programlisting>
-		<programlisting>
+
+		<section>
+			<title>auto() </title>
+			<programlisting>
 		<![CDATA[
 from enum import auto
 class Weekday(Flag):
@@ -1134,7 +1164,85 @@ class Weekday(Flag):
     SUNDAY = auto()
     WEEKEND = SATURDAY | SUNDAY
 		]]>
-		</programlisting>
+			</programlisting>
+			<programlisting>
+			<![CDATA[
+from enum import Enum, auto
+
+
+class Color(Enum):
+    RED = auto()
+    BLUE = auto()
+    GREEN = auto()
+
+
+print(list(Color))
+			
+			]]>
+			</programlisting>
+			<para>自定义 auto() 生成规则</para>
+			<programlisting>
+			<![CDATA[
+from enum import Enum, auto
+
+
+class AutoName(Enum):
+    def _generate_next_value_(name, start, count, last_values):
+        return name
+
+
+class Ordinal(AutoName):
+    NORTH = auto()
+    SOUTH = auto()
+    EAST = auto()
+    WEST = auto()
+
+
+print(list(Ordinal))
+			
+			]]>
+			</programlisting>
+		</section>
+		<section>
+			<title>枚举访问</title>
+			<programlisting>
+			<![CDATA[
+from enum import Enum
+
+class Weekday(Enum):
+    monday = 1
+    tuesday = 2
+    wednesday = 3
+    thirsday = 4
+    friday = 5
+    saturday = 6
+    sunday = 7
+
+
+print(Weekday.wednesday)
+print(Weekday['wednesday'])
+			]]>
+			</programlisting>
+			<programlisting>
+			<![CDATA[
+from enum import Enum
+
+class Color(Enum):
+    RED = 1
+    GREEN = 2
+    BLUE = 3
+
+print(Color(1))
+print(Color(2))
+print(Color(3))
+
+print(Color['RED'])
+print(Color['GREEN'])
+print(Color['BLUE'])
+						
+			]]>
+			</programlisting>
+		</section>
 		<section>
 			<title>name 和 value</title>
 			<programlisting>
@@ -1256,7 +1364,51 @@ print(obj1 is obj2 is obj3)  # True
 			]]>
 			</programlisting>
 		</section>
+		<section>
+			<title>遍历 enum 成员</title>
+			<programlisting>
+			<![CDATA[
+from enum import Enum
 
+
+class Shape(Enum):
+    SQUARE = 2
+    DIAMOND = 1
+    CIRCLE = 3
+    ALIAS_FOR_SQUARE = 2
+
+
+for name, member in Shape.__members__.items():
+    print(name, member)
+			
+			]]>
+			</programlisting>
+		</section>
+		<section>
+			<title>IntEnum 整数值枚举</title>
+			<programlisting>
+			<![CDATA[
+from enum import IntEnum
+
+
+class Shape(IntEnum):
+    CIRCLE = 1
+    SQUARE = 2
+
+
+class Request(IntEnum):
+    POST = 1
+    GET = 2
+
+
+print(Shape == 1)
+print(Shape.CIRCLE == 1)
+print(Shape.CIRCLE == Request.POST)
+
+			]]>
+			</programlisting>
+		</section>
+		
 	</section>
 </section>
 <section id="python.regular">
