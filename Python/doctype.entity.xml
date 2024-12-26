@@ -65,6 +65,7 @@
 <!ENTITY section.ai.gpu.xml					SYSTEM "ai/section.ai.gpu.xml">
 <!ENTITY chapter.pytorch.xml				SYSTEM "ai/chapter.pytorch.xml">
 <!ENTITY section.pytorch.torchvision.xml	SYSTEM "ai/section.pytorch.torchvision.xml">
+<!ENTITY section.pytorch.torchaudio.xml		SYSTEM "ai/section.pytorch.torchaudio.xml">
 <!ENTITY section.pytorch.example.xml		SYSTEM "ai/section.pytorch.example.xml">
 <!ENTITY chapter.ultralytics.xml			SYSTEM "ai/chapter.ultralytics.xml">
 <!ENTITY section.ultralytics.yolo.xml		SYSTEM "ai/section.ultralytics.yolo.xml">

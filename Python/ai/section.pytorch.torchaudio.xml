@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section id="torchaudio">
+	<title>音频处理</title>
+	<para>torchaudio 提供了强大的音频 I/O，预处理转换和数据集。</para>
+	<section>
+		<title></title>
+		<programlisting>
+		<![CDATA[
+#### 使用 torchaudio 进行音频处理
+# 引入实验所需的模块
+import torch
+import torchaudio
+import torchaudio.functional as F  # 以函数形式进行音频处理
+import torchaudio.transforms as T  # 实例化音频处理对象后，使用实例化对象进行音频处理
+ 
+print(torch.__version__)
+print(torchaudio.__version__)
+		]]>
+		</programlisting>
+	</section>
+	<section>
+		<title>音频降噪</title>
+		<para>https://github.com/NVIDIA/CleanUNet</para>
+	</section>
+</section>

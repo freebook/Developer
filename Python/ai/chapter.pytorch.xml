@@ -1033,5 +1033,6 @@ if __name__ == '__main__':
 		]]>
 		</programlisting>
 	</section>
+	&section.pytorch.torchaudio.xml;
 	&section.pytorch.example.xml;
 </chapter>
