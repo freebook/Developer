@@ -780,7 +780,7 @@ print(index, matrix[index])
 			]]>
 			</programlisting>
 		</section>
-		<section>
+		<section id="list.index">
 			<title>获得list中最大/最小值元素的索引</title>
 			<programlisting>
 			<![CDATA[
@@ -795,6 +795,30 @@ nums.index(max(nums))
 nums = [1,2,3,4,5]
 
 nums.index(min(nums))			
+			]]>
+			</programlisting>
+		</section>
+		<section id="list.enumerate">
+			<title>用 enumerate 返回 list 索引</title>
+			<programlisting>
+			<![CDATA[
+>>> seq = ['one', 'two', 'three']
+>>> for i, element in enumerate(seq):
+...     print i, element
+...
+0 one
+1 two
+2 three			
+			]]>
+			</programlisting>
+			<para>指定开始索引下标</para>
+			<programlisting>
+			<![CDATA[
+>>> seasons = ['Spring', 'Summer', 'Fall', 'Winter']
+>>> list(enumerate(seasons))
+[(0, 'Spring'), (1, 'Summer'), (2, 'Fall'), (3, 'Winter')]
+>>> list(enumerate(seasons, start=1))       # 下标从 1 开始
+[(1, 'Spring'), (2, 'Summer'), (3, 'Fall'), (4, 'Winter')]			
 			]]>
 			</programlisting>
 		</section>
@@ -906,6 +930,41 @@ count = sum(dict.values())
 			]]>
 			</programlisting>
 		</section>
+	</section>
+	<section id="Iterator">
+		<title>Iterator</title>
+		<programlisting>
+		<![CDATA[
+#!/usr/bin/python
+# -*- coding: UTF-8 -*-
+ 
+# 创建 Iterator 对象
+it = iter([1, 2, 3, 4, 5])
+# 开始循环
+while True:
+    try:
+        # 获得下一个值
+        x = next(it)
+        print(x)
+    except StopIteration:
+        # 遇到StopIteration终止循环
+        break		
+		]]>
+		</programlisting>
+		<para>设置结束标志符</para>
+		<programlisting>
+		<![CDATA[
+#!/usr/bin/python
+# -*- coding: UTF-8 -*-
+
+it = iter([1, 2, 5, 4, 3])
+while True:
+    x = next(it, 'a')
+    print(x)
+    if x == 'a':
+        break		
+		]]>
+		</programlisting>
 	</section>
 	<section>
 		<title>序列化</title>

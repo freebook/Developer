@@ -333,6 +333,26 @@ filenames 是一个列表，包含了非目录文件的名字。
 		</section>
 
 	</section>
+	<section id="os.scandir">
+		<title>os.scandir 扫描目录</title>
+		<programlisting>
+		<![CDATA[
+import os
+
+for entry in os.scandir(path='.'):
+    print(entry.path)		
+		]]>
+		</programlisting>
+		<programlisting>
+		<![CDATA[
+import os
+
+for entry in os.scandir(path='../'):
+    if entry.is_file():
+        print(entry.name)
+		]]>
+		</programlisting>		
+	</section>
 	<section id="os.remove">
 		<title>删除文件或目录</title>
 		<para>删除文件</para>

@@ -525,7 +525,7 @@ for result in results:
 		]]>
 		</programlisting>
 
-		<section>
+		<section id="predict.params">
 			<title>predict 参数</title>
 			<para>推理参数</para>
 			<screen>
@@ -602,7 +602,7 @@ print(results)
 			]]>
 			</programlisting>
 		</section>
-		<section>
+		<section id="predict.result">
 			<title>返回结果</title>
 			<para>返回结果通常包含以下主要属性和方法：</para>
 			<literallayout>
@@ -625,7 +625,7 @@ print(results)
 			]]>
 			</literallayout>
 		</section>
-		<section>
+		<section id="result.names"> 
 			<title>提取标签</title>
 			<programlisting>
 			<![CDATA[
@@ -715,6 +715,10 @@ boxes = result.boxes.data.cpu().numpy()
 print(result.boxes.data.tolist())		
 			]]>
 			</programlisting>
+
+		</section>
+		<section id="predict.save_crop">
+			<title>保存识别图像</title>
 			<programlisting>
 			<![CDATA[
     def boxes(self, source:str,target:str):
@@ -751,9 +755,8 @@ print(result.boxes.data.tolist())
         return None		
 			]]>
 			</programlisting>
-						
 		</section>
-		<section>
+		<section id="predict.verbose">
 			<title>verbose 打印详细输出</title>
 			<para>默认会输出</para>
 			<screen>
@@ -769,7 +772,7 @@ model(img, save=True, verbose=False)
 			]]>
 			</programlisting>
 		</section>
-		<section>
+		<section id="predict.classify">
 			<title>图像分类</title>
 			<programlisting>
 			<![CDATA[
