@@ -211,5 +211,13 @@ mode.val()
 			]]>
 			</programlisting>
 		</section>
+		<section>
+			<title>ModuleNotFoundError: No module named 'onnx'</title>
+			<screen>
+			<![CDATA[
+pip install onnx
+			]]>
+			</screen>
+		</section>
 	</section>
 </chapter>

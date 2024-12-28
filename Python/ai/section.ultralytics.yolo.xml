@@ -429,7 +429,122 @@ results = model.train(resume=True)
 			</programlisting>
 
 		</section>
+		<section>
+			<title></title>
+			<programlisting>
+			<![CDATA[
+from ultralytics import YOLO
 
+def main():
+    # 加载模型
+    model = YOLO('yolo11m.pt')  # 你可以使用预训练的模型权重
+
+    # 设置超参数
+    hyperparameters = {
+        'epochs': 1,            # 训练轮数
+        'imgsz': 640,            # 输入图像大小
+        'batch': 8,             # 批次大小
+        'device': 0,             # 使用的GPU设备编号，-1表示使用CPU
+        'lr0': 0.01,             # 初始学习率
+        'lrf': 0.01,             # 最终学习率
+        'momentum': 0.937,       # 动量
+        'weight_decay': 0.0005,  # 权重衰减
+        'warmup_epochs': 3.0,    # 预热轮数
+        'warmup_momentum': 0.8,  # 预热动量
+        'warmup_bias_lr': 0.1,   # 预热偏置学习率
+        'box': 7.5,              # box 损失增益
+        'cls': 0.5,              # cls 损失增益
+        'dfl': 1.5,              # dfl 损失增益
+        'hsv_h': 0.015,          # HSV 色调增益
+        'hsv_s': 0.7,            # HSV 饱和度增益
+        'hsv_v': 0.4,            # HSV 值增益
+        'degrees': 0.0,          # 旋转度数
+        'translate': 0.1,        # 平移增益
+        'scale': 0.5,            # 尺度增益
+        'shear': 0.0,            # 剪切度数
+        'perspective': 0.0,      # 透视度数
+        'flipud': 0.0,           # 上下翻转概率
+        'fliplr': 0.5,           # 左右翻转概率
+        'mosaic': 1.0,           # 马赛克增强
+        'mixup': 0.0,            # MixUp增强
+        'copy_paste': 0.0,       # 复制粘贴增强
+        'auto_augment': 'randaugment', # 自动增强策略
+        'erasing': 0.4,          # 随机擦除增强
+        'crop_fraction': 1.0,    # 裁剪比例
+        'cfg': None,             # 模型配置文件
+        'tracker': 'botsort.yaml', # 跟踪器配置文件
+        'save_dir': 'runs/train', # 保存目录
+        'rect': False,           # 是否使用矩形训练
+        'cos_lr': False,         # 是否使用余弦学习率
+        'close_mosaic': 10,      # 关闭马赛克增强的epoch
+        'resume': False,         # 是否恢复训练
+        'amp': True,             # 是否使用混合精度
+        'fraction': 1.0,         # 数据集使用比例
+        'profile': False,        # 是否性能分析
+        'freeze': None,          # 冻结层
+        'multi_scale': False,    # 是否使用多尺度训练
+        'overlap_mask': True,    # 是否使用重叠掩码
+        'mask_ratio': 4,         # 掩码比例
+        'dropout': 0.0,          # Dropout 概率
+        'val': True,             # 是否进行验证
+        'split': 'val',          # 验证集拆分
+        'save_json': False,      # 是否保存为JSON
+        'save_hybrid': False,    # 是否保存混合模型
+        'conf': None,            # 置信度阈值
+        'iou': 0.7,              # IOU 阈值
+        'max_det': 300,          # 最大检测数量
+        'half': False,           # 是否使用半精度
+        'dnn': False,            # 是否使用DNN
+        'plots': True,           # 是否绘制图表
+        'source': None,          # 数据源
+        'vid_stride': 1,         # 视频步长
+        'stream_buffer': False,  # 是否使用流缓冲
+        'visualize': False,      # 是否可视化
+        'augment': False,        # 是否数据增强
+        'agnostic_nms': False,   # 是否使用类别无关NMS
+        'classes': None,         # 使用的类别
+        'retina_masks': False,   # 是否使用视网膜掩码
+        'embed': None,           # 嵌入
+        'show': False,           # 是否显示
+        'save_frames': False,    # 是否保存帧
+        'save_txt': False,       # 是否保存为TXT
+        'save_conf': False,      # 是否保存置信度
+        'save_crop': False,      # 是否保存裁剪结果
+        'show_labels': True,     # 是否显示标签
+        'show_conf': True,       # 是否显示置信度
+        'show_boxes': True,      # 是否显示边界框
+        'line_width': None,      # 线宽
+        'format': 'torchscript', # 格式
+        'keras': False,          # 是否使用Keras
+        'optimize': False,       # 是否优化
+        'int8': False,           # 是否使用int8量化
+        'dynamic': False,        # 是否动态
+        'simplify': False,       # 是否简化
+        'opset': None,           # ONNX opset版本
+        'workspace': 4,          # 工作空间
+        'nms': False             # 是否使用NMS
+    }
+
+    # 训练模型
+    model.train(
+        data=r'D:\PycharmProjects\netkiller\datasets\mydata.yaml',  # 数据集配置文件
+        **hyperparameters
+    )
+
+    # 评估模型
+    results = model.val()
+
+    # 使用模型进行推理
+    results = model(r'netkiller.jpg')  # 输入图片路径
+
+    # 打印结果
+    print(results)
+
+if __name__ == "__main__":
+    main()			
+			]]>
+			</programlisting>
+		</section>
 	</section>
 	<section id="yolo.val">
 		<title>模型评估</title>
