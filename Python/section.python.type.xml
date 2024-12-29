@@ -946,7 +946,7 @@ count = sum(dict.values())
 		<section>
 			<title>对 value 排序后返回 key</title>
 			<programlisting>
-			<[CDATA[
+			<![CDATA[
 data = {
     "Neo": 5,
     "Netkiller": 10,
@@ -966,7 +966,7 @@ print(ret)
 			</programlisting>
 			<para>返回结果</para>
 			<screen>
-			<[CDATA[
+			<![CDATA[
 ['Neo', 'BG7NYT', 'Netkiller']
 ['Netkiller', 'BG7NYT', 'Neo']
 ['Neo', 'BG7NYT', 'Netkiller']			
