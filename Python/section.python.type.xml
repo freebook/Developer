@@ -890,10 +890,24 @@ print(dict1)
 			</screen>
 		</section>
 		<section>
-			<title>取最大值</title>
+			<title>取 Value 最大值</title>
 			<programlisting>
 			<![CDATA[
+data = {
+    "Neo": 5,
+    "Netkiller": 10,
+    "BG7NYT": 8,
+}
 
+ret = max(data, key=lambda x: data[x])
+print(ret)
+			]]>
+			</programlisting>
+		</section>
+		<section>
+			<title>指定 key 取 value 最大值</title>
+			<programlisting>
+			<![CDATA[
 data = [
     {
       "question": "为什么过只加汇摇晃",
@@ -917,8 +931,7 @@ data = [
   ]
 
 ret = max(data, key=lambda dic: dic['ratio']) 
-print(ret)  
-			
+print(ret)
 			]]>
 			</programlisting>
 		</section>
@@ -929,6 +942,36 @@ print(ret)
 count = sum(dict.values())			
 			]]>
 			</programlisting>
+		</section>
+		<section>
+			<title>对 value 排序后返回 key</title>
+			<programlisting>
+			<[CDATA[
+data = {
+    "Neo": 5,
+    "Netkiller": 10,
+    "BG7NYT": 8,
+}
+
+ret = sorted(data, key=lambda x: data[x])
+print(ret)
+
+
+ret = sorted(data, key=lambda x: data[x],reverse=True)
+print(ret)
+
+ret = sorted(data, key=lambda x: data[x],reverse=False)
+print(ret)			
+			]]>
+			</programlisting>
+			<para>返回结果</para>
+			<screen>
+			<[CDATA[
+['Neo', 'BG7NYT', 'Netkiller']
+['Netkiller', 'BG7NYT', 'Neo']
+['Neo', 'BG7NYT', 'Netkiller']			
+			]]>
+			</screen>
 		</section>
 	</section>
 	<section id="Iterator">
