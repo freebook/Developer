@@ -49,6 +49,27 @@ with open("myfile.txt") as f:
 
 	</section>
 	<section>
+		<title>写入文件</title>
+		<programlisting>
+		<![CDATA[
+name = "Alice"
+age = 30
+with open('profile.txt', 'w') as file:
+    file.write(f"Name: {name}\n")
+    file.write(f"Age: {age}\n")		
+		]]>
+		</programlisting>
+		<para>utf-8 编码</para>
+		<programlisting>
+		<![CDATA[
+with open('example.txt', 'w', encoding='utf-8') as file:
+    file.write("你好，世界！")	
+		]]>
+		</programlisting>
+
+		
+	</section>
+	<section>
 		<title>读取二进制文件</title>
 		<para></para>
 		<programlisting>
