@@ -322,6 +322,36 @@ print(string.capwords(str)) # 输出: 'Hello World'
 			]]>
 			</programlisting>
 		</section>
+		<section>
+			<title>查找字符串开始/结尾</title>
+			<para>str.startswith(str, beg=0,end=len(string))</para>
+			<programlisting>
+			<![CDATA[
+#!/usr/bin/python
+
+str = "this is string example....wow!!!";
+print str.startswith( 'this' );
+print str.startswith( 'is', 2, 4 );
+print str.startswith( 'this', 2, 4 );			
+			]]>
+			</programlisting>
+			<para>str.endswith(suffix[, start[, end]])</para>
+			<programlisting>
+			<![CDATA[
+#!/usr/bin/python
+ 
+str = "this is string example....wow!!!";
+ 
+suffix = "wow!!!";
+print str.endswith(suffix);
+print str.endswith(suffix,20);
+ 
+suffix = "is";
+print str.endswith(suffix, 2, 4);
+print str.endswith(suffix, 2, 6);			
+			]]>
+			</programlisting>
+		</section>
 	</section>
 	<section id="float">
 		<title>float 浮点数值</title>

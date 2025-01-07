@@ -1014,6 +1014,133 @@ if __name__ == "__main__":
 		]]>
 		</programlisting>
 	</section>
+	<section>
+		<title>标签管理，标签删除工具</title>
+		<programlisting>
+		<![CDATA[
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+##############################################
+# Home	: https://www.netkiller.cn
+# Author: Neo <netkiller@msn.com>
+# Upgrade: 2025-01-07
+##############################################
+import glob
+import hashlib
+
+from texttable import Texttable
+
+try:
+    import uuid,shutil,yaml,cv2
+    import os,sys,random,argparse
+    from tqdm import tqdm
+    from PIL import Image, ImageOps
+    from ultralytics import YOLO
+
+except ImportError as err:
+    print("Import Error: %s" % (err))
+    exit()
+
+class YoloLabelRemove():
+    count = 0
+
+    def __init__(self):
+
+        self.basedir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+        sys.path.append(self.basedir)
+
+        self.parser = argparse.ArgumentParser(description='YOLO标签删除工具')
+        self.parser.add_argument('--source', type=str, default=None, help='左侧目录',metavar="/tmp/dir1")
+        self.parser.add_argument('--label', type=int, default=-1, help='长边尺寸',metavar=0)
+        self.parser.add_argument('--output', type=str, default=None, help='输出目录', metavar="/tmp/output")
+        self.parser.add_argument('--clean', action="store_true", default=False, help='清理之前的数据')
+        self.args = self.parser.parse_args()
+
+    def scanfile(self,path):
+        files = []
+        files = glob.glob(path)
+
+        return (files)
+    def scandir(self,path):
+        files = []
+        for name in os.listdir(path):
+            if os.path.isdir(os.path.join(path, name)):
+                files.append(name)
+
+        return (files)
+
+    def input(self):
+        try:
+            if self.args.clean:
+                if os.path.exists(self.args.output):
+                    shutil.rmtree(self.args.output)
+            os.makedirs(self.args.output,exist_ok=True)
+
+            self.files = self.scanfile(os.path.join(self.args.source,"*.txt"))
+
+            # print(self.files)
+        except Exception as e:
+            # log.error(e)
+            print("input: ", e)
+            exit()
+
+    def process(self):
+        with tqdm(total=len(self.files), ncols=100) as progress:
+            for file in self.files:
+                progress.set_description(file)
+                filename = os.path.basename(file)
+                try:
+                    if filename.lower() == 'classes.txt':
+                        continue
+                    else:
+                        # print(file)
+                        output = os.path.join(self.args.output, filename)
+                        with open(file, "r") as original, open(output, "w") as file:
+                            for line in original.readlines():
+                                # print(line)
+                                if line.startswith(f"{self.args.label} "):
+                                    self.count += 1
+                                    continue
+                                file.write(line)
+
+                            # print(f"txt1={txt1}, txt2={txt2}")
+
+                except FileNotFoundError as e:
+                    print(str(e))
+                    exit()
+
+                progress.update(1)
+
+    def output(self):
+        tables = [["输出","处理"]]
+        tables.append([len(self.files),self.count])
+        table = Texttable(max_width=100)
+        table.add_rows(tables)
+        print(table.draw())
+        pass
+
+    def main(self):
+        print(self.args)
+        if self.args.source and self.args.output:
+            self.input()
+            self.process()
+            self.output()
+
+        else:
+            self.parser.print_help()
+            exit()
+
+if __name__ == "__main__":
+    try:
+        run = YoloLabelRemove()
+        run.main()
+    except KeyboardInterrupt as e:
+        print(e)		
+		]]>
+		</programlisting>
+	</section>
+	
+	
 	<section id="utils.Classify">
 		<title>图像分类数据处理</title>
 		<section>
