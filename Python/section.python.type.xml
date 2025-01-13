@@ -1502,6 +1502,28 @@ print(obj1 is obj2 is obj3)  # True
 			<![CDATA[
 from enum import Enum
 
+class Shape(Enum):
+    SQUARE = 2
+    DIAMOND = 1
+    CIRCLE = 3
+    ALIAS_FOR_SQUARE = 2
+
+for shape in Shape:
+    print(shape.name, shape.value)			
+			]]>
+			</programlisting>
+			<para>输出结果</para>
+			<screen>
+			<![CDATA[
+SQUARE 2
+DIAMOND 1
+CIRCLE 3			
+			]]>
+			</screen>
+			<programlisting>
+			<![CDATA[
+from enum import Enum
+
 
 class Shape(Enum):
     SQUARE = 2
@@ -1515,6 +1537,15 @@ for name, member in Shape.__members__.items():
 			
 			]]>
 			</programlisting>
+			<para>输出结果</para>
+			<screen>
+			<![CDATA[
+SQUARE Shape.SQUARE
+DIAMOND Shape.DIAMOND
+CIRCLE Shape.CIRCLE
+ALIAS_FOR_SQUARE Shape.SQUARE			
+			]]>
+			</screen>
 		</section>
 		<section>
 			<title>IntEnum 整数值枚举</title>
