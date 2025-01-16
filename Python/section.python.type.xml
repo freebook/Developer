@@ -322,6 +322,36 @@ print(string.capwords(str)) # 输出: 'Hello World'
 			]]>
 			</programlisting>
 		</section>
+		<section>
+			<title>查找字符串开始/结尾</title>
+			<para>str.startswith(str, beg=0,end=len(string))</para>
+			<programlisting>
+			<![CDATA[
+#!/usr/bin/python
+
+str = "this is string example....wow!!!";
+print str.startswith( 'this' );
+print str.startswith( 'is', 2, 4 );
+print str.startswith( 'this', 2, 4 );			
+			]]>
+			</programlisting>
+			<para>str.endswith(suffix[, start[, end]])</para>
+			<programlisting>
+			<![CDATA[
+#!/usr/bin/python
+ 
+str = "this is string example....wow!!!";
+ 
+suffix = "wow!!!";
+print str.endswith(suffix);
+print str.endswith(suffix,20);
+ 
+suffix = "is";
+print str.endswith(suffix, 2, 4);
+print str.endswith(suffix, 2, 6);			
+			]]>
+			</programlisting>
+		</section>
 	</section>
 	<section id="float">
 		<title>float 浮点数值</title>
@@ -1472,6 +1502,28 @@ print(obj1 is obj2 is obj3)  # True
 			<![CDATA[
 from enum import Enum
 
+class Shape(Enum):
+    SQUARE = 2
+    DIAMOND = 1
+    CIRCLE = 3
+    ALIAS_FOR_SQUARE = 2
+
+for shape in Shape:
+    print(shape.name, shape.value)			
+			]]>
+			</programlisting>
+			<para>输出结果</para>
+			<screen>
+			<![CDATA[
+SQUARE 2
+DIAMOND 1
+CIRCLE 3			
+			]]>
+			</screen>
+			<programlisting>
+			<![CDATA[
+from enum import Enum
+
 
 class Shape(Enum):
     SQUARE = 2
@@ -1485,6 +1537,15 @@ for name, member in Shape.__members__.items():
 			
 			]]>
 			</programlisting>
+			<para>输出结果</para>
+			<screen>
+			<![CDATA[
+SQUARE Shape.SQUARE
+DIAMOND Shape.DIAMOND
+CIRCLE Shape.CIRCLE
+ALIAS_FOR_SQUARE Shape.SQUARE			
+			]]>
+			</screen>
 		</section>
 		<section>
 			<title>IntEnum 整数值枚举</title>
