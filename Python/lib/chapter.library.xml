@@ -8,7 +8,8 @@
 	&section.library.syslog.xml; 
 	&section.library.socket.xml; 
 	&section.library.yaml.xml; 
-	&section.library.network.xml;	
+	&section.library.network.xml;
+	&section.library.asyncio.xml;
 	&section.library.terminal.xml;
 	&section.library.captcha.xml;
 	&section.library.other.xml;

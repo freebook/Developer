@@ -854,26 +854,7 @@ nums.index(min(nums))
 		</section>
 	</section>
 	<section id="data.set">
-		<title>Set</title>
-
-		<programlisting>
-		<![CDATA[
->>> set = {'a','b','c'}
->>> set
-set(['a', 'c', 'b'])
-
->>> set = {"one", "two", "three","one"}
->>> set
-set(['three', 'two', 'one'])		
-		]]>
-		</programlisting>
-		<programlisting>
-		<![CDATA[
->>> set.add('four')
->>> set
-set(['four', 'three', 'two', 'one'])
-		]]>
-		</programlisting>
+		<title>Set 集合</title>
 		<programlisting>
 		<![CDATA[
 >>> ','.join(set);
@@ -887,6 +868,122 @@ set(['four', 'three', 'two', 'one'])
 {'banana', 'pineapple', 'orange'}		
 		]]>
 		</programlisting>
+		<section>
+			<title>创建集合</title>
+			<programlisting>
+			<![CDATA[
+>>> set = {'a','b','c'}
+>>> set
+set(['a', 'c', 'b'])
+
+>>> set = {"one", "two", "three","one"}
+>>> set
+set(['three', 'two', 'one'])		
+			]]>
+			</programlisting>
+			<programlisting>
+			<![CDATA[
+set1 = {1, 2, 3, 4}
+print(set1)
+
+set2 = set([4, 5, 6, 7])
+print(set2)			
+			]]>
+			</programlisting>
+		</section>
+		<section>
+			<title>添加元素</title>
+			<para>添加元素到集合有两个方法，分别是 add() 和 update()</para>
+			<programlisting>
+			<![CDATA[
+>>> set.add('four')
+>>> set
+set(['four', 'three', 'two', 'one'])
+			]]>
+			</programlisting>
+			<programlisting>
+			<![CDATA[
+company = set(("Google", "OpenAI", "Facebook"))
+company.update({"Microsoft"})
+company.update({"Aliyun","Taobao"})
+print(company)
+
+company.update([1,2],[5,6])
+print(company)			
+			]]>
+			</programlisting>
+			<screen>
+			<![CDATA[
+{'Facebook', 'Google', 'Microsoft', 'Taobao', 'Aliyun', 'OpenAI'}
+{'Facebook', 1, 2, 5, 6, 'Aliyun', 'Google', 'OpenAI', 'Microsoft', 'Taobao'}			
+			]]>
+			</screen>
+		</section>
+		<section>
+			<title>删除元素</title>
+			<programlisting>
+			<![CDATA[
+company = set({'Facebook', 'Google', 'Microsoft', 'Taobao', 'Aliyun', 'OpenAI'})
+print(company)
+company.remove("OpenAI")
+print(company)
+company.discard("Aliyun")
+print(company)
+			]]>
+			</programlisting>
+			<para>随机移除一个元素</para>
+			<programlisting>
+			<![CDATA[
+company.pop()
+print(company)			
+			]]>
+			</programlisting>
+			<para></para>
+			<screen>
+			<![CDATA[
+{'Taobao', 'Facebook', 'Aliyun', 'Microsoft', 'OpenAI', 'Google'}
+{'Taobao', 'Facebook', 'Aliyun', 'Microsoft', 'Google'}
+{'Taobao', 'Facebook', 'Microsoft', 'Google'}
+{'Facebook', 'Microsoft', 'Google'}			
+			]]>
+			</screen>
+		</section>
+		<section>
+			<title>清空集合</title>
+			<programlisting>
+			<![CDATA[
+>>> company = set(("Google", "Microsoft", "OpenAI"))
+>>> company.clear()
+>>> print(company)
+set()			
+			]]>
+			</programlisting>
+		</section>
+		<section>
+			<title>合并集合</title>
+			<programlisting>
+			<![CDATA[
+x = {"apple", "banana", "cherry"}
+y = {"google", "microsoft", "apple"}
+ 
+z = x.union(y) 
+ 
+print(z)			
+			]]>
+			</programlisting>
+			<para></para>
+			<programlisting>
+			<![CDATA[
+x = {"a", "b", "c"}
+y = {"d", "e", "f"}
+z = {"g", "i", "j"}
+ 
+result = x.union(y, z) 
+ 
+print(result)			
+			]]>
+			</programlisting>
+		</section>
 	</section>
 	<section id="data.dict">
 		<title>Dict 字典</title>

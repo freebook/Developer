@@ -1,1 +1,44 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<section id="asyncio">
+	<title>asyncio</title>
+	<section>
+		<title></title>
+		<programlisting>
+		<![CDATA[
+import asyncio
+
+async def hello():
+    print("Hello world!")
+    # 异步调用asyncio.sleep(1):
+    await asyncio.sleep(1)
+    print("Hello again!")
+
+asyncio.run(hello())		
+		]]>
+		</programlisting>
+		<para></para>
+		<programlisting>
+		<![CDATA[
+import asyncio
+import threading
+
+
+async def hello(name):
+    # 打印name和当前线程:
+    print("Hello %s! (%s)" % (name, threading.current_thread))
+    # 异步调用asyncio.sleep(1):
+    await asyncio.sleep(1)
+    print("Hello %s again! (%s)" % (name, threading.current_thread))
+    return name
+
+
+async def main():
+    list = await asyncio.gather(hello("Bob"), hello("Alice"))
+    print(list)
+
+ 
+asyncio.run(main())
+		]]>
+		</programlisting>
+	</section>
+</section>

@@ -18,10 +18,10 @@
 <!ENTITY section.library.captcha.xml		SYSTEM "lib/section.library.captcha.xml">
 <!ENTITY section.library.terminal.xml		SYSTEM "lib/section.library.terminal.xml">
 <!ENTITY section.library.network.xml		SYSTEM "lib/section.library.network.xml">
+<!ENTITY section.library.asyncio.xml		SYSTEM "lib/section.library.asyncio.xml">
 <!ENTITY section.library.other.xml	 		SYSTEM "lib/section.library.other.xml">
 
 <!ENTITY chapter.exe.xml					SYSTEM "chapter.exe.xml">
-<!ENTITY chapter.3rdparty.xml				SYSTEM "chapter.3rdparty.xml">
 
 <!ENTITY part.framework.xml					SYSTEM "part.framework.xml">
 <!ENTITY section.framework.uvicorn.xml 		SYSTEM "section.framework.uvicorn.xml">
