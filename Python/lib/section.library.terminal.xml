@@ -16,6 +16,49 @@
         self.args = self.parser.parse_args()		
 		]]>
 		</programlisting>
+		<section>
+			<title>参数组</title>
+			<programlisting>
+			<![CDATA[
+import argparse
+
+parser = argparse.ArgumentParser(description='Simple example')
+parser.add_argument('name', help='Who to greet', default='World')
+# Create two argument groups
+foo_group = parser.add_argument_group(title='Foo options')
+bar_group = parser.add_argument_group(title='Bar options')
+# Add arguments to those groups
+foo_group.add_argument('--bar_this')
+foo_group.add_argument('--bar_that')
+bar_group.add_argument('--foo_this')
+bar_group.add_argument('--foo_that')
+args = parser.parse_args()			
+			]]>
+			</programlisting>
+			<screen>
+			<![CDATA[
+usage: example.py [-h] [--bar_this BAR_THIS] [--bar_that BAR_THAT]
+                        [--foo_this FOO_THIS] [--foo_that FOO_THAT]
+                        name
+
+Simple example
+
+positional arguments:
+  name                 Who to greet
+
+optional arguments:
+  -h, --help           show this help message and exit
+
+Foo options:
+  --bar_this BAR_THIS
+  --bar_that BAR_THAT
+
+Bar options:
+  --foo_this FOO_THIS
+  --foo_that FOO_THAT			
+			]]>
+			</screen>
+		</section>
 	</section>
 	<section id="getopt">
 		<title>getopt – Command line option parsing</title>
