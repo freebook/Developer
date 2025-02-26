@@ -472,6 +472,42 @@ yesterday = (today - timedelta(days=1)).date()
 			</screen>
 		</section>
 		<section>
+			<title>日期转字符串</title>
+			<programlisting>
+			<![CDATA[
+import datetime
+time1 = datetime.datetime.now()
+print(type(time1))
+print(time1) 
+
+# 日期转为字符串
+time2 = time1.strftime('%Y-%m-%d %H:%M:%S')#只取年月日，时分秒
+print(type(time2))
+print(time1)
+			
+			]]>
+			</programlisting>
+		</section>
+		<section>
+			<title>字符串转日期</title>
+			<programlisting>
+			<![CDATA[
+import time,datetime
+
+str_time = '2025-9-20 20:33:20'
+fmt = '%Y-%m-%d %H:%M:%S'
+print(str_time)
+print(type(str_time))
+
+str_time = datetime.datetime.strptime(str_time, "%Y-%m-%d %H:%M:%S")
+print(str_time)
+print(type(str_time))
+			
+			]]>
+			</programlisting>
+			
+		</section>
+		<section>
 			<title>生成时间</title>
 			<programlisting>
 			<![CDATA[
