@@ -336,4 +336,22 @@ engine/trainer: task=detect, mode=train, model=tongue.yaml, data=/Volumes/tmp/da
 		]]>
 		</screen>
 	</section>
+	<section>
+		<title>恢复训练</title>
+		<para>resume=True</para>
+		<screen>
+		<![CDATA[
+(.venv) PS D:\workspace\medical> yolo task=detect mode=train model=model/yolo11n.pt data=E:/datasets/AllInOne/data.yaml epochs=300 device=0 name=AllInOne project=E:/runs resume=True		
+		]]>
+		</screen>
+	</section>
+	<section>
+		<title>增加训练 epoch</title>
+		<screen>
+		<![CDATA[
+yolo task=detect mode=train model=runs/detect/exp/weights/last.pt data=coco128.yaml epochs=100 pretrained=True		
+		]]>
+		</screen>
+	</section>
+	
 </section>
