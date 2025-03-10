@@ -109,7 +109,7 @@ async def get_image():
 pip install python-multipart
 		]]>
 		</screen>
-		<section>
+		<section id="app.post.form">
 			<title>From 数据</title>
 			<programlisting>
             	<![CDATA[
@@ -129,6 +129,16 @@ data = {"username": "netkiller", "password": "123456"}
 response = client.post("/form", data=data)
 print(response.content.decode())
             	]]>
+			</programlisting>
+			<para>Bool 布尔值</para>
+			<programlisting>
+			<![CDATA[
+@app.post("/test", summary="测试接口", description="测试接口", tags=["web"],
+          )
+async def test(short: bool = Form(), status: Optional[bool] = Form(False)):
+    print(short, status)
+    return HTMLResponse(content="OK", status_code=200)
+			]]>
 			</programlisting>
 		</section>
 		<section id="post.json.dict">
