@@ -49,25 +49,67 @@ with open("myfile.txt") as f:
 
 	</section>
 	<section>
-		<title>写入文件</title>
-		<programlisting>
-		<![CDATA[
+		<title>写入文件</title>		
+		<section>
+			<title>写入内容</title>
+			<programlisting>
+			<![CDATA[
 name = "Alice"
 age = 30
 with open('profile.txt', 'w') as file:
     file.write(f"Name: {name}\n")
     file.write(f"Age: {age}\n")		
-		]]>
-		</programlisting>
-		<para>utf-8 编码</para>
-		<programlisting>
-		<![CDATA[
+			]]>
+			</programlisting>
+			<para>utf-8 编码</para>
+			<programlisting>
+			<![CDATA[
 with open('example.txt', 'w', encoding='utf-8') as file:
     file.write("你好，世界！")	
-		]]>
-		</programlisting>
-
+			]]>
+			</programlisting>
 		
+			<programlisting>
+			<![CDATA[
+numbers = [1, 2, 3, 4, 5]
+file = open("numbers.txt", "w")
+for number in numbers:
+    file.write(str(number) + "\n")
+file.close()
+			
+			]]>
+			</programlisting>
+		</section>
+		<section>
+			<title>写入一个 LIST</title>
+			<programlisting>
+			<![CDATA[
+file = open("example.txt", "w")
+lines = ["Line 1\n", "Line 2\n", "Line 3\n"]
+file.writelines(lines)
+file.close()
+			]]>
+			</programlisting>
+			<programlisting>
+			<![CDATA[
+f = open('a.txt', 'r')
+n = open('b.txt','w+')
+n.writelines(f.readlines())
+n.close()
+f.close()			
+			]]>
+			</programlisting>
+			<para>加入换行符</para>
+			<programlisting>
+			<![CDATA[
+numbers = [1, 2, 3, 4, 5]
+file = open("numbers.txt", "w")
+lines = [str(number) + "\n" for number in numbers]
+file.writelines(lines)
+file.close()			
+			]]>
+			</programlisting>
+		</section>
 	</section>
 	<section>
 		<title>读取二进制文件</title>
