@@ -923,6 +923,19 @@ print()
 			<title>设置列数据类型</title>
 			<programlisting>
 			<![CDATA[
+# Set datatype 
+texttable.set_cols_dtype(["t", "i", "f", "a"]) 
+  
+# texttable objects supports five types of data types: 
+# "t" refers to text 
+# "f" refers to decimal 
+# "e" refers to exponent 
+# "i" refers to integer 
+# "a" refers to automatic 			
+			]]>
+			</programlisting>
+			<programlisting>
+			<![CDATA[
 from texttable import Texttable
 table = Texttable()
 table.set_deco(Texttable.HEADER)
