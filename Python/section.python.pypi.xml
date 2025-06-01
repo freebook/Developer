@@ -332,6 +332,18 @@ curl -sS http://python-distribute.org/distribute_setup.py | python
 		]]></screen>
 		</section>
 	</section>
+	<section id="pyproject.toml">
+		<title>pyproject.toml</title>
+		<screen>
+		<![CDATA[
+# 安装依赖
+python3 -m pip install --upgrade build
+
+# 打包
+python3 -m build
+		]]>
+		</screen>
+	</section>
 	<section id="pip">
 		<title>pip - A tool for installing and managing Python packages</title>
 		<para>https://pip.readthedocs.io/en/stable/installing/</para>
