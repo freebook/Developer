@@ -4,4 +4,27 @@
 	&section.graphics.xml;
 	&section.graphics.opencv.xml;
 	&section.graphics.pillow.xml;
+	<section>
+		<title>SVG 图形库</title>
+		<section id="CairoSVG">
+			<title>CairoSVG - SVG 转换为 PNG/PDF/PS</title>
+			<screen>
+			<![CDATA[
+$ pip3 install cairosvg			
+			]]>
+			</screen>
+			<screen>
+			<![CDATA[
+$ cairosvg image.svg -o image.png			
+			]]>
+			</screen>
+			<screen>
+			<![CDATA[
+$ python3
+>>> import cairosvg
+>>> cairosvg.svg2pdf(url='image.svg', write_to='image.pdf')			
+			]]>
+			</screen>
+		</section>
+	</section>
 </chapter>
