@@ -96,6 +96,7 @@
 <!ENTITY section.graphics.xml				SYSTEM "section.graphics.xml">
 <!ENTITY section.graphics.opencv.xml		SYSTEM "section.graphics.opencv.xml">
 <!ENTITY section.graphics.pillow.xml		SYSTEM "section.graphics.pillow.xml">
+<!ENTITY section.graphics.svg.xml			SYSTEM "section.graphics.svg.xml">
 
 <!ENTITY chapter.av.xml						SYSTEM "chapter.av.xml">
 <!ENTITY section.av.audio.xml				SYSTEM "section.av.audio.xml">

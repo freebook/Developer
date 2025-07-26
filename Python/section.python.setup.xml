@@ -1,6 +1,80 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <section id="python.install">
 	<title>Python 安装</title>
+	<section>
+		<title>Rocky Linux / AlmaLinux 安装 Python</title>
+		<para>系统默认 python3.9 安装 python3.13</para>
+		<screen>
+		<![CDATA[
+[root@development ~]# dnf search python | grep "^python3.13"
+Last metadata expiration check: 0:15:05 ago on Thu 24 Jul 2025 08:43:36 AM CST.
+python3.13.x86_64 : Version 3.13 of the Python interpreter
+python3.13-debug.x86_64 : Debug version of the Python runtime
+python3.13-devel.x86_64 : Libraries and header files needed for Python development
+python3.13-freethreading.x86_64 : Free Threading (PEP 703) version of the Python runtime
+python3.13-freethreading-debug.x86_64 : Free Threading (PEP 703) version of the Python runtime (debug build)
+python3.13-idle.x86_64 : A basic graphical development environment for Python
+python3.13-libs.x86_64 : Python runtime libraries
+python3.13-packaging.noarch : Core utilities for Python packages
+python3.13-pip.noarch : A tool for installing and managing Python packages
+python3.13-rpm.x86_64 : Python 3.13 bindings for apps which will manipulate RPM packages
+python3.13-setuptools.noarch : Easily build and distribute Python packages
+python3.13-test.x86_64 : The self-test suite for the main python3 package
+python3.13-tkinter.x86_64 : A GUI toolkit for Python
+python3.13-flit-core.noarch : PEP 517 build backend for packages using Flit
+python3.13-pip-wheel.noarch : The pip wheel
+python3.13-setuptools-wheel.noarch : The setuptools wheel
+		]]>
+		</screen>
+		<para></para>
+		<screen>
+		<![CDATA[
+[root@development ~]# dnf install python3.13 python3.13-pip
+		]]>
+		</screen>
+		<para>切换默认版本</para>
+		<screen>
+		<![CDATA[
+[root@development ~]# ls -l /usr/bin/python{,3} 
+lrwxrwxrwx 1 root root 9 2025-07-02 08:44 /usr/bin/python -> ./python3
+lrwxrwxrwx 1 root root 9 2025-07-02 08:44 /usr/bin/python3 -> python3.9		
+		]]>
+		</screen>
+		<para>手工修改，创建符号链接，因为 python 指向 python3，所以我门只处理 python3 即可</para>
+		<screen>
+		<![CDATA[
+# 先删除现有链接
+sudo rm -f /usr/bin/python3
+
+# 创建指向 Python 3.13 的新链接
+sudo ln -s /usr/bin/python3.13 /usr/bin/python3
+
+# 验证版本
+python3 --version
+		]]>
+		</screen>
+		<para>alternatives 方案</para>
+		<screen>
+		<![CDATA[
+# 查看当前 Python 方案
+sudo alternatives --config python3
+
+# 如果没有 Python 3.13 的选项，手动添加
+sudo alternatives --install /usr/bin/python3 python3 /usr/bin/python3.13 2
+sudo alternatives --install /usr/bin/python3 python3 /usr/bin/python3.9 1
+
+# 再次配置默认版本
+sudo alternatives --config python3
+# 然后输入对应 Python 3.13 的编号并回车		
+		]]>
+		</screen>
+		<para>推荐安装</para>
+		<screen>
+		<![CDATA[
+[root@development ~]# dnf install python3.13-setuptools python3.13-freethreading		
+		]]>
+		</screen>
+	</section>
 	<section id="python.install.docker">
 		<title>Docker 安装</title>
 		<screen>
