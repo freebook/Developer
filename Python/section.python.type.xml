@@ -1167,6 +1167,35 @@ print(ret)
 			]]>
 			</screen>
 		</section>
+		<section>
+			<title>两个 list 合并为 dict</title>
+			<para>python header = ['a','b','c']  body=[1,2,3] 转成 dict.  {'a':1, 'b': 2, 'c':3}</para>
+			<programlisting>
+			<![CDATA[
+可以使用 Python 的 zip() 函数将两个列表合并为字典，zip() 会将对应索引的元素配对，然后通过 dict() 转换为字典：
+
+将两个列表转换为字典
+
+原理说明：
+
+zip(header, body) 会将两个列表中对应位置的元素组合成元组，形成类似 [('a', 1), ('b', 2), ('c', 3)] 的可迭代对象。
+dict() 函数会将这些元组转换为字典，元组的第一个元素作为键，第二个元素作为值。
+注意事项：
+
+如果两个列表长度不一致，zip() 会以较短的列表为准，忽略超出部分的元素。
+例如：header = ['a', 'b']，body = [1, 2, 3]，结果会是 {'a': 1, 'b': 2}。
+
+
+header = ['a', 'b', 'c']
+body = [1, 2, 3]
+
+# 使用zip()配对后转换为字典
+result_dict = dict(zip(header, body))
+
+print(result_dict)  # 输出: {'a': 1, 'b': 2, 'c': 3}
+			]]>
+			</programlisting>
+		</section>
 	</section>
 	<section id="Iterator">
 		<title>Iterator</title>
