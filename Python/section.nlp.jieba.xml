@@ -333,7 +333,6 @@ for tk in result:
 		</screen>
 	</section>
 </section>
-<?xml version="1.0" encoding="UTF-8"?>
 <section id="wordcloud">
 	<title>wordcloud</title>
 	<para>https://github.com/amueller/word_cloud</para>
