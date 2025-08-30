@@ -1196,6 +1196,25 @@ print(result_dict)  # 输出: {'a': 1, 'b': 2, 'c': 3}
 			]]>
 			</programlisting>
 		</section>
+		<section>
+			<title>计算 value 的数量</title>
+			<programlisting>
+			<![CDATA[
+        data = {
+            '产品目标': ['竞品分析'],
+            '开发目标': ['编码开发', '代码测试'],
+            '运营目标': ['区域投放']
+        }
+
+        # 计算每个value的数量
+        count_result = {key: len(value) for key, value in data.items()}
+
+        print("每个目标包含的子项数量：")
+        for key, count in count_result.items():
+            print(f"{key}：{count}个")			
+			]]>
+			</programlisting>
+		</section>
 	</section>
 	<section id="Iterator">
 		<title>Iterator</title>

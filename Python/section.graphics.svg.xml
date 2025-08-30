@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <section>
 	<title>SVG 图形库</title>
-	<section>
+	<section id="svg.tag">
 		<title>SVG 标签</title>
 		<section id="svg.path">
-		<title>路径</title>
-		<section>
-			<title>贝塞尔曲线</title>
+			<title>路径</title>
 			<section>
-				<title>两次贝塞尔曲线</title>
-				<para>拥有两个控制点的贝塞尔曲线</para>
-				<screen>
+				<title>贝塞尔曲线</title>
+				<section>
+					<title>两次贝塞尔曲线</title>
+					<para>拥有两个控制点的贝塞尔曲线</para>
+					<screen>
 				<![CDATA[
 <path d="M{x},{y} C{cx1},{cy1} {cx2},{cy2} {x1},{y1}" id="路径" stroke="blue" stroke-width="2"></path>
 
@@ -19,9 +19,9 @@
 终点控制点：{cx2},{cy2}
 终点：{x1},{y1}
 				]]>
-				</screen>
-				<para>下面代码生成类似 mindmap 思维导图的连接线</para>
-				<programlisting>
+					</screen>
+					<para>下面代码生成类似 mindmap 思维导图的连接线</para>
+					<programlisting>
 				<![CDATA[
             <path d="M0,200 C200,200 200,0 400,0" id="路径" stroke="#FFA500" stroke-width="2"></path>
             <path d="M0,200 C200,200 200,50 400,50" id="路径" stroke="#FFA500" stroke-width="2"></path>
@@ -35,9 +35,9 @@
             <path d="M0,200 C200,200 200,400 400,400" id="路径" stroke="#FFA500" stroke-width="2"></path>
             <path d="M0,200 C200,200 200,450 400,450" id="路径" stroke="#FFA500" stroke-width="2"></path>				
 				]]>
-				</programlisting>
-				<para>进一步增加复杂度，生成二级子集，同时在起点处增加两个圆圈点缀。</para>
-				<programlisting>
+					</programlisting>
+					<para>进一步增加复杂度，生成二级子集，同时在起点处增加两个圆圈点缀。</para>
+					<programlisting>
 				<![CDATA[
             <path d="M0,200 C150,200 200,0 300,0" id="路径" stroke="#FFA500" stroke-width="2"></path>
             <path d="M0,200 C150,200 200,50 300,50" id="路径" stroke="#FFA500" stroke-width="2"></path>
@@ -62,9 +62,9 @@
             <circle cx="0" cy="200" r="5" fill="white" stroke="blue" stroke-width="2"/>
             <circle cx="300" cy="200" r="5" fill="white" stroke="green" stroke-width="2"/>				
 				]]>
-				</programlisting>
-				<para>两端延伸出一段横线，横线上增加文字</para>
-				<programlisting>
+					</programlisting>
+					<para>两端延伸出一段横线，横线上增加文字</para>
+					<programlisting>
 				<![CDATA[
             <text text-anchor="middle" x="50" y="120" fill="purple" stroke="none">咖啡豆分类</text>
 
@@ -81,10 +81,10 @@
             <path d="M0,125 L100,125 C200,125 200,200 300,200 L 400,200" id="路径" stroke="blue" stroke-width="2"></path>
             <circle cx="100" cy="125" r="5" fill="white" stroke="blue" stroke-width="2"/>				
 				]]>
-				</programlisting>
+					</programlisting>
+				</section>
 			</section>
 		</section>
-	</section>
 	</section>
 	<section id="drawsvg">
 		<title>drawsvg</title>
@@ -200,5 +200,5 @@ cairosvg.svg2png(url=input_file, write_to=output_file, background_color="white")
 		]]>
 		</programlisting>
 	</section>
-	
+
 </section>
