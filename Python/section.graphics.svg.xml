@@ -3,6 +3,48 @@
 	<title>SVG 图形库</title>
 	<section id="svg.tag">
 		<title>SVG 标签</title>
+		<section>
+			<title>矩形</title>
+			
+			<para>绘制圆角矩形</para>
+			<programlisting>
+			<![CDATA[
+<svg width="300px" height="300px" viewBox="0 0 200 200">
+  <!-- rx 和 ry 相等, 逐渐增大 -->
+  <rect x="10" y="10" width="20" height="40" rx="2" ry="2"
+    style="stroke: black; fill: none;"/>
+
+  <rect x="40" y="10" width="20" height="40" rx="5"
+    style="stroke: black; fill: none;"/>
+
+  <rect x="70" y="10" width="20" height="40" ry="10"
+    style="stroke: black; fill: none;"/>
+
+  <!-- rx 和 ry 不相等 -->
+  <rect x="10" y="60" width="20" height="40" rx="10" ry="5"
+    style="stroke: black; fill: none;"/>
+
+  <rect x="40" y="60" width="20" height="40" rx="5" ry="10"
+    style="stroke: black; fill: none;"/>
+</svg>
+			]]>
+			</programlisting>
+		</section>
+		<section>
+			<title>圆形</title>
+			<programlisting>
+			<![CDATA[
+<circle
+  cx="x-coordinate"      <!-- 圆心的 x 坐标 -->
+  cy="y-coordinate"      <!-- 圆心的 y 坐标 -->
+  r="radius"             <!-- 圆的半径 -->
+  fill="fill-color"      <!-- 圆的填充颜色 -->
+  stroke="stroke-color"  <!-- 圆的描边颜色 -->
+  stroke-width="width"   <!-- 圆的描边宽度 -->
+/>
+			]]>
+			</programlisting>
+		</section>
 		<section id="svg.path">
 			<title>路径</title>
 			<section>

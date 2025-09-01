@@ -919,6 +919,30 @@ print(sorted_lst)
 			]]>
 			</screen>
 		</section>
+		<section>
+			<title>列表相减运算</title>
+			<screen>
+			<![CDATA[
+a = ['a', 'b', 'c', 'd']
+b = ['b', 'c']
+
+# 方法1：使用列表推导式（简洁高效）
+result = [x for x in a if x not in b]
+print("方法1结果:", result)  # 输出: ['a', 'd']
+
+# 方法2：使用filter函数（函数式编程风格）
+result = list(filter(lambda x: x not in b, a))
+print("方法2结果:", result)  # 输出: ['a', 'd']
+
+# 方法3：循环遍历（原地修改原列表，不推荐但适合理解过程）
+a_copy = a.copy()  # 复制原列表避免遍历中修改导致的问题
+for item in a_copy:
+    if item in b:
+        a.remove(item)
+print("方法3结果:", a)  # 输出: ['a', 'd']		
+			]]>
+			</screen>
+		</section>
 	</section>
 	<section id="data.set">
 		<title>Set 集合</title>
