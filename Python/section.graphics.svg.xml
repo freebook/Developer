@@ -4,6 +4,32 @@
 	<section id="svg.tag">
 		<title>SVG 标签</title>
 		<section>
+			<title>符号定义</title>
+			<para>symbol元素用来定义一个图形模板对象，它可以用一个use元素实例化。symbol元素对图形的作用是在同一文档中多次使用，添加结构和语义。结构丰富的文档可以更生动地呈现出来，类似讲演稿或盲文，从而提升了无障碍。注意，一个symbol元素本身是不呈现的。只有symbol元素的实例（亦即，一个引用了symbol的 use元素）才能呈现。</para>
+			<programlisting>
+			<![CDATA[
+<svg>
+  <!-- symbol definition  NEVER draw -->
+  <symbol id="sym01" viewBox="0 0 150 110">
+    <circle cx="50" cy="50" r="40" stroke-width="8" stroke="red" fill="red" />
+    <circle
+      cx="90"
+      cy="60"
+      r="40"
+      stroke-width="8"
+      stroke="green"
+      fill="white" />
+  </symbol>
+
+  <!-- actual drawing by "use" element -->
+  <use xlink:href="#sym01" x="0" y="0" width="100" height="50" />
+  <use xlink:href="#sym01" x="0" y="50" width="75" height="38" />
+  <use xlink:href="#sym01" x="0" y="100" width="50" height="25" />
+</svg>			
+			]]>
+			</programlisting>
+		</section>
+		<section>
 			<title>矩形</title>
 			
 			<para>绘制圆角矩形</para>
