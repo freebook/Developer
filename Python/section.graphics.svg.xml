@@ -536,7 +536,7 @@ y = 中心 y + 半径 × sin (角度)
       legendText.textContent = legend;
       document.querySelector('svg').appendChild(legendText);
     });
-  ]]></script>
+  ]] ></script>
 </svg>
     				
 				]]>
