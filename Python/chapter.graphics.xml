@@ -5,4 +5,5 @@
 	&section.graphics.opencv.xml;
 	&section.graphics.pillow.xml;
 	&section.graphics.svg.xml;
+	&section.graphics.netkiller.xml;
 </chapter>
