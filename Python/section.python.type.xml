@@ -125,6 +125,70 @@ To alter from str to bytes, capitalize on str.encode().
 			]]>
 				</programlisting>
 			</section>
+			<section>
+				<title>str.isdigit()</title>
+				<para>功能：判断字符串是否仅由数字字符（0-9）组成，不包含负数、小数、空格等。</para>
+				<para>适用场景：仅需判断非负整数的字符串。</para>
+				<programlisting>
+				<![CDATA[
+print("123".isdigit())      # True
+print("123.45".isdigit())   # False（包含小数点）
+print("-123".isdigit())     # False（包含负号）
+print("12 3".isdigit())     # False（包含空格）
+print("abc".isdigit())      # False（非数字字符）
+				]]>
+				</programlisting>
+			</section>
+			<section>
+				<title>str.isnumeric()</title>
+				<para>功能：判断字符串是否为 “数值字符”，支持 Unicode 数字（如中文数字、罗马数字等），但仍不支持负数和小数。</para>
+				<para>适用场景：需要兼容 Unicode 数字的场景。</para>
+				<programlisting>
+				<![CDATA[
+print("123".isnumeric())       # True
+print("一二三".isnumeric())     # True（中文数字）
+print("Ⅷ".isnumeric())         # True（罗马数字8）
+print("12.3".isnumeric())      # False（包含小数点）
+print("-456".isnumeric())      # False（包含负号）				
+				]]>
+				</programlisting>
+			</section>
+			<section>
+				<title>str.isdecimal()</title>
+				<para>功能：判断字符串是否为 “十进制数字”，仅支持 0-9 的数字字符，不支持 Unicode 数字、负数、小数。</para>
+				<para>适用场景：严格判断十进制整数的字符串。</para>
+				<programlisting>
+				<![CDATA[
+print("123".isdecimal())      # True
+print("12.3".isdecimal())     # False
+print("一二三".isdecimal())   # False（非十进制字符）				
+				]]>
+				</programlisting>
+			</section>
+<!-- 			<section>
+				<title></title>
+				<programlisting>
+				<![CDATA[
+				
+				]]>
+				</programlisting>
+			</section>
+			<section>
+				<title></title>
+				<programlisting>
+				<![CDATA[
+				
+				]]>
+				</programlisting>
+			</section>
+			<section>
+				<title></title>
+				<programlisting>
+				<![CDATA[
+				
+				]]>
+				</programlisting>
+			</section> -->
 		</section>
 
 		<section>
