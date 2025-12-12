@@ -29,7 +29,7 @@ python3.13-setuptools-wheel.noarch : The setuptools wheel
 		<para></para>
 		<screen>
 		<![CDATA[
-[root@development ~]# dnf install python3.13 python3.13-pip
+[root@development ~]# dnf install -y python3.13 python3.13-pip
 		]]>
 		</screen>
 		<para>切换默认版本</para>
