@@ -32,4 +32,24 @@ pip install -b /your_path netkiller-devops
 		]]>
 		</screen>
 	</section>
+	<section>
+		<title>websocket closed due to [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1077)</title>
+		<screen>
+		<![CDATA[
+(.venv) neo@Mac certifi % pip install --upgrade certifi                                       
+Requirement already satisfied: certifi in /Users/neo/tmp/social/.venv/lib/python3.14/site-packages (2026.1.4)
+
+export SSL_CERT_FILE=$(python -c "import certifi; print(certifi.where())")
+		]]>
+		</screen>
+		<para>替换证书</para>
+		<screen>
+		<![CDATA[
+(.venv) neo@Mac ~ % python -c "import certifi; print(certifi.where())"
+/Users/neo/tmp/social/.venv/lib/python3.14/site-packages/certifi/cacert.pem
+(.venv) neo@Mac ~ % cp /Users/neo/tmp/social/.venv/lib/python3.14/site-packages/certifi/cacert.pem /Users/neo/tmp/social/.venv/lib/python3.14/site-packages/certifi/cacert.pem.backup
+(.venv) neo@Mac ~ % security find-certificate -a -p > /Users/neo/tmp/social/.venv/lib/python3.14/site-packages/certifi/cacert.pem
+		]]>
+		</screen>
+	</section>
 </chapter>

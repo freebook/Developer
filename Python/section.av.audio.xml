@@ -4,6 +4,15 @@
 	<section>
 		<title>网络播放音频</title>
 		<section>
+			<title>安装 </title>
+			<screen>
+			<![CDATA[
+# dnf install portaudio-devel
+# pip install pyaudio		
+			]]>
+			</screen>
+		</section>
+		<section>
 			<title>服务端</title>
 			<programlisting>
 			<![CDATA[

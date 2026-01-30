@@ -1,29 +1,95 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <section id="asr">
-    <title>Automatic Speech Recognition</title>
-    <section>
-        <title>kaldi</title>
-        <screen>
+	<title>Automatic Speech Recognition</title>
+	<section>
+		<title>kaldi</title>
+		<screen>
         <![CDATA[ 
 docker run -it kaldiasr/kaldi:latest bash
 docker run -it --runtime=nvidia kaldiasr/kaldi:gpu-latest bash
         ]]>
-        </screen>
-        <screen>
+		</screen>
+		<screen>
         <![CDATA[ 
 docker run -it kaldiasr/kaldi:latest bash        
         ]]>
-        </screen>
-    </section>
-    <section>
-        <title>OpenAI Whisper</title>
-        <para>https://github.com/openai/whisper</para>
-        <programlisting>
+		</screen>
+	</section>
+	<section>
+		<title>OpenAI Whisper</title>
+		<para>https://github.com/openai/whisper</para>
+		<programlisting>
         <![CDATA[ 
 import openai
 audio_file= open("/path/to/file/audio.mp3", "rb")
 transcript = openai.Audio.transcribe("whisper-1", audio_file)                
         ]]>
-        </programlisting>
-    </section>
+		</programlisting>
+	</section>
+	<section id="FunASR">
+		<title>FunASR - 语音识别</title>
+		<section>
+			<title>安装与演示</title>
+
+			<programlisting>
+    	<![CDATA[
+pip install --upgrade pip    	
+pip install -U funasr modelscope
+    	]]>
+			</programlisting>
+			<programlisting>
+    	<![CDATA[
+from funasr import AutoModel
+from funasr.utils.postprocess_utils import rich_transcription_postprocess
+
+model_dir = "iic/SenseVoiceSmall"
+
+
+model = AutoModel(
+    model=model_dir,
+    # trust_remote_code=True,
+    # remote_code="./model.py",
+    vad_model="fsmn-vad",
+    vad_kwargs={"max_single_segment_time": 30000},
+    # device="cuda:0",
+    disable_update=True
+)
+
+# en
+res = model.generate(
+    input=f"{model.model_path}/example/zh.mp3",
+    cache={},
+    language="auto",  # "zn", "en", "yue", "ja", "ko", "nospeech"
+    use_itn=True,
+    batch_size_s=60,
+    merge_vad=True,  #
+    merge_length_s=15,
+)
+text = rich_transcription_postprocess(res[0]["text"])
+print(text)
+    	]]>
+			</programlisting>
+			<screen>
+    		<![CDATA[
+/Users/neo/tmp/social/.venv/bin/python /Users/neo/tmp/social/test.py 
+funasr version: 1.3.0.
+Downloading Model from https://www.modelscope.cn to directory: /Users/neo/.cache/modelscope/hub/models/iic/SenseVoiceSmall
+WARNING:root:trust_remote_code: False
+Downloading Model from https://www.modelscope.cn to directory: /Users/neo/.cache/modelscope/hub/models/iic/speech_fsmn_vad_zh-cn-16k-common-pytorch
+WARNING:root:trust_remote_code: False
+rtf_avg: 0.009: 100%|██████████| 1/1 [00:00<00:00, 19.43it/s]
+  0%|          | 0/1 [00:00<?, ?it/s]
+  0%|          | 0/1 [00:00<?, ?it/s]
+100%|██████████| 1/1 [00:00<00:00,  1.86it/s]
+{'load_data': '0.000', 'extract_feat': '0.003', 'forward': '0.538', 'batch_size': '1', 'rtf': '0.104'}, : 100%|██████████| 1/1 [00:00<00:00,  1.86it/s]
+rtf_avg: 0.104: 100%|██████████| 1/1 [00:00<00:00,  1.86it/s]
+rtf_avg: 0.096, time_speech:  5.616, time_escape: 0.540: 100%|██████████| 1/1 [00:00<00:00,  1.77it/s]
+开放时间早上9点至下午5点。
+
+Process finished with exit code 0    	
+    		]]>
+			</screen>
+		</section>
+		
+	</section>
 </section>
