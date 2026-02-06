@@ -310,6 +310,14 @@ audio.terminate()
 			<title>接收端</title>
 			<programlisting>
 			<![CDATA[
+#! /usr/scripts/env python3
+# -*- coding: UTF-8 -*-
+##############################################
+# Home	: http://netkiller.github.io
+# Author: Neo <netkiller@msn.com>
+# Data: 2026-02-05
+# Description: Opus UDP 接收端
+##############################################
 import socket
 import struct
 
@@ -393,6 +401,14 @@ if __name__ == "__main__":
 			<title>发送端</title>
 			<programlisting>
 			<![CDATA[
+#! /usr/scripts/env python3
+# -*- coding: UTF-8 -*-
+##############################################
+# Home	: http://netkiller.github.io
+# Author: Neo <netkiller@msn.com>
+# Data: 2026-02-05
+# Description: Opus UDP 发送端
+##############################################			
 import socket
 import struct
 
