@@ -141,7 +141,8 @@ print("abc".isdigit())      # False（非数字字符）
 			</section>
 			<section>
 				<title>str.isnumeric()</title>
-				<para>功能：判断字符串是否为 “数值字符”，支持 Unicode 数字（如中文数字、罗马数字等），但仍不支持负数和小数。</para>
+				<para>功能：判断字符串是否为 “数值字符”，支持 Unicode 数字（如中文数字、罗马数字等），但仍不支持负数和小数。
+				</para>
 				<para>适用场景：需要兼容 Unicode 数字的场景。</para>
 				<programlisting>
 				<![CDATA[
@@ -165,30 +166,10 @@ print("一二三".isdecimal())   # False（非十进制字符）
 				]]>
 				</programlisting>
 			</section>
-<!-- 			<section>
-				<title></title>
-				<programlisting>
-				<![CDATA[
-				
-				]]>
-				</programlisting>
-			</section>
-			<section>
-				<title></title>
-				<programlisting>
-				<![CDATA[
-				
-				]]>
-				</programlisting>
-			</section>
-			<section>
-				<title></title>
-				<programlisting>
-				<![CDATA[
-				
-				]]>
-				</programlisting>
-			</section> -->
+			<!-- <section> <title></title> <programlisting> <![CDATA[ ]]> </programlisting> 
+				</section> <section> <title></title> <programlisting> <![CDATA[ ]]> </programlisting> 
+				</section> <section> <title></title> <programlisting> <![CDATA[ ]]> </programlisting> 
+				</section> -->
 		</section>
 
 		<section>
@@ -432,7 +413,7 @@ print(password)
 			]]>
 			</programlisting>
 		</section>
-		
+
 	</section>
 	<section id="float">
 		<title>float 浮点数值</title>
@@ -586,7 +567,7 @@ print(type(str_time))
 			
 			]]>
 			</programlisting>
-			
+
 		</section>
 		<section>
 			<title>生成时间</title>
@@ -1257,7 +1238,9 @@ print(ret)
 		</section>
 		<section>
 			<title>两个 list 合并为 dict</title>
-			<para>python header = ['a','b','c']  body=[1,2,3] 转成 dict.  {'a':1, 'b': 2, 'c':3}</para>
+			<para>python header = ['a','b','c'] body=[1,2,3] 转成 dict. {'a':1,
+				'b': 2, 'c':3}
+			</para>
 			<programlisting>
 			<![CDATA[
 可以使用 Python 的 zip() 函数将两个列表合并为字典，zip() 会将对应索引的元素配对，然后通过 dict() 转换为字典：
@@ -1339,36 +1322,7 @@ while True:
 		]]>
 		</programlisting>
 	</section>
-	<section id="python.shelve">
-		<title>序列化</title>
-		<programlisting>
-		<![CDATA[ 
-import shelve
-
-with shelve.open("/var/tmp/test") as db:
-	db["hello"] = "helloworld"
-
-with shelve.open("/var/tmp/test") as db:
-	for k, v in db.items():
-		print(k, ":", v)		
-		]]>
-		</programlisting>
-		<programlisting>
-		<![CDATA[ 
-import shelve, json
-
-data = json.loads(json.dumps({"800": "AAAA", "900": "BBBB", "1000": "CCCC"}))
-print(data, type(data))
-with shelve.open("/var/tmp/test", "n") as db:
-	for k, v in data.items():
-		db[k] = v
-
-with shelve.open("/var/tmp/test") as db:
-	for k, v in db.items():
-		print(k, ":", v)
-		]]>
-		</programlisting>
-	</section>
+	
 	<section id="python.queue">
 		<title>队列</title>
 		<programlisting>
@@ -1430,7 +1384,122 @@ for n in range(5):
 		</programlisting>
 	</section>
 </section>
+<section id="python.serializable">
+	<title>序列化 </title>
+	<section>
+		<title>struct C 语言结构体序列化</title>
+		<section>
+			<title>端序</title>
+			<para>不同的场景使用不同的端序方案，不同的方案是不同历史时期，计算机厂商指定标准。</para>
+			<programlisting>
+			<![CDATA[
+import struct
+print("原生",struct.pack('@h', 1023))
+print("标准",struct.pack('=h', 1023))
+print("小端",struct.pack('<h', 1023))
+print("大端",struct.pack('>h', 1023))
+print("网络",struct.pack('!h', 1023))			
+			]]>
+			</programlisting>
+			<para>输出结果</para>
+			<screen>
+			<![CDATA[
+原生 b'\xff\x03'
+标准 b'\xff\x03'
+小端 b'\xff\x03'
+大端 b'\x03\xff'
+网络 b'\x03\xff'			
+			]]>
+			</screen>
+		</section>
+		<section>
+			<title>Struct 类</title>
+			<para></para>
+			<programlisting>
+			<![CDATA[
+import struct
 
+format = '!HHH'
+audio = struct.Struct(format)
+print(f"{audio.size}")
+
+encode = audio.pack(2,2000,65535)
+print(f"{len(encode)}: {encode}")		
+			]]>
+			</programlisting>
+			<para>输出结果</para>
+			<screen>
+			<![CDATA[
+6
+6: b'\x00\x02\x07\xd0\xff\xff'		
+			]]>
+			</screen>
+		</section>
+		<section>
+			<title>char 与 signed char / unsigned char 的区别</title>
+			<para>char 存储的是字符，signed char / unsigned char 存储的是有符号和无符号整数，相当于 int(1) 长度，当我们需要标准大小为1的时候可以使用 signed char / unsigned char </para>
+			<programlisting>
+			<![CDATA[
+import struct
+
+data = struct.pack('c', b"A")
+print(f"{len(data)},{data}")  # 输出 1 字节
+
+c = struct.unpack('c', data)
+print(c)
+
+
+# 打包一个 1 字节无符号整数 0～255
+data = struct.pack('!B', 120)
+print(f"{len(data)},{data}")  # 输出 1 字节
+
+num = struct.unpack('!B', data)
+print(num)			
+			]]>
+			</programlisting>
+			<para>输出结果</para>
+			<screen>
+			<![CDATA[
+1,b'A'
+(b'A',)
+
+1,b'x'
+(120,)	
+			]]>
+			</screen>
+		</section>
+	</section>
+	<section id="python.shelve">
+		<title>shelve(序列化)</title>
+		<programlisting>
+		<![CDATA[ 
+import shelve
+
+with shelve.open("/var/tmp/test") as db:
+	db["hello"] = "helloworld"
+
+with shelve.open("/var/tmp/test") as db:
+	for k, v in db.items():
+		print(k, ":", v)		
+		]]>
+		</programlisting>
+		<programlisting>
+		<![CDATA[ 
+import shelve, json
+
+data = json.loads(json.dumps({"800": "AAAA", "900": "BBBB", "1000": "CCCC"}))
+print(data, type(data))
+with shelve.open("/var/tmp/test", "n") as db:
+	for k, v in data.items():
+		db[k] = v
+
+with shelve.open("/var/tmp/test") as db:
+	for k, v in db.items():
+		print(k, ":", v)
+		]]>
+		</programlisting>
+	</section>
+</section>	
 <section id="class">
 	<title>Class</title>
 	<screen><![CDATA[
