@@ -1,4 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<section id="streamlit">
+	<title>Streamlit</title>
+	<para>https://streamlit.io</para>
+	<section>
+		<title>操作演示</title>
+		<para></para>
+		<screen>
+			<![CDATA[
+pip install streamlit
+streamlit hello	
+			]]>
+		</screen>
+	</section>
+</section>
 <section id="Dominate">
 	<title>Dominate</title>
 	<para>Dominate is a Python library for creating and manipulating HTML
@@ -256,5 +270,5 @@ with open('test.html','w') as f:
 </section>
 <section id="BeautifulSoup">
 	<title>BeautifulSoup</title>
-	
+
 </section>
