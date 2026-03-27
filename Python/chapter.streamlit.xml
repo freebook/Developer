@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<chapter id="index"><?dbhtml dir="streamlit" ?>
+	<title>Streamlit 数据可视化</title>
+	<para>https://streamlit.io</para>
+	<section id="streamlit.install">
+		<title>操作演示</title>
+		<para></para>
+		<screen>
+			<![CDATA[
+pip install streamlit
+streamlit hello	
+			]]>
+		</screen>
+	</section>
+	<section id="streamlit.package">
+		<title>倒入 streamlit 包</title>
+		<programlisting>
+		<![CDATA[
+import numpy as np
+import pandas as pd
+import streamlit as st
+		]]>
+		</programlisting>
+	</section>
+	<section id="streamlit.table">
+		<title>表格数据</title>
+		<programlisting>
+		<![CDATA[
+df = pd.DataFrame(
+    np.random.randn(10, 5),
+    columns=('第%d列' % (i + 1) for i in range(5))
+)
+
+st.table(df)
+		]]>
+		</programlisting>
+		<programlisting>
+		<![CDATA[
+df = pd.DataFrame(
+    np.random.randn(10, 5),
+    columns=('第%d列' % (i + 1) for i in range(5))
+)
+
+st.dataframe(df.style.highlight_max(axis=0))
+		]]>
+		</programlisting>
+	</section>
+	<section id="streamlit.metric">
+		<title>监控指标</title>
+		<programlisting>
+		<![CDATA[
+col1, col2, col3 = st.columns(3)
+col1.metric("Temperature", "70 °F", "1.2 °F")
+col2.metric("Wind", "9 mph", "-8%")
+col3.metric("Humidity", "86%", "4%")
+		]]>
+		</programlisting>
+	</section>
+	<section id="streamlit.line">
+		<title>折线图</title>
+		<programlisting>
+		<![CDATA[
+chart_data = pd.DataFrame(
+    np.random.randn(20, 3),
+    columns=['a', 'b', 'c'])
+
+st.line_chart(chart_data)
+		]]>
+		</programlisting>
+	</section>
+	<section id="streamlit.bar">
+		<title>柱状图</title>
+		<programlisting>
+		<![CDATA[
+chart_data = pd.DataFrame(
+    np.random.randn(50, 3),
+    columns=["a", "b", "c"])
+st.bar_chart(chart_data)
+		]]>
+		</programlisting>
+	</section>
+	<section id="streamlit.area">
+		<title>区域图</title>
+		<programlisting>
+		<![CDATA[
+chart_data = pd.DataFrame(
+    np.random.randn(20, 3),
+    columns=['a', 'b', 'c'])
+
+st.area_chart(chart_data)
+		]]>
+		</programlisting>
+	</section>
+	<section id="streamlit.map">
+		<title>地图</title>
+		<programlisting>
+		<![CDATA[
+df = pd.DataFrame(
+    np.random.randn(1000, 2) / [50, 50] + [37.76, -122.4],
+    columns=['lat', 'lon']
+)
+st.map(df)
+		]]>
+		</programlisting>
+	</section>
+</chapter>

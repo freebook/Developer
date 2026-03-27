@@ -560,4 +560,82 @@ with open(src_file, "rb") as src, open(dst_file, "wb") as dst:
 		]]>
 		</screen>
 	</section>
+	<section id="tempfile">
+		<title>临时目录和文件</title>
+		<section>
+			<title>获取系统临时目录路径</title>
+			<programlisting>
+			<![CDATA[
+import tempfile
+temp_dir = tempfile.gettempdir()
+print("系统临时目录路径:", temp_dir)			
+			]]>
+			</programlisting>
+		</section>
+		<section>
+			<title>创建的临时目录</title>
+			<programlisting>
+			<![CDATA[
+import tempfile
+with tempfile.TemporaryDirectory() as tmpdirname:
+   print("创建的临时目录:", tmpdirname)
+# 退出 with 块后，目录及内容会被自动清理			
+			]]>
+			</programlisting>
+		</section>
+		<section>
+			<title>手工维护临时目录</title>
+			<programlisting>
+			<![CDATA[
+import tempfile, shutil
+tmpdirname = tempfile.mkdtemp()
+print("创建的临时目录:", tmpdirname)
+shutil.rmtree(tmpdirname) # 手动删除			
+			]]>
+			</programlisting>
+		</section>
+		<section>
+			<title>创建临时文件</title>
+			<programlisting>
+			<![CDATA[
+import tempfile
+
+with tempfile.NamedTemporaryFile() as temp_file:
+   print("创建的临时文件路径是:", temp_file.name)
+			
+			]]>
+			</programlisting>
+		</section>
+		<section>
+			<title>手动维护临时文件</title>
+			<programlisting>
+			<![CDATA[
+import tempfile
+
+temp_fd, temp_path = tempfile.mkstemp()
+print("创建的临时文件的文件描述符和路径分别是:", temp_fd, temp_path)
+
+# 关闭文件描述符和删除临时文件
+os.close(temp_fd)
+os.remove(temp_path)
+			
+			]]>
+			</programlisting>
+		</section>
+		<section>
+			<title>支持缓存的临时文件</title>
+			<para>创建一个支持缓存的临时文件，当文件大小超过指定的阈值时，将自动转为独立的临时文件。</para>
+			<programlisting>
+			<![CDATA[
+import tempfile
+
+with tempfile.SpooledTemporaryFile(max_size=100) as temp_file:
+   temp_file.write(b'This is a test.')
+   temp_file.seek(0)
+   print("临时文件内容是:", temp_file.read().decode())
+			
+			]]>
+			</programlisting>
+		</section>
+	</section>
 </section>

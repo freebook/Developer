@@ -84,6 +84,7 @@ a2p,ab,aclocal,aclocal-1.11,addftinfo,addr2line,airdaemon,apropos,ar,as,attr,aul
 	&chapter.unittest.xml;
 	&chapter.appium.xml;
 	&chapter.java.xml;
+	&chapter.restful.xml;
 	
 	&part.gui.xml;
 	

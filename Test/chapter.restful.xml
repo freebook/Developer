@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<chapter id="restful">
+	<title>Restful 测试</title>
+	<section id="insomnia">
+		<title>Insomnia</title>
+		<para>Token 处理</para>
+		<para>将请求返回的 Token 写入环境变量</para>
+		<programlisting>
+			<![CDATA[
+var token=insomnia.response.text();
+
+insomnia.environment.set("token",token);
+			]]>
+		</programlisting>
+		<para>从环境变量中读取 Token</para>
+		<programlisting>
+			<![CDATA[
+const token = insomnia.environment.get('token');
+console.log("=====");
+console.log(token);
+console.log("=====");
+			]]>
+		</programlisting>
+		<para>默认 insomnia.environment 不能跨越集合访问，需要设置全局变量。</para>
+		<programlisting>
+			<![CDATA[
+var token=insomnia.response.text();
+
+insomnia.globals.set("token",token);
+			]]>
+		</programlisting>
+		<para>读取方法</para>
+		<programlisting>
+			<![CDATA[
+const token = insomnia.globals.get('token');
+console.log("=====");
+console.log(token);
+console.log("=====");
+			]]>
+		</programlisting>
+	</section>
+</chapter>

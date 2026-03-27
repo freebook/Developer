@@ -401,6 +401,86 @@ t1.start()
 t2.start()			
 			]]>
 			</programlisting>
+			<programlisting>
+			<![CDATA[
+import threading
+import time
+
+cond = threading.Condition()
+count = 0
+
+def producer():
+    while True:
+        with cond:
+            # while True:
+            time.sleep(2)
+            cond.notify()  
+
+def consumer():
+    global count
+    print("开始计数器")
+    while True:
+        with cond:
+            cond.wait()
+            count += 1
+            print(count)
+
+
+t1 = threading.Thread(target=consumer)
+t2 = threading.Thread(target=producer)
+
+t1.start()
+t2.start()			
+			]]>
+			</programlisting>
+			<programlisting>
+			<![CDATA[
+import threading
+import time
+
+cond = threading.Condition()
+data = None
+
+def consumer():
+    global data
+    
+    # 手动加锁（代替 with）
+    cond.acquire()
+    
+    print("消费者：等待数据...")
+    cond.wait()  # 自动释放锁 → 阻塞 → 唤醒后自动重新拿锁
+    
+    print(f"消费者：拿到数据 -> {data}")
+    
+    # 手动释放锁
+    cond.release()
+
+def producer():
+    global data
+    
+    cond.acquire()
+    
+    print("生产者：正在生产数据...")
+    time.sleep(2)
+    data = "Hello Threading!"
+    print("生产者：数据生产完成，通知消费者")
+    
+    cond.notify()  # 唤醒，但不释放锁
+    
+    cond.release()  # 这里释放锁，消费者才能真正运行
+
+
+t1 = threading.Thread(target=consumer)
+t2 = threading.Thread(target=producer)
+
+t1.start()
+time.sleep(0.1)
+t2.start()
+
+t1.join()
+t2.join()			
+			]]>
+			</programlisting>
 		</section>
 	</section>
 	<section id="daemon">

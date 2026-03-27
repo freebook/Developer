@@ -5,4 +5,5 @@
 	&chapter.pandas.xml;
 	&chapter.stock.xml;
 	&chapter.chart.xml;
+	&chapter.streamlit.xml;
 </part>

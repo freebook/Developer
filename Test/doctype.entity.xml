@@ -30,3 +30,4 @@
 
 <!ENTITY chapter.framework.xml		 	SYSTEM "chapter.framework.xml">
 <!ENTITY chapter.appium.xml		 		SYSTEM "chapter.appium.xml">
+<!ENTITY chapter.restful.xml	 		SYSTEM "chapter.restful.xml">

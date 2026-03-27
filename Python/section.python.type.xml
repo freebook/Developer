@@ -1940,7 +1940,32 @@ print(Shape.CIRCLE == Request.POST)
 			]]>
 			</programlisting>
 		</section>
-		
+		<section>
+			<title>Flag 枚举（位标志）</title>
+			<programlisting>
+			<![CDATA[
+from enum import Flag, auto
+
+class Permission(Flag):
+    READ = auto()      # 1
+    WRITE = auto()     # 2
+    EXECUTE = auto()   # 4
+    DELETE = auto()    # 8
+
+# 组合权限
+read_write = Permission.READ | Permission.WRITE
+full_access = Permission.READ | Permission.WRITE | Permission.EXECUTE | Permission.DELETE
+
+# 检查权限
+print(read_write)                    # Permission.READ|WRITE
+print(Permission.READ in read_write) # True
+print(Permission.EXECUTE in read_write) # False
+
+# 位操作
+print(read_write & Permission.WRITE)  # Permission.WRITE			
+			]]>
+			</programlisting>
+		</section>
 	</section>
 </section>
 <section id="python.regular">

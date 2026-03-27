@@ -46,6 +46,7 @@
 <!ENTITY section.pandas.matplotlib.xml		SYSTEM "section.pandas.matplotlib.xml">
 <!ENTITY section.pandas.method.xml			SYSTEM "section.pandas.method.xml">
 <!ENTITY chapter.stock.xml					SYSTEM "chapter.stock.xml">
+<!ENTITY chapter.streamlit.xml				SYSTEM "chapter.streamlit.xml">
 
 <!ENTITY chapter.ocr.xml					SYSTEM "chapter.ocr.xml">
 

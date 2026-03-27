@@ -103,4 +103,20 @@ INFO:     Application startup complete.
 		]]>
 		</screen>
 	</section>
+	<section>
+		<title>IPv6</title>
+		<para>IPv6同时支持IPv4</para>
+		<programlisting>
+		<![CDATA[
+if __name__ == "__main__":
+    try:
+        # host = os.environ.get('HOST', "0.0.0.0")
+        host = os.environ.get('HOST', "::")
+        port = os.environ.get('PORT', 8080)
+        uvicorn.run(app="main:app", host=host, port=port, log_level="debug")
+    except KeyboardInterrupt:
+        print("Crtl+C Pressed. Shutting down.")		
+		]]>
+		</programlisting>
+	</section>
 </chapter>

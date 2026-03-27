@@ -51,21 +51,7 @@ $ uvicorn main:app --reload
 		]]>
 		</screen>
 	</section>
-	<section>
-		<title>路径参数</title>
-		<programlisting>
-		<![CDATA[
-from fastapi import FastAPI
-
-app = FastAPI()
-
-
-@app.get("/items/{item_id}")
-async def read_item(item_id):
-    return {"item_id": item_id}		
-		]]>
-		</programlisting>
-	</section>
+	
 	<section id="app.get">
 		<title>GET 请求</title>
 		<section>
@@ -101,7 +87,21 @@ async def get_image():
 			]]>
 			</programlisting>
 		</section>
-	</section>
+	<section>
+		<title>路径参数</title>
+		<programlisting>
+		<![CDATA[
+from fastapi import FastAPI
+
+app = FastAPI()
+
+
+@app.get("/items/{item_id}")
+async def read_item(item_id):
+    return {"item_id": item_id}		
+		]]>
+		</programlisting>
+	</section></section>
 	<section id="app.post">
 		<title>Post 请求</title>
 		<screen>
@@ -420,17 +420,39 @@ async def main():
 			</programlisting>
 		</section>
 	</section>
-	<section id="app.api_route">
-		<title>api_route</title>
-		<programlisting>
-		<![CDATA[
+	<section id="APIRouter">
+		<title>路由</title>
+	
+		<section id="app.api_route">
+			<title>api_route</title>
+			<programlisting>
+			<![CDATA[
 @app.api_route("/", methods=["GET", "POST"])
 async def handler():
     return {}		
-		]]>
-		</programlisting>
-	</section>
+			]]>
+			</programlisting>
+		</section>
+		<section>
+			<title>include_router</title>
+			<programlisting>
+			<![CDATA[
+from fastapi import APIRouter, FastAPI
 
+app = FastAPI()
+router = APIRouter()
+
+
+@router.get("/users/", tags=["users"])
+async def read_users():
+    return [{"username": "Rick"}, {"username": "Morty"}]
+
+
+app.include_router(router)		
+			]]>
+			</programlisting>
+		</section>
+	</section>
 	<section id="fastapi.slowapi">
 		<title>slowapi 流向控制</title>
 		<programlisting>
@@ -773,6 +795,39 @@ async def device_bind_qrcode(android_id: str):
         return None		
 		]]>
 		</programlisting>
+	</section>
+	<section>
+		<title>接口文档</title>
+		<section>
+			<title>关闭接口文档</title>
+			<para>关闭 docs</para>
+			<programlisting>
+			<![CDATA[
+app = FastAPI(docs_url=None)
+			]]>
+			</programlisting>
+			<para>关闭 redoc</para>
+			<programlisting>
+			<![CDATA[
+app = FastAPI(redoc_url=None)
+			]]>
+			</programlisting>
+			<para>两个都关闭</para>
+			<programlisting>
+			<![CDATA[
+app = FastAPI(docs_url=None, redoc_url=None)
+			]]>
+			</programlisting>
+		</section>
+		<section>
+			<title>隐藏接口</title>
+			<para>include_in_schema=False</para>
+			<programlisting>
+			<![CDATA[
+@router.api_route("/", methods=["GET", "POST"],tags=["cordyceps"],response_class=HTMLResponse,include_in_schema=False)			
+			]]>
+			</programlisting>
+		</section>
 	</section>
 	<section>
 		<title>Fief 认证框架</title>
