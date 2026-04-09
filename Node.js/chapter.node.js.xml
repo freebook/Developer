@@ -4,6 +4,19 @@
 	<title>Node.js 安装</title>
 	<ulink url="http://nodejs.org/" />
 	<section>
+		<title>Rocky Linux / AlmiLinux</title>
+		<screen>
+		<![CDATA[
+[root@netkiller ~]# dnf install nodejs24
+
+[root@netkiller ~]# alternatives --install /usr/bin/node node /usr/bin/node-24 1
+
+[root@netkiller ~]# node -v
+v24.13.0
+		]]>
+		</screen>
+	</section>
+	<section>
 		<title>24.11.1</title>
 		<screen>
 		<![CDATA[

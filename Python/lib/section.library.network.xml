@@ -109,6 +109,40 @@ print(response.status_code, response.json())
 		]]>
 		</programlisting>
 	</section>
+	
+	<section id="httpx.Bearer">
+		<title>Bearer 认证</title>
+		<programlisting>
+		<![CDATA[
+import httpx
+
+# 创建客户端 + 自动带 Bearer token
+client = httpx.Client(
+    base_url="https://api.example.com",
+    headers={"Authorization": "Bearer sk-xxxxxxxxxxxxxxxxxxxx"}
+)
+
+# 以后调用自动带 token 
+response = client.get("/user/detail")
+print(response.json())	
+		]]>
+		</programlisting>
+		<programlisting>
+		<![CDATA[
+import httpx
+import os
+
+async def get_data():
+    async with httpx.AsyncClient(
+        base_url="http://localhost:8080",
+        headers={"Authorization": f"Bearer {os.getenv('API_KEY')}"}
+    ) as client:
+        res = await client.get("/meeting/list")
+        return res.json()		
+		]]>
+		</programlisting>
+	</section>
+	
 	<section id="httpx.async">
 		<title>异步请求</title>
 		<programlisting>

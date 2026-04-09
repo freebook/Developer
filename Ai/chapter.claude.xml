@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section>
+	<title>Claude Code</title>
+	<screen>
+	<![CDATA[
+zb install node
+
+brew install --cask claude-code 	
+
+
+echo 'export ANTHROPIC_BASE_URL="https://dashscope.aliyuncs.com/apps/anthropic"' >> ~/.zshrc
+echo 'export ANTHROPIC_API_KEY="YOUR_DASHSCOPE_API_KEY"' >> ~/.zshrc
+echo 'export ANTHROPIC_MODEL="qwen3.5-plus"' >> ~/.zshrc
+
+
+zb install anomalyco/tap/opencode 
+	]]>
+	</screen>
+</section>
