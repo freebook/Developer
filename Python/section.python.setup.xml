@@ -335,3 +335,45 @@ root@debian:~# deactivate
 		</programlisting>
 	</section>
 </section>
+<section>
+	<title>Docker 部署</title>
+	<screen>
+	<![CDATA[
+[root@leenana ~]# docker pull python:3.14
+
+[root@leenana ~]# docker run --rm python:3.14 python -c "import site; print(site.getsitepackages())"
+['/usr/local/lib/python3.14/site-packages']
+
+[root@leenana ~]# docker run --rm python:3.14 ls /usr/local/lib/python3.14/site-packages
+README.txt
+pip
+pip-26.0.1.dist-info
+
+[root@leenana ~]# docker volume create site-packages
+[root@leenana ~]# docker volume ls
+
+[root@leenana ~]# docker run --rm -v site-packages:/data python:3.14 sh -c "cp -r /usr/local/lib/python3.14/site-packages/* /data/"
+[root@leenana ~]# docker run --rm -v site-packages:/data python:3.14 ls -l /data
+total 4
+-rw-r--r-- 1 root root 119 Apr 16 02:51 README.txt
+drwxr-xr-x 5 root root 136 Apr 16 02:51 pip
+drwxr-xr-x 3 root root 123 Apr 16 02:51 pip-26.0.1.dist-info
+
+
+[root@leenana ~]# docker run -d \
+  --name myapp \
+  -v $(pwd)/app:/app \          # 挂载你的代码
+  -v site-packages:/usr/local/lib/python3.14/site-packages \  # 挂载依赖卷
+  python:3.14 \
+  python /app/main.py
+
+	]]>
+	</screen>
+	
+	<screen>
+	<![CDATA[
+docker run --rm -v site-packages:/usr/local/lib/python3.14/site-packages -v $(pwd):/app python:3.14 pip install -r /app/requirements.txt 	
+
+	]]>
+	</screen>
+</section>

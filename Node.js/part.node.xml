@@ -4,5 +4,6 @@
 	&chapter.node.js.xml;
 	&chapter.meteor.xml;
 	&chapter.express.xml;
+	&section.node.webrtc.xml;
 	&section.node.faq.xml;
 </part>

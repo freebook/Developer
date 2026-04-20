@@ -58,7 +58,8 @@
 	<!ENTITY chapter.meteor.xml		    	SYSTEM "Node.js/chapter.meteor.xml">
 	<!ENTITY chapter.express.xml		    SYSTEM "Node.js/chapter.express.xml">
 	<!ENTITY section.node.yarn.xml		    SYSTEM "Node.js/section.node.yarn.xml">
-	<!ENTITY section.node.pm2.xml		    SYSTEM "Node.js/section.node.pm2.xml">	
+	<!ENTITY section.node.pm2.xml		    SYSTEM "Node.js/section.node.pm2.xml">
+	<!ENTITY section.node.webrtc.xml	    SYSTEM "Node.js/section.node.webrtc.xml">
 	<!ENTITY section.node.faq.xml		    SYSTEM "Node.js/section.node.faq.xml">		
 
 	<!ENTITY chapter.uml.xml				SYSTEM "UML/chapter.uml.xml">
