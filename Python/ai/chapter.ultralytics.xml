@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <chapter id="index"><?dbhtml dir="ultralytics" ?>
 	<title>Ultralytics</title>
-	<section>
+	<section id="ultralytics.install">
 		<title>安装 ultralytics</title>
 		<screen>
 		<![CDATA[
@@ -125,7 +125,7 @@ anylabeling
 	&section.ultralytics.task.xml;
 	&section.ultralytics.yolo.xml;
 
-	<section>
+	<section id="ultralytics.onnx">
 		<title>ONNX(Open Neural Network Exchange) 开放神经网络交换格式</title>
 		<para>ONNX，即开放神经网络交换格式（Open Neural Network
 			Exchange），是一个可以让不同深度学习框架之间互相转换和使用模型的开放标准。它由 Facebook 和 Microsoft
@@ -171,7 +171,7 @@ results = onnx_model("https://ultralytics.com/images/bus.jpg")
 	</section>
 	&section.ultralytics.utils.xml;
 	&section.ultralytics.example.xml;
-	<section>
+	<section id="ultralytics.faq">
 		<title>FAQ</title>
 		<section>
 			<title>To fix this issue, refer to the "Safe importing of main module"</title>
@@ -216,6 +216,15 @@ mode.val()
 			<screen>
 			<![CDATA[
 pip install onnx
+			]]>
+			</screen>
+		</section>
+		<section>
+			<title>字体问题</title>
+			<screen>
+			<![CDATA[
+rm -f ~/.config/Ultralytics/Arial.ttf ~/.config/Ultralytics/Arial.Unicode.ttf
+rm -rf ~/.cache/matplotlib			
 			]]>
 			</screen>
 		</section>
