@@ -228,5 +228,44 @@ rm -rf ~/.cache/matplotlib
 			]]>
 			</screen>
 		</section>
+		<section>
+			<title>FileNotFoundError: [Errno 2]</title>
+			<screen>
+			<![CDATA[
+FileNotFoundError: [Errno 2] No such file or directory: '/opt/datasets0503/val/images/cba31ec7-d0f3-4f78-9a7c-e9afc88576ff.npy'
+			]]>
+			</screen>
+			<para>这个错误通常不是缺少原始图片，而是 Ultralytics 读取数据集缓存时找不到对应的 .npy 缓存文件。</para>
+			<para>训练时如果启用了 cache=disk，Ultralytics 会把图片解码后保存为 .npy 文件，下次训练直接读取 .npy 来加速。如果数据集目录被移动、图片被删除、缓存文件被清理，或者 labels.cache 中还保留旧路径，就会出现上面的 FileNotFoundError。</para>
+			<para>解决方法是删除数据集缓存，让 Ultralytics 重新扫描图片和标签。</para>
+			<screen>
+			<![CDATA[
+find /opt/datasets0503 -name "*.cache" -delete
+find /opt/datasets0503 -name "*.npy" -delete
+			]]>
+			</screen>
+			<para>然后重新训练，先关闭磁盘缓存确认数据集没有问题。</para>
+			<screen>
+			<![CDATA[
+yolo task=detect mode=train model=yolo11n.pt data=/opt/datasets0503/dataset.yaml epochs=100 cache=False
+			]]>
+			</screen>
+			<para>如果使用 Python 代码训练，同样设置 cache=False。</para>
+			<programlisting>
+			<![CDATA[
+from ultralytics import YOLO
+
+model = YOLO("yolo11n.pt")
+model.train(data="/opt/datasets0503/dataset.yaml", epochs=100, cache=False)
+			]]>
+			</programlisting>
+			<para>如果仍然报错，需要检查 dataset.yaml 中 train、val 路径是否正确，以及 images 目录下的图片文件是否真实存在。</para>
+			<screen>
+			<![CDATA[
+find /opt/datasets0503/val/images -type f | head
+ls -l /opt/datasets0503/val/images/cba31ec7-d0f3-4f78-9a7c-e9afc88576ff.*
+			]]>
+			</screen>
+		</section>
 	</section>
 </chapter>
