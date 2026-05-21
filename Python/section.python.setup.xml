@@ -335,7 +335,7 @@ root@debian:~# deactivate
 		</programlisting>
 	</section>
 </section>
-<section>
+<section id="python.docker">
 	<title>Docker 部署</title>
 	<screen>
 	<![CDATA[
@@ -374,6 +374,9 @@ drwxr-xr-x 3 root root 123 Apr 16 02:51 pip-26.0.1.dist-info
 	<![CDATA[
 docker run --rm -v site-packages:/usr/local/lib/python3.14/site-packages -v $(pwd):/app python:3.14 pip install -r /app/requirements.txt 	
 
+[notice] A new release of pip is available: 26.0.1 -> 26.1.1
+[notice] To update, run: pip install --upgrade pip
+[root@leenana admin]# docker run --rm -v site-packages:/usr/local/lib/python3.14/site-packages -v /opt/gateway:/app python:3.14 pip install --upgrade pip 
 	]]>
 	</screen>
 </section>

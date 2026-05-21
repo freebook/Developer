@@ -267,5 +267,13 @@ ls -l /opt/datasets0503/val/images/cba31ec7-d0f3-4f78-9a7c-e9afc88576ff.*
 			]]>
 			</screen>
 		</section>
+		<section>
+			<title>GPU 数量</title>
+			<programlisting>
+			<![CDATA[
+python3 -c "import torch; print(torch.__version__, torch.version.cuda, torch.cuda.is_available(), torch.cuda.device_count())"			
+			]]>
+			</programlisting>
+		</section>
 	</section>
 </chapter>
