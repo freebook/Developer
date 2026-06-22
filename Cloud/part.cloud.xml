@@ -2,5 +2,6 @@
 <part id="index"><?dbhtml dir="cloud" ?>
 	<title>云计算</title>
 	&chapter.aliyun.xml;
+	&chapter.cloud.xml;
 	&chapter.huawei.xml;
 </part>
