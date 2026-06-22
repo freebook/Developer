@@ -10,7 +10,7 @@
 
 	<!ENTITY % common.doctype.entity.xml 		SYSTEM "../../common/doctype.entity.xml">
 	%common.doctype.entity.xml;
-	
+
 	<!ENTITY book.info.abstract.xml 	SYSTEM "../book.info.abstract.xml">
 
 <!--
@@ -21,6 +21,14 @@
 -->
 	<!ENTITY % doctype.entity.xml 			SYSTEM "doctype.entity.xml">
 	%doctype.entity.xml;
+
+	<!ENTITY % software.doctype.entity.xml 		SYSTEM "Software/doctype.entity.xml">
+	%software.doctype.entity.xml;
+	<!ENTITY part.software.xml 					SYSTEM "part.software.xml">
+
+	<!ENTITY % frontend.doctype.entity.xml 		SYSTEM "Frontend/doctype.entity.xml">
+	%frontend.doctype.entity.xml;
+	<!ENTITY part.frontend.xml 					SYSTEM "part.frontend.xml">
 
 ]>
 <book xml:base="http://netkiller.github.io/php"
@@ -62,6 +70,7 @@
 	&book.preface.xml;
 	&chapter.php.xml;
 	&chapter.norm.xml;
+	&part.software.xml;
 <!-- =========================================================================== -->
 
 <!--

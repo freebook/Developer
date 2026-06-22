@@ -52,6 +52,9 @@
 	
 	<!ENTITY % chart.doctype.entity.xml 	SYSTEM "Chart/doctype.entity.xml">
 	%chart.doctype.entity.xml;
+	
+	<!ENTITY % cloud.doctype.entity.xml 		SYSTEM "Cloud/doctype.entity.xml">
+	%cloud.doctype.entity.xml;
 
 	<!ENTITY part.node.xml				    SYSTEM "Node.js/part.node.xml">
 	<!ENTITY chapter.node.js.xml		    SYSTEM "Node.js/chapter.node.js.xml">
@@ -129,6 +132,7 @@
 <!-- =========================================================================== -->
 	&chapter.uml.xml;
 	&chapter.regular.xml;
+	&part.cloud.xml;
 	&chapter.miscellaneous.xml;
 	&chapter.faq.xml;
 <!-- ===========================================================================
