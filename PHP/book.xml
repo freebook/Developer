@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE subject SYSTEM "/usr/share/xml/docbook/schema/dtd/5.0/docbook.dtd" [
+<!DOCTYPE subject SYSTEM "/opt/homebrew/Cellar/docbook/5.1_1/docbook/xml/5.0/dtd/docbook.dtd" [
 
 	<!ENTITY homepage "http://netkiller.sf.net/">
 	<!ENTITY mirror "http://netkiller.github.io/">
@@ -8,7 +8,7 @@
 	<!ENTITY BG7NYT "&Neo;">
 	<!ENTITY Netkiller "<emphasis><trademark>Netkiller</trademark></emphasis>">
 
-	<!ENTITY % common.doctype.entity.xml 		SYSTEM "../../common/doctype.entity.xml">
+	<!ENTITY % common.doctype.entity.xml 		SYSTEM "../common/doctype.entity.xml">
 	%common.doctype.entity.xml;
 
 	<!ENTITY book.info.abstract.xml 	SYSTEM "../book.info.abstract.xml">

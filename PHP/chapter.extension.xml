@@ -674,6 +674,7 @@ EOF
 		<example>
 			<title>mcrypt</title>
 			<screen>
+			<![CDATA[
 # yum install libmcrypt libmcrypt-devel
 
 # cd /usr/local/src/php-5.2.17/ext/mcrypt
@@ -688,6 +689,7 @@ EOF
 # vim /usr/local/php-5.2.17/etc/php.ini
 extension_dir = "/usr/local/php-5.2.17/lib/php/extensions/"
 extension=mcrypt.so
+			]]>
 			</screen>
 		</example>
 		<screen>
@@ -701,16 +703,20 @@ EOF
 			<title>Mac</title>
 			<para>php 版本 5.6.30</para>
 			<screen>
+			<![CDATA[
 neo@MacBook-Pro ~ % brew install libmcrypt
+			]]>
 			</screen>
 			<para>下载php</para>
 			<screen>
+			<![CDATA[
 wget http://cn2.php.net/distributions/php-5.6.30.tar.gz
 tar zxvf php-5.6.30.tar.gz 
 cd php-5.6.30/ext/mcrypt
 phpize
 ./configure --with-php-config=/usr/bin/php-config
 make && make install
+			]]>
 			</screen>
 		</section>
 	</section>
@@ -729,6 +735,7 @@ EOF
 		<example>
 			<title>simplexml</title>
 			<screen>
+			<![CDATA[
 # cd /usr/local/src/php-5.2.17/ext/simplexml
 # /usr/local/php-5.2.17/bin/phpize
 # ./configure --with-php-config=/usr/local/php-5.2.17/bin/php-config
@@ -738,6 +745,7 @@ EOF
 # cp /usr/local/php-5.2.17/lib/php/extensions/no-debug-zts-20060613/simplexml.so /usr/local/php-5.2.17/lib/php/extensions/
 extension_dir = "/usr/local/php-5.2.17/lib/php/extensions/"
 extension=simplexml.so
+			]]>
 			</screen>
 		</example>
 	</section>
@@ -746,6 +754,7 @@ extension=simplexml.so
 		<title>ionCube</title>
 		<para><ulink url="http://www.ioncube.com/">http://www.ioncube.com/</ulink></para>
 		<screen>
+		<![CDATA[
 # cd /usr/local/src/
 # wget http://downloads2.ioncube.com/loader_downloads/ioncube_loaders_lin_x86-64.tar.gz
 
@@ -770,15 +779,20 @@ ioncube/ioncube_loader_lin_4.1.so
 ioncube/ioncube_loader_lin_5.3.so
 
 # mv ioncube ..
+		]]>
 		</screen>
 		<para>php.ini</para>
 		<screen>
+		<![CDATA[
 [Zend]
 zend_extension_ts = /usr/local/ioncube/ioncube_loader_lin_5.2_ts.so
+		]]>
 		</screen>
+		
 		<!-- zend_extension = /usr/local/ioncube/ioncube_loader_lin_5.2.so -->
 		<para>test</para>
 		<screen>
+		<![CDATA[
 # /usr/local/php-5.2.14/bin/php -m
 [PHP Modules]
 ctype
@@ -821,11 +835,13 @@ zlib
 
 [Zend Modules]
 the ionCube PHP Loader
+		]]>
 		</screen>
 	</section>
 	<section id="zendoptimizer">
 		<title>ZendOptimizer</title>
 		<screen>
+		<![CDATA[
 # cd /usr/local/src
 # tar zxvf ZendOptimizer-3.3.9-linux-glibc23-x86_64.tar.gz
 ZendOptimizer-3.3.9-linux-glibc23-x86_64/
@@ -854,11 +870,14 @@ ZendOptimizer-3.3.9-linux-glibc23-x86_64/data/5_2_x_comp/ZendOptimizer.so
 # mv ZendOptimizer-3.3.9-linux-glibc23-x86_64 ..
 # cd ..
 # ln -s ZendOptimizer-3.3.9-linux-glibc23-x86_64 ZendOptimizer
+		]]>
 		</screen>
 		<para>php.ini</para>
 		<screen>
+		<![CDATA[
 zend_optimizer.optimization_level=15
 zend_extension="/usr/local/ZendOptimizer/data/5_2_x_comp/ZendOptimizer.so"
+		]]>
 		</screen>
 		<screen>
 		<![CDATA[
@@ -878,6 +897,7 @@ EOF
 	<section id="zip">
 		<title>zip</title>
 		<screen>
+		<![CDATA[
 cd /usr/src/php-5.2.14/ext/zip/
 
 /usr/local/php-5.2.14/bin/phpize
@@ -892,6 +912,7 @@ extension_dir = "/usr/local/php-5.2.14/lib/php/extensions/"
 extension=zip.so
 
 /usr/local/php-5.2.14/bin/php -m | grep zip
+		]]>
 		</screen>
 	</section>
 
@@ -915,9 +936,12 @@ make && make install
 		]]>
 		</screen>
 		<screen>
+		<![CDATA[
 extension=mbstring.so
+		]]>
 		</screen>
 		<screen>
+		<![CDATA[
 # vi php.ini
 
 把输出处理程序设为mbstring对应。
@@ -947,7 +971,7 @@ mbstring.http_output = UTF-8
 激活mbstring的文字编码自动变换方式。
 ;mbstring.encoding_translation = Off
 mbstring.encoding_translation = On
-
+		]]>
 		</screen>
 	</section>
 
@@ -974,6 +998,7 @@ suhosin.get.max_value_length = 5120
 		</screen>
 		<para>Configuration</para>
 		<screen>
+		<![CDATA[
 Logging Configuration
 suhosin.log.syslog
 suhosin.log.syslog.facility
@@ -1056,6 +1081,7 @@ suhosin.upload.disallow_binary
 suhosin.upload.remove_binary
 suhosin.upload.verification_script
 suhosin.session.max_id_length
+		]]>
 		</screen>
 		<para>suhosin有三个选项控制eval</para>
 		<screen>
