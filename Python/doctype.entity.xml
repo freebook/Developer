@@ -53,7 +53,8 @@
 <!ENTITY part.ai.xml						SYSTEM "part.ai.xml">
 <!ENTITY chapter.ai.xml						SYSTEM "ai/chapter.ai.xml">
 <!ENTITY chapter.speech.xml					SYSTEM "chapter.speech.xml">
-<!ENTITY section.speech.xml					SYSTEM "section.speech.xml">
+<!ENTITY section.speech.recognition.xml		SYSTEM "section.speech.recognition.xml">
+<!ENTITY section.speech.synthesis.xml		SYSTEM "section.speech.synthesis.xml">
 
 <!ENTITY section.ai.xml						SYSTEM "ai/section.ai.xml">
 <!ENTITY section.ai.openai.xml				SYSTEM "ai/section.ai.openai.xml">

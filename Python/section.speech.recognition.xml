@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section id="asr">
+	<title>语音识别（Automatic Speech Recognition）</title>
+	<subtitle>语音转文本 STT(Speech To Text) </subtitle>
+
+	<section id="Whisper">
+		<title>OpenAI Whisper</title>
+		<para>https://github.com/openai/whisper</para>
+		<programlisting>
+        <![CDATA[ 
+import openai
+audio_file= open("/path/to/file/audio.mp3", "rb")
+transcript = openai.Audio.transcribe("whisper-1", audio_file)                
+        ]]>
+		</programlisting>
+	</section>
+	<section id="FunASR">
+		<title>FunASR - 语音识别</title>
+		<section>
+			<title>安装与演示</title>
+
+			<programlisting>
+    	<![CDATA[
+pip install --upgrade pip    	
+pip install -U funasr modelscope
+    	]]>
+			</programlisting>
+			<programlisting>
+    	<![CDATA[
+from funasr import AutoModel
+from funasr.utils.postprocess_utils import rich_transcription_postprocess
+
+model_dir = "iic/SenseVoiceSmall"
+
+
+model = AutoModel(
+    model=model_dir,
+    # trust_remote_code=True,
+    # remote_code="./model.py",
+    vad_model="fsmn-vad",
+    vad_kwargs={"max_single_segment_time": 30000},
+    # device="cuda:0",
+    disable_update=True
+)
+
+# en
+res = model.generate(
+    input=f"{model.model_path}/example/zh.mp3",
+    cache={},
+    language="auto",  # "zn", "en", "yue", "ja", "ko", "nospeech"
+    use_itn=True,
+    batch_size_s=60,
+    merge_vad=True,  #
+    merge_length_s=15,
+)
+text = rich_transcription_postprocess(res[0]["text"])
+print(text)
+    	]]>
+			</programlisting>
+			<screen>
+    		<![CDATA[
+/Users/neo/tmp/social/.venv/bin/python /Users/neo/tmp/social/test.py 
+funasr version: 1.3.0.
+Downloading Model from https://www.modelscope.cn to directory: /Users/neo/.cache/modelscope/hub/models/iic/SenseVoiceSmall
+WARNING:root:trust_remote_code: False
+Downloading Model from https://www.modelscope.cn to directory: /Users/neo/.cache/modelscope/hub/models/iic/speech_fsmn_vad_zh-cn-16k-common-pytorch
+WARNING:root:trust_remote_code: False
+rtf_avg: 0.009: 100%|██████████| 1/1 [00:00<00:00, 19.43it/s]
+  0%|          | 0/1 [00:00<?, ?it/s]
+  0%|          | 0/1 [00:00<?, ?it/s]
+100%|██████████| 1/1 [00:00<00:00,  1.86it/s]
+{'load_data': '0.000', 'extract_feat': '0.003', 'forward': '0.538', 'batch_size': '1', 'rtf': '0.104'}, : 100%|██████████| 1/1 [00:00<00:00,  1.86it/s]
+rtf_avg: 0.104: 100%|██████████| 1/1 [00:00<00:00,  1.86it/s]
+rtf_avg: 0.096, time_speech:  5.616, time_escape: 0.540: 100%|██████████| 1/1 [00:00<00:00,  1.77it/s]
+开放时间早上9点至下午5点。
+
+Process finished with exit code 0    	
+    		]]>
+			</screen>
+		</section>
+
+	</section>
+	<section id="VibeVoice-ASR-BitNet">
+		<title>微软开源语音识别 VibeVoice-ASR-BitNet（VibeASR.cpp）</title>
+		<para>https://github.com/microsoft/VibeASR.cpp</para>
+		<para>https://huggingface.co/microsoft/VibeVoice-ASR-BitNet </para>
+		<para>在线体验：https://huggingface.co/spaces/microsoft/vibevoice-asr-bitnet-demo
+		</para>
+		<screen> 
+			<![CDATA[ 
+			
+			]]>
+		</screen>
+
+		<para></para>
+	</section>
+	<section id="SpeechRecognition">
+		<title>SpeechRecognition</title>
+
+		<para>
+			<ulink url="https://github.com/Uberi/speech_recognition" />
+		</para>
+		<section>
+			<title>安装</title>
+			<screen>
+			<![CDATA[
+pip install SpeechRecognition
+			]]>
+			</screen>
+			<para>麦克风相关</para>
+			<screen>
+			<![CDATA[
+brew install portaudio
+pip install pyaudio
+			]]>
+			</screen>
+			<para>运行下面命令授权访问麦克风</para>
+			<screen>
+			<![CDATA[
+neo@MacBook-Pro-Neo ~ % python3 -m speech_recognition			
+			]]>
+			</screen>
+		</section>
+		<section>
+			<title>查看麦克风列表</title>
+			<programlisting>
+			<![CDATA[
+import speech_recognition as sr
+
+for index, name in enumerate(sr.Microphone.list_microphone_names()):
+    print("Microphone with name \"{1}\" found for `Microphone(device_index={0})`".format(index, name))			
+			]]>
+			</programlisting>
+			<para>输出结果</para>
+			<screen>
+			<![CDATA[
+neo@MacBook-Pro-Neo ~/workspace/python/speech % python3 microphone.py
+Microphone with name "Built-in Microphone" found for `Microphone(device_index=0)`
+Microphone with name "Built-in Output" found for `Microphone(device_index=1)`			
+			]]>
+			</screen>
+			<para>指定麦克风设备</para>
+			<programlisting>
+			<![CDATA[
+import speech_recognition as sr
+print(sr.__version__) # just to print the version not required
+r = sr.Recognizer()
+mic = sr.Microphone(device_index=1) #my device index is 1, you have to put your device index			
+			]]>
+			</programlisting>
+			<para>噪声抑制</para>
+			<programlisting>
+			<![CDATA[
+import speech_recognition as sr
+print(sr.__version__) # just to print the version not required
+r = sr.Recognizer()
+my_mic = sr.Microphone(device_index=1) #my device index is 1, you have to put your device index
+with my_mic as source:
+    print("Say now!!!!")
+    r.adjust_for_ambient_noise(source) #reduce noise
+    audio = r.listen(source) #take voice input from the microphone
+print(r.recognize_google(audio)) #to print voice into text
+			]]>
+			</programlisting>
+		</section>
+
+
+
+	</section>
+	<section id="DeepSpeech">
+		<title>DeepSpeech</title>
+		<para>https://deepspeech.readthedocs.io/en/latest/index.html</para>
+		<screen>
+			<![CDATA[ 
+# Install DeepSpeech
+pip3 install deepspeech
+
+# Download pre-trained English model files
+curl -LO https://github.com/mozilla/DeepSpeech/releases/download/v0.9.3/deepspeech-0.9.3-models.pbmm
+curl -LO https://github.com/mozilla/DeepSpeech/releases/download/v0.9.3/deepspeech-0.9.3-models.scorer
+
+# Download example audio files
+curl -LO https://github.com/mozilla/DeepSpeech/releases/download/v0.9.3/audio-0.9.3.tar.gz
+tar xvf audio-0.9.3.tar.gz
+
+# Transcribe an audio file
+deepspeech --model deepspeech-0.9.3-models.pbmm --scorer deepspeech-0.9.3-models.scorer --audio audio/2830-3980-0043.wav
+			]]>
+		</screen>
+	</section>
+	<section id="kaldi">
+		<title>kaldi</title>
+		<screen>
+        <![CDATA[ 
+docker run -it kaldiasr/kaldi:latest bash
+docker run -it --runtime=nvidia kaldiasr/kaldi:gpu-latest bash
+        ]]>
+		</screen>
+		<screen>
+        <![CDATA[ 
+docker run -it kaldiasr/kaldi:latest bash        
+        ]]>
+		</screen>
+	</section>
+	<section id="PocketSphinx">
+		<title>PocketSphinx 文件转文本</title>
+		<para>
+			PocketSphinx默认仅支持英文识别，中文需要下载
+			<ulink
+				url="https://sourceforge.net/projects/cmusphinx/files/Acoustic%20and%20Language%20Models/">语言模型文件</ulink>
+			，Mandarin 为中文普通话。
+		</para>
+		<screen>
+			<![CDATA[
+brew install swig
+brew install pocketsphinx
+pip install PocketSphinx			
+			]]>
+		</screen>
+		<para>从文件识别</para>
+		<programlisting>
+			<![CDATA[
+import speech_recognition as sr
+
+# obtain audio from the file
+recognizer = sr.Recognizer()
+audioFile = sr.AudioFile(r"english.wav")
+with audioFile as source:
+    audio = recognizer.record(source)
+# recognize speech using Sphinx
+try:
+    print("Sphinx thinks you said: " + recognizer.recognize_sphinx(audio))
+except sr.UnknownValueError:
+    print("Sphinx could not understand audio")
+except sr.RequestError as e:
+    print("Sphinx error; {0}".format(e))
+
+			
+			]]>
+		</programlisting>
+		<para>从麦克风识别</para>
+		<programlisting>
+			<![CDATA[
+#!/usr/bin/env python3
+
+import speech_recognition as sr
+
+print(sr.__version__)
+
+for index, name in enumerate(sr.Microphone.list_microphone_names()):
+    print("Microphone with name \"{1}\" found for `Microphone(device_index={0})`".format(index, name))
+
+# obtain audio from the microphone
+r = sr.Recognizer()
+with sr.Microphone() as source:
+    print("Say something!")
+    audio = r.listen(source)
+
+# recognize speech using Sphinx
+try:
+    print("Sphinx thinks you said: " + r.recognize_sphinx(audio))
+except sr.UnknownValueError:
+    print("Sphinx could not understand audio")
+except sr.RequestError as e:
+    print("Sphinx error; {0}".format(e))    			
+			]]>
+		</programlisting>
+
+	</section>
+</section>
