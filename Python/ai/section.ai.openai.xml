@@ -20,7 +20,7 @@ from openai import OpenAI
 # from openai import request
 # from requests import request
 
-api_key = os.getenv("OPENAI_API_KEY","sk-UB5SdJmT3BlbkFJnPC9GjYuEHzyuotulWBFgY0sAQ70vTnKr")
+api_key = os.getenv("OPENAI_API_KEY")
 
 question = "netkiller 陈景峰是谁？他写了那些电子书？"
 
@@ -57,8 +57,7 @@ for chunk in response:
 import os
 import openai
 
-# openai.api_key = os.getenv("OPENAI_API_KEY")
-openai.api_key = "sk-DNsMaVmxxIm3Xp7ZTZrZw2mcGgDF1nev5OT3BlbkFJ8wb3Y8"
+openai.api_key = os.getenv("OPENAI_API_KEY")
 
 completion = openai.ChatCompletion.create(
     model="gpt-3.5-turbo", messages=[{"role": "user", "content": "谁是netkiller？"}]
@@ -81,10 +80,10 @@ print(response)
 # Author: Neo <netkiller@msn.com>
 # Upgrade: 2023-10-07
 ##############################################
+import os
 import openai
 
-# openai.api_key = os.getenv("OPENAI_API_KEY")
-openai.api_key = "sk-UB5SdJmlbkFJnPC9GjYuY0sAEHzyuotulWBFgT3BQ70vTnKr"
+openai.api_key = os.getenv("OPENAI_API_KEY")
 
 question = "netkiller 写了那些电子书?"
 
@@ -110,9 +109,10 @@ print()
 		<title>Embedding</title>
 		<programlisting>
 		<![CDATA[
+import os
 import openai
 
-openai.api_key = "sk-UB5SdJmEHzykFJnPuotulWBFgT3BY0sAQ70vTnKrlbC9GjYu"
+openai.api_key = os.getenv("OPENAI_API_KEY")
 
 response = openai.Embedding.create(
     input="Your text string goes here",
