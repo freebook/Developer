@@ -52,6 +52,9 @@
 	
 	<!ENTITY % chart.doctype.entity.xml 	SYSTEM "Chart/doctype.entity.xml">
 	%chart.doctype.entity.xml;
+	
+	<!ENTITY % rust.doctype.entity.xml 	SYSTEM "Rust/doctype.entity.xml">
+	%rust.doctype.entity.xml;
 
 	<!ENTITY part.node.xml				    SYSTEM "Node.js/part.node.xml">
 	<!ENTITY chapter.node.js.xml		    SYSTEM "Node.js/chapter.node.js.xml">
@@ -124,6 +127,7 @@
 <!-- =========================================================================== -->
 	&part.c.xml;
 	&chapter.d.xml;
+	&chapter.rust.xml;
 <!-- =========================================================================== -->
 	&chapter.chart.xml;
 <!-- =========================================================================== -->
